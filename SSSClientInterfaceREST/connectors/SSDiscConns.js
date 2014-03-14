@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-function SSDiscEntryAdd(){
+function SSDiscUserEntryAdd(){
   
-	this.op = "discEntryAdd";
+	this.op = "discUserEntryAdd";
   
   this.handle = function(resultHandler, errorHandler, user, key, disc, target, content, addNewDisc){
     
@@ -49,9 +49,9 @@ function SSDiscEntryAdd(){
 	};
 };
 
-function SSDiscWithEntries(){
+function SSDiscUserWithEntriesGet(){
   
-	this.op = "discWithEntries";
+	this.op = "discUserWithEntriesGet";
   
   this.handle = function(resultHandler, errorHandler, user, key, disc){
     
@@ -82,9 +82,9 @@ function SSDiscWithEntries(){
 	};
 };
 
-function SSDiscsAll(){
+function SSDiscsUserAllGet(){
   
-	this.op = "discsAll";
+	this.op = "discsUserAllGet";
   
   this.handle = function(resultHandler, errorHandler, user, key){
     
