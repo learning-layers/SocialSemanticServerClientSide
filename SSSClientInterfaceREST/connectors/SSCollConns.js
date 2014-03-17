@@ -479,7 +479,7 @@ function SSCollsUserCouldSubscribeGet(){
   
 	this.op = "collsUserCouldSubscribeGet";
   
-  this.handle = function(resultHandler, errorHandler, user, key, collUri){
+  this.handle = function(resultHandler, errorHandler, user, key){
     
     this.resultHandler         = resultHandler;
     this.errorHandler          = errorHandler;
@@ -489,7 +489,6 @@ function SSCollsUserCouldSubscribeGet(){
     
     par[sSVarU.op]               = this.op;
     par[sSVarU.user]             = user;
-    par[sSVarU.collUri]          = collUri;
     par[sSVarU.key]              = key;
     
     xhr.onload = (function(thisRef){ return function(){
