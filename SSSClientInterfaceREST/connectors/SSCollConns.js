@@ -346,37 +346,6 @@ function SSCollUserShare(){
 	};
 };
 
-function SSCollSharedAll(){
-  
-	this.op = "collSharedAll";
-  
-  this.handle = function(resultHandler, errorHandler, user, key){
-    
-    this.resultHandler         = resultHandler;
-    this.errorHandler          = errorHandler;
-    
-    var par         = {};
-    var xhr         = new SSJSONRequest();
-    
-    par[sSVarU.op]               = this.op;
-    par[sSVarU.user]             = user;
-    par[sSVarU.key]              = key;
-    
-    xhr.onload = (function(thisRef){ return function(){
-        
-        if(
-            this.readyState    !== 4   ||
-            this.status        !== 200){
-          return;
-        }
-        
-        new SSGlobals().onMessage(thisRef.resultHandler, thisRef.errorHandler, jSGlobals.parseJson(this.response), thisRef.op);
-      };})(this);
-    
-    xhr.send (JSON.stringify(par), sSGlobals.httpMethPOST, sSGlobals.hostREST + this.op + jSGlobals.slash);
-	};
-};
-
 function SSCollUserWithEntries(){
   
 	this.op = "collUserWithEntries";
