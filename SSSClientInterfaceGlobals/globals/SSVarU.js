@@ -17,6 +17,7 @@ var sSVarU = new SSVarU();
     
 function SSVarU(){
   
+  this.circleUri                                      = "circleUri";
   this.categories                                     = "categories";
   this.removeUserTags                                 = "removeUserTags";
   this.removeUserRatings                              = "removeUserRatings";

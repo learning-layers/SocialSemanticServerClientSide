@@ -144,7 +144,7 @@ function SSCollUserEntryAdd(){
   
   this.op = "collUserEntryAdd";
   
-  this.handle = function(resultHandler, errorHandler, user, key, coll, collEntry, collEntrySpace, collEntryLabel, addNewColl){
+  this.handle = function(resultHandler, errorHandler, user, key, coll, collEntry, circleUri, collEntryLabel, addNewColl){
     
     this.resultHandler         = resultHandler;
     this.errorHandler          = errorHandler;
@@ -156,12 +156,12 @@ function SSCollUserEntryAdd(){
     par[sSVarU.op]               = this.op;
     par[sSVarU.user]             = this.user;
     par[sSVarU.coll]             = coll;
-    par[sSVarU.space]            = collEntrySpace;
     par[sSVarU.collEntryLabel]   = collEntryLabel;
     par[sSVarU.key]              = key;
     
     if(!jSGlobals.isEmpty(addNewColl)){ par[sSVarU.addNewColl]       = addNewColl;}
     if(!jSGlobals.isEmpty(collEntry)){  par[sSVarU.collEntry]        = collEntry;}
+    if(!jSGlobals.isEmpty(circleUri)){  par[sSVarU.circleUri]        = circleUri;}
     
     xhr.onload = (function(thisRef){ return function(){
         
@@ -312,11 +312,11 @@ function SSCollUserEntriesDelete(){
 	};
 };
 
-function SSCollUserShare(){
+function SSCollUserSetPublic(){
   
-	this.op = "collUserShare";
+	this.op = "collUserSetPublic";
   
-  this.handle = function(resultHandler, errorHandler, user, key, coll, parentColl){
+  this.handle = function(resultHandler, errorHandler, user, key, collUri){
     
     this.resultHandler         = resultHandler;
     this.errorHandler          = errorHandler;
@@ -327,8 +327,7 @@ function SSCollUserShare(){
     
     par[sSVarU.op]               = this.op;
     par[sSVarU.user]             = user;
-    par[sSVarU.coll]             = coll;
-    par[sSVarU.parentColl]       = parentColl;
+    par[sSVarU.collUri]          = collUri;
     par[sSVarU.key]              = key;
     
     xhr.onload = (function(thisRef){ return function(){

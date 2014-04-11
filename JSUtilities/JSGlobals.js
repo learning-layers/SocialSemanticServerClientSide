@@ -37,7 +37,7 @@ function JSGlobals(){
   this.sortAsc                                                = "asc";
   
   this.root                                                    = "root";
-	this.shareCollection                                         = "Share collection";
+	this.setCollectionPublic                                     = "Make collection public";
 	this.tagBased                                                = "Tag based";
 	this.contentBased                                            = "Content based";
 	this.download                                                = "Download";
