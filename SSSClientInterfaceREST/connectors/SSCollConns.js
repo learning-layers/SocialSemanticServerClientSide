@@ -144,7 +144,7 @@ function SSCollUserEntryAdd(){
   
   this.op = "collUserEntryAdd";
   
-  this.handle = function(resultHandler, errorHandler, user, key, coll, collEntry, circleUri, collEntryLabel, addNewColl){
+  this.handle = function(resultHandler, errorHandler, user, key, coll, collEntry, collEntryLabel, addNewColl){
     
     this.resultHandler         = resultHandler;
     this.errorHandler          = errorHandler;
@@ -161,7 +161,6 @@ function SSCollUserEntryAdd(){
     
     if(!jSGlobals.isEmpty(addNewColl)){ par[sSVarU.addNewColl]       = addNewColl;}
     if(!jSGlobals.isEmpty(collEntry)){  par[sSVarU.collEntry]        = collEntry;}
-    if(!jSGlobals.isEmpty(circleUri)){  par[sSVarU.circleUri]        = circleUri;}
     
     xhr.onload = (function(thisRef){ return function(){
         
@@ -182,7 +181,7 @@ function SSCollUserEntriesAdd(){
   
   this.op = "collUserEntriesAdd";
   
-  this.handle = function(resultHandler, errorHandler, user, key, coll, entries, entryLabels, entrySpaces){
+  this.handle = function(resultHandler, errorHandler, user, key, coll, entries, entryLabels){
     
     this.resultHandler         = resultHandler;
     this.errorHandler          = errorHandler;
@@ -195,7 +194,6 @@ function SSCollUserEntriesAdd(){
     par[sSVarU.coll]             = coll;
     par[sSVarU.entries]          = jSGlobals.commaSeparateStringArray(entries);
     par[sSVarU.entryLabels]      = jSGlobals.commaSeparateStringArray(entryLabels);
-    par[sSVarU.entrySpaces]      = jSGlobals.commaSeparateStringArray(entrySpaces);
     par[sSVarU.key]              = key;
     
     xhr.onload = (function(thisRef){ return function(){
