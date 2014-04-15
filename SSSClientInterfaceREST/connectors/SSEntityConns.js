@@ -13,6 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+function SSEntityUserPublicSet(){
+  
+	this.op = "entityUserPublicSet";
+  
+  this.handle = function(resultHandler, errorHandler, user, key, entityUri){
+    
+    this.resultHandler         = resultHandler;
+    this.errorHandler          = errorHandler;
+    
+    var par         = {};
+    var xhr         = new SSJSONRequest();
+    
+    par[sSVarU.op]               = this.op;
+    par[sSVarU.user]             = user;
+    par[sSVarU.entityUri]        = entityUri;
+    par[sSVarU.key]              = key;
+    
+    xhr.onload = (function(thisRef){ return function(){
+        
+        if(
+            this.readyState    !== 4   ||
+            this.status        !== 200){
+          return;
+        }
+        
+        new SSGlobals().onMessage(thisRef.resultHandler, thisRef.errorHandler, jSGlobals.parseJson(this.response), thisRef.op);
+      };})(this);
+    
+    xhr.send (JSON.stringify(par), sSGlobals.httpMethPOST, sSGlobals.hostREST + this.op + jSGlobals.slash);
+	};
+};
+
 function SSEntityUserDirectlyAdjoinedEntitiesRemove(){
   
 	this.op = "entityUserDirectlyAdjoinedEntitiesRemove";
