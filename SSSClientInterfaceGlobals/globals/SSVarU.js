@@ -17,6 +17,8 @@ var sSVarU = new SSVarU();
     
 function SSVarU(){
   
+  this.userUris                                       = "userUris";
+  this.entityCircleUri                                = "entityCircleUri";
   this.circleUri                                      = "circleUri";
   this.categories                                     = "categories";
   this.removeUserTags                                 = "removeUserTags";

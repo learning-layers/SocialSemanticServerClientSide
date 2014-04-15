@@ -38,6 +38,7 @@ function JSGlobals(){
   
   this.root                                                    = "root";
 	this.setCollectionPublic                                     = "Make collection public";
+  this.shareColl                                               = "Share collection";
 	this.tagBased                                                = "Tag based";
 	this.contentBased                                            = "Content based";
 	this.download                                                = "Download";
