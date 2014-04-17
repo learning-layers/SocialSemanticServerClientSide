@@ -63,7 +63,7 @@ function JSGlobals(){
 	this.trim                                                    = "...";
 	this._3D                                                     = "3D";
 	this._2D                                                     = "2D";
-	this.subscribeCollection                                     = "Subscribe collection";
+	this.subscribeCollection                                     = "Subscribe public collection";
 	this.dropCollection                                          = "Drop collection";
 	
 	this.select                                                  = "select";

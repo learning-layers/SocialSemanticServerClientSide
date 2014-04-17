@@ -326,7 +326,6 @@ function SSCollUserWithEntries(){
     par[sSVarU.op]               = this.op;
     par[sSVarU.user]             = user;
     par[sSVarU.coll]             = coll;
-    par[sSVarU.sort]             = true;
     par[sSVarU.key]              = key;
     
     xhr.onload = (function(thisRef){ return function(){

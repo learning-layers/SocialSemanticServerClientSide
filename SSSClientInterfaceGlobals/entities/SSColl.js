@@ -34,7 +34,14 @@ function SSColl(){
     
     for(var counter = 0; counter < jSGlobals.arrayLength(circleTypes); counter++){
       
-      if(!jSGlobals.equals(circleTypes[counter], "priv")){
+      if(jSGlobals.equals(circleTypes[counter], "pub")){
+				return this.iconCollSubscribed;
+			}
+    }
+    
+    for(var counter = 0; counter < jSGlobals.arrayLength(circleTypes); counter++){
+      
+      if(jSGlobals.equals(circleTypes[counter], "group")){
 				return this.iconCollShared;
 			}
     }
