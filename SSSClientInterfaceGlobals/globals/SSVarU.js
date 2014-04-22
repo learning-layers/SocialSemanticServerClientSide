@@ -17,6 +17,7 @@ var sSVarU = new SSVarU();
     
 function SSVarU(){
   
+  this.circleTypes                                    = "circleTypes";
   this.userUris                                       = "userUris";
   this.entityCircleUri                                = "entityCircleUri";
   this.circleUri                                      = "circleUri";

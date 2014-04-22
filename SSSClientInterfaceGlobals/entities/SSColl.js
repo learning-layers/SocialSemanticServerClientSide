@@ -45,11 +45,27 @@ function SSColl(){
 				return this.iconCollShared;
 			}
     }
-//		if(sSGlobals.isSpaceShared(space))  { return this.iconCollShared;     }
-//		if(sSGlobals.isSpaceFollow(space))  { return this.iconCollSubscribed; }    
-//    if(sSGlobals.isSpacePrivate(space)) { return this.iconCollPrivate;    }
 
     return this.iconCollPrivate;
+	};
+  
+  this.getCollSpace = function(circleTypes){
+    
+    for(var counter = 0; counter < jSGlobals.arrayLength(circleTypes); counter++){
+      
+      if(jSGlobals.equals(circleTypes[counter], "pub")){
+				return sSGlobals.spaceFollow;
+			}
+    }
+    
+    for(var counter = 0; counter < jSGlobals.arrayLength(circleTypes); counter++){
+      
+      if(jSGlobals.equals(circleTypes[counter], "group")){
+				return sSGlobals.spaceShared;
+			}
+    }
+
+    return sSGlobals.spacePrivate;
 	};
   
 	this.clear = function(){
