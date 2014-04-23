@@ -47,6 +47,10 @@ function SSGlobals(){
   this.spaceShared                                   = "sharedSpace";
   this.spaceFollow                                   = "followSpace";
   
+  this.circleTypePrivate                             = "priv";
+  this.circleTypeGroup                               = "group";
+  this.circleTypePublic                              = "pub";
+  
   this.mimeTypeApplicationJson                       = "application/json";
   this.contentType                                   = "Content-Type";
   this.dataType                                      = "dataType";

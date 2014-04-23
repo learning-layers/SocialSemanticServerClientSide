@@ -14,6 +14,139 @@
  * limitations under the License.
  */
 
+function SSEntityUserCirclesGet(){
+  
+	this.op = "entityUserCirclesGet";
+  
+  this.handle = function(resultHandler, errorHandler, user, key){
+    
+    this.resultHandler         = resultHandler;
+    this.errorHandler          = errorHandler;
+    
+    var par         = {};
+    var xhr         = new SSJSONRequest();
+    
+    par[sSVarU.op]               = this.op;
+    par[sSVarU.user]             = user;
+    par[sSVarU.key]              = key;
+    
+    xhr.onload = (function(thisRef){ return function(){
+        
+        if(
+          this.readyState    !== 4   ||
+          this.status        !== 200){
+          return;
+        }
+        
+        new SSGlobals().onMessage(thisRef.resultHandler, thisRef.errorHandler, jSGlobals.parseJson(this.response), thisRef.op);
+      };})(this);
+    
+    xhr.send (JSON.stringify(par), sSGlobals.httpMethPOST, sSGlobals.hostREST + this.op + jSGlobals.slash);
+	};
+};
+
+function SSEntityUserEntitiesToCircleAdd(){
+  
+	this.op = "entityUserEntitiesToCircleAdd";
+  
+  this.handle = function(resultHandler, errorHandler, user, key, circleUri, entityUris){
+    
+    this.resultHandler         = resultHandler;
+    this.errorHandler          = errorHandler;
+    
+    var par         = {};
+    var xhr         = new SSJSONRequest();
+    
+    par[sSVarU.op]               = this.op;
+    par[sSVarU.user]             = user;
+    par[sSVarU.circleUri]        = circleUri;
+    par[sSVarU.entityUris]       = jSGlobals.commaSeparateStringArray(entityUris);
+    par[sSVarU.key]              = key;
+    
+    xhr.onload = (function(thisRef){ return function(){
+        
+        if(
+          this.readyState    !== 4   ||
+          this.status        !== 200){
+          return;
+        }
+        
+        new SSGlobals().onMessage(thisRef.resultHandler, thisRef.errorHandler, jSGlobals.parseJson(this.response), thisRef.op);
+      };})(this);
+    
+    xhr.send (JSON.stringify(par), sSGlobals.httpMethPOST, sSGlobals.hostREST + this.op + jSGlobals.slash);
+	};
+};
+
+function SSEntityUserUsersToCircleAdd(){
+  
+	this.op = "entityUserUsersToCircleAdd";
+  
+  this.handle = function(resultHandler, errorHandler, user, key, circleUri, userUris){
+    
+    this.resultHandler         = resultHandler;
+    this.errorHandler          = errorHandler;
+    
+    var par         = {};
+    var xhr         = new SSJSONRequest();
+    
+    par[sSVarU.op]               = this.op;
+    par[sSVarU.user]             = user;
+    par[sSVarU.circleUri]        = circleUri;
+    par[sSVarU.userUris]         = jSGlobals.commaSeparateStringArray(userUris);
+    par[sSVarU.key]              = key;
+    
+    xhr.onload = (function(thisRef){ return function(){
+        
+        if(
+          this.readyState    !== 4   ||
+          this.status        !== 200){
+          return;
+        }
+        
+        new SSGlobals().onMessage(thisRef.resultHandler, thisRef.errorHandler, jSGlobals.parseJson(this.response), thisRef.op);
+      };})(this);
+    
+    xhr.send (JSON.stringify(par), sSGlobals.httpMethPOST, sSGlobals.hostREST + this.op + jSGlobals.slash);
+	};
+};
+
+function SSEntityUserCircleCreate(){
+  
+	this.op = "entityUserCircleCreate";
+  
+  this.handle = function(resultHandler, errorHandler, user, key, label, entityUris, userUris){
+    
+    this.resultHandler         = resultHandler;
+    this.errorHandler          = errorHandler;
+    
+    var par         = {};
+    var xhr         = new SSJSONRequest();
+    
+    par[sSVarU.op]               = this.op;
+    par[sSVarU.user]             = user;
+    par[sSVarU.circleType]       = sSGlobals.circleTypeGroup;
+    par[sSVarU.label]            = label;
+    par[sSVarU.key]              = key;
+    
+    if(!jSGlobals.isEmpty(entityUris)){    par[sSVarU.entityUris]      = jSGlobals.commaSeparateStringArray(entityUris);}
+    if(!jSGlobals.isEmpty(userUris)){      par[sSVarU.userUris]        = jSGlobals.commaSeparateStringArray(userUris);}
+    
+    xhr.onload = (function(thisRef){ return function(){
+        
+        if(
+          this.readyState    !== 4   ||
+          this.status        !== 200){
+          return;
+        }
+        
+        new SSGlobals().onMessage(thisRef.resultHandler, thisRef.errorHandler, jSGlobals.parseJson(this.response), thisRef.op);
+      };})(this);
+    
+    xhr.send (JSON.stringify(par), sSGlobals.httpMethPOST, sSGlobals.hostREST + this.op + jSGlobals.slash);
+	};
+};
+
 function SSEntityUserPublicSet(){
   
 	this.op = "entityUserPublicSet";
@@ -34,8 +167,8 @@ function SSEntityUserPublicSet(){
     xhr.onload = (function(thisRef){ return function(){
         
         if(
-            this.readyState    !== 4   ||
-            this.status        !== 200){
+          this.readyState    !== 4   ||
+          this.status        !== 200){
           return;
         }
         
@@ -69,8 +202,8 @@ function SSEntityUserShare(){
     xhr.onload = (function(thisRef){ return function(){
         
         if(
-            this.readyState    !== 4   ||
-            this.status        !== 200){
+          this.readyState    !== 4   ||
+          this.status        !== 200){
           return;
         }
         
@@ -114,8 +247,8 @@ function SSEntityUserDirectlyAdjoinedEntitiesRemove(){
     xhr.onload = (function(thisRef){ return function(){
         
         if(
-            this.readyState    !== 4   ||
-            this.status        !== 200){
+          this.readyState    !== 4   ||
+          this.status        !== 200){
           return;
         }
         
@@ -146,8 +279,8 @@ function SSEntityLabelGet(){
     xhr.onload = (function(thisRef){ return function(){
         
         if(
-            this.readyState    !== 4   ||
-            this.status        !== 200){
+          this.readyState    !== 4   ||
+          this.status        !== 200){
           return;
         }
         
@@ -180,8 +313,8 @@ function SSEntityLabelSet(){
     xhr.onload = (function(thisRef){ return function(){
         
         if(
-            this.readyState    !== 4   ||
-            this.status        !== 200){
+          this.readyState    !== 4   ||
+          this.status        !== 200){
           return;
         }
         
@@ -212,8 +345,8 @@ function SSEntityTypeGet(){
     xhr.onload = (function(thisRef){ return function(){
         
         if(
-            this.readyState    !== 4   ||
-            this.status        !== 200){
+          this.readyState    !== 4   ||
+          this.status        !== 200){
           return;
         }
         
@@ -248,8 +381,8 @@ function SSEntityDescGet(){
     xhr.onload = (function(thisRef){ return function(){
         
         if(
-            this.readyState    !== 4   ||
-            this.status        !== 200){
+          this.readyState    !== 4   ||
+          this.status        !== 200){
           return;
         }
         
