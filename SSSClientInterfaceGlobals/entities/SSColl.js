@@ -30,13 +30,42 @@ function SSColl(){
     return jSGlobals.equals(type, this.typeColl);
   };
   
-  this.getCollIcon = function(space){
+  this.getCollIcon = function(circleTypes){
+    
+    for(var counter = 0; counter < jSGlobals.arrayLength(circleTypes); counter++){
+      
+      if(jSGlobals.equals(circleTypes[counter], "pub")){
+				return this.iconCollSubscribed;
+			}
+    }
+    
+    for(var counter = 0; counter < jSGlobals.arrayLength(circleTypes); counter++){
+      
+      if(jSGlobals.equals(circleTypes[counter], "group")){
+				return this.iconCollShared;
+			}
+    }
 
-		if(sSGlobals.isSpaceShared(space))  { return this.iconCollShared;     }
-		if(sSGlobals.isSpaceFollow(space))  { return this.iconCollSubscribed; }    
-    if(sSGlobals.isSpacePrivate(space)) { return this.iconCollPrivate;    }
+    return this.iconCollPrivate;
+	};
+  
+  this.getCollSpace = function(circleTypes){
+    
+    for(var counter = 0; counter < jSGlobals.arrayLength(circleTypes); counter++){
+      
+      if(jSGlobals.equals(circleTypes[counter], "pub")){
+				return sSGlobals.spaceFollow;
+			}
+    }
+    
+    for(var counter = 0; counter < jSGlobals.arrayLength(circleTypes); counter++){
+      
+      if(jSGlobals.equals(circleTypes[counter], "group")){
+				return sSGlobals.spaceShared;
+			}
+    }
 
-    return null;
+    return sSGlobals.spacePrivate;
 	};
   
 	this.clear = function(){
@@ -52,7 +81,6 @@ function SSColl(){
 	};
   
   this.setRootColl = function(collRoot){
-		
     this.rootColl = collRoot;
 	};
   

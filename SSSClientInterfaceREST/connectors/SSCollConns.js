@@ -144,7 +144,7 @@ function SSCollUserEntryAdd(){
   
   this.op = "collUserEntryAdd";
   
-  this.handle = function(resultHandler, errorHandler, user, key, coll, collEntry, collEntrySpace, collEntryLabel, addNewColl){
+  this.handle = function(resultHandler, errorHandler, user, key, coll, collEntry, collEntryLabel, addNewColl){
     
     this.resultHandler         = resultHandler;
     this.errorHandler          = errorHandler;
@@ -156,7 +156,6 @@ function SSCollUserEntryAdd(){
     par[sSVarU.op]               = this.op;
     par[sSVarU.user]             = this.user;
     par[sSVarU.coll]             = coll;
-    par[sSVarU.space]            = collEntrySpace;
     par[sSVarU.collEntryLabel]   = collEntryLabel;
     par[sSVarU.key]              = key;
     
@@ -182,7 +181,7 @@ function SSCollUserEntriesAdd(){
   
   this.op = "collUserEntriesAdd";
   
-  this.handle = function(resultHandler, errorHandler, user, key, coll, entries, entryLabels, entrySpaces){
+  this.handle = function(resultHandler, errorHandler, user, key, coll, entries, entryLabels){
     
     this.resultHandler         = resultHandler;
     this.errorHandler          = errorHandler;
@@ -195,7 +194,6 @@ function SSCollUserEntriesAdd(){
     par[sSVarU.coll]             = coll;
     par[sSVarU.entries]          = jSGlobals.commaSeparateStringArray(entries);
     par[sSVarU.entryLabels]      = jSGlobals.commaSeparateStringArray(entryLabels);
-    par[sSVarU.entrySpaces]      = jSGlobals.commaSeparateStringArray(entrySpaces);
     par[sSVarU.key]              = key;
     
     xhr.onload = (function(thisRef){ return function(){
@@ -312,40 +310,6 @@ function SSCollUserEntriesDelete(){
 	};
 };
 
-function SSCollUserShare(){
-  
-	this.op = "collUserShare";
-  
-  this.handle = function(resultHandler, errorHandler, user, key, coll, parentColl){
-    
-    this.resultHandler         = resultHandler;
-    this.errorHandler          = errorHandler;
-    
-    var par         = {};
-    var xhr         = new SSJSONRequest();
-    
-    
-    par[sSVarU.op]               = this.op;
-    par[sSVarU.user]             = user;
-    par[sSVarU.coll]             = coll;
-    par[sSVarU.parentColl]       = parentColl;
-    par[sSVarU.key]              = key;
-    
-    xhr.onload = (function(thisRef){ return function(){
-        
-        if(
-            this.readyState    !== 4   ||
-            this.status        !== 200){
-          return;
-        }
-        
-        new SSGlobals().onMessage(thisRef.resultHandler, thisRef.errorHandler, jSGlobals.parseJson(this.response), thisRef.op);
-      };})(this);
-    
-    xhr.send (JSON.stringify(par), sSGlobals.httpMethPOST, sSGlobals.hostREST + this.op + jSGlobals.slash);
-	};
-};
-
 function SSCollUserWithEntries(){
   
 	this.op = "collUserWithEntries";
@@ -362,7 +326,6 @@ function SSCollUserWithEntries(){
     par[sSVarU.op]               = this.op;
     par[sSVarU.user]             = user;
     par[sSVarU.coll]             = coll;
-    par[sSVarU.sort]             = true;
     par[sSVarU.key]              = key;
     
     xhr.onload = (function(thisRef){ return function(){
