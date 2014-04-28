@@ -187,7 +187,7 @@ function SSEntityUserShare(){
   
 	this.op = "entityUserShare";
   
-  this.handle = function(resultHandler, errorHandler, user, key, entityUri, entityCircleUri, userUris){
+  this.handle = function(resultHandler, errorHandler, user, key, entityUri, userUris){
     
     this.resultHandler         = resultHandler;
     this.errorHandler          = errorHandler;
