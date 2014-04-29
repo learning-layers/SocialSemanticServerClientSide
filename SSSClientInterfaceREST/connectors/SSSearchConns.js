@@ -118,6 +118,39 @@ function SSSearchWithTags(){
 	};
 };
 
+function SSSearchWithTagsWithinEntity(){
+  
+	this.op = "searchTagsWithinEntity";
+  
+  this.handle = function(resultHandler, errorHandler, user, key, entityUri, tags){
+    
+    this.resultHandler         = resultHandler;
+    this.errorHandler          = errorHandler;
+		
+    var par         = {};
+    var xhr         = new SSJSONRequest();
+    
+    par[sSVarU.op]               = this.op;
+    par[sSVarU.user]             = user;
+    par[sSVarU.entityUri]        = entityUri;
+    par[sSVarU.tags]             = jSGlobals.commaSeparateStringArray(tags);
+    par[sSVarU.key]              = key;
+    
+    xhr.onload = (function(thisRef){ return function(){
+        
+        if(
+            this.readyState    !== 4   ||
+            this.status        !== 200){
+          return;
+        }
+        
+        new SSGlobals().onMessage(thisRef.resultHandler, thisRef.errorHandler, jSGlobals.parseJson(this.response), thisRef.op);
+      };})(this);
+    
+    xhr.send (JSON.stringify(par), sSGlobals.httpMethPOST, sSGlobals.hostREST + this.op + jSGlobals.slash);
+	};
+};
+
 //      var publicResults  = new Array();
 //				var privateResults = new Array();
 //
