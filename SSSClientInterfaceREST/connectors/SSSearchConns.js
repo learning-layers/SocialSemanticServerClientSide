@@ -122,7 +122,7 @@ function SSSearchWithTagsWithinEntity(){
   
 	this.op = "searchTagsWithinEntity";
   
-  this.handle = function(resultHandler, errorHandler, user, key, entityUri, tags){
+  this.handle = function(resultHandler, errorHandler, user, key, entityUri, tagLabels){
     
     this.resultHandler         = resultHandler;
     this.errorHandler          = errorHandler;
@@ -133,7 +133,7 @@ function SSSearchWithTagsWithinEntity(){
     par[sSVarU.op]               = this.op;
     par[sSVarU.user]             = user;
     par[sSVarU.entityUri]        = entityUri;
-    par[sSVarU.tags]             = jSGlobals.commaSeparateStringArray(tags);
+    par[sSVarU.tagLabels]        = jSGlobals.commaSeparateStringArray(tagLabels);
     par[sSVarU.key]              = key;
     
     xhr.onload = (function(thisRef){ return function(){
