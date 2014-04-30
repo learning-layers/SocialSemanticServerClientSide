@@ -220,7 +220,7 @@ function SSEntityUserShare(){
   
 	this.op = "entityUserShare";
   
-  this.handle = function(resultHandler, errorHandler, user, key, entityUri, userUris){
+  this.handle = function(resultHandler, errorHandler, user, key, entityUri, userUris, comment){
     
     this.resultHandler         = resultHandler;
     this.errorHandler          = errorHandler;
@@ -233,6 +233,8 @@ function SSEntityUserShare(){
     par[sSVarU.entityUri]        = entityUri;
     par[sSVarU.userUris]         = jSGlobals.commaSeparateStringArray(userUris);
     par[sSVarU.key]              = key;
+    
+    if(!jSGlobals.isEmpty(comment)){ par[sSVarU.comment]       = comment;}
     
     xhr.onload = (function(thisRef){ return function(){
         
