@@ -19,9 +19,9 @@
 * limitations under the License.
 */
 
-function SSEntityUserEntityUsersGet(){
+function SSEntityEntityUsersGet(){
   
-	this.op = "entityUserEntityUsersGet";
+	this.op = "entityEntityUsersGet";
   
   this.handle = function(resultHandler, errorHandler, user, key, entityUri){
     
@@ -82,9 +82,9 @@ function SSEntityUserCirclesGet(){
 	};
 };
 
-function SSEntityUserEntitiesToCircleAdd(){
+function SSEntityEntitiesToCircleAdd(){
   
-	this.op = "entityUserEntitiesToCircleAdd";
+	this.op = "entityEntitiesToCircleAdd";
   
   this.handle = function(resultHandler, errorHandler, user, key, circleUri, entityUris){
     
@@ -115,9 +115,9 @@ function SSEntityUserEntitiesToCircleAdd(){
 	};
 };
 
-function SSEntityUserUsersToCircleAdd(){
+function SSEntityUsersToCircleAdd(){
   
-	this.op = "entityUserUsersToCircleAdd";
+	this.op = "entityUsersToCircleAdd";
   
   this.handle = function(resultHandler, errorHandler, user, key, circleUri, userUris){
     
@@ -148,9 +148,9 @@ function SSEntityUserUsersToCircleAdd(){
 	};
 };
 
-function SSEntityUserCircleCreate(){
+function SSEntityCircleCreate(){
   
-	this.op = "entityUserCircleCreate";
+	this.op = "entityCircleCreate";
   
   this.handle = function(resultHandler, errorHandler, user, key, label, entityUris, userUris){
     
@@ -184,9 +184,9 @@ function SSEntityUserCircleCreate(){
 	};
 };
 
-function SSEntityUserPublicSet(){
+function SSEntityPublicSet(){
   
-	this.op = "entityUserPublicSet";
+	this.op = "entityPublicSet";
   
   this.handle = function(resultHandler, errorHandler, user, key, entityUri){
     
@@ -216,9 +216,9 @@ function SSEntityUserPublicSet(){
 	};
 };
 
-function SSEntityUserShare(){
+function SSEntityShare(){
   
-	this.op = "entityUserShare";
+	this.op = "entityShare";
   
   this.handle = function(resultHandler, errorHandler, user, key, entityUri, userUris, comment){
     
@@ -251,9 +251,9 @@ function SSEntityUserShare(){
 	};
 };
 
-function SSEntityUserDirectlyAdjoinedEntitiesRemove(){
+function SSEntityDirectlyAdjoinedEntitiesRemove(){
   
-	this.op = "entityUserDirectlyAdjoinedEntitiesRemove";
+	this.op = "entityDirectlyAdjoinedEntitiesRemove";
   
   this.handle = function(
     resultHandler, 
@@ -296,9 +296,9 @@ function SSEntityUserDirectlyAdjoinedEntitiesRemove(){
 	};
 };
 
-function SSEntityUserGet(){
+function SSEntityGet(){
   
-	this.op = "entityUserGet";
+	this.op = "entityGet";
   
   this.handle = function(resultHandler, errorHandler, user, key, entityUri){
     

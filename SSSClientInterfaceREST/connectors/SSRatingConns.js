@@ -50,9 +50,9 @@ function SSRatingOverallGet(){
 	};
 };
 
-function SSRatingUserSet(){
+function SSRatingSet(){
   
-	this.op = "ratingUserSet";
+	this.op = "ratingSet";
   
   this.handle = function(resultHandler, errorHandler, user, key, resource, value){
     

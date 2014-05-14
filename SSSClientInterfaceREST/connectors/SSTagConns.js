@@ -52,9 +52,9 @@ function SSTagAdd(){
 	};
 };
 
-function SSTagUserFrequsGet(){
+function SSTagFrequsGet(){
   
-	this.op = "tagUserFrequsGet";
+	this.op = "tagFrequsGet";
   
   this.handle = function(resultHandler, errorHandler, user, key, resource, tagString, space){
     
@@ -87,9 +87,9 @@ function SSTagUserFrequsGet(){
 	};
 };
 
-function SSTagsUserRemove(){
+function SSTagsRemove(){
   
-	this.op = "tagsUserRemove";
+	this.op = "tagsRemove";
   
   this.handle = function(resultHandler, errorHandler, user, key, resource, tagString, space){
     

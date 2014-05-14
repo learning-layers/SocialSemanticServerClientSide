@@ -18,9 +18,9 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-function SSCollsUserEntityIsInGet(){
+function SSCollsEntityIsInGet(){
   
-	this.op = "collsUserEntityIsInGet";
+	this.op = "collsEntityIsInGet";
   
   this.handle = function(resultHandler, errorHandler, user, key, entityUri){
     
@@ -50,9 +50,9 @@ function SSCollsUserEntityIsInGet(){
 	};
 };
 
-function SSCollUserCumulatedTagsGet(){
+function SSCollCumulatedTagsGet(){
   
-	this.op = "collUserCumulatedTagsGet";
+	this.op = "collCumulatedTagsGet";
   
   this.handle = function(resultHandler, errorHandler, user, key, collUri){
     
@@ -82,9 +82,9 @@ function SSCollUserCumulatedTagsGet(){
 	};
 };
 
-function SSCollUserParentGet(){
+function SSCollParentGet(){
   
-	this.op = "collUserParentGet";
+	this.op = "collParentGet";
   
   this.handle = function(resultHandler, errorHandler, user, key, coll){
     
@@ -114,9 +114,9 @@ function SSCollUserParentGet(){
 	};
 };
 
-function SSCollUserRootGet(){
+function SSCollRootGet(){
   
-	this.op = "collUserRootGet";
+	this.op = "collRootGet";
   
   this.handle = function(resultHandler, errorHandler, user, key){
     
@@ -145,9 +145,9 @@ function SSCollUserRootGet(){
 	};
 };
 
-function SSCollUserEntryAdd(){
+function SSCollEntryAdd(){
   
-  this.op = "collUserEntryAdd";
+  this.op = "collEntryAdd";
   
   this.handle = function(resultHandler, errorHandler, user, key, coll, collEntry, collEntryLabel, addNewColl){
     
@@ -182,9 +182,9 @@ function SSCollUserEntryAdd(){
 	};
 };
 
-function SSCollUserEntriesAdd(){
+function SSCollEntriesAdd(){
   
-  this.op = "collUserEntriesAdd";
+  this.op = "collEntriesAdd";
   
   this.handle = function(resultHandler, errorHandler, user, key, coll, entries, entryLabels){
     
@@ -216,9 +216,9 @@ function SSCollUserEntriesAdd(){
 	};
 };
 
-function SSCollUserEntryChangePos(){
+function SSCollEntryChangePos(){
   
-	this.op = "collUserEntryChangePos";
+	this.op = "collEntryChangePos";
   
   this.handle = function(resultHandler, errorHandler, user, key, coll, order){
     
@@ -249,9 +249,9 @@ function SSCollUserEntryChangePos(){
 	};
 };
 
-function SSCollUserEntryDelete(){
+function SSCollEntryDelete(){
   
-	this.op = "collUserEntryDelete";
+	this.op = "collEntryDelete";
   
   this.handle = function(resultHandler, errorHandler, user, key, coll, collEntry){
     
@@ -282,9 +282,9 @@ function SSCollUserEntryDelete(){
 	};
 };
 
-function SSCollUserEntriesDelete(){
+function SSCollEntriesDelete(){
   
-	this.op = "collUserEntriesDelete";
+	this.op = "collEntriesDelete";
   
   this.handle = function(resultHandler, errorHandler, user, key, coll, collEntries){
     
@@ -315,9 +315,9 @@ function SSCollUserEntriesDelete(){
 	};
 };
 
-function SSCollUserWithEntries(){
+function SSCollWithEntries(){
   
-	this.op = "collUserWithEntries";
+	this.op = "collWithEntries";
   
   this.handle = function(resultHandler, errorHandler, user, key, coll){
     
@@ -348,9 +348,9 @@ function SSCollUserWithEntries(){
 	};
 };
 
-function SSCollsUserWithEntries(){
+function SSCollsWithEntries(){
   
-	this.op = "collsUserWithEntries";
+	this.op = "collsWithEntries";
   
   this.handle = function(resultHandler, errorHandler, user, key){
     
@@ -380,9 +380,9 @@ function SSCollsUserWithEntries(){
 	};
 };
 
-function SSCollUserHierarchyGet(){
+function SSCollHierarchyGet(){
   
-	this.op = "collUserHierarchyGet";
+	this.op = "collHierarchyGet";
   
   this.handle = function(resultHandler, errorHandler, user, key, collUri){
     
@@ -412,9 +412,9 @@ function SSCollUserHierarchyGet(){
 	};
 };
 
-function SSCollsUserCouldSubscribeGet(){
+function SSCollsCouldSubscribeGet(){
   
-	this.op = "collsUserCouldSubscribeGet";
+	this.op = "collsCouldSubscribeGet";
   
   this.handle = function(resultHandler, errorHandler, user, key){
     
@@ -442,168 +442,3 @@ function SSCollsUserCouldSubscribeGet(){
     xhr.send (JSON.stringify(par), sSGlobals.httpMethPOST, sSGlobals.hostREST + this.op + jSGlobals.slash);
 	};
 };
-
-///**
-// * Follow given collections
-// *
-// * @class SSCollsSubscribe
-// */
-//function SSCollsSubscribe(){
-//  
-//	this.op = "collsSubscribe";
-//  
-//  /**
-//   * Execute the SSS operation 
-//   *
-//   * @method handle
-//   * @param {Function} resultHandler handle server's response
-//   * @param {Function} errorHandler  handle an error response
-//   * @param {String}   user          user's uri
-//   * @param {String}   key           user's application key
-//   * @param {String}   colls         collection uris to subscribe in the following form "collUri1,collUri2,..."
-//   * @param {String}   parentColl    collection's mother collection uri
-//   */ 
-//  this.handle = function(resultHandler, errorHandler, user, key, colls, parentColl){
-//		
-//    this.resultHandler         = resultHandler;
-//    this.errorHandler          = errorHandler;
-//    this.user                  = user; 
-//    this.key                   = key;
-//		this.colls                 = colls;
-//		this.parentColl            = parentColl;
-//    
-//    var par         = {};
-//    var xhr         = new SSJSONRequest();
-//    
-//    
-//    par[sSVarU.op]               = this.op;
-//    par[sSVarU.user]             = this.user;
-//    par[sSVarU.colls]            = this.colls;
-//    par[sSVarU.parentColl]       = this.parentColl;
-//    par[sSVarU.key]              = this.key;
-//    
-//xhr.onload = (function(thisRef){ return function(){
-//        
-//        if(
-//            this.readyState    !== 4   ||
-//            this.status        !== 200){
-//          return;
-//        }
-//        
-//        new SSGlobals().onMessage(thisRef.resultHandler, thisRef.errorHandler, jSGlobals.parseJson(this.response), thisRef.op);
-//      };})(this);
-//    
-//    xhr.send (JSON.stringify(par), sSGlobals.httpMethPOST, sSGlobals.hostREST + this.op + jSGlobals.slash);
-//	};
-//};
-
-///**
-// * Unfollow given collections
-// *
-// * @class SSCollsUnSubscribe
-// */
-//function SSCollsUnSubscribe(){
-//  
-//	this.op = "collsUnSubscribe";
-//  
-//  /**
-//   * Execute the SSS operation 
-//   *
-//   * @method handle
-//   * @param {Function} resultHandler handle server's response
-//   * @param {Function} errorHandler  handle an error response
-//   * @param {String}   user          user's uri
-//   * @param {String}   key           user's application key
-//   * @param {String}   colls         collection uris to unsubscribe from in the following form "collUri1,collUri2,..."
-//   * @param {String}   parentColl    collection's mother collection uri
-//   */ 
-//  this.handle = function(resultHandler, errorHandler, user, key, colls, parentColl){
-//    
-//    this.resultHandler         = resultHandler;
-//    this.errorHandler          = errorHandler;
-//    this.user                  = user; 
-//    this.key                   = key;
-//		this.colls                 = colls;
-//		this.parentColl            = parentColl;
-//    
-//    var par         = {};
-//    var xhr         = new SSJSONRequest();
-//    
-//    
-//    par[sSVarU.op]               = this.op;
-//    par[sSVarU.user]             = this.user;
-//    par[sSVarU.colls]            = this.colls;
-//    par[sSVarU.parentColl]       = this.parentColl;
-//    par[sSVarU.key]              = this.key;
-//    
-//xhr.onload = (function(thisRef){ return function(){
-//        
-//        if(
-//            this.readyState    !== 4   ||
-//            this.status        !== 200){
-//          return;
-//        }
-//        
-//        new SSGlobals().onMessage(thisRef.resultHandler, thisRef.errorHandler, jSGlobals.parseJson(this.response), thisRef.op);
-//      };})(this);
-//    
-//    xhr.send (JSON.stringify(par), sSGlobals.httpMethPOST, sSGlobals.hostREST + this.op + jSGlobals.slash);
-//	};
-//};
-
-///**
-// * Deletes a collection from SSS
-// *
-// * @class SSCollDelete
-// */
-//function SSCollDelete(){
-//  
-//	this.op  = "collDelete";
-//  
-//  /**
-//   * Execute the SSS operation 
-//   *
-//   * @method handle
-//   * @param {Function} resultHandler handle server's response
-//   * @param {Function} errorHandler  handle an error response
-//   * @param {String}   user          user's uri
-//   * @param {String}   key           user's application key
-//   * @param {String}   coll          collection's uri
-//   * @param {String}   collSpace     access restriction for the collection (private or public)
-//   * @param {String}   parentColl    mother collection for the collection to delete
-//   */
-//  this.handle = function(resultHandler, errorHandler, user, key, coll, collSpace, parentColl){
-//    
-//    this.resultHandler         = resultHandler;
-//    this.errorHandler          = errorHandler;
-//    this.user                  = user; 
-//    this.key                   = key;
-//		this.coll                  = coll;
-//		this.space                 = collSpace;
-//		this.parentColl            = parentColl;
-//    
-//    var par         = {};
-//    var xhr         = new SSJSONRequest();
-//    
-//    
-//    par[sSVarU.op]         = this.op;
-//    par[sSVarU.user]       = this.user;
-//    par[sSVarU.coll]       = this.coll;
-//    par[sSVarU.space]      = this.space;
-//    par[sSVarU.parentColl] = this.parentColl;
-//    par[sSVarU.key]        = this.key;
-//    
-//xhr.onload = (function(thisRef){ return function(){
-//        
-//        if(
-//            this.readyState    !== 4   ||
-//            this.status        !== 200){
-//          return;
-//        }
-//        
-//        new SSGlobals().onMessage(thisRef.resultHandler, thisRef.errorHandler, jSGlobals.parseJson(this.response), thisRef.op);
-//      };})(this);
-//    
-//    xhr.send (JSON.stringify(par), sSGlobals.httpMethPOST, sSGlobals.hostREST + this.op + jSGlobals.slash);
-//	};
-//};
