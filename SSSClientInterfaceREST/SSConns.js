@@ -318,9 +318,22 @@ var SSCollsCouldSubscribeGet = function(resultHandler, errorHandler, user, key){
  * @param {URI} disc discussion uri to add a comment for
  * @param {URI} target uri of the entity to start a discussion for
  * @param {string} content text of the discussion comment
- * @return {SSDiscUserEntryAddRet} uris for the discussion and its entry
+ * @param {boolean} addNewDisc whether a new disc should be created
+ * @param {string} discType type of the discussion; either disc, qa or chat
+ * @param {string} discLabel title/name for the discussion
+ * @return {SSDiscUserEntryAddRet} uri for the discussion and its entry
  */
-var SSDiscEntryAdd = function(resultHandler, errorHandler, user, key, disc, target, content, addNewDisc){
+var SSDiscEntryAdd = function(
+  resultHandler, 
+errorHandler,
+user, 
+key, 
+disc, 
+target, 
+content, 
+addNewDisc,
+discType,
+discLabel){
   
   var par                = {};
   par[sSVarU.op]         = "discEntryAdd";
@@ -331,6 +344,8 @@ var SSDiscEntryAdd = function(resultHandler, errorHandler, user, key, disc, targ
   if(!jSGlobals.isEmpty(target)){     par[sSVarU.target]     = target;}
   if(!jSGlobals.isEmpty(content)){    par[sSVarU.content]    = content;}
   if(!jSGlobals.isEmpty(addNewDisc)){ par[sSVarU.addNewDisc] = addNewDisc;}
+  if(!jSGlobals.isEmpty(discType)){   par[sSVarU.discType]   = discType;}
+  if(!jSGlobals.isEmpty(discLabel)){  par[sSVarU.discLabel]  = discLabel;}
   
   new SSJSONPOSTRequest("discEntryAdd", par, resultHandler, errorHandler).send();
 };

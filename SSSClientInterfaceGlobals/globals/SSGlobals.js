@@ -47,6 +47,10 @@ function SSGlobals(){
   this.spaceShared                                   = "sharedSpace";
   this.spaceFollow                                   = "followSpace";
   
+  this.discTypeDisc                                  = "disc";
+  this.discTypeQA                                    = "qa";
+  this.discTypeChat                                  = "chat";
+  
   this.circleTypePrivate                             = "priv";
   this.circleTypeGroup                               = "group";
   this.circleTypePublic                              = "pub";
