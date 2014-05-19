@@ -328,8 +328,8 @@ var SSDiscEntryAdd = function(
 errorHandler,
 user, 
 key, 
-disc, 
-target, 
+discUri, 
+targetUri, 
 content, 
 addNewDisc,
 discType,
@@ -340,8 +340,8 @@ discLabel){
   par[sSVarU.user]       = user;
   par[sSVarU.key]        = key;
   
-  if(!jSGlobals.isEmpty(disc)){       par[sSVarU.disc]       = disc;}
-  if(!jSGlobals.isEmpty(target)){     par[sSVarU.target]     = target;}
+  if(!jSGlobals.isEmpty(discUri)){    par[sSVarU.discUri]    = discUri;}
+  if(!jSGlobals.isEmpty(targetUri)){  par[sSVarU.targetUri]  = targetUri;}
   if(!jSGlobals.isEmpty(content)){    par[sSVarU.content]    = content;}
   if(!jSGlobals.isEmpty(addNewDisc)){ par[sSVarU.addNewDisc] = addNewDisc;}
   if(!jSGlobals.isEmpty(discType)){   par[sSVarU.discType]   = discType;}

@@ -17,6 +17,8 @@ var sSVarU = new SSVarU();
     
 function SSVarU(){
   
+  this.discLabel                                      = "discLabel";
+  this.discType                                       = "discType";
   this.comment                                        = "comment";
   this.tagLabels                                      = "tagLabels";
   this.circleType                                     = "circleType";
@@ -36,6 +38,7 @@ function SSVarU(){
   this.getTags                                        = "getTags";
   this.getOverallRating                               = "getOverallRating";
   this.getDiscUris                                    = "getDiscUris";
+  this.discUri                                        = "discUri";
   this.addNewDisc                                     = "addNewDisc";
   this.addNewColl                                     = "addNewColl";
   this.algo                                           = "algo";
@@ -79,6 +82,7 @@ function SSVarU(){
   this.pass                                           = "pass";
   this.user                                           = "user";
   this.op                                             = "op";
+  this.targetUri                                      = "targetUri";
   this.target                                         = "target";
   this.label                                          = "label";
   this.location                                       = "location";
