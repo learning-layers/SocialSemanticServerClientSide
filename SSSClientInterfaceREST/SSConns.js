@@ -390,6 +390,46 @@ var SSDiscsAllGet = function(resultHandler, errorHandler, user, key){
 };
 
 /**
+ * remove a discussion from the user
+ * @param {function} resultHandler
+ * @param {function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {string} key auth key
+ * @param {URI} discUri the disc to remove
+ * @return {SSDiscUserRemoveRet} uri of removed discussion
+ */
+var SSDiscRemove = function(resultHandler, errorHandler, user, key, discUri){
+  
+  var par                     = {};
+  par[sSVarU.op]              = "discRemove";
+  par[sSVarU.user]            = user;
+  par[sSVarU.discUri]         = discUri;
+  par[sSVarU.key]             = key;
+  
+  new SSJSONPOSTRequest("discRemove", par, resultHandler, errorHandler).send();
+};
+
+/**
+ * get the users discussions for a certain entity
+ * @param {function} resultHandler
+ * @param {function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {string} key auth key
+ * @param {URI} entityUri the entity to retrieve discussions for
+ * @return {SSDiscUserRemoveRet} uri of removed discussion
+ */
+var SSDiscURIsForTargetGet = function(resultHandler, errorHandler, user, key, entityUri){
+  
+  var par                     = {};
+  par[sSVarU.op]              = "discURIsForTargetGet";
+  par[sSVarU.user]            = user;
+  par[sSVarU.entityUri]       = entityUri;
+  par[sSVarU.key]             = key;
+  
+  new SSJSONPOSTRequest("discURIsForTargetGet", par, resultHandler, errorHandler).send();
+};
+
+/**
  * @param {function} resultHandler
  * @param {function} errorHandler
  * @param {URI} user the user's uri
