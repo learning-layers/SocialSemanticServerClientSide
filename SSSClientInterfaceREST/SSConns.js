@@ -20,12 +20,14 @@
  */
 
 /**
- * retrieve the key and the uri of the user for the userLabel if given credentials match
- * @param {function} resultHandler
- * @param {function} errorHandler
- * @param {string} userLabel name of the user, e.g. hugo
- * @param {string} password the user’s password
- * @return {SSAuthCheckCredRet} the user’s session key and its uri
+ * retrieve the authentication key and user's uri for credentials
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {String} userLabel name of the user, e.g. 'hugo'
+ * @param {String} password the user’s password
+ * @return {SSAuthCheckCredRet} <br>
+ * {String} key user's authentication token <br>
+ * {URI} uri user's identifier in the system
  */
 var SSAuthCheckCred = function(resultHandler, errorHandler, userLabel, password){
   
@@ -40,13 +42,14 @@ var SSAuthCheckCred = function(resultHandler, errorHandler, userLabel, password)
 };
 
 /**
- * retreive the user's collections the entity is in
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * retrieve all the user's collections given entity is in
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
- * @param {URI} entityUri uri to retrieve the user's collections for
- * @return {SSCollsUserEntityIsInGetRet} user's collections the entity is contained in
+ * @param {String} key auth key
+ * @param {URI} entityUri entity searched for in user's collections
+ * @return {SSCollsUserEntityIsInGetRet} <br>
+ * {SSColl Array} colls user's collections the entity is in
  */
 var SSCollsEntityIsInGet = function(resultHandler, errorHandler, user, key, entityUri){
   
@@ -61,12 +64,13 @@ var SSCollsEntityIsInGet = function(resultHandler, errorHandler, user, key, enti
 
 /**
  * retrieve the cumulated tags (and their frequencies) for all the sub collections and respective entities
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
- * @param {URI} collUri uri for the collection to retrieve all cumulated tags for
- * @return {SSCollUserCummulatedTagsGetRet} all tags (and their frequencies) for sub collections and respective entities
+ * @param {String} key auth key
+ * @param {URI} collUri collection to retrieve all cumulated tags for
+ * @return {SSCollUserCummulatedTagsGetRet} <br>
+ * {SSTagFrequ Array} tagFrequs all tags and their frequencies (label, space, frequ) for sub collections and entities
  */
 var SSCollCumulatedTagsGet = function(resultHandler, errorHandler, user, key, collUri){
   
@@ -80,13 +84,14 @@ var SSCollCumulatedTagsGet = function(resultHandler, errorHandler, user, key, co
 };
 
 /**
- * retreive the parent collectin for given user collection URI
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * retrieve the parent collection for given user's collection
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key 
- * @param {URI} coll uri to retreive partent coll for
- * @return {SSCollUserParentGetRet} parent coll with entries
+ * @param {String} key auth key 
+ * @param {URI} coll collection to retrieve parent collection for
+ * @return {SSCollUserParentGetRet} <br>
+ * {SSColl} coll parent coll with entries
  */
 var SSCollParentGet = function(resultHandler, errorHandler, user, key, coll){
   
@@ -100,12 +105,13 @@ var SSCollParentGet = function(resultHandler, errorHandler, user, key, coll){
 };
 
 /**
- * retrieve the user's root collection for given user URI
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * retrieve the user's root collection
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
- * @return {SSCollUserRootGetRet} root coll for the user
+ * @param {String} key auth key
+ * @return {SSCollUserRootGetRet} <br>
+ * {SSColl} coll the user's root collection with entries
  */
 var SSCollRootGet = function(resultHandler, errorHandler, user, key){
   
@@ -118,16 +124,17 @@ var SSCollRootGet = function(resultHandler, errorHandler, user, key){
 };
 
 /**
- * add a (new) collection or any other entity to the user's collection
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * add a (new) collection or any other entity to given user's collection
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
- * @param {URI} coll collection’s uri
- * @param {URI} collEntry the new collection item’s uri, e.g. http://www.google.com, http://space.app/coll/1234567, http://space.app/user/hugo
- * @param {string} collEntryLabel label for the collection item to add, e.g. google, testCollection, hugoFromPortugal
- * @param {boolean} addNewColl whether a new collection should be created and added as entry
- * @return {SSCollUserEntryAddRet} uri of the collection entry
+ * @param {String} key auth key
+ * @param {URI} coll collection to add an entity to
+ * @param {URI} collEntry either null for the creation of new sub-collection, an existing collection or an entity
+ * @param {String} collEntryLabel title of the collection entry 
+ * @param {Boolean} addNewColl whether a new collection should be created instead of adding an existing one
+ * @return {SSCollUserEntryAddRet} <br>
+ * {URI} uri collection entry's identifier
  */
 var SSCollEntryAdd = function(resultHandler, errorHandler, user, key, coll, collEntry, collEntryLabel, addNewColl){
   
@@ -145,15 +152,16 @@ var SSCollEntryAdd = function(resultHandler, errorHandler, user, key, coll, coll
 };
 
 /**
- * add a (new) collection or any other entity to the user's collection
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * add existing collections or entities to a collection
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key 
- * @param {URI} coll collection’s uri
- * @param {array} entries the new collection item uris, e.g. http://www.google.com, http://space.app/coll/1234567, http://space.app/user/hugo
- * @param {array} entryLabels labels for the collection items to add, e.g. google, testCollection, hugoFromPortugal
- * @return {SSCollUserEntriesAddRet} boolean whether adding worked
+ * @param {String} key auth key 
+ * @param {URI} coll collection to a sub-entity
+ * @param {URI Array} entries entities to add
+ * @param {String Array} entryLabels collection item labels
+ * @return {SSCollUserEntriesAddRet} <br>
+ * {Boolean} worked whether adding worked
  */
 var SSCollEntriesAdd = function(resultHandler, errorHandler, user, key, coll, entries, entryLabels){
   
@@ -170,13 +178,14 @@ var SSCollEntriesAdd = function(resultHandler, errorHandler, user, key, coll, en
 
 /**
  * change the sequential order of entries in a user's collection
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
- * @param {URI} coll collection’s uri
- * @param {array} order  containing collection entries and their positions in the form of [collEntryUri1,pos1,collEntryUri2,pos2,…]
- * @return {SSCollUserEntryChangePosRet} boolean whether changing positions worked
+ * @param {String} key auth key
+ * @param {URI} coll collection to change entry order
+ * @param {Mixed Array} order collection entries {URI} and their positions {Integer} in the form of [collEntryUri1,pos1,collEntryUri2,pos2,…]
+ * @return {SSCollUserEntryChangePosRet} <br>
+ * {Boolean} worked whether changing positions worked
  */
 var SSCollEntryChangePos = function(resultHandler, errorHandler, user, key, coll, order){
   
@@ -191,14 +200,15 @@ var SSCollEntryChangePos = function(resultHandler, errorHandler, user, key, coll
 };
 
 /**
- * delete an entry from a user's collection
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * delete an item from a user's collection
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
- * @param {URI} coll collection’s uri
- * @param {URI} collEntry collection entry uri to delete from collection
- * @return {SSCollUserEntryDeleteRet} boolean whether deleting the collection entry worked
+ * @param {String} key auth key
+ * @param {URI} coll collection to delete an item from
+ * @param {URI} collEntry entity to remove
+ * @return {SSCollUserEntryDeleteRet} <br>
+ * {Boolean} worked whether deleting the collection entry worked
  */
 var SSCollEntryDelete = function(resultHandler, errorHandler, user, key, coll, collEntry){
   
@@ -213,13 +223,15 @@ var SSCollEntryDelete = function(resultHandler, errorHandler, user, key, coll, c
 };
 
 /**
- * @param {function} resultHandler
- * @param {function} errorHandler
- * @param {URI} user the user's uri
+ * delete one or more entries from a collection
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri 
- * @param {URI} coll uri for the collection containing the entries 
- * @param {array} coll entry uris to delete
- * @return {} description
+ * @param {String} key auth key
+ * @param {URI} coll collection to delete entries from 
+ * @param {URI Array} collEntries items to delete
+ * @return {SSCollUserEntriesDeleteRet} <br>
+ * {Boolean} worked whether deleting the entries worked
  */
 var SSCollEntriesDelete = function(resultHandler, errorHandler, user, key, coll, collEntries){
   
@@ -234,13 +246,14 @@ var SSCollEntriesDelete = function(resultHandler, errorHandler, user, key, coll,
 };
 
 /**
- * retrieve the user's collection with entries for given collection uri
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * retrieve a user's collection with entries
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
- * @param {URI} coll: collection’s uri
- * @return {SSCollUserWithEntriesRet} collection with entries requested
+ * @param {String} key auth key
+ * @param {URI} coll collection to retrieve
+ * @return {SSCollUserWithEntriesRet} <br>
+ * {SSColl} coll collection with entries requested
  */
 var SSCollWithEntries = function(resultHandler, errorHandler, user, key, coll){
   
@@ -255,11 +268,12 @@ var SSCollWithEntries = function(resultHandler, errorHandler, user, key, coll){
 
 /**
  * retrieve the user's collections with entries
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
- * @return {SSCollsUserWithEntriesRet} collections of the user with entries
+ * @param {String} key auth key
+ * @return {SSCollsUserWithEntriesRet} <br>
+ * {SSColl Array} colls user's collections with entries
  */
 var SSCollsWithEntries = function(resultHandler, errorHandler, user, key){
   
@@ -272,13 +286,14 @@ var SSCollsWithEntries = function(resultHandler, errorHandler, user, key){
 };
 
 /**
- * retrieve the order of parent collection uris for a given user's collection uri
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * retrieve the parent collection order for a user's collection
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
- * @param {URI} collUri the collection's uri to retrieve it's hierarchy for
- * @return {SSCollUserHierarchyGetRet} parent collection uris for given collection ordered by the hierarchy parent collections
+ * @param {String} key auth key
+ * @param {URI} collUri collection to retrieve it's parent hierarchy for
+ * @return {SSCollUserHierarchyGetRet} <br>
+ * {SSColl Array} colls parent collections without entries ordered by hierarchy
  */
 var SSCollHierarchyGet = function(resultHandler, errorHandler, user, key, collUri){
   
@@ -293,10 +308,10 @@ var SSCollHierarchyGet = function(resultHandler, errorHandler, user, key, collUr
 
 /**
  * retrieve a list of all public collections given user could subscribe to
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @return {SSCollsUserCouldSubscribeGetRet} a list of public collections without entries from within SSS
  */
 var SSCollsCouldSubscribeGet = function(resultHandler, errorHandler, user, key){
@@ -310,17 +325,17 @@ var SSCollsCouldSubscribeGet = function(resultHandler, errorHandler, user, key){
 };
 
 /**
- * add a textual entry / comment to a discussion for given uri or create a new one for given user
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * add a textual entry / comment to a discussion for given entity or create a new one for given user
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
- * @param {URI} disc discussion uri to add a comment for
- * @param {URI} target uri of the entity to start a discussion for
- * @param {string} content text of the discussion comment
- * @param {boolean} addNewDisc whether a new disc should be created
- * @param {string} discType type of the discussion; either disc, qa or chat
- * @param {string} discLabel title/name for the discussion
+ * @param {String} key auth key
+ * @param {URI} discUri discussion to add a comment for
+ * @param {URI} targetUri entity to start a discussion for
+ * @param {String} content text of the discussion comment
+ * @param {Boolean} addNewDisc whether a new disc should be created
+ * @param {String} discType type of the discussion: 'disc', 'qa or 'chat'
+ * @param {String} discLabel title for the discussion
  * @return {SSDiscUserEntryAddRet} uri for the discussion and its entry
  */
 var SSDiscEntryAdd = function(
@@ -352,10 +367,10 @@ discLabel){
 
 /**
  * retrieve the discussion for given uri with its entries / comments for given user
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @param {URI} disc discussion’s uri
  * @return {SSDiscUserWithEntriesRet} discussion with its entries
  */
@@ -373,10 +388,10 @@ var SSDiscWithEntriesGet = function(resultHandler, errorHandler, user, key, disc
 
 /**
  * retrive all discussion uris from within the system the user is allowed to see
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @return {SSDiscsUserAllGetRet} list of discussions from within SSS without entries
  */
 var SSDiscsAllGet = function(resultHandler, errorHandler, user, key){
@@ -391,10 +406,10 @@ var SSDiscsAllGet = function(resultHandler, errorHandler, user, key){
 
 /**
  * remove a discussion from the user
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @param {URI} discUri the disc to remove
  * @return {SSDiscUserRemoveRet} uri of removed discussion
  */
@@ -411,10 +426,10 @@ var SSDiscRemove = function(resultHandler, errorHandler, user, key, discUri){
 
 /**
  * get the users discussions for a certain entity
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @param {URI} entityUri the entity to retrieve discussions for
  * @return {SSDiscUserRemoveRet} uri of removed discussion
  */
@@ -430,10 +445,10 @@ var SSDiscURIsForTargetGet = function(resultHandler, errorHandler, user, key, en
 };
 
 /**
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @return {} description
  */
 var SSEntityEntityUsersGet = function(resultHandler, errorHandler, user, key, entityUri){
@@ -449,10 +464,10 @@ var SSEntityEntityUsersGet = function(resultHandler, errorHandler, user, key, en
 
 /**
  * retrieve the circles the user is in
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @return {SSEntityUserCirclesGetRet} all user-generated circles the user is in
  */
 var SSEntityUserCirclesGet = function(resultHandler, errorHandler, user, key){
@@ -467,12 +482,12 @@ var SSEntityUserCirclesGet = function(resultHandler, errorHandler, user, key){
 
 /**
  * add given entities to a user-generated circle
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @param {URI} circleUri uri for the circle to add entities to
- * @param {array} entityUris entity uris to add
+ * @param {Array} entityUris entity uris to add
  * @return {SSEntityUserEntitiesToCircleAddRet} the circle uri
  */
 var SSEntityEntitiesToCircleAdd = function(resultHandler, errorHandler, user, key, circleUri, entityUris){
@@ -489,12 +504,12 @@ var SSEntityEntitiesToCircleAdd = function(resultHandler, errorHandler, user, ke
 
 /**
  * add given users to a user-generated circle
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @param {URI} circleUri uri for the circle to add entities to
- * @param {array} userUris user uris to add
+ * @param {Array} userUris user uris to add
  * @return {SSEntityUserUsersToCircleAddRet} the circle uri
  */
 var SSEntityUsersToCircleAdd = function(resultHandler, errorHandler, user, key, circleUri, userUris){
@@ -511,13 +526,13 @@ var SSEntityUsersToCircleAdd = function(resultHandler, errorHandler, user, key, 
 
 /**
  * create a circle and add users and entities to
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
- * @param {string} label the name of the circle
- * @param {array} entityUris entity uris to add to
- * @param {array} userUris user uris to add
+ * @param {String} key auth key
+ * @param {String} label the name of the circle
+ * @param {Array} entityUris entity uris to add to
+ * @param {Array} userUris user uris to add
  * @return {SSEntityUserCircleCreateRet} the circle uri
  */
 var SSEntityCircleCreate = function(resultHandler, errorHandler, user, key, label, entityUris, userUris){
@@ -537,10 +552,10 @@ var SSEntityCircleCreate = function(resultHandler, errorHandler, user, key, labe
 
 /**
  * set an entity public (make it accessible for everyone)
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @param {URI} entityUri the uri of the entity to make public
  * @return {SSEntityUserPublicSetRet} entity uri
  */
@@ -557,13 +572,13 @@ var SSEntityPublicSet = function(resultHandler, errorHandler, user, key, entityU
 
 /**
  * share an entity directly with given users
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @param {URI} entityUri the uri of the entity to be shared
- * @param {array} userUris user uris
- * @param {string} comment textual comment for sharing
+ * @param {Array} userUris user uris
+ * @param {String} comment textual comment for sharing
  * @return {SSEntityUserShareRet} the entity uri
  */
 var SSEntityShare = function(resultHandler, errorHandler, user, key, entityUri, userUris, comment){
@@ -582,15 +597,15 @@ var SSEntityShare = function(resultHandler, errorHandler, user, key, entityUri, 
 
 /**
  * remove certain "attributes" from an entity which have been assigned by the user
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @param {URI} entityUri entity’s uri to remove certain user attached entities
- * @param {boolean} removeUserTags whether the user's tags should be removed
- * @param {boolean} removeUserRatings whether the user's ratings should be removed
- * @param {boolean} removeFromUserColls whether the entity should be removed from all the user's collections
- * @param {boolean} removeUserLocations whether locations added by the user should be removed
+ * @param {Boolean} removeUserTags whether the user's tags should be removed
+ * @param {Boolean} removeUserRatings whether the user's ratings should be removed
+ * @param {Boolean} removeFromUserColls whether the entity should be removed from all the user's collections
+ * @param {Boolean} removeUserLocations whether locations added by the user should be removed
  * @return {SSEntityUserDirectlyAdjoinedEntitiesRemoveRet} the URI of the entity
  */
 var SSEntityDirectlyAdjoinedEntitiesRemove = function(
@@ -618,10 +633,10 @@ removeUserLocations){
 };
 
 /**
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key 
+ * @param {String} key auth key 
  * @return {} description
  */
 var SSEntityGet = function(resultHandler, errorHandler, user, key, entityUri){
@@ -637,12 +652,12 @@ var SSEntityGet = function(resultHandler, errorHandler, user, key, entityUri){
 
 /**
  * set the name of an entity within the system
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @param {URI} entityUri entity’s uri to set the name for
- * @param {string} label name for the entity
+ * @param {String} label name for the entity
  * @return {SSEntityLabelSetRet} boolean whether setting the lable for the entity worked
  */
 var SSEntityLabelSet = function(resultHandler, errorHandler, user, key, entityUri, label){
@@ -659,14 +674,14 @@ var SSEntityLabelSet = function(resultHandler, errorHandler, user, key, entityUr
 
 /**
  * retrieve more detailed information for a given entity uri
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @param {URI} entityUri entity’s uri to get details for
- * @param {boolean} getTags whether tags for the entity should be delivered
- * @param {boolean} getOverallRating whether the overall rating for the entity should be delivered
- * @param {boolean} getDiscUris whether the uris of discussions targeting the entity should be returned
+ * @param {Boolean} getTags whether tags for the entity should be delivered
+ * @param {Boolean} getOverallRating whether the overall rating for the entity should be delivered
+ * @param {Boolean} getDiscUris whether the uris of discussions targeting the entity should be returned
  * @return {SSEntityDescGetRet} details for an entity, i.e. label, uri, creationTime and type of the entity beside information chosen to be returned by parameters
  */
 var SSEntityDescGet = function(resultHandler, errorHandler, user, key, entityUri, getTags, getOverallRating, getDiscUris){
@@ -685,10 +700,10 @@ var SSEntityDescGet = function(resultHandler, errorHandler, user, key, entityUri
 };
 
 /**
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @return {} description
  */
 var SSFileExtGet = function(resultHandler, errorHandler, user, key, fileUri){
@@ -704,10 +719,10 @@ var SSFileExtGet = function(resultHandler, errorHandler, user, key, fileUri){
 
 /**
  * retrieve whether the user can download a file with write access
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @param {URI} uri file’s uri
  * @return {SSFileCanWriteRet} whether downloading a file with write acces will work
  */
@@ -724,12 +739,12 @@ var SSFileCanWrite = function(resultHandler, errorHandler, user, key, uri){
 
 /**
  * register the current user as writer or readed for given file uri
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @param {URI} uri file’s uri
- * @param {boolean} write whether set the user as writer
+ * @param {Boolean} write whether set the user as writer
  * @return {SSFileSetReaderOrWriterRet} whether setting the user as writer for the file worked
  */
 var SSFileSetReaderOrWriter = function(resultHandler, errorHandler, user, key, uri, write){
@@ -746,10 +761,10 @@ var SSFileSetReaderOrWriter = function(resultHandler, errorHandler, user, key, u
 
 /**
  * retrieve file uris the user currently has right to replace after uploading again (because he downloaded given files in write mode)
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @return {SSFileGetEditingFilesRet} file uris and names the user is currently able to replace because he has write permission on
  */
 var SSFileUserFileWrites = function(resultHandler, errorHandler, user, key){
@@ -764,12 +779,12 @@ var SSFileUserFileWrites = function(resultHandler, errorHandler, user, key){
 
 /**
  * retrieve the number of minutes the user is allowed to replace / re-upload a file
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @param {URI} uri file’s uri
- * @param {string} fileName name of the file to return by the resultHandler
+ * @param {String} fileName name of the file to return by the resultHandler
  * @param {integer} minutesLeftLastTime minutes the user had left the last time to be returned by the resultHandler as well
  * @return {SSFileWritingMinutesLeftRet} number of minutes left to re-upload/replace file downloaded with write permission
  */
@@ -786,10 +801,10 @@ var SSFileWritingMinutesLeft = function(resultHandler, errorHandler, user, key, 
 
 /**
  * retrieve the JSON-LD description of an entity (uri) returned by the SSS
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @param {URi} uri entity's uri to retrieve the description for
  * @return {JSONLD} the JSON-LD description for given entity
  */
@@ -817,10 +832,10 @@ var SSJsonLD = function(resultHandler, errorHandler, uri){
 
 /**
  * download a file from the SSS
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @param {URI} fileUri file’s uri
  * @return {Blob} the binary file
  */
@@ -858,10 +873,10 @@ var SSFileDownload = function(resultHandler, errorHandler, user, key, fileUri){
 
 /**
  * upload a file to the SSS
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @param {File} file handle for the file from HTML file api
  * @param {URI} collUri uri of the collection where the file should be added to
  * @return {URI} uri of the uploaded file
@@ -907,10 +922,10 @@ var SSFileUpload = function(resultHandler, errorHandler, user, key, file, collUr
 
 /**
  * replace a file on SSS with a newer version of it
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @param {URI} uri file’s uri
  * @param {File} file handle for the file retrieved from HTML file api
  * @return {SSFileReplaceRet} the uri of replaced file
@@ -953,10 +968,10 @@ var SSFileReplace = function(resultHandler, errorHandler, user, key, uri, file){
 
 /**
  * currently just dummy implementation
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @return {} description
  */
 var SSFileThumbGet = function(resultHandler, errorHandler, user, key, uri){
@@ -991,10 +1006,10 @@ var SSFileThumbGet = function(resultHandler, errorHandler, user, key, uri){
 };
 
 /**
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @return {} description
  */
 var SSLearnEpVersionCurrentSet = function(resultHandler, errorHandler, user, key, learnEpVersionUri){
@@ -1009,10 +1024,10 @@ var SSLearnEpVersionCurrentSet = function(resultHandler, errorHandler, user, key
 };
 
 /**
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @return {} description
  */
 var SSLearnEpVersionCurrentGet = function(resultHandler, errorHandler, user, key){
@@ -1026,10 +1041,10 @@ var SSLearnEpVersionCurrentGet = function(resultHandler, errorHandler, user, key
 };
 
 /**
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @return {} description
  */
 var SSLearnEpVersionSetTimelineState = function(resultHandler, errorHandler, user, key, learnEpVersionUri, startTime, endTime){
@@ -1046,10 +1061,10 @@ var SSLearnEpVersionSetTimelineState = function(resultHandler, errorHandler, use
 };
 
 /**
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @return {} description
  */
 var SSLearnEpVersionGetTimelineState = function(resultHandler, errorHandler, user, key, learnEpVersionUri){
@@ -1064,10 +1079,10 @@ var SSLearnEpVersionGetTimelineState = function(resultHandler, errorHandler, use
 };
 
 /**
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @return {} description
  */
 var SSLearnEpVersionRemoveCircle = function(resultHandler, errorHandler, user, key, learnEpCircleUri){
@@ -1082,10 +1097,10 @@ var SSLearnEpVersionRemoveCircle = function(resultHandler, errorHandler, user, k
 };
 
 /**
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @return {} description
  */
 var SSLearnEpVersionRemoveEntity = function(resultHandler, errorHandler, user, key, learnEpEntityUri){
@@ -1100,10 +1115,10 @@ var SSLearnEpVersionRemoveEntity = function(resultHandler, errorHandler, user, k
 };
 
 /**
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @return {} description
  */
 var SSLearnEpVersionUpdateCircle = function(resultHandler, errorHandler, user, key, learnEpCircleUri, label, xLabel, yLabel, xR, yR, xC, yC){
@@ -1125,10 +1140,10 @@ var SSLearnEpVersionUpdateCircle = function(resultHandler, errorHandler, user, k
 };
 
 /**
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @return {} description
  */
 var SSLearnEpVersionUpdateEntity = function(resultHandler, errorHandler, user, key, learnEpEntityUri, entityUri, x, y){
@@ -1146,10 +1161,10 @@ var SSLearnEpVersionUpdateEntity = function(resultHandler, errorHandler, user, k
 };
 
 /**
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @return {} description
  */
 var SSLearnEpCreate = function(resultHandler, errorHandler, user, key, label, space){
@@ -1165,10 +1180,10 @@ var SSLearnEpCreate = function(resultHandler, errorHandler, user, key, label, sp
 };
 
 /**
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @return {} description
  */
 var SSLearnEpVersionCreate = function(resultHandler, errorHandler, user, key, learnEpUri){
@@ -1183,10 +1198,10 @@ var SSLearnEpVersionCreate = function(resultHandler, errorHandler, user, key, le
 };
 
 /**
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key 
+ * @param {String} key auth key 
  * @return {} description
  */
 var SSLearnEpVersionAddCircle = function(resultHandler, errorHandler, user, key, learnEpVersionUri, label, xLabel, yLabel, xR, yR, xC, yC){
@@ -1208,10 +1223,10 @@ var SSLearnEpVersionAddCircle = function(resultHandler, errorHandler, user, key,
 };
 
 /**
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @return {} description
  */
 var SSLearnEpVersionAddEntity = function(resultHandler, errorHandler, user, key, learnEpVersionUri, entityUri, x, y){
@@ -1229,10 +1244,10 @@ var SSLearnEpVersionAddEntity = function(resultHandler, errorHandler, user, key,
 };
 
 /**
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @return {} description
  */
 var SSLearnEpVersionGet = function(resultHandler, errorHandler, user, key, learnEpVersionUri){
@@ -1247,10 +1262,10 @@ var SSLearnEpVersionGet = function(resultHandler, errorHandler, user, key, learn
 };
 
 /**
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @return {} description
  */
 var SSLearnEpVersionsGet = function(resultHandler, errorHandler, user, key, learnEpUri){
@@ -1265,10 +1280,10 @@ var SSLearnEpVersionsGet = function(resultHandler, errorHandler, user, key, lear
 };
 
 /**
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @return {} description
  */
 var SSLearnEpsGet = function(resultHandler, errorHandler, user, key){
@@ -1283,12 +1298,12 @@ var SSLearnEpsGet = function(resultHandler, errorHandler, user, key){
 
 /**
  * add a location for a given entity as text (e.g. freestyle location format currently)
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @param {URI} entityUri entity’s uri to add the location for
- * @param {string} location location of the entity as text
+ * @param {String} location location of the entity as text
  * @return {SSLocationAddRet} entity's uri
  */
 var SSLocationAdd = function(resultHandler, errorHandler, user, key, entityUri, location){
@@ -1305,10 +1320,10 @@ var SSLocationAdd = function(resultHandler, errorHandler, user, key, entityUri, 
 
 /**
  * retrieve locations for an entity given
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @param {URI} entityUri entity’s uri to get its locations for
  * @return {SSLocationsGetRet} the current locations of an entity
  */
@@ -1325,10 +1340,10 @@ var SSLocationsGet = function(resultHandler, errorHandler, user, key, entityUri)
 
 /**
  * retrieve automatically modeled details for given entity's uri
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @param {URI} resource entity’s uri to retrieve usage based details for
  * @return {SSModelUEResourceDetailsRet} related users, author, maturing indicators, editors, recent entities worked with, recent tags worked with, entities contributed to and tags scores if available respectively
  */
@@ -1345,10 +1360,10 @@ var SSResourceDetailsGet = function(resultHandler, errorHandler, user, key, reso
 
 /**
  * retrieve the overall rating (by all users) for given entity
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @param {URI} resource entity’s uri to retrieve the overall rating for
  * @return {SSRatingOverallGetRet} value of the overall rating for the entity and the total rating frequency
  */
@@ -1365,10 +1380,10 @@ var SSRatingOverallGet = function(resultHandler, errorHandler, user, key, resour
 
 /**
  * set the user's rating for given resource
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @param {URI} resource entity’s uri to set the user’s rating for
   *@param {integer} value rating value (1,2,3,4 or 5)
  * @return {SSRatingUserSetRet} boolean whether setting the rating worked
@@ -1387,10 +1402,10 @@ var SSRatingSet = function(resultHandler, errorHandler, user, key, resource, val
 
 /**
  * retrieve tag recommendations based on user, entity and tag combinations
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @param {URI} forUserUri uri of the user to retrieve recommendations for
  * @param {URI} entityUri entity’s uri to get the recommendations for
  * @param {integer} maxTags number of tags to be returned
@@ -1412,10 +1427,10 @@ var SSScaffRecommTagsBasedOnUserEntityTag = function(resultHandler, errorHandler
 
 /**
  * retrieve tag recommendations based on user, entity, tag and time combination
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @param {URI} forUserUri uri of the user to retrieve recommendations for
  * @param {URI} entityUri entity’s uri to get the recommendations for
  * @param {integer} maxTags number of tags to be returned
@@ -1437,10 +1452,10 @@ var SSScaffRecommTagsBasedOnUserEntityTagTime = function(resultHandler, errorHan
 
 /**
  * retrieve tag recommendations based on user, entity, tag and category combination
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @param {URI} forUserUri uri of the user to retrieve recommendations for
  * @param {URI} entityUri entity’s uri to get the recommendations for
  * @param {arrray} categories categories the recommendation should take into account
@@ -1464,13 +1479,13 @@ var SSScaffRecommTagsBasedOnUserEntityTagCategory = function(resultHandler, erro
 
 /**
  * retrieve tag recommendations based on user, entity, tag, category and time combination
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @param {URI} forUserUri uri of the user to retrieve recommendations for
  * @param {URI} entityUri entity’s uri to get the recommendations for
- * @param {array} categories categories the recommendation should take into account
+ * @param {Array} categories categories the recommendation should take into account
  * @param {integer} maxTags number of tags to be returned
  * @return {SSScaffRecommTagsRet} string list of tags recommended
  */
@@ -1491,12 +1506,12 @@ var SSScaffRecommTagsBasedOnUserEntityTagCategoryTime = function(resultHandler, 
 
 /**
  * retrieve entities having given maturing indicators attached
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
- * @param {string} searchOp either “and” or “or” to combine search results found by SSS
- * @param {array} mIs: strings containing maturing indicators
+ * @param {String} key auth key
+ * @param {String} searchOp either “and” or “or” to combine search results found by SSS
+ * @param {Array} mIs: strings containing maturing indicators
  * @return {SSSearchMIsRet} found entities with label, type and space (private or shared)
  */
 var SSSearchWithMIs = function(resultHandler, errorHandler, user, key, searchOp, mIs){
@@ -1513,12 +1528,12 @@ var SSSearchWithMIs = function(resultHandler, errorHandler, user, key, searchOp,
 
 /**
  * retrieve entities found for content-based keywords given
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
- * @param {string} searchOp either “and” or “or” to combine search results found by SSS
- * @param {array} keywords strings containing keywords
+ * @param {String} key auth key
+ * @param {String} searchOp either “and” or “or” to combine search results found by SSS
+ * @param {Array} keywords strings containing keywords
  * @return {SSSearchSolrRet} found entities with label, type, and space (private or shared)
  */
 var SSSearchWithSolr = function(resultHandler, errorHandler, user, key, searchOp, keywords){
@@ -1535,12 +1550,12 @@ var SSSearchWithSolr = function(resultHandler, errorHandler, user, key, searchOp
 
 /**
  * retrieve entities for given tags
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
- * @param {string} searchOp either “and” or “or” to combine search results found by SSS
- * @param {array} tags strings containing list of tags
+ * @param {String} key auth key
+ * @param {String} searchOp either “and” or “or” to combine search results found by SSS
+ * @param {Array} tags strings containing list of tags
  * @param {integer} maxResultsPerTag max results per tag found to be returned
  * @return {SSSearchTagsRet} found entities with label, type and space (private or shared)
  */
@@ -1558,10 +1573,10 @@ var SSSearchWithTags = function(resultHandler, errorHandler, user, key, searchOp
 };
 
 /**
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @return {} description
  */
 var SSSearchWithTagsWithinEntity = function(resultHandler, errorHandler, user, key, entityUri, tagLabels){
@@ -1578,13 +1593,13 @@ var SSSearchWithTagsWithinEntity = function(resultHandler, errorHandler, user, k
 
 /**
  * add a tag in given space for an entity
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @param {URI} resource entity’s uri to add tag for
- * @param {string} tagString label of the tag to add
- * @param {string} space access restriction for the tag (private or public)
+ * @param {String} tagString label of the tag to add
+ * @param {String} space access restriction for the tag (private or public)
  * @return {SSTagAddRet} boolean whether adding the tag worked
  */
 var SSTagAdd = function(resultHandler, errorHandler, user, key, resource, tagString, space){
@@ -1602,13 +1617,13 @@ var SSTagAdd = function(resultHandler, errorHandler, user, key, resource, tagStr
 
 /**
  * retrieve tag assignments for the user, tag and space combination
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @param {URI} resource entity’s uri to retrieve tags for
- * @param {string} tagString tag’s label
- * @param {string} space: access restriction for the tag (private or public) combinations to retrieve
+ * @param {String} tagString tag’s label
+ * @param {String} space: access restriction for the tag (private or public) combinations to retrieve
  * @return {SSTagUserFrequsGetRet} tag assignments with frequency for the user, resource, tag and space combination
  */
 var SSTagFrequsGet = function(resultHandler, errorHandler, user, key, resource, tagString, space){
@@ -1626,10 +1641,10 @@ var SSTagFrequsGet = function(resultHandler, errorHandler, user, key, resource, 
 };
 
 /**
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @return {} description
  */
 var SSTagsRemove = function(resultHandler, errorHandler, user, key, resource, tagString, space){
@@ -1648,10 +1663,10 @@ var SSTagsRemove = function(resultHandler, errorHandler, user, key, resource, ta
 
 /**
  * retrieves the list of users in the system
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @return {SSUserAllRet} users in the system
  */
 var SSUserAll = function(resultHandler, errorHandler, user, key){
@@ -1666,13 +1681,13 @@ var SSUserAll = function(resultHandler, errorHandler, user, key){
 
 /**
  * add a trace (user event) for a given entity and user combination
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
- * @param {string} eventType the event’s type
+ * @param {String} key auth key
+ * @param {String} eventType the event’s type
  * @param {URI} resource the entity’s uri
- * @param {string} content possible content for the user event
+ * @param {String} content possible content for the user event
  * @return {SSUEAddRet} boolean whether adding the user event worked
  */
 var SSUserEventAdd = function(resultHandler, errorHandler, user, key, eventType, resource, content){
@@ -1691,10 +1706,10 @@ var SSUserEventAdd = function(resultHandler, errorHandler, user, key, eventType,
 
 /**
  * retrieve user events for given user and resource combination in given time frame
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @param {URI} forUser user’s uri to retrieve user events for (can be left null if all users wanted)
  * @param {URI} resource entity’s uri to retrieve user events for (can be left null if for all entities)
  * @param {long} startTime start timestamp for retrieving user events for
@@ -1718,10 +1733,10 @@ var SSUserEventsGet = function(resultHandler, errorHandler, user, key, forUser, 
 
 /**
  * retrieve a certain user event for given uri
- * @param {function} resultHandler
- * @param {function} errorHandler
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {string} key auth key
+ * @param {String} key auth key
  * @param {URI} ueUri the uri for the user event
  * @return {SSUEGetRet} the user event for given uri
  */
