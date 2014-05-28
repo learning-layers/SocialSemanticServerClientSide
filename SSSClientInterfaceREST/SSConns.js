@@ -337,6 +337,7 @@ var SSCollsCouldSubscribeGet = function(resultHandler, errorHandler, user, key){
  * @param {Boolean} addNewDisc whether a new disc should be created
  * @param {String} discType discussion type: disc, qa or chat
  * @param {String} discLabel discussion name
+ * @param {String} explanation describes the discussion in more detail
  * @return {SSDiscUserEntryAddRet} <br>
  * {SSUri} disc discussion 
  * {SSUri} discEntry discussion entry
@@ -351,19 +352,21 @@ targetUri,
 content, 
 addNewDisc,
 discType,
-discLabel){
+discLabel,
+explanation){
   
   var par                = {};
   par[sSVarU.op]         = "discEntryAdd";
   par[sSVarU.user]       = user;
   par[sSVarU.key]        = key;
   
-  if(!jSGlobals.isEmpty(discUri)){    par[sSVarU.discUri]    = discUri;}
-  if(!jSGlobals.isEmpty(targetUri)){  par[sSVarU.targetUri]  = targetUri;}
-  if(!jSGlobals.isEmpty(content)){    par[sSVarU.content]    = content;}
-  if(!jSGlobals.isEmpty(addNewDisc)){ par[sSVarU.addNewDisc] = addNewDisc;}
-  if(!jSGlobals.isEmpty(discType)){   par[sSVarU.discType]   = discType;}
-  if(!jSGlobals.isEmpty(discLabel)){  par[sSVarU.discLabel]  = discLabel;}
+  if(!jSGlobals.isEmpty(discUri)){      par[sSVarU.discUri]      = discUri;}
+  if(!jSGlobals.isEmpty(targetUri)){    par[sSVarU.targetUri]    = targetUri;}
+  if(!jSGlobals.isEmpty(content)){      par[sSVarU.content]      = content;}
+  if(!jSGlobals.isEmpty(addNewDisc)){   par[sSVarU.addNewDisc]   = addNewDisc;}
+  if(!jSGlobals.isEmpty(discType)){     par[sSVarU.discType]     = discType;}
+  if(!jSGlobals.isEmpty(discLabel)){    par[sSVarU.discLabel]    = discLabel;}
+  if(!jSGlobals.isEmpty(explanation)){  par[sSVarU.explanation]  = explanation;}
   
   new SSJSONPOSTRequest("discEntryAdd", par, resultHandler, errorHandler).send();
 };
