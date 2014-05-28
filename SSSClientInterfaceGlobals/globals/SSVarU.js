@@ -16,7 +16,7 @@
 var sSVarU = new SSVarU();
     
 function SSVarU(){
-  
+  this.explanation                                    = "explanation";
   this.discLabel                                      = "discLabel";
   this.discType                                       = "discType";
   this.comment                                        = "comment";
