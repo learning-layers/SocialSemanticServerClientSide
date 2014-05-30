@@ -101,9 +101,9 @@ function SSTagAssFrequEntity(){
 			
 			if(
 					tagAssFrequ[counter].frequ >= minFrequ &&
-					jSGlobals.containsNotArrayItem(result, tagAssFrequ[counter].tag.label)){
+					jSGlobals.containsNotArrayItem(result, tagAssFrequ[counter].label)){
         
-        jSGlobals.addArrayItem(result, tagAssFrequ[counter].tag.label);
+        jSGlobals.addArrayItem(result, tagAssFrequ[counter].label);
 			}
 		}
 		

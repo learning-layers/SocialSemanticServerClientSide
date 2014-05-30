@@ -22,19 +22,19 @@ var sSModelUserEventResourceDetails = new SSModelUserEventResourceDetails();
 
 function SSModelUserEventResourceDetails(){
   
-  this.relatedPersons = function(resourceDetails){
+  this.relatedPersons = function(entityDetails){
     
-    if(jSGlobals.isNotEmpty(resourceDetails)){
-      return resourceDetails.relatedPersons;
+    if(jSGlobals.isNotEmpty(entityDetails)){
+      return entityDetails.relatedPersons;
     }
     
     return new Array();
   };
   
-  this.maturingIndicators = function(resourceDetails){
+  this.maturingIndicators = function(entityDetails){
     
-    if(jSGlobals.isNotEmpty(resourceDetails)){
-      return resourceDetails.maturingIndicators;
+    if(jSGlobals.isNotEmpty(entityDetails)){
+      return entityDetails.mIs;
     }
     
     return new Array();
