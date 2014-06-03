@@ -351,7 +351,6 @@ disc,
 entity, 
 entry, 
 addNewDisc,
-discLabel,
 type,
 label, 
 explanation){
