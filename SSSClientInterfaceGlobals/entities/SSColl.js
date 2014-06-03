@@ -107,17 +107,17 @@ function SSColl(){
 		return this.rootColl.id;
 	};
 	
-	this.getColl = function(colls, collUri){
+	this.getColl = function(colls, coll){
 
 		if(
 				jSGlobals.isEmpty(colls) ||
-				jSGlobals.isEmpty(collUri)){
+				jSGlobals.isEmpty(coll)){
 			return null;
 		}
 		
 		for(var counter = 0; counter < jSGlobals.arrayLength(colls); counter++){
 
-			if(colls[counter].id === collUri){
+			if(colls[counter].id === coll){
 				return colls[counter];
 			}
 		}

@@ -229,17 +229,17 @@ var SSCollEntryDelete = function(resultHandler, errorHandler, user, key, coll, e
  * @param {URI} user the user's uri 
  * @param {String} key auth key
  * @param {URI} coll collection to delete entries from 
- * @param {URI Array} collEntries items to delete
+ * @param {URI Array} entries items to delete
  * @return {SSCollUserEntriesDeleteRet} <br>
  * {Boolean} worked whether deleting the entries worked
  */
-var SSCollEntriesDelete = function(resultHandler, errorHandler, user, key, coll, collEntries){
+var SSCollEntriesDelete = function(resultHandler, errorHandler, user, key, coll, entries){
   
   var par                      = {};
   par[sSVarU.op]               = "collEntriesDelete";
   par[sSVarU.user]             = user;
   par[sSVarU.coll]             = coll;
-  par[sSVarU.collEntries]      = jSGlobals.commaSeparateStringArray(collEntries);
+  par[sSVarU.entries]          = jSGlobals.commaSeparateStringArray(entries);
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("collEntriesDelete", par, resultHandler, errorHandler).send();
@@ -707,7 +707,7 @@ var SSEntityLabelSet = function(resultHandler, errorHandler, user, key, entity, 
  * @param {Boolean} getOverallRating whether the overall rating for the entity should be delivered
  * @param {Boolean} getDiscs whether the uris of discussions about the entity should be returned
  * @return {SSEntityDescGetRet} <br>
- * {SSEntityDescA} entityDesc entity details with respect to the type of the entity and chosen request parameters
+ * {SSEntityDescA} desc entity details with respect to the type of the entity and chosen request parameters
  */
 var SSEntityDescGet = function(resultHandler, errorHandler, user, key, entity, getTags, getOverallRating, getDiscs){
   
@@ -1875,7 +1875,7 @@ var SSUserEventAdd = function(resultHandler, errorHandler, user, key, type, enti
   par[sSVarU.key]              = key;
   
   if(!jSGlobals.isEmpty(entity)){   par[sSVarU.entity]         = entity;}
-  if(!jSGlobals.isEmpty(content)){  par[sSVarU.content]          = content;}
+  if(!jSGlobals.isEmpty(content)){  par[sSVarU.content]        = content;}
   
   new SSJSONPOSTRequest("uEAdd", par, resultHandler, errorHandler).send();
 };
