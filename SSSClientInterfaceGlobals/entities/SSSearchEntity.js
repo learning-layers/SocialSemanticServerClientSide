@@ -54,7 +54,7 @@ function SSSearchEntity(){
     
     for(var counter = 0; counter < jSGlobals.arrayLength(searchResults); counter++){
       
-      if(uri === searchResults[counter].uri){
+      if(uri === searchResults[counter].entity){
         return searchResults[counter];
       }
     }
@@ -72,4 +72,43 @@ function SSSearchEntity(){
     
     return searchResult.label;
   };
+  
+  this.sortSearchResultsByLabel = function(objs){
+		
+		if(jSGlobals.isEmpty(objs)){
+			return new Array();
+		}
+		
+		var result       = new Array();
+		var labels       = new Array();
+		var counter      = -1;
+    var objsCount    = jSGlobals.arrayLength(objs);
+		
+		for(counter = 0; counter < objsCount; counter++){
+			jSGlobals.addArrayItem(labels, objs[counter].label);
+		}
+		
+		labels = jSGlobals.sortStringArray(labels, jSGlobals.asc);
+		
+		for(counter = 0; counter < jSGlobals.arrayLength(labels); counter++){
+		
+			for(var innerCounter = 0; innerCounter < objsCount; innerCounter++){
+				
+				if(jSGlobals.equals(objs[innerCounter].label, labels[counter])){
+					
+					if(jSGlobals.arrayLength(result) === 0){
+						jSGlobals.addArrayItem(result, objs[innerCounter]);
+						break;
+					}
+					
+					if(jSGlobals.equalsNot(jSGlobals.getLastArrayItem(result).entity, objs[innerCounter].entity)){
+						jSGlobals.addArrayItem (result, objs[innerCounter]);
+						break;
+					}
+				}
+			}
+		}
+		
+		return result;
+	};
 };

@@ -41,7 +41,7 @@ function SSDisc(){
 
 		for(var counter = 0; counter < jSGlobals.arrayLength(discs); counter++){
 
-			if(discs[counter].target === targetUri){
+			if(discs[counter].entity === targetUri){
 				return discs[counter];
 			}
 		}
@@ -81,9 +81,9 @@ function SSDisc(){
 				
 				if(
             jSGlobals.equals              (labels[counter],      discs[innerCounter].label) &&
-            jSGlobals.containsNotArrayItem(addedUris,            discs[innerCounter].uri)){
+            jSGlobals.containsNotArrayItem(addedUris,            discs[innerCounter].id)){
           
-          jSGlobals.addArrayItem(addedUris,   discs[innerCounter].uri);
+          jSGlobals.addArrayItem(addedUris,   discs[innerCounter].id);
           jSGlobals.addArrayItem(resultDiscs, discs[innerCounter]);
         }
       }

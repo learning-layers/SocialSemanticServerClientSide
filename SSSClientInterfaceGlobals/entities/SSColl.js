@@ -95,7 +95,7 @@ function SSColl(){
 			return false;
 		}
 		
-		return jSGlobals.equals(coll.uri, this.rootColl.uri);
+		return jSGlobals.equals(coll.id, this.rootColl.id);
 	};
 
 	this.getRootCollUri = function(){
@@ -104,7 +104,7 @@ function SSColl(){
 			return null;
 		}
 		
-		return this.rootColl.uri;
+		return this.rootColl.id;
 	};
 	
 	this.getColl = function(colls, collUri){
@@ -117,7 +117,7 @@ function SSColl(){
 		
 		for(var counter = 0; counter < jSGlobals.arrayLength(colls); counter++){
 
-			if(colls[counter].uri === collUri){
+			if(colls[counter].id === collUri){
 				return colls[counter];
 			}
 		}
@@ -135,7 +135,7 @@ function SSColl(){
 
 		for(var counter = 0; counter < jSGlobals.arrayLength(colls); counter++){
 
-			collUris.push(colls[counter].uri);
+			collUris.push(colls[counter].id);
 		}
 
 		return collUris;
@@ -151,7 +151,7 @@ function SSColl(){
 		
 		for(var counter = 0; counter < jSGlobals.arrayLength(coll.entries); counter++){
 
-			if(coll.entries[counter].uri === entryUri){
+			if(coll.entries[counter].id === entryUri){
 				return coll.entries[counter];
 			}
 		}
@@ -187,7 +187,7 @@ function SSColl(){
 						break;
 					}
 					
-					if(jSGlobals.getLastArrayItem(resultColls).uri !== colls[innerCounter].uri){
+					if(jSGlobals.getLastArrayItem(resultColls).id !== colls[innerCounter].id){
 						jSGlobals.addArrayItem (resultColls, colls[innerCounter]);
 						break;
 					}

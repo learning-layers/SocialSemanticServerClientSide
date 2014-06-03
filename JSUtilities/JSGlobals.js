@@ -162,45 +162,6 @@ function JSGlobals(){
 		console.log("drag & drop upload not supported by browser");
 	};
   
-  this.sortObjectsByLabel = function(objs){
-		
-		if(this.isEmpty(objs)){
-			return new Array();
-		}
-		
-		var result       = new Array();
-		var labels       = new Array();
-		var counter      = -1;
-    var objsCount    = this.arrayLength(objs);
-		
-		for(counter = 0; counter < objsCount; counter++){
-			this.addArrayItem(labels, objs[counter].label);
-		}
-		
-		labels = this.sortStringArray(labels, this.asc);
-		
-		for(counter = 0; counter < this.arrayLength(labels); counter++){
-		
-			for(var innerCounter = 0; innerCounter < objsCount; innerCounter++){
-				
-				if(this.equals(objs[innerCounter].label, labels[counter])){
-					
-					if(this.arrayLength(result) === 0){
-						this.addArrayItem(result, objs[innerCounter]);
-						break;
-					}
-					
-					if(this.equalsNot(this.getLastArrayItem(result).uri, objs[innerCounter].uri)){
-						this.addArrayItem (result, objs[innerCounter]);
-						break;
-					}
-				}
-			}
-		}
-		
-		return result;
-	};
-  
   this.addArrayItem = function(array, value){
 
     if(
@@ -583,12 +544,14 @@ function JSGlobals(){
 	};
   
   this.areHtmlNotificationsEnabled = function(){
+	
+    return true;
 		
-		if(window.webkitNotifications.checkPermission() === 0){
-			return true;
-		}
-		
-		return false;
+//    if(window.webkitNotifications.checkPermission() === 0){
+//			return true;
+//		}
+//		
+//		return false;
 	};
 };
 

@@ -23,20 +23,20 @@
  * retrieve the authentication key and user's uri for credentials
  * @param {Function} resultHandler
  * @param {Function} errorHandler
- * @param {String} userLabel name of the user, e.g. 'hugo'
+ * @param {String} label name of the user, e.g. 'hugo'
  * @param {String} password the user’s password
  * @return {SSAuthCheckCredRet} <br>
  * {String} key user's authentication token <br>
  * {URI} uri user's identifier in the system
  */
-var SSAuthCheckCred = function(resultHandler, errorHandler, userLabel, password){
+var SSAuthCheckCred = function(resultHandler, errorHandler, label, password){
   
   var par               = {};
   par[sSVarU.op]        = "authCheckCred";
   par[sSVarU.user]      = "mailto:dummyUser";
   par[sSVarU.key]       = "someKey";
-  par[sSVarU.userLabel] = userLabel;
-  par[sSVarU.pass]      = password;
+  par[sSVarU.label]     = label;
+  par[sSVarU.password]  = password;
   
   new SSJSONPOSTRequest("authCheckCred", par, resultHandler, errorHandler).send();
 };
@@ -47,16 +47,16 @@ var SSAuthCheckCred = function(resultHandler, errorHandler, userLabel, password)
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} entityUri entity searched for in user's collections
+ * @param {URI} entity entity searched for in user's collections
  * @return {SSCollsUserEntityIsInGetRet} <br>
  * {SSColl Array} colls user's collections the entity is in
  */
-var SSCollsEntityIsInGet = function(resultHandler, errorHandler, user, key, entityUri){
+var SSCollsEntityIsInGet = function(resultHandler, errorHandler, user, key, entity){
   
   var par                = {};
   par[sSVarU.op]         = "collsEntityIsInGet";
   par[sSVarU.user]       = user;
-  par[sSVarU.entityUri]  = entityUri;
+  par[sSVarU.entity]     = entity;
   par[sSVarU.key]        = key;
   
   new SSJSONPOSTRequest("collsEntityIsInGet", par, resultHandler, errorHandler).send();
@@ -68,16 +68,16 @@ var SSCollsEntityIsInGet = function(resultHandler, errorHandler, user, key, enti
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} collUri collection to retrieve all cumulated tags for
- * @return {SSCollUserCummulatedTagsGetRet} <br>
+ * @param {URI} coll collection to retrieve all cumulated tags for
+ * @return {SSCollUserCumulatedTagsGetRet} <br>
  * {SSTagFrequ Array} tagFrequs all tags and their frequencies (label, space, frequ) for sub collections and entities
  */
-var SSCollCumulatedTagsGet = function(resultHandler, errorHandler, user, key, collUri){
+var SSCollCumulatedTagsGet = function(resultHandler, errorHandler, user, key, coll){
   
   var par                = {};
   par[sSVarU.op]         = "collCumulatedTagsGet";
   par[sSVarU.user]       = user;
-  par[sSVarU.collUri]    = collUri;
+  par[sSVarU.coll]       = coll;
   par[sSVarU.key]        = key;
   
   new SSJSONPOSTRequest("collCumulatedTagsGet", par, resultHandler, errorHandler).send();
@@ -130,23 +130,23 @@ var SSCollRootGet = function(resultHandler, errorHandler, user, key){
  * @param {URI} user the user's uri
  * @param {String} key auth key
  * @param {URI} coll collection to add an entity to
- * @param {URI} collEntry either null for the creation of new sub-collection, an existing collection or an entity
- * @param {String} collEntryLabel title of the collection entry 
+ * @param {URI} entry either null for the creation of new sub-collection, an existing collection or an entity
+ * @param {String} label title of the collection entry 
  * @param {Boolean} addNewColl whether a new collection should be created instead of adding an existing one
  * @return {SSCollUserEntryAddRet} <br>
  * {URI} uri collection entry's identifier
  */
-var SSCollEntryAdd = function(resultHandler, errorHandler, user, key, coll, collEntry, collEntryLabel, addNewColl){
+var SSCollEntryAdd = function(resultHandler, errorHandler, user, key, coll, entry, label, addNewColl){
   
   var par                      = {};
   par[sSVarU.op]               = "collEntryAdd";
   par[sSVarU.user]             = user;
   par[sSVarU.coll]             = coll;
-  par[sSVarU.collEntryLabel]   = collEntryLabel;
+  par[sSVarU.label]            = label;
   par[sSVarU.key]              = key;
   
   if(!jSGlobals.isEmpty(addNewColl)){ par[sSVarU.addNewColl]       = addNewColl;}
-  if(!jSGlobals.isEmpty(collEntry)){  par[sSVarU.collEntry]        = collEntry;}
+  if(!jSGlobals.isEmpty(entry)){      par[sSVarU.entry]        = entry;}
   
   new SSJSONPOSTRequest("collEntryAdd", par, resultHandler, errorHandler).send();
 };
@@ -159,18 +159,18 @@ var SSCollEntryAdd = function(resultHandler, errorHandler, user, key, coll, coll
  * @param {String} key auth key 
  * @param {URI} coll collection to a sub-entity
  * @param {URI Array} entries entities to add
- * @param {String Array} entryLabels collection item labels
+ * @param {String Array} labels collection item labels
  * @return {SSCollUserEntriesAddRet} <br>
  * {Boolean} worked whether adding worked
  */
-var SSCollEntriesAdd = function(resultHandler, errorHandler, user, key, coll, entries, entryLabels){
+var SSCollEntriesAdd = function(resultHandler, errorHandler, user, key, coll, entries, labels){
   
   var par                       = {};
   par[sSVarU.op]               = "collEntriesAdd";
   par[sSVarU.user]             = user;
   par[sSVarU.coll]             = coll;
   par[sSVarU.entries]          = jSGlobals.commaSeparateStringArray(entries);
-  par[sSVarU.entryLabels]      = jSGlobals.commaSeparateStringArray(entryLabels);
+  par[sSVarU.labels]           = jSGlobals.commaSeparateStringArray(labels);
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("collEntriesAdd", par, resultHandler, errorHandler).send();
@@ -206,17 +206,17 @@ var SSCollEntryChangePos = function(resultHandler, errorHandler, user, key, coll
  * @param {URI} user the user's uri
  * @param {String} key auth key
  * @param {URI} coll collection to delete an item from
- * @param {URI} collEntry entity to remove
+ * @param {URI} entry entity to remove
  * @return {SSCollUserEntryDeleteRet} <br>
  * {Boolean} worked whether deleting the collection entry worked
  */
-var SSCollEntryDelete = function(resultHandler, errorHandler, user, key, coll, collEntry){
+var SSCollEntryDelete = function(resultHandler, errorHandler, user, key, coll, entry){
   
   var par                      = {};
   par[sSVarU.op]               = "collEntryDelete";
   par[sSVarU.user]             = user;
   par[sSVarU.coll]             = coll;
-  par[sSVarU.collEntry]        = collEntry;
+  par[sSVarU.entry]            = entry;
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("collEntryDelete", par, resultHandler, errorHandler).send();
@@ -291,16 +291,16 @@ var SSCollsWithEntries = function(resultHandler, errorHandler, user, key){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} collUri collection to retrieve it's parent hierarchy for
+ * @param {URI} coll collection to retrieve it's parent hierarchy for
  * @return {SSCollUserHierarchyGetRet} <br>
  * {SSColl Array} colls parent collections without entries ordered by hierarchy
  */
-var SSCollHierarchyGet = function(resultHandler, errorHandler, user, key, collUri){
+var SSCollHierarchyGet = function(resultHandler, errorHandler, user, key, coll){
   
   var par                      = {};
   par[sSVarU.op]               = "collHierarchyGet";
   par[sSVarU.user]             = user;
-  par[sSVarU.collUri]          = collUri;
+  par[sSVarU.coll]             = coll;
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("collHierarchyGet", par, resultHandler, errorHandler).send();
@@ -331,12 +331,12 @@ var SSCollsCouldSubscribeGet = function(resultHandler, errorHandler, user, key){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} discUri discussion to add an entry for
- * @param {URI} targetUri entity to start a discussion for
- * @param {String} content text for the comment/answer/opinion
+ * @param {URI} disc discussion to add an entry for
+ * @param {URI} entity entity to start a discussion for
+ * @param {String} entry text for the comment/answer/opinion
  * @param {Boolean} addNewDisc whether a new disc should be created
- * @param {String} discType discussion type: disc, qa or chat
- * @param {String} discLabel discussion name
+ * @param {String} type discussion type: disc, qa or chat
+ * @param {String} label discussion name
  * @param {String} explanation describes the discussion in more detail
  * @return {SSDiscUserEntryAddRet} <br>
  * {SSUri} disc discussion 
@@ -347,12 +347,13 @@ var SSDiscEntryAdd = function(
 errorHandler,
 user, 
 key, 
-discUri, 
-targetUri, 
-content, 
+disc, 
+entity, 
+entry, 
 addNewDisc,
-discType,
 discLabel,
+type,
+label, 
 explanation){
   
   var par                = {};
@@ -360,12 +361,12 @@ explanation){
   par[sSVarU.user]       = user;
   par[sSVarU.key]        = key;
   
-  if(!jSGlobals.isEmpty(discUri)){      par[sSVarU.discUri]      = discUri;}
-  if(!jSGlobals.isEmpty(targetUri)){    par[sSVarU.targetUri]    = targetUri;}
-  if(!jSGlobals.isEmpty(content)){      par[sSVarU.content]      = content;}
-  if(!jSGlobals.isEmpty(addNewDisc)){   par[sSVarU.addNewDisc]   = addNewDisc;}
-  if(!jSGlobals.isEmpty(discType)){     par[sSVarU.discType]     = discType;}
-  if(!jSGlobals.isEmpty(discLabel)){    par[sSVarU.discLabel]    = discLabel;}
+  if(!jSGlobals.isEmpty(disc)){       par[sSVarU.disc]        = disc;}
+  if(!jSGlobals.isEmpty(entity)){     par[sSVarU.entity]      = entity;}
+  if(!jSGlobals.isEmpty(entry)){      par[sSVarU.entry]       = entry;}
+  if(!jSGlobals.isEmpty(addNewDisc)){ par[sSVarU.addNewDisc]  = addNewDisc;}
+  if(!jSGlobals.isEmpty(type)){       par[sSVarU.type]        = type;}
+  if(!jSGlobals.isEmpty(label)){      par[sSVarU.label]       = label;}
   if(!jSGlobals.isEmpty(explanation)){  par[sSVarU.explanation]  = explanation;}
   
   new SSJSONPOSTRequest("discEntryAdd", par, resultHandler, errorHandler).send();
@@ -387,7 +388,7 @@ var SSDiscWithEntriesGet = function(resultHandler, errorHandler, user, key, disc
   par[sSVarU.op]              = "discWithEntriesGet";
   par[sSVarU.user]            = user;
   par[sSVarU.disc]            = disc;
-  par[sSVarU.maxDiscEntries]  = 10;
+  par[sSVarU.maxEntries]      = 10;
   par[sSVarU.key]             = key;
   
   new SSJSONPOSTRequest("discWithEntriesGet", par, resultHandler, errorHandler).send();
@@ -399,7 +400,7 @@ var SSDiscWithEntriesGet = function(resultHandler, errorHandler, user, key, disc
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @return {SSDiscsUserAllGetRet} <br>
+ * @return {SSDiscsAllGetRet} <br>
  * {SSDisc Array} discs discussions without entries for given user
  */
 var SSDiscsAllGet = function(resultHandler, errorHandler, user, key){
@@ -418,16 +419,16 @@ var SSDiscsAllGet = function(resultHandler, errorHandler, user, key){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} discUri the disc to remove
+ * @param {URI} disc the disc to remove
  * @return {SSDiscUserRemoveRet} <br>
- * {SSUri} discUri removed discussion
+ * {SSUri} disc removed discussion
  */
-var SSDiscRemove = function(resultHandler, errorHandler, user, key, discUri){
+var SSDiscRemove = function(resultHandler, errorHandler, user, key, disc){
   
   var par                     = {};
   par[sSVarU.op]              = "discRemove";
   par[sSVarU.user]            = user;
-  par[sSVarU.discUri]         = discUri;
+  par[sSVarU.disc]            = disc;
   par[sSVarU.key]             = key;
   
   new SSJSONPOSTRequest("discRemove", par, resultHandler, errorHandler).send();
@@ -439,16 +440,16 @@ var SSDiscRemove = function(resultHandler, errorHandler, user, key, discUri){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} entityUri entity to retrieve discussions for
+ * @param {URI} entity entity to retrieve discussions for
  * @return {SSDiscUserDiscURIsForTargetGetRet} <br>
  * {SSUri Array} discUris discussion given entity is target of
  */
-var SSDiscURIsForTargetGet = function(resultHandler, errorHandler, user, key, entityUri){
+var SSDiscURIsForTargetGet = function(resultHandler, errorHandler, user, key, entity){
   
   var par                     = {};
   par[sSVarU.op]              = "discURIsForTargetGet";
   par[sSVarU.user]            = user;
-  par[sSVarU.entityUri]       = entityUri;
+  par[sSVarU.entity]          = entity;
   par[sSVarU.key]             = key;
   
   new SSJSONPOSTRequest("discURIsForTargetGet", par, resultHandler, errorHandler).send();
@@ -460,16 +461,16 @@ var SSDiscURIsForTargetGet = function(resultHandler, errorHandler, user, key, en
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} entityUri entity to retrieve users for
+ * @param {URI} entity entity to retrieve users for
  * @return {SSEntityUserEntityUsersGetRet} <br>
  * {SSEntity Array} users users allowed to access the entity
  */
-var SSEntityEntityUsersGet = function(resultHandler, errorHandler, user, key, entityUri){
+var SSEntityEntityUsersGet = function(resultHandler, errorHandler, user, key, entity){
   
   var par                      = {};
   par[sSVarU.op]               = "entityEntityUsersGet";
   par[sSVarU.user]             = user;
-  par[sSVarU.entityUri]        = entityUri;
+  par[sSVarU.entity]           = entity;
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("entityEntityUsersGet", par, resultHandler, errorHandler).send();
@@ -500,18 +501,18 @@ var SSEntityUserCirclesGet = function(resultHandler, errorHandler, user, key){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} circleUri circle to add entities to
- * @param {URI Array} entityUris entities to add
+ * @param {URI} circle circle to add entities to
+ * @param {URI Array} entities entities to add
  * @return {SSEntityUserEntitiesToCircleAddRet} <br> 
- * {SSUri} circleUri circle of entities added
+ * {SSUri} circle circle of entities added
  */
-var SSEntityEntitiesToCircleAdd = function(resultHandler, errorHandler, user, key, circleUri, entityUris){
+var SSEntityEntitiesToCircleAdd = function(resultHandler, errorHandler, user, key, circle, entities){
   
   var par                      = {};
   par[sSVarU.op]               = "entityEntitiesToCircleAdd";
   par[sSVarU.user]             = user;
-  par[sSVarU.circleUri]        = circleUri;
-  par[sSVarU.entityUris]       = jSGlobals.commaSeparateStringArray(entityUris);
+  par[sSVarU.circle]           = circle;
+  par[sSVarU.entities]         = jSGlobals.commaSeparateStringArray(entities);
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("entityEntitiesToCircleAdd", par, resultHandler, errorHandler).send();
@@ -523,18 +524,18 @@ var SSEntityEntitiesToCircleAdd = function(resultHandler, errorHandler, user, ke
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} circleUri circle to add users to
- * @param {Array} userUris users to add
+ * @param {URI} circle circle to add users to
+ * @param {Array} users users to add
  * @return {SSEntityUserUsersToCircleAddRet} <br>
- * {SSUri} circleUri circle of users added
+ * {SSUri} circle circle of users added
  */
-var SSEntityUsersToCircleAdd = function(resultHandler, errorHandler, user, key, circleUri, userUris){
+var SSEntityUsersToCircleAdd = function(resultHandler, errorHandler, user, key, circle, users){
   
   var par                      = {};
   par[sSVarU.op]               = "entityUsersToCircleAdd";
   par[sSVarU.user]             = user;
-  par[sSVarU.circleUri]        = circleUri;
-  par[sSVarU.userUris]         = jSGlobals.commaSeparateStringArray(userUris);
+  par[sSVarU.circle]           = circle;
+  par[sSVarU.users]            = jSGlobals.commaSeparateStringArray(users);
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("entityUsersToCircleAdd", par, resultHandler, errorHandler).send();
@@ -547,22 +548,22 @@ var SSEntityUsersToCircleAdd = function(resultHandler, errorHandler, user, key, 
  * @param {URI} user the user's uri
  * @param {String} key auth key
  * @param {String} label circle name
- * @param {Array} entityUris entities to add
- * @param {Array} userUris users to add
+ * @param {Array} entities entities to add
+ * @param {Array} users users to add
  * @return {SSEntityUserCircleCreateRet} <br>
- * {SSUri} circleUri circle created
+ * {SSUri} circle circle created
  */
-var SSEntityCircleCreate = function(resultHandler, errorHandler, user, key, label, entityUris, userUris){
+var SSEntityCircleCreate = function(resultHandler, errorHandler, user, key, label, entities, users){
   
   var par                      = {};
   par[sSVarU.op]               = "entityCircleCreate";
   par[sSVarU.user]             = user;
-  par[sSVarU.circleType]       = sSGlobals.circleTypeGroup;
+  par[sSVarU.type]             = sSGlobals.circleTypeGroup;
   par[sSVarU.label]            = label;
   par[sSVarU.key]              = key;
   
-  if(!jSGlobals.isEmpty(entityUris)){    par[sSVarU.entityUris]      = jSGlobals.commaSeparateStringArray(entityUris);}
-  if(!jSGlobals.isEmpty(userUris)){      par[sSVarU.userUris]        = jSGlobals.commaSeparateStringArray(userUris);}
+  if(!jSGlobals.isEmpty(entities)){    par[sSVarU.entities]      = jSGlobals.commaSeparateStringArray(entities);}
+  if(!jSGlobals.isEmpty(users)){       par[sSVarU.users]         = jSGlobals.commaSeparateStringArray(users);}
   
   new SSJSONPOSTRequest("entityCircleCreate", par, resultHandler, errorHandler).send();
 };
@@ -573,16 +574,16 @@ var SSEntityCircleCreate = function(resultHandler, errorHandler, user, key, labe
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} entityUri entity to make public
+ * @param {URI} entity entity to make public
  * @return {SSEntityUserPublicSetRet} <br>
- * {SSUri} entityUri entity made public
+ * {SSUri} entity entity made public
  */
-var SSEntityPublicSet = function(resultHandler, errorHandler, user, key, entityUri){
+var SSEntityPublicSet = function(resultHandler, errorHandler, user, key, entity){
   
   var par                      = {};
   par[sSVarU.op]               = "entityPublicSet";
   par[sSVarU.user]             = user;
-  par[sSVarU.entityUri]        = entityUri;
+  par[sSVarU.entity]           = entity;
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("entityPublicSet", par, resultHandler, errorHandler).send();
@@ -594,19 +595,19 @@ var SSEntityPublicSet = function(resultHandler, errorHandler, user, key, entityU
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} entityUri entity to be shared
- * @param {Array} userUris user to share the entity with
+ * @param {URI} entity entity to be shared
+ * @param {Array} users user to share the entity with
  * @param {String} comment textual comment for sharing
  * @return {SSEntityUserShareRet} <br>
- * {SSUri} circleUri system-generated circle representing the share
+ * {SSUri} circle system-generated circle representing the share
  */
-var SSEntityShare = function(resultHandler, errorHandler, user, key, entityUri, userUris, comment){
+var SSEntityShare = function(resultHandler, errorHandler, user, key, entity, users, comment){
   
   var par                      = {};
   par[sSVarU.op]               = "entityShare";
   par[sSVarU.user]             = user;
-  par[sSVarU.entityUri]        = entityUri;
-  par[sSVarU.userUris]         = jSGlobals.commaSeparateStringArray(userUris);
+  par[sSVarU.entity]           = entity;
+  par[sSVarU.users]            = jSGlobals.commaSeparateStringArray(users);
   par[sSVarU.key]              = key;
   
   if(!jSGlobals.isEmpty(comment)){ par[sSVarU.comment]       = comment;}
@@ -620,20 +621,20 @@ var SSEntityShare = function(resultHandler, errorHandler, user, key, entityUri, 
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} entityUri entity to be removed 
+ * @param {URI} entity entity to be removed 
  * @param {Boolean} removeUserTags whether the user's tags should be removed from the entity
  * @param {Boolean} removeUserRatings whether the user's ratings should be removed from the entity
  * @param {Boolean} removeFromUserColls whether the entity should be removed from all the user's collections
  * @param {Boolean} removeUserLocations whether locations added by the user should be removed from the entity
  * @return {SSEntityUserDirectlyAdjoinedEntitiesRemoveRet} <br>
- * {SSUri} entityUri entity for which attributes have been removed
+ * {SSUri} entity entity for which attributes have been removed
  */
 var SSEntityDirectlyAdjoinedEntitiesRemove = function(
   resultHandler, 
 errorHandler, 
 user, 
 key, 
-entityUri, 
+entity, 
 removeUserTags, 
 removeUserRatings, 
 removeFromUserColls, 
@@ -642,7 +643,7 @@ removeUserLocations){
   var par                         = {};
   par[sSVarU.op]                  = "entityDirectlyAdjoinedEntitiesRemove";
   par[sSVarU.user]                = user;
-  par[sSVarU.entityUri]           = entityUri;
+  par[sSVarU.entity]           = entity;
   par[sSVarU.removeUserTags]      = removeUserTags;
   par[sSVarU.removeUserRatings]   = removeUserRatings;
   par[sSVarU.removeFromUserColls] = removeFromUserColls;
@@ -658,16 +659,16 @@ removeUserLocations){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key 
- * @param {URI} entityUri entity to retrieve information for
+ * @param {URI} entity entity to retrieve information for
  * @return {SSEntityUserGetRet} <br>
  * {SSEntity} entity entity requested 
  */
-var SSEntityGet = function(resultHandler, errorHandler, user, key, entityUri){
+var SSEntityGet = function(resultHandler, errorHandler, user, key, entity){
   
   var par                     = {};
   par[sSVarU.op]              = "entityGet";
   par[sSVarU.user]            = user;
-  par[sSVarU.entityUri]       = entityUri;
+  par[sSVarU.entity]          = entity;
   par[sSVarU.key]             = key;
   
   new SSJSONPOSTRequest("entityGet", par, resultHandler, errorHandler).send();
@@ -679,17 +680,17 @@ var SSEntityGet = function(resultHandler, errorHandler, user, key, entityUri){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} entityUri entity to set the name for
+ * @param {URI} entity entity to set the name for
  * @param {String} label entity's new name
  * @return {SSEntityLabelSetRet} <br>
- * {SSUri} entityUri entity the label was set for
+ * {SSUri} entity entity the label was set for
  */
-var SSEntityLabelSet = function(resultHandler, errorHandler, user, key, entityUri, label){
+var SSEntityLabelSet = function(resultHandler, errorHandler, user, key, entity, label){
   
   var par                     = {};
   par[sSVarU.op]              = "entityLabelSet";
   par[sSVarU.user]            = user;
-  par[sSVarU.entityUri]       = entityUri;
+  par[sSVarU.entity]          = entity;
   par[sSVarU.label]           = label;
   par[sSVarU.key]             = key;
   
@@ -702,24 +703,24 @@ var SSEntityLabelSet = function(resultHandler, errorHandler, user, key, entityUr
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} entityUri entity to get details for
+ * @param {URI} entity entity to get details for
  * @param {Boolean} getTags whether tags for the entity should be delivered
  * @param {Boolean} getOverallRating whether the overall rating for the entity should be delivered
- * @param {Boolean} getDiscUris whether the uris of discussions about the entity should be returned
+ * @param {Boolean} getDiscs whether the uris of discussions about the entity should be returned
  * @return {SSEntityDescGetRet} <br>
  * {SSEntityDescA} entityDesc entity details with respect to the type of the entity and chosen request parameters
  */
-var SSEntityDescGet = function(resultHandler, errorHandler, user, key, entityUri, getTags, getOverallRating, getDiscUris){
+var SSEntityDescGet = function(resultHandler, errorHandler, user, key, entity, getTags, getOverallRating, getDiscs){
   
   var par                         = {};
   par[sSVarU.op]                  = "entityDescGet";
   par[sSVarU.user]                = user;
-  par[sSVarU.entityUri]           = entityUri;
+  par[sSVarU.entity]              = entity;
   par[sSVarU.key]                 = key;
   
   if(!jSGlobals.isEmpty(getTags)){          par[sSVarU.getTags]             = getTags;}
   if(!jSGlobals.isEmpty(getOverallRating)){ par[sSVarU.getOverallRating]    = getOverallRating;}
-  if(!jSGlobals.isEmpty(getDiscUris)){      par[sSVarU.getDiscUris]         = getDiscUris;}
+  if(!jSGlobals.isEmpty(getDiscs)){         par[sSVarU.getDiscs]            = getDiscs;}
   
   new SSJSONPOSTRequest("entityDescGet", par, resultHandler, errorHandler).send();
 };
@@ -730,16 +731,16 @@ var SSEntityDescGet = function(resultHandler, errorHandler, user, key, entityUri
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} fileUri file to retrieve the extension for
+ * @param {URI} file file to retrieve the extension for
  * @return {SSFileExtGetRet} <br>
  * {String} fileExt extension for the file
  */
-var SSFileExtGet = function(resultHandler, errorHandler, user, key, fileUri){
+var SSFileExtGet = function(resultHandler, errorHandler, user, key, file){
   
   var par                     = {};
   par[sSVarU.op]              = "fileExtGet";
   par[sSVarU.user]            = user;
-  par[sSVarU.fileUri]         = fileUri;
+  par[sSVarU.file]            = file;
   par[sSVarU.key]             = key;
   
   new SSJSONPOSTRequest("fileExtGet", par, resultHandler, errorHandler).send();
@@ -751,17 +752,17 @@ var SSFileExtGet = function(resultHandler, errorHandler, user, key, fileUri){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} uri file to be downloaded with write access
+ * @param {URI} file file to be downloaded with write access
  * @return {SSFileCanWriteRet} <br>
  * {String} fileUriOrId file in question
  * {Boolean} canWrite whether file can be downloaded in write mode
  */
-var SSFileCanWrite = function(resultHandler, errorHandler, user, key, uri){
+var SSFileCanWrite = function(resultHandler, errorHandler, user, key, file){
   
   var par                     = {};
   par[sSVarU.op]              = "fileCanWrite";
   par[sSVarU.user]            = user;
-  par[sSVarU.uri]             = uri;
+  par[sSVarU.file]            = file;
   par[sSVarU.key]             = key;
   
   new SSJSONPOSTRequest("fileCanWrite", par, resultHandler, errorHandler).send();
@@ -773,18 +774,18 @@ var SSFileCanWrite = function(resultHandler, errorHandler, user, key, uri){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} uri file to set whether user is writer or reader
+ * @param {URI} file file to set whether user is writer or reader
  * @param {Boolean} write whether user shall be writer
  * @return {SSFileSetReaderOrWriterRet} <br>
  * {String} fileUriOrId file for which user has been set to writer or reader
  * {Boolean} worked whether request worked
  */
-var SSFileSetReaderOrWriter = function(resultHandler, errorHandler, user, key, uri, write){
+var SSFileSetReaderOrWriter = function(resultHandler, errorHandler, user, key, file, write){
   
   var par                     = {};
   par[sSVarU.op]              = "fileSetReaderOrWriter";
   par[sSVarU.user]            = user;
-  par[sSVarU.uri]             = uri;
+  par[sSVarU.file]            = file;
   par[sSVarU.write]           = write;
   par[sSVarU.key]             = key;
   
@@ -798,8 +799,8 @@ var SSFileSetReaderOrWriter = function(resultHandler, errorHandler, user, key, u
  * @param {URI} user the user's uri
  * @param {String} key auth key
  * @return {SSFileGetEditingFilesRet} <br>
- * {String Array} fileUris files user is able to replace currently
- * {String Array} fileNames file labels
+ * {String Array} files files user is able to replace currently
+ * {String Array} labels file labels
  */
 var SSFileUserFileWrites = function(resultHandler, errorHandler, user, key){
   
@@ -817,17 +818,17 @@ var SSFileUserFileWrites = function(resultHandler, errorHandler, user, key){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} uri file to be re-uploaded
+ * @param {URI} file file to be re-uploaded
  * @return {SSFileWritingMinutesLeftRet} <br> 
- * {SSUri} uri file for which remaining minutes retrieved
+ * {SSUri} file file for which remaining minutes retrieved
  * {Integer} writingMinutesLeft minutes left to re-upload file downloaded with write permission
  */
-var SSFileWritingMinutesLeft = function(resultHandler, errorHandler, user, key, uri){
+var SSFileWritingMinutesLeft = function(resultHandler, errorHandler, user, key, file){
   
   var par                     = {};
   par[sSVarU.op]              = "fileWritingMinutesLeft";
   par[sSVarU.user]            = user;
-  par[sSVarU.uri]             = uri;
+  par[sSVarU.file]            = file;
   par[sSVarU.key]             = key;
   
   new SSJSONPOSTRequest("fileWritingMinutesLeft", par, resultHandler, errorHandler).send();
@@ -868,10 +869,10 @@ var SSJsonLD = function(resultHandler, errorHandler, uri){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} fileUri file to be downloaded
+ * @param {URI} file file to be downloaded
  * @return {Blob} binary file
  */
-var SSFileDownload = function(resultHandler, errorHandler, user, key, fileUri){
+var SSFileDownload = function(resultHandler, errorHandler, user, key, file){
   
   this.resultHandler          = resultHandler;
   
@@ -881,7 +882,7 @@ var SSFileDownload = function(resultHandler, errorHandler, user, key, fileUri){
   xhr.responseType            = sSGlobals.mimeTypeBlob;
   par[sSVarU.op]              = "fileDownload";
   par[sSVarU.user]            = user;
-  par[sSVarU.uri]             = fileUri;
+  par[sSVarU.file]            = file;
   par[sSVarU.key]             = key;
   
   xhr.onload = (function(thisRef){ return function(){
@@ -909,17 +910,17 @@ var SSFileDownload = function(resultHandler, errorHandler, user, key, fileUri){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {File} file HTML file handle
- * @param {URI} collUri collection for the file to added to
+ * @param {File} fileHandle HTML file handle
+ * @param {URI} coll collection for the file to added to
  * @return {SSFileUploadRet} <br>
- * {SSUri} uri identifier for the uploaded file
+ * {SSUri} file identifier for the uploaded file
  */
-var SSFileUpload = function(resultHandler, errorHandler, user, key, file, collUri){
+var SSFileUpload = function(resultHandler, errorHandler, user, key, fileHandle, coll){
   
   this.resultHandler         = resultHandler;
   this.errorHandler          = errorHandler;
-  this.collUri               = collUri;
-  this.fileName              = file.name;
+  this.coll                  = coll;
+  this.label                 = fileHandle.name;
   
   var par                    = {};
   var xhr                    = new XMLHttpRequest();
@@ -927,15 +928,15 @@ var SSFileUpload = function(resultHandler, errorHandler, user, key, file, collUr
   
   par[sSVarU.op]              = "fileUpload";
   par[sSVarU.user]            = user;
-  par[sSVarU.mimeType]        = file.type;
-  par[sSVarU.fileName]        = file.name;
+  par[sSVarU.mimeType]        = fileHandle.type;
+  par[sSVarU.label]           = fileHandle.name;
   par[sSVarU.key]             = key;
   
-  formData.append(sSVarU.file,     file);
+  formData.append(sSVarU.fileHandle, fileHandle);
   formData.append(sSVarU.jsonRequ, JSON.stringify(par));
   
   this.myResultHandler = (function(thisRef){ return function(result){
-      thisRef.resultHandler(thisRef.collUri, result.uri, thisRef.fileName);
+      thisRef.resultHandler(thisRef.coll, result.file, thisRef.label);
     };})(this);
   
   xhr.onload = (function(thisRef){ return function(){
@@ -959,12 +960,12 @@ var SSFileUpload = function(resultHandler, errorHandler, user, key, file, collUr
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} uri file to be replaced
- * @param {File} file HTML file handle
+ * @param {URI} file file to be replaced
+ * @param {File} fileHandle HTML file handle
  * @return {SSFileReplaceRet} <br>
- * {SSUri} uri replaced file identifier
+ * {SSUri} file replaced file identifier
  */
-var SSFileReplace = function(resultHandler, errorHandler, user, key, uri, file){
+var SSFileReplace = function(resultHandler, errorHandler, user, key, file, fileHandle){
   
   this.resultHandler         = resultHandler;
   this.errorHandler          = errorHandler;
@@ -975,14 +976,14 @@ var SSFileReplace = function(resultHandler, errorHandler, user, key, uri, file){
   
   par[sSVarU.op]              = "fileReplace";
   par[sSVarU.user]            = user;
-  par[sSVarU.uri]             = uri;
+  par[sSVarU.file]            = file;
   par[sSVarU.key]             = key;
   
-  formData.append(sSVarU.file,     file);
+  formData.append(sSVarU.fileHandle, fileHandle);
   formData.append(sSVarU.jsonRequ, JSON.stringify(par));
   
   this.myResultHandler = (function(thisRef){ return function(result){
-      thisRef.resultHandler(result.uri);
+      thisRef.resultHandler(result.file);
     };})(this);
   
   xhr.onload = (function(thisRef){ return function(){
@@ -1006,22 +1007,22 @@ var SSFileReplace = function(resultHandler, errorHandler, user, key, uri, file){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} uri entity to retrieve thumbnail for
+ * @param {URI} file entity to retrieve thumbnail for
  * @return {} description
  */
-var SSFileThumbGet = function(resultHandler, errorHandler, user, key, uri){
+var SSFileThumbGet = function(resultHandler, errorHandler, user, key, file){
   
   var xhr                    = new XMLHttpRequest();
   
   this.resultHandler         = resultHandler;
   this.errorHandler          = errorHandler;
-  this.fileID                = jSGlobals.removeTrailingSlash(uri);
+  this.file                  = jSGlobals.removeTrailingSlash(file);
   
-  if(jSGlobals.lastIndexOf(this.fileID, jSGlobals.slash) === -1){
+  if(jSGlobals.lastIndexOf(this.file, jSGlobals.slash) === -1){
     return;
   }
   
-  this.fileID = jSGlobals.substring(this.fileID, jSGlobals.lastIndexOf(this.fileID, jSGlobals.slash) + 1, jSGlobals.length(this.fileID));
+  this.file = jSGlobals.substring(this.file, jSGlobals.lastIndexOf(this.file, jSGlobals.slash) + 1, jSGlobals.length(this.file));
   
   xhr.onload = (function(thisRef){ return function(){
       
@@ -1036,7 +1037,7 @@ var SSFileThumbGet = function(resultHandler, errorHandler, user, key, uri){
       thisRef.resultHandler(this.response);
     };})(this);
   
-  xhr.open (sSGlobals.httpMethGET, sSGlobals.hostREST + "fileThumbGet" + jSGlobals.slash + this.fileID, true);
+  xhr.open (sSGlobals.httpMethGET, sSGlobals.hostREST + "fileThumbGet" + jSGlobals.slash + this.file, true);
   xhr.send ();
 };
 
@@ -1046,16 +1047,16 @@ var SSFileThumbGet = function(resultHandler, errorHandler, user, key, uri){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} learnEpVersionUri learning episode version to set for the user
+ * @param {URI} learnEpVersion learning episode version to set for the user
  * @return {SSLearnEpVersionCurrentSetRet} <br>
- * {SSUri} learnEpVersionUri current learning episode version
+ * {SSUri} learnEpVersion current learning episode version
  */
-var SSLearnEpVersionCurrentSet = function(resultHandler, errorHandler, user, key, learnEpVersionUri){
+var SSLearnEpVersionCurrentSet = function(resultHandler, errorHandler, user, key, learnEpVersion){
   
   var par                       = {};
   par[sSVarU.op]                = "learnEpVersionCurrentSet";
   par[sSVarU.user]              = user;
-  par[sSVarU.learnEpVersionUri] = learnEpVersionUri;
+  par[sSVarU.learnEpVersion]    = learnEpVersion;
   par[sSVarU.key]               = key;
   
   new SSJSONPOSTRequest("learnEpVersionCurrentSet", par, resultHandler, errorHandler).send();
@@ -1086,18 +1087,18 @@ var SSLearnEpVersionCurrentGet = function(resultHandler, errorHandler, user, key
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} learnEpVersionUri learning episode version to set timeline state for
+ * @param {URI} learnEpVersion learning episode version to set timeline state for
  * @param {Long} startTime start time of the current timeline
  * @param {Long} endTime end time of the current timeline
  * @return {SSLearnEpVersionSetTimelineStateRet} <br>
  * {SSUri} learnEpTimelineStateUri learning episode version timeline state
  */
-var SSLearnEpVersionSetTimelineState = function(resultHandler, errorHandler, user, key, learnEpVersionUri, startTime, endTime){
+var SSLearnEpVersionSetTimelineState = function(resultHandler, errorHandler, user, key, learnEpVersion, startTime, endTime){
   
   var par                       = {};
   par[sSVarU.op]                = "learnEpVersionSetTimelineState";
   par[sSVarU.user]              = user;
-  par[sSVarU.learnEpVersionUri] = learnEpVersionUri;
+  par[sSVarU.learnEpVersion]    = learnEpVersion;
   par[sSVarU.startTime]         = startTime;
   par[sSVarU.endTime]           = endTime;
   par[sSVarU.key]               = key;
@@ -1111,16 +1112,16 @@ var SSLearnEpVersionSetTimelineState = function(resultHandler, errorHandler, use
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} learnEpVersionUri learning episode version to retrieve the timeline state for
+ * @param {URI} learnEpVersion learning episode version to retrieve the timeline state for
  * @return {SSLearnEpVersionGetTimelineStateRet} <br>
  * {SSLearnEpTimelineState} learnEpTimelineState timeline state for given learning episode version
  */
-var SSLearnEpVersionGetTimelineState = function(resultHandler, errorHandler, user, key, learnEpVersionUri){
+var SSLearnEpVersionGetTimelineState = function(resultHandler, errorHandler, user, key, learnEpVersion){
   
   var par                       = {};
   par[sSVarU.op]                = "learnEpVersionGetTimelineState";
   par[sSVarU.user]              = user;
-  par[sSVarU.learnEpVersionUri] = learnEpVersionUri;
+  par[sSVarU.learnEpVersion]    = learnEpVersion;
   par[sSVarU.key]               = key;
   
   new SSJSONPOSTRequest("learnEpVersionGetTimelineState", par, resultHandler, errorHandler).send();
@@ -1133,16 +1134,16 @@ var SSLearnEpVersionGetTimelineState = function(resultHandler, errorHandler, use
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} learnEpCircleUri learning episode circle identifier
+ * @param {URI} learnEpCircle learning episode circle identifier
  * @return {SSLearnEpVersionRemoveCircleRet} <br>
  * {Boolean} worked whether deletion was successful
  */
-var SSLearnEpVersionRemoveCircle = function(resultHandler, errorHandler, user, key, learnEpCircleUri){
+var SSLearnEpVersionRemoveCircle = function(resultHandler, errorHandler, user, key, learnEpCircle){
   
   var par                      = {};
   par[sSVarU.op]               = "learnEpVersionRemoveCircle";
   par[sSVarU.user]             = user;
-  par[sSVarU.learnEpCircleUri] = learnEpCircleUri;
+  par[sSVarU.learnEpCircle]    = learnEpCircle;
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("learnEpVersionRemoveCircle", par, resultHandler, errorHandler).send();
@@ -1155,16 +1156,16 @@ var SSLearnEpVersionRemoveCircle = function(resultHandler, errorHandler, user, k
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} learnEpEntityUri learning episode entity identifier
+ * @param {URI} learnEpEntity learning episode entity identifier
  * @return {SSLearnEpVersionRemoveEntityRet} <br>
  * {Boolean} whether deletion was successful
  */
-var SSLearnEpVersionRemoveEntity = function(resultHandler, errorHandler, user, key, learnEpEntityUri){
+var SSLearnEpVersionRemoveEntity = function(resultHandler, errorHandler, user, key, learnEpEntity){
   
   var par                      = {};
   par[sSVarU.op]               = "learnEpVersionRemoveEntity";
   par[sSVarU.user]             = user;
-  par[sSVarU.learnEpEntityUri] = learnEpEntityUri;
+  par[sSVarU.learnEpEntity]    = learnEpEntity;
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("learnEpVersionRemoveEntity", par, resultHandler, errorHandler).send();
@@ -1176,7 +1177,7 @@ var SSLearnEpVersionRemoveEntity = function(resultHandler, errorHandler, user, k
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} learnEpCircleUri learning episode circle to be updated
+ * @param {URI} learnEpCircle learning episode circle to be updated
  * @param {String} label learning episode circle name
  * @param {Integer} xLabel x coordinate for the circle name
  * @param {Integer} yLabel y coordinate for the circle name
@@ -1192,7 +1193,7 @@ var SSLearnEpVersionUpdateCircle = function(
 errorHandler, 
 user, 
 key, 
-learnEpCircleUri, 
+learnEpCircle, 
 label, 
 xLabel, 
 yLabel, 
@@ -1204,7 +1205,7 @@ yC){
   var par                      = {};
   par[sSVarU.op]               = "learnEpVersionUpdateCircle";
   par[sSVarU.user]             = user;
-  par[sSVarU.learnEpCircleUri] = learnEpCircleUri;
+  par[sSVarU.learnEpCircle]    = learnEpCircle;
   par[sSVarU.label]            = label;
   par[sSVarU.xLabel]           = xLabel;
   par[sSVarU.yLabel]           = yLabel;
@@ -1223,8 +1224,8 @@ yC){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} learnEpEntityUri learning episode entity identifier
- * @param {URI} entityUri identifier for the entity wrapped in this learning episode entity
+ * @param {URI} learnEpEntity learning episode entity identifier
+ * @param {URI} entity identifier for the entity wrapped in this learning episode entity
  * @param {Integer} x x coordinate for this entity
  * @param {Integer} y y coordinate for this entity
  * @return {SSLearnEpVersionUpdateEntityRet} <br>
@@ -1235,16 +1236,16 @@ var SSLearnEpVersionUpdateEntity = function(
 errorHandler, 
 user,
 key, 
-learnEpEntityUri, 
-entityUri, 
+learnEpEntity, 
+entity, 
 x, 
 y){
   
   var par                      = {};
   par[sSVarU.op]               = "learnEpVersionUpdateEntity";
   par[sSVarU.user]             = user;
-  par[sSVarU.learnEpEntityUri] = learnEpEntityUri;
-  par[sSVarU.entityUri]        = entityUri;
+  par[sSVarU.learnEpEntity]    = learnEpEntity;
+  par[sSVarU.entity]           = entity;
   par[sSVarU.x]                = x;
   par[sSVarU.y]                = y;
   par[sSVarU.key]              = key;
@@ -1261,7 +1262,7 @@ y){
  * @param {String} label episode label
  * @param {String} space realm in which the episode should be accessible, i.e. public or private
  * @return {SSLearnEpCreateRet} <br>
- * {SSUri} learnEpUri learning episode created
+ * {SSUri} learnEp learning episode created
  */
 var SSLearnEpCreate = function(resultHandler, errorHandler, user, key, label, space){
   
@@ -1281,16 +1282,16 @@ var SSLearnEpCreate = function(resultHandler, errorHandler, user, key, label, sp
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} learnEpUri learning episode to create a new version for
+ * @param {URI} learnEp learning episode to create a new version for
  * @return {SSLearnEpVersionCreateRet} <br>
- * {SSUri} learnEpVersionUri learning episode version created
+ * {SSUri} learnEpVersion learning episode version created
  */
-var SSLearnEpVersionCreate = function(resultHandler, errorHandler, user, key, learnEpUri){
+var SSLearnEpVersionCreate = function(resultHandler, errorHandler, user, key, learnEp){
   
   var par                      = {};
   par[sSVarU.op]               = "learnEpVersionCreate";
   par[sSVarU.user]             = user;
-  par[sSVarU.learnEpUri]       = learnEpUri;
+  par[sSVarU.learnEp]          = learnEp;
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("learnEpVersionCreate", par, resultHandler, errorHandler).send();
@@ -1302,7 +1303,7 @@ var SSLearnEpVersionCreate = function(resultHandler, errorHandler, user, key, le
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key 
- * @param {URI} learnEpVersionUri learning episode version to add a circle for
+ * @param {URI} learnEpVersion learning episode version to add a circle for
  * @param {String} label learning episode circle name
  * @param {Integer} xLabel x coordinate for the circle name
  * @param {Integer} yLabel y coordinate for the circle name
@@ -1311,14 +1312,14 @@ var SSLearnEpVersionCreate = function(resultHandler, errorHandler, user, key, le
  * @param {Integer} xC 
  * @param {Integer} yC 
  * @return {SSLearnEpVersionAddCircleRet} <br>
- * {SSUri} learnEpCircleUri learning episode version circle added
+ * {SSUri} learnEpCircle learning episode version circle added
  */
 var SSLearnEpVersionAddCircle = function(
   resultHandler, 
 errorHandler, 
 user, 
 key, 
-learnEpVersionUri, 
+learnEpVersion, 
 label, 
 xLabel, 
 yLabel, 
@@ -1330,7 +1331,7 @@ yC){
   var par                       = {};
   par[sSVarU.op]                = "learnEpVersionAddCircle";
   par[sSVarU.user]              = user;
-  par[sSVarU.learnEpVersionUri] = learnEpVersionUri;
+  par[sSVarU.learnEpVersion]    = learnEpVersion;
   par[sSVarU.label]             = label;
   par[sSVarU.xLabel]            = xLabel;
   par[sSVarU.yLabel]            = yLabel;
@@ -1349,8 +1350,8 @@ yC){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} learnEpVersionUri learning episode version to a add an entity to
- * @param {URI} entityUri identifier for the entity wrapped in this learning episode entity
+ * @param {URI} learnEpVersion learning episode version to a add an entity to
+ * @param {URI} entity identifier for the entity wrapped in this learning episode entity
  * @param {Integer} x x coordinate for this entity
  * @param {Integer} y y coordinate for this entity
  * @return {SSLearnEpVersionAddEntityRet} <br>
@@ -1361,16 +1362,16 @@ var SSLearnEpVersionAddEntity = function(
 errorHandler, 
 user, 
 key, 
-learnEpVersionUri, 
-entityUri, 
+learnEpVersion, 
+entity, 
 x, 
 y){
   
   var par                       = {};
   par[sSVarU.op]                = "learnEpVersionAddEntity";
   par[sSVarU.user]              = user;
-  par[sSVarU.learnEpVersionUri] = learnEpVersionUri;
-  par[sSVarU.entityUri]         = entityUri;
+  par[sSVarU.learnEpVersion]    = learnEpVersion;
+  par[sSVarU.entity]            = entity;
   par[sSVarU.x]                 = x;
   par[sSVarU.y]                 = y;
   par[sSVarU.key]               = key;
@@ -1384,16 +1385,16 @@ y){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} learnEpVersionUri learning episode version to retrieve
+ * @param {URI} learnEpVersion learning episode version to retrieve
  * @return {SSLearnEpVersionGetRet} <br>
  * {SSLearnEpVersion} learnEpVersion learning episode version in question
  */
-var SSLearnEpVersionGet = function(resultHandler, errorHandler, user, key, learnEpVersionUri){
+var SSLearnEpVersionGet = function(resultHandler, errorHandler, user, key, learnEpVersion){
   
   var par                       = {};
   par[sSVarU.op]                = "learnEpVersionGet";
   par[sSVarU.user]              = user;
-  par[sSVarU.learnEpVersionUri] = learnEpVersionUri;
+  par[sSVarU.learnEpVersion]    = learnEpVersion;
   par[sSVarU.key]               = key;
   
   new SSJSONPOSTRequest("learnEpVersionGet", par, resultHandler, errorHandler).send();
@@ -1405,16 +1406,16 @@ var SSLearnEpVersionGet = function(resultHandler, errorHandler, user, key, learn
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} learnEpUri learning episode to retrieve versions for
+ * @param {URI} learnEp learning episode to retrieve versions for
  * @return {SSLearnEpVersionsGetRet} <br>
  * {SSLearnEpVersion Array} learnEpVersions learning episode's versions
  */
-var SSLearnEpVersionsGet = function(resultHandler, errorHandler, user, key, learnEpUri){
+var SSLearnEpVersionsGet = function(resultHandler, errorHandler, user, key, learnEp){
   
   var par                       = {};
   par[sSVarU.op]                = "learnEpVersionsGet";
   par[sSVarU.user]              = user;
-  par[sSVarU.learnEpUri]        = learnEpUri;
+  par[sSVarU.learnEp]           = learnEp;
   par[sSVarU.key]               = key;
   
   new SSJSONPOSTRequest("learnEpVersionsGet", par, resultHandler, errorHandler).send();
@@ -1445,17 +1446,17 @@ var SSLearnEpsGet = function(resultHandler, errorHandler, user, key){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} entityUri entity to add the location for
+ * @param {URI} entity entity to add the location for
  * @param {String} location textual representation of a location to add
  * @return {SSLocationAddRet} <br>
  * {SSUri} uri entity for which a location was added
  */
-var SSLocationAdd = function(resultHandler, errorHandler, user, key, entityUri, location){
+var SSLocationAdd = function(resultHandler, errorHandler, user, key, entity, location){
   
   var par                     = {};
   par[sSVarU.op]              = "locationAdd";
   par[sSVarU.user]            = user;
-  par[sSVarU.entityUri]       = entityUri;
+  par[sSVarU.entity]          = entity;
   par[sSVarU.location]        = location;
   par[sSVarU.key]             = key;
   
@@ -1468,16 +1469,16 @@ var SSLocationAdd = function(resultHandler, errorHandler, user, key, entityUri, 
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} entityUri entity to get its locations for
+ * @param {URI} entity entity to get its locations for
  * @return {SSLocationsGetRet} <br>
  * {String Array} locations entity's locations
  */
-var SSLocationsGet = function(resultHandler, errorHandler, user, key, entityUri){
+var SSLocationsGet = function(resultHandler, errorHandler, user, key, entity){
   
   var par                     = {};
   par[sSVarU.op]              = "locationsGet";
   par[sSVarU.user]            = user;
-  par[sSVarU.entityUri]       = entityUri;
+  par[sSVarU.entity]          = entity;
   par[sSVarU.key]             = key;
   
   new SSJSONPOSTRequest("locationsGet", par, resultHandler, errorHandler).send();
@@ -1489,7 +1490,7 @@ var SSLocationsGet = function(resultHandler, errorHandler, user, key, entityUri)
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} resource entity to retrieve usage based details for
+ * @param {URI} entity entity to retrieve usage based details for
  * @return {SSModelUEResourceDetailsRet} <br>
  * {SSUri} uri entity identifier
  * {SSUri} recentArtifact most recent entity the entity in question dealt with
@@ -1500,12 +1501,12 @@ var SSLocationsGet = function(resultHandler, errorHandler, user, key, entityUri)
  * {SSModelUETopicScore Array} topicScores calculated level of use/interaction (i.e. 1,2,3) for topics the entity dealt with/was attached with
  * {String Array} maturingIndicators usage-based intermediate indicators for maturity indicator calculation
  */
-var SSResourceDetailsGet = function(resultHandler, errorHandler, user, key, resource){
+var SSResourceDetailsGet = function(resultHandler, errorHandler, user, key, entity){
   
   var par                     = {};
   par[sSVarU.op]              = "modelUEResourceDetails";
   par[sSVarU.user]            = user;
-  par[sSVarU.resource]        = resource;
+  par[sSVarU.entity]          = entity;
   par[sSVarU.key]             = key;
   
 	new SSJSONPOSTRequest("modelUEResourceDetails", par, resultHandler, errorHandler).send();
@@ -1517,16 +1518,16 @@ var SSResourceDetailsGet = function(resultHandler, errorHandler, user, key, reso
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} resource entity to retrieve the overall rating for
+ * @param {URI} entity entity to retrieve the overall rating for
  * @return {SSRatingOverallGetRet} <br>
  * {SSRatingOverall} ratingOverall entity's overall rating and total rating frequency
  */
-var SSRatingOverallGet = function(resultHandler, errorHandler, user, key, resource){
+var SSRatingOverallGet = function(resultHandler, errorHandler, user, key, entity){
   
   var par                     = {};
   par[sSVarU.op]              = "ratingOverallGet";
   par[sSVarU.user]            = user;
-  par[sSVarU.resource]        = resource;
+  par[sSVarU.entity]          = entity;
   par[sSVarU.key]             = key;
   
   new SSJSONPOSTRequest("ratingOverallGet", par, resultHandler, errorHandler).send();
@@ -1538,17 +1539,17 @@ var SSRatingOverallGet = function(resultHandler, errorHandler, user, key, resour
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} resource entity to set the user’s rating for
+ * @param {URI} entity entity to set the user’s rating for
   *@param {Integer} value rating value (i.e. 1,2,3,4,5)
  * @return {SSRatingUserSetRet} <br>
  * {Boolean} worked whether setting rating worked
  */
-var SSRatingSet = function(resultHandler, errorHandler, user, key, resource, value){
+var SSRatingSet = function(resultHandler, errorHandler, user, key, entity, value){
   
   var par                     = {};
   par[sSVarU.op]              = "ratingSet";
   par[sSVarU.user]            = user;
-  par[sSVarU.resource]        = resource;
+  par[sSVarU.entity]          = entity;
   par[sSVarU.value]           = value;
   par[sSVarU.key]             = key;
   
@@ -1561,21 +1562,21 @@ var SSRatingSet = function(resultHandler, errorHandler, user, key, resource, val
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} forUserUri user to retrieve recommendations for
- * @param {URI} entityUri entity to get the recommendations for
+ * @param {URI} forUser user to retrieve recommendations for
+ * @param {URI} entity entity to get the recommendations for
  * @param {Integer} maxTags number of tags to be returned
  * @return {SSScaffRecommTagsRet} <br>
  * {String Array} tags recommended tags
  */
-var SSScaffRecommTagsBasedOnUserEntityTag = function(resultHandler, errorHandler, user, key, forUserUri, entityUri, maxTags){
+var SSScaffRecommTagsBasedOnUserEntityTag = function(resultHandler, errorHandler, user, key, forUser, entity, maxTags){
   
   var par                     = {};
   par[sSVarU.op]              = "scaffRecommTagsBasedOnUserEntityTag";
   par[sSVarU.user]            = user;
   par[sSVarU.key]             = key;
   
-  if(!jSGlobals.isEmpty(forUserUri)){    par[sSVarU.forUserUri]      = forUserUri;}
-  if(!jSGlobals.isEmpty(entityUri)){     par[sSVarU.entityUri]       = entityUri;}
+  if(!jSGlobals.isEmpty(forUser)){       par[sSVarU.forUser]      = forUser;}
+  if(!jSGlobals.isEmpty(entity)){        par[sSVarU.entity]       = entity;}
   if(!jSGlobals.isEmpty(maxTags)){       par[sSVarU.maxTags]         = maxTags;}
   
   new SSJSONPOSTRequest("scaffRecommTagsBasedOnUserEntityTag", par, resultHandler, errorHandler).send();
@@ -1587,21 +1588,21 @@ var SSScaffRecommTagsBasedOnUserEntityTag = function(resultHandler, errorHandler
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} forUserUri user to retrieve recommendations for
- * @param {URI} entityUri entity to get the recommendations for
+ * @param {URI} forUser user to retrieve recommendations for
+ * @param {URI} entity entity to get the recommendations for
  * @param {Integer} maxTags number of tags to be returned
  * @return {SSScaffRecommTagsRet} <br>
  * {String Array} tags recommended tags
  */
-var SSScaffRecommTagsBasedOnUserEntityTagTime = function(resultHandler, errorHandler, user, key, forUserUri, entityUri, maxTags){
+var SSScaffRecommTagsBasedOnUserEntityTagTime = function(resultHandler, errorHandler, user, key, forUser, entity, maxTags){
   
   var par                     = {};
   par[sSVarU.op]              = "scaffRecommTagsBasedOnUserEntityTagTime";
   par[sSVarU.user]            = user;
   par[sSVarU.key]             = key;
   
-  if(!jSGlobals.isEmpty(forUserUri)){    par[sSVarU.forUserUri]      = forUserUri;}
-  if(!jSGlobals.isEmpty(entityUri)){     par[sSVarU.entityUri]       = entityUri;}
+  if(!jSGlobals.isEmpty(forUser)){    par[sSVarU.forUser]      = forUser;}
+  if(!jSGlobals.isEmpty(entity)){     par[sSVarU.entity]       = entity;}
   if(!jSGlobals.isEmpty(maxTags)){       par[sSVarU.maxTags]         = maxTags;}
   
   new SSJSONPOSTRequest("scaffRecommTagsBasedOnUserEntityTagTime", par, resultHandler, errorHandler).send();
@@ -1613,22 +1614,22 @@ var SSScaffRecommTagsBasedOnUserEntityTagTime = function(resultHandler, errorHan
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} forUserUri user to retrieve recommendations for
- * @param {URI} entityUri entity to get the recommendations for
+ * @param {URI} forUser user to retrieve recommendations for
+ * @param {URI} entity entity to get the recommendations for
  * @param {String Array} categories additional structural property of entities where recommendations should be calculated upon
  * @param {Integer} maxTags number of tags to be returned
  * @return {SSScaffRecommTagsRet} <br>
  * {String Array} tags recommended tags
  */
-var SSScaffRecommTagsBasedOnUserEntityTagCategory = function(resultHandler, errorHandler, user, key, forUserUri, entityUri, categories, maxTags){
+var SSScaffRecommTagsBasedOnUserEntityTagCategory = function(resultHandler, errorHandler, user, key, forUser, entity, categories, maxTags){
   
   var par                     = {};
   par[sSVarU.op]              = "scaffRecommTagsBasedOnUserEntityTagCategory";
   par[sSVarU.user]            = user;
   par[sSVarU.key]             = key;
   
-  if(!jSGlobals.isEmpty(forUserUri)){    par[sSVarU.forUserUri]      = forUserUri;}
-  if(!jSGlobals.isEmpty(entityUri)){     par[sSVarU.entityUri]       = entityUri;}
+  if(!jSGlobals.isEmpty(forUser)){    par[sSVarU.forUser]      = forUser;}
+  if(!jSGlobals.isEmpty(entity)){     par[sSVarU.entity]       = entity;}
   if(!jSGlobals.isEmpty(categories)){    par[sSVarU.categories]      = jSGlobals.commaSeparateStringArray(categories);}
   if(!jSGlobals.isEmpty(maxTags)){       par[sSVarU.maxTags]         = maxTags;}
   
@@ -1641,22 +1642,22 @@ var SSScaffRecommTagsBasedOnUserEntityTagCategory = function(resultHandler, erro
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} forUserUri user to retrieve recommendations for
- * @param {URI} entityUri entity to get the recommendations for
+ * @param {URI} forUser user to retrieve recommendations for
+ * @param {URI} entity entity to get the recommendations for
  * @param {String Array} categories additional structural property of entities where recommendations should be calculated upon
  * @param {Integer} maxTags number of tags to be returned
  * @return {SSScaffRecommTagsRet} <br>
  * {String Array} tags recommended tags
  */
-var SSScaffRecommTagsBasedOnUserEntityTagCategoryTime = function(resultHandler, errorHandler, user, key, forUserUri, entityUri, categories, maxTags){
+var SSScaffRecommTagsBasedOnUserEntityTagCategoryTime = function(resultHandler, errorHandler, user, key, forUser, entity, categories, maxTags){
   
   var par                     = {};
   par[sSVarU.op]              = "scaffRecommTagsBasedOnUserEntityTagCategoryTime";
   par[sSVarU.user]            = user;
   par[sSVarU.key]             = key;
   
-  if(!jSGlobals.isEmpty(forUserUri)){    par[sSVarU.forUserUri]      = forUserUri;}
-  if(!jSGlobals.isEmpty(entityUri)){     par[sSVarU.entityUri]       = entityUri;}
+  if(!jSGlobals.isEmpty(forUser)){    par[sSVarU.forUser]      = forUser;}
+  if(!jSGlobals.isEmpty(entity)){     par[sSVarU.entity]       = entity;}
   if(!jSGlobals.isEmpty(categories)){    par[sSVarU.categories]      = jSGlobals.commaSeparateStringArray(categories);}
   if(!jSGlobals.isEmpty(maxTags)){       par[sSVarU.maxTags]         = maxTags;}
   
@@ -1741,18 +1742,18 @@ var SSSearchWithTags = function(resultHandler, errorHandler, user, key, searchOp
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} entityUri entity to be searched within
- * @param {String Array} tagLabels strings representing tags to be searched for
+ * @param {URI} entity entity to be searched within
+ * @param {String Array} labels strings representing tags to be searched for
  * @return {SSSearchTagsWithinEntityRet} <br>
  * {SSSearchResult Array} searchResults found entities with label, type and space (private or shared)
  */
-var SSSearchWithTagsWithinEntity = function(resultHandler, errorHandler, user, key, entityUri, tagLabels){
+var SSSearchWithTagsWithinEntity = function(resultHandler, errorHandler, user, key, entity, labels){
   
   var par                      = {};
   par[sSVarU.op]               = "searchTagsWithinEntity";
   par[sSVarU.user]             = user;
-  par[sSVarU.entityUri]        = entityUri;
-  par[sSVarU.tagLabels]        = jSGlobals.commaSeparateStringArray(tagLabels);
+  par[sSVarU.entity]           = entity;
+  par[sSVarU.labels]           = jSGlobals.commaSeparateStringArray(labels);
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("searchTagsWithinEntity", par, resultHandler, errorHandler).send();
@@ -1764,19 +1765,19 @@ var SSSearchWithTagsWithinEntity = function(resultHandler, errorHandler, user, k
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} resource entity’ to add tag for
- * @param {String} tagString label of the tag to add
+ * @param {URI} entity entity’ to add tag for
+ * @param {String} label label of the tag to add
  * @param {String} space access restriction for the tag (i.e. private,public)
  * @return {SSTagAddRet} <br>
  * {Boolean} worked whether adding the tag worked
  */
-var SSTagAdd = function(resultHandler, errorHandler, user, key, resource, tagString, space){
+var SSTagAdd = function(resultHandler, errorHandler, user, key, entity, label, space){
   
   var par                       = {};
   par[sSVarU.op]               = "tagAdd";
   par[sSVarU.user]             = user;
-  par[sSVarU.resource]         = resource;
-  par[sSVarU.tagString]        = tagString;
+  par[sSVarU.entity]           = entity;
+  par[sSVarU.label]            = label;
   par[sSVarU.space]            = space;
   par[sSVarU.key]              = key;
   
@@ -1789,21 +1790,21 @@ var SSTagAdd = function(resultHandler, errorHandler, user, key, resource, tagStr
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} resource entity to retrieve tags for
- * @param {String} tagString tag label to consider for retrieving tag assignments
+ * @param {URI} entity entity to retrieve tags for
+ * @param {String} label tag label to consider for retrieving tag assignments
  * @param {String} space access restriction for the tag (i.e. private,public)
  * @return {SSTagUserFrequsGetRet} <br> 
  * {SSTagFrequ Array} tagFrequs tag assignments with frequency for user, entity, tag and space combination
  */
-var SSTagFrequsGet = function(resultHandler, errorHandler, user, key, resource, tagString, space){
+var SSTagFrequsGet = function(resultHandler, errorHandler, user, key, entity, label, space){
   
   var par                      = {};
   par[sSVarU.op]               = "tagFrequsGet";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
-  if(!jSGlobals.isEmpty(resource)){  par[sSVarU.resource]         = resource;}
-  if(!jSGlobals.isEmpty(tagString)){ par[sSVarU.tagString]        = tagString;}
+  if(!jSGlobals.isEmpty(entity)){    par[sSVarU.entity]         = entity;}
+  if(!jSGlobals.isEmpty(label)){     par[sSVarU.label]          = label;}
   if(!jSGlobals.isEmpty(space)){     par[sSVarU.space]            = space;}
   
   new SSJSONPOSTRequest("tagFrequsGet", par, resultHandler, errorHandler).send();
@@ -1815,21 +1816,21 @@ var SSTagFrequsGet = function(resultHandler, errorHandler, user, key, resource, 
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} resource entity to consider removing tag assignments from
- * @param {String} tagString label of the tag to consider when removing tag-assignments
+ * @param {URI} entity entity to consider removing tag assignments from
+ * @param {String} label label of the tag to consider when removing tag-assignments
  * @param {String} space access restriction (i.e. private,public) for tag-assignments to be removed
  * @return {SSTagsUserRemoveRet} <br>
  * {Boolean} worked whether removing desired tag-assignments worked
  */
-var SSTagsRemove = function(resultHandler, errorHandler, user, key, resource, tagString, space){
+var SSTagsRemove = function(resultHandler, errorHandler, user, key, entity, label, space){
   
   var par                      = {};
   par[sSVarU.op]               = "tagsRemove";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
-  if(!jSGlobals.isEmpty(resource)){  par[sSVarU.resource]         = resource;}
-  if(!jSGlobals.isEmpty(tagString)){ par[sSVarU.tagString]        = tagString;}
+  if(!jSGlobals.isEmpty(entity)){  par[sSVarU.entity]       = entity;}
+  if(!jSGlobals.isEmpty(label)){   par[sSVarU.label]        = label;}
   if(!jSGlobals.isEmpty(space)){     par[sSVarU.space]            = space;}
   
   new SSJSONPOSTRequest("tagsRemove", par, resultHandler, errorHandler).send();
@@ -1860,21 +1861,21 @@ var SSUserAll = function(resultHandler, errorHandler, user, key){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {String} eventType type of the event
- * @param {URI} resource entity with which some interaction shall be traced
+ * @param {String} type type of the event
+ * @param {URI} entity entity with which some interaction shall be traced
  * @param {String} content possible additional textual information of the trace
  * @return {SSUEAddRet} <br>
  * {Boolean} worked whether adding the user event worked
  */
-var SSUserEventAdd = function(resultHandler, errorHandler, user, key, eventType, resource, content){
+var SSUserEventAdd = function(resultHandler, errorHandler, user, key, type, entity, content){
   
   var par                      = {};
   par[sSVarU.op]               = "uEAdd";
   par[sSVarU.user]             = user;
-  par[sSVarU.eventType]        = eventType;
+  par[sSVarU.type]             = type;
   par[sSVarU.key]              = key;
   
-  if(!jSGlobals.isEmpty(resource)){ par[sSVarU.resource]         = resource;}
+  if(!jSGlobals.isEmpty(entity)){   par[sSVarU.entity]         = entity;}
   if(!jSGlobals.isEmpty(content)){  par[sSVarU.content]          = content;}
   
   new SSJSONPOSTRequest("uEAdd", par, resultHandler, errorHandler).send();
@@ -1887,13 +1888,13 @@ var SSUserEventAdd = function(resultHandler, errorHandler, user, key, eventType,
  * @param {URI} user the user's uri
  * @param {String} key auth key
  * @param {URI} forUser user to retrieve user events for
- * @param {URI} resource entity to retrieve user events for
+ * @param {URI} entity entity to retrieve user events for
  * @param {Long} startTime start timestamp for retrieving user events for
  * @param {Long} endTime end timestamp for retrieving user events for
  * @return {SSUEsGetRet} <br>
  * {SSUE Array} uEs user events found
  */
-var SSUserEventsGet = function(resultHandler, errorHandler, user, key, forUser, resource, startTime, endTime){
+var SSUserEventsGet = function(resultHandler, errorHandler, user, key, forUser, entity, startTime, endTime){
   
   var par                      = {};
   par[sSVarU.op]               = "uEsGet";
@@ -1901,7 +1902,7 @@ var SSUserEventsGet = function(resultHandler, errorHandler, user, key, forUser, 
   par[sSVarU.key]              = key;
   
   if(!jSGlobals.isEmpty(forUser)){   par[sSVarU.forUser]          = forUser;}
-  if(!jSGlobals.isEmpty(resource)){  par[sSVarU.resource]         = resource;}
+  if(!jSGlobals.isEmpty(entity)){    par[sSVarU.entity]           = entity;}
   if(!jSGlobals.isEmpty(startTime)){ par[sSVarU.startTime]        = startTime;}
   if(!jSGlobals.isEmpty(endTime)){   par[sSVarU.endTime]          = endTime;}
   
@@ -1914,16 +1915,16 @@ var SSUserEventsGet = function(resultHandler, errorHandler, user, key, forUser, 
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} ueUri user event to retrieve
+ * @param {URI} uE user event to retrieve
  * @return {SSUEGetRet} <br>
  * {SSUE} uE user event in question
  */
-var SSUserEventGet = function(resultHandler, errorHandler, user, key, ueUri){
+var SSUserEventGet = function(resultHandler, errorHandler, user, key, uE){
   
   var par                      = {};
   par[sSVarU.op]               = "uEGet";
   par[sSVarU.user]             = user;
-  par[sSVarU.ueUri]            = ueUri;
+  par[sSVarU.uE]               = uE;
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("uEGet", par, resultHandler, errorHandler).send();
