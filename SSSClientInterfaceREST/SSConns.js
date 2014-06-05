@@ -1742,17 +1742,17 @@ var SSSearchWithTags = function(resultHandler, errorHandler, user, key, searchOp
  * @param {URI} user the user's uri
  * @param {String} key auth key
  * @param {URI} entity entity to be searched within
- * @param {String Array} labels strings representing tags to be searched for
+ * @param {String Array} tags strings representing tags to be searched for
  * @return {SSSearchTagsWithinEntityRet} <br>
  * {SSSearchResult Array} searchResults found entities with label, type and space (private or shared)
  */
-var SSSearchWithTagsWithinEntity = function(resultHandler, errorHandler, user, key, entity, labels){
+var SSSearchWithTagsWithinEntity = function(resultHandler, errorHandler, user, key, entity, tags){
   
   var par                      = {};
   par[sSVarU.op]               = "searchTagsWithinEntity";
   par[sSVarU.user]             = user;
   par[sSVarU.entity]           = entity;
-  par[sSVarU.labels]           = jSGlobals.commaSeparateStringArray(labels);
+  par[sSVarU.tags]             = jSGlobals.commaSeparateStringArray(tags);
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("searchTagsWithinEntity", par, resultHandler, errorHandler).send();
