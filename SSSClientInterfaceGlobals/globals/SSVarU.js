@@ -16,6 +16,9 @@
 var sSVarU = new SSVarU();
     
 function SSVarU(){
+  
+  this.types                                          = "types";
+  this.comment                                        = "comment";
   this.explanation                                    = "explanation";
   this.circleTypes                                    = "circleTypes";
   this.fileHandle                                     = "fileHandle";

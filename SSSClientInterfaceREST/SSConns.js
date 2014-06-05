@@ -42,6 +42,37 @@ var SSAuthCheckCred = function(resultHandler, errorHandler, label, password){
 };
 
 /**
+ * retrieve activities from within a certain time frame
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {String Array} types of activities to be queried
+ * @param {URI Array} users users which have been involved in activities
+ * @param {URI Array} entities entities which have been involved in activities as targets (e.g. the target for a discussion)
+ * @param {Long} startTime time frame start
+ * @param {Long} endTime time frame end 
+ * @return {SSActivitiesUserGetRet} <br>
+ * {SSActivity Array} activities activities for given query
+ */
+var SSActivitiesGet = function(resultHandler, errorHandler, user, key, types, users, entities, startTime, endTime){
+  
+  var par               = {};
+  par[sSVarU.op]        = "activitiesGet";
+  par[sSVarU.user]      = user;
+  par[sSVarU.key]       = key;
+  
+  if(!jSGlobals.isEmpty(types)){           par[sSVarU.types]               = jSGlobals.commaSeparateStringArray(types);}
+  if(!jSGlobals.isEmpty(users)){           par[sSVarU.users]               = jSGlobals.commaSeparateStringArray(users);}
+  if(!jSGlobals.isEmpty(entities)){        par[sSVarU.entities]            = jSGlobals.commaSeparateStringArray(entities);}
+  if(!jSGlobals.isEmpty(startTime)){       par[sSVarU.startTime]           = startTime;}
+  if(!jSGlobals.isEmpty(endTime)){         par[sSVarU.endTime]             = endTime;}
+  
+  new SSJSONPOSTRequest("activitiesGet", par, resultHandler, errorHandler).send();
+};
+ 
+
+/**
  * retrieve all the user's collections given entity is in
  * @param {Function} resultHandler
  * @param {Function} errorHandler
@@ -1752,7 +1783,7 @@ var SSSearchWithTagsWithinEntity = function(resultHandler, errorHandler, user, k
   par[sSVarU.op]               = "searchTagsWithinEntity";
   par[sSVarU.user]             = user;
   par[sSVarU.entity]           = entity;
-  par[sSVarU.tags]             = jSGlobals.commaSeparateStringArray(tags);
+  par[sSVarU.tags]              = jSGlobals.commaSeparateStringArray(tags);
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("searchTagsWithinEntity", par, resultHandler, errorHandler).send();
