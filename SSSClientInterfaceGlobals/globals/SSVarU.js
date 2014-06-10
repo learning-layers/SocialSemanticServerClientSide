@@ -17,6 +17,12 @@ var sSVarU = new SSVarU();
     
 function SSVarU(){
   
+  this.includeSubEntities                             = "includeSubEntities";
+  this.includeTags                                    = "includeTags"; 
+  this.includeTextualContent                          = "includeTextualContent";
+  this.includeLabel                                   = "includeLabel";
+  this.includeDescription                             = "includeDescription";
+  this.includeMIs                                     = "includeMIs";
   this.description                                    = "description";
   this.types                                          = "types";
   this.comment                                        = "comment";
