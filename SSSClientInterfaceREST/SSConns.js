@@ -368,7 +368,7 @@ var SSCollsCouldSubscribeGet = function(resultHandler, errorHandler, user, key){
  * @param {Boolean} addNewDisc whether a new disc should be created
  * @param {String} type discussion type: disc, qa or chat
  * @param {String} label discussion name
- * @param {String} explanation describes the discussion in more detail
+ * @param {String} description describes the discussion in more detail
  * @return {SSDiscUserEntryAddRet} <br>
  * {SSUri} disc discussion 
  * {SSUri} discEntry discussion entry
@@ -384,20 +384,20 @@ entry,
 addNewDisc,
 type,
 label, 
-explanation){
+description){
   
   var par                = {};
   par[sSVarU.op]         = "discEntryAdd";
   par[sSVarU.user]       = user;
   par[sSVarU.key]        = key;
   
-  if(!jSGlobals.isEmpty(disc)){       par[sSVarU.disc]        = disc;}
-  if(!jSGlobals.isEmpty(entity)){     par[sSVarU.entity]      = entity;}
-  if(!jSGlobals.isEmpty(entry)){      par[sSVarU.entry]       = entry;}
-  if(!jSGlobals.isEmpty(addNewDisc)){ par[sSVarU.addNewDisc]  = addNewDisc;}
-  if(!jSGlobals.isEmpty(type)){       par[sSVarU.type]        = type;}
-  if(!jSGlobals.isEmpty(label)){      par[sSVarU.label]       = label;}
-  if(!jSGlobals.isEmpty(explanation)){  par[sSVarU.explanation]  = explanation;}
+  if(!jSGlobals.isEmpty(disc)){         par[sSVarU.disc]        = disc;}
+  if(!jSGlobals.isEmpty(entity)){       par[sSVarU.entity]      = entity;}
+  if(!jSGlobals.isEmpty(entry)){        par[sSVarU.entry]       = entry;}
+  if(!jSGlobals.isEmpty(addNewDisc)){   par[sSVarU.addNewDisc]  = addNewDisc;}
+  if(!jSGlobals.isEmpty(type)){         par[sSVarU.type]        = type;}
+  if(!jSGlobals.isEmpty(label)){        par[sSVarU.label]       = label;}
+  if(!jSGlobals.isEmpty(description)){  par[sSVarU.explanation] = description;}
   
   new SSJSONPOSTRequest("discEntryAdd", par, resultHandler, errorHandler).send();
 };
@@ -580,10 +580,11 @@ var SSEntityUsersToCircleAdd = function(resultHandler, errorHandler, user, key, 
  * @param {String} label circle name
  * @param {Array} entities entities to add
  * @param {Array} users users to add
+ * @param {String} description textual annotation
  * @return {SSEntityUserCircleCreateRet} <br>
  * {SSUri} circle circle created
  */
-var SSEntityCircleCreate = function(resultHandler, errorHandler, user, key, label, entities, users){
+var SSEntityCircleCreate = function(resultHandler, errorHandler, user, key, label, entities, users, description){
   
   var par                      = {};
   par[sSVarU.op]               = "entityCircleCreate";
@@ -594,6 +595,7 @@ var SSEntityCircleCreate = function(resultHandler, errorHandler, user, key, labe
   
   if(!jSGlobals.isEmpty(entities)){    par[sSVarU.entities]      = jSGlobals.commaSeparateStringArray(entities);}
   if(!jSGlobals.isEmpty(users)){       par[sSVarU.users]         = jSGlobals.commaSeparateStringArray(users);}
+  if(!jSGlobals.isEmpty(description)){ par[sSVarU.description]   = description;}
   
   new SSJSONPOSTRequest("entityCircleCreate", par, resultHandler, errorHandler).send();
 };

@@ -17,6 +17,7 @@ var sSVarU = new SSVarU();
     
 function SSVarU(){
   
+  this.description                                    = "description";
   this.types                                          = "types";
   this.comment                                        = "comment";
   this.explanation                                    = "explanation";
