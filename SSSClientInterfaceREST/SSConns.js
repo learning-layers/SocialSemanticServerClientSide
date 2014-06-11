@@ -1633,9 +1633,9 @@ var SSScaffRecommTagsBasedOnUserEntityTagTime = function(resultHandler, errorHan
   par[sSVarU.user]            = user;
   par[sSVarU.key]             = key;
   
-  if(!jSGlobals.isEmpty(forUser)){    par[sSVarU.forUser]      = forUser;}
-  if(!jSGlobals.isEmpty(entity)){     par[sSVarU.entity]       = entity;}
-  if(!jSGlobals.isEmpty(maxTags)){       par[sSVarU.maxTags]         = maxTags;}
+  if(!jSGlobals.isEmpty(forUser)){       par[sSVarU.forUser]      = forUser;}
+  if(!jSGlobals.isEmpty(entity)){        par[sSVarU.entity]       = entity;}
+  if(!jSGlobals.isEmpty(maxTags)){       par[sSVarU.maxTags]      = maxTags;}
   
   new SSJSONPOSTRequest("scaffRecommTagsBasedOnUserEntityTagTime", par, resultHandler, errorHandler).send();
 };
@@ -1704,7 +1704,7 @@ var SSScaffRecommTagsBasedOnUserEntityTagCategoryTime = function(resultHandler, 
  * @param {String} key auth key
  * @param {String Array} keywords strings to search for
  * @param {URI Array} entities entitites to search within
- * @param {Boolean} includeSubEntities whether to search also in, e.g. collection entries, discussion entries
+ * @param {Boolean} onlySubEntities whether to search only in, e.g. collection entries, discussion entries
  * @param {Boolean} includeTags whether to use tags for search
  * @param {Boolean} includeTextualContent whether to search in the content of, e.g. a file
  * @param {Boolean} includeLabel whether to include the name/title of entities in search
@@ -1720,7 +1720,7 @@ user,
 key, 
 keywords,
 entities,
-includeSubEntities,
+onlySubEntities,
 includeTags, 
 includeTextualContent,
 includeLabel,
@@ -1734,7 +1734,7 @@ includeMIs){
   par[sSVarU.keywords]        = jSGlobals.commaSeparateStringArray(keywords);
   
   if(!jSGlobals.isEmpty(entities)){                 par[sSVarU.entities]                 = jSGlobals.commaSeparateStringArray(entities);}
-  if(!jSGlobals.isEmpty(includeSubEntities)){       par[sSVarU.includeSubEntities]       = includeSubEntities;}
+  if(!jSGlobals.isEmpty(onlySubEntities)){          par[sSVarU.onlySubEntities]          = onlySubEntities;}
   if(!jSGlobals.isEmpty(includeTags)){              par[sSVarU.includeTags]              = includeTags;}
   if(!jSGlobals.isEmpty(includeTextualContent)){    par[sSVarU.includeTextualContent]    = includeTextualContent;}
   if(!jSGlobals.isEmpty(includeLabel)){             par[sSVarU.includeLabel]             = includeLabel;}

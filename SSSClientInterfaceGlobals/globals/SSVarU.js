@@ -17,7 +17,7 @@ var sSVarU = new SSVarU();
     
 function SSVarU(){
   
-  this.includeSubEntities                             = "includeSubEntities";
+  this.onlySubEntities                                = "onlySubEntities";
   this.includeTags                                    = "includeTags"; 
   this.includeTextualContent                          = "includeTextualContent";
   this.includeLabel                                   = "includeLabel";
