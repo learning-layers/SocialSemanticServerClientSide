@@ -1705,6 +1705,7 @@ var SSScaffRecommTagsBasedOnUserEntityTagCategoryTime = function(resultHandler, 
  * @param {String Array} keywords strings to search for
  * @param {URI Array} entities entitites to search within
  * @param {Boolean} onlySubEntities whether to search only in, e.g. collection entries, discussion entries
+ * @param {String} types entity types to consider when searching
  * @param {Boolean} includeTags whether to use tags for search
  * @param {Boolean} includeTextualContent whether to search in the content of, e.g. a file
  * @param {Boolean} includeLabel whether to include the name/title of entities in search
@@ -1721,6 +1722,7 @@ key,
 keywords,
 entities,
 onlySubEntities,
+types,
 includeTags, 
 includeTextualContent,
 includeLabel,
@@ -1735,6 +1737,7 @@ includeMIs){
   
   if(!jSGlobals.isEmpty(entities)){                 par[sSVarU.entities]                 = jSGlobals.commaSeparateStringArray(entities);}
   if(!jSGlobals.isEmpty(onlySubEntities)){          par[sSVarU.onlySubEntities]          = onlySubEntities;}
+  if(!jSGlobals.isEmpty(types)){                    par[sSVarU.types]                    = jSGlobals.commaSeparateStringArray(types);}
   if(!jSGlobals.isEmpty(includeTags)){              par[sSVarU.includeTags]              = includeTags;}
   if(!jSGlobals.isEmpty(includeTextualContent)){    par[sSVarU.includeTextualContent]    = includeTextualContent;}
   if(!jSGlobals.isEmpty(includeLabel)){             par[sSVarU.includeLabel]             = includeLabel;}
