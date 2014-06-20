@@ -1292,17 +1292,15 @@ y){
  * @param {URI} user the user's uri
  * @param {String} key auth key
  * @param {String} label episode label
- * @param {String} space realm in which the episode should be accessible, i.e. public or private
  * @return {SSLearnEpCreateRet} <br>
  * {SSUri} learnEp learning episode created
  */
-var SSLearnEpCreate = function(resultHandler, errorHandler, user, key, label, space){
+var SSLearnEpCreate = function(resultHandler, errorHandler, user, key, label){
   
   var par                      = {};
   par[sSVarU.op]               = "learnEpCreate";
   par[sSVarU.user]             = user;
   par[sSVarU.label]            = label;
-  par[sSVarU.space]            = space;
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("learnEpCreate", par, resultHandler, errorHandler).send();
