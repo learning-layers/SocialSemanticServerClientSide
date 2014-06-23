@@ -675,7 +675,7 @@ removeUserLocations){
   var par                         = {};
   par[sSVarU.op]                  = "entityDirectlyAdjoinedEntitiesRemove";
   par[sSVarU.user]                = user;
-  par[sSVarU.entity]           = entity;
+  par[sSVarU.entity]              = entity;
   par[sSVarU.removeUserTags]      = removeUserTags;
   par[sSVarU.removeUserRatings]   = removeUserRatings;
   par[sSVarU.removeFromUserColls] = removeFromUserColls;
@@ -1238,14 +1238,16 @@ yC){
   par[sSVarU.op]               = "learnEpVersionUpdateCircle";
   par[sSVarU.user]             = user;
   par[sSVarU.learnEpCircle]    = learnEpCircle;
-  par[sSVarU.label]            = label;
-  par[sSVarU.xLabel]           = xLabel;
-  par[sSVarU.yLabel]           = yLabel;
-  par[sSVarU.xR]               = xR;
-  par[sSVarU.yR]               = yR;
-  par[sSVarU.xC]               = xC;
-  par[sSVarU.yC]               = yC;
   par[sSVarU.key]              = key;
+  
+  if(!jSGlobals.isEmpty(label)){     par[sSVarU.label]       = label;}
+  if(!jSGlobals.isEmpty(xLabel)){    par[sSVarU.xLabel]      = xLabel;}
+  if(!jSGlobals.isEmpty(yLabel)){    par[sSVarU.yLabel]      = yLabel;}
+  if(!jSGlobals.isEmpty(xR)){        par[sSVarU.xR]          = xR;}
+  if(!jSGlobals.isEmpty(yR)){        par[sSVarU.yR]          = yR;}
+  if(!jSGlobals.isEmpty(xC)){        par[sSVarU.xC]          = xC;}
+  if(!jSGlobals.isEmpty(yC)){        par[sSVarU.yC]          = yC;}
+  if(!jSGlobals.isEmpty(yC)){        par[sSVarU.yC]          = yC;}
   
   new SSJSONPOSTRequest("learnEpVersionUpdateCircle", par, resultHandler, errorHandler).send();
 };
@@ -1276,11 +1278,12 @@ y){
   var par                      = {};
   par[sSVarU.op]               = "learnEpVersionUpdateEntity";
   par[sSVarU.user]             = user;
-  par[sSVarU.learnEpEntity]    = learnEpEntity;
-  par[sSVarU.entity]           = entity;
-  par[sSVarU.x]                = x;
-  par[sSVarU.y]                = y;
   par[sSVarU.key]              = key;
+  
+  if(!jSGlobals.isEmpty(learnEpEntity)){   par[sSVarU.learnEpEntity] = learnEpEntity;}
+  if(!jSGlobals.isEmpty(entity)){          par[sSVarU.entity]        = entity;}
+  if(!jSGlobals.isEmpty(x)){               par[sSVarU.x]             = x;}
+  if(!jSGlobals.isEmpty(y)){               par[sSVarU.y]             = y;}
   
   new SSJSONPOSTRequest("learnEpVersionUpdateEntity", par, resultHandler, errorHandler).send();
 };
