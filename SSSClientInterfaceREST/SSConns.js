@@ -70,7 +70,7 @@ var SSActivitiesGet = function(resultHandler, errorHandler, user, key, types, us
   
   new SSJSONPOSTRequest("activitiesGet", par, resultHandler, errorHandler).send();
 };
- 
+
 
 /**
  * retrieve all the user's collections given entity is in
@@ -598,6 +598,32 @@ var SSEntityCircleCreate = function(resultHandler, errorHandler, user, key, labe
   if(!jSGlobals.isEmpty(description)){ par[sSVarU.description]   = description;}
   
   new SSJSONPOSTRequest("entityCircleCreate", par, resultHandler, errorHandler).send();
+};
+
+/**
+ * copy an entity and hand it to a user
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} entity entity to copy
+ * @param {URI} forUser user to copy the entity for
+ * @param {URI Array} entitiesToExclude if set contains sub entities to exclude from copying
+ * @return {SSEntityUserCopyRet} <br>
+ * {SSUri} entity handle to the copied entity
+ */
+var SSEntityCopy = function(resultHandler, errorHandler, user, key, entity, forUser, entitiesToExclude){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "entityCopy";
+  par[sSVarU.user]             = user;
+  par[sSVarU.forUser]          = forUser;
+  par[sSVarU.entity]           = entity;
+  par[sSVarU.key]              = key;
+  
+  if(!jSGlobals.isEmpty(entitiesToExclude)){ par[sSVarU.entitiesToExclude]   = jSGlobals.commaSeparateStringArray(entitiesToExclude);}
+  
+  new SSJSONPOSTRequest("entityCopy", par, resultHandler, errorHandler).send();
 };
 
 /**
