@@ -736,6 +736,7 @@ var SSEntityGet = function(resultHandler, errorHandler, user, key, entity){
 
 /**
  * set the name for an entity
+ * @deprecated @see SSEntityUpdate
  * @param {Function} resultHandler
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
@@ -755,6 +756,32 @@ var SSEntityLabelSet = function(resultHandler, errorHandler, user, key, entity, 
   par[sSVarU.key]             = key;
   
   new SSJSONPOSTRequest("entityLabelSet", par, resultHandler, errorHandler).send();
+};
+
+/**
+ * updates given properties for an entity
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} entity entity to update
+ * @param {String} label entity's updated name
+ * @param {String} description entity's updated description
+ * @return {SSEntityUpdateRet} <br>
+ * {SSUri} entity entity updated
+ */
+var SSEntityUpdate = function(resultHandler, errorHandler, user, key, entity, label, description){
+  
+  var par                     = {};
+  par[sSVarU.op]              = "entityUpdate";
+  par[sSVarU.user]            = user;
+  par[sSVarU.entity]          = entity;
+  par[sSVarU.key]             = key;
+  
+  if(!jSGlobals.isEmpty(label)){          par[sSVarU.label]             = label;}
+  if(!jSGlobals.isEmpty(description)){    par[sSVarU.description]       = description;}
+  
+  new SSJSONPOSTRequest("entityUpdate", par, resultHandler, errorHandler).send();
 };
 
 /**
