@@ -795,10 +795,11 @@ var SSEntityUpdate = function(resultHandler, errorHandler, user, key, entity, la
  * @param {Boolean} getOverallRating whether the overall rating for the entity should be delivered
  * @param {Boolean} getDiscs whether the uris of discussions about the entity should be returned
  * @param {Boolean} getUEs whether user events for given user and entity should be included
+ * @param {Boolean} getThumb whether a thumbnail for files should be included
  * @return {SSEntityDescGetRet} <br>
  * {SSEntityDescA} desc entity details with respect to the type of the entity and chosen request parameters
  */
-var SSEntityDescGet = function(resultHandler, errorHandler, user, key, entity, getTags, getOverallRating, getDiscs, getUEs){
+var SSEntityDescGet = function(resultHandler, errorHandler, user, key, entity, getTags, getOverallRating, getDiscs, getUEs, getThumb){
   
   var par                         = {};
   par[sSVarU.op]                  = "entityDescGet";
@@ -810,6 +811,7 @@ var SSEntityDescGet = function(resultHandler, errorHandler, user, key, entity, g
   if(!jSGlobals.isEmpty(getOverallRating)){ par[sSVarU.getOverallRating]    = getOverallRating;}
   if(!jSGlobals.isEmpty(getDiscs)){         par[sSVarU.getDiscs]            = getDiscs;}
   if(!jSGlobals.isEmpty(getUEs)){           par[sSVarU.getUEs]              = getUEs;}
+  if(!jSGlobals.isEmpty(getThumb)){         par[sSVarU.getThumb]            = getThumb;}
   
   new SSJSONPOSTRequest("entityDescGet", par, resultHandler, errorHandler).send();
 };

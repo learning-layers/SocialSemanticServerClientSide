@@ -17,6 +17,7 @@ var sSVarU = new SSVarU();
     
 function SSVarU(){
   
+  this.getThumb                                       = "getThumb";
   this.getUEs                                         = "getUEs";
   this.entitiesToExclude                              = "entitiesToExclude";
   this.onlySubEntities                                = "onlySubEntities";
