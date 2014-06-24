@@ -2034,10 +2034,11 @@ var SSUserEventAdd = function(resultHandler, errorHandler, user, key, type, enti
  * @param {URI} entity entity to retrieve user events for
  * @param {Long} startTime start timestamp for retrieving user events for
  * @param {Long} endTime end timestamp for retrieving user events for
+ * @param {String} type user event type to retrieve
  * @return {SSUEsGetRet} <br>
  * {SSUE Array} uEs user events found
  */
-var SSUserEventsGet = function(resultHandler, errorHandler, user, key, forUser, entity, startTime, endTime){
+var SSUserEventsGet = function(resultHandler, errorHandler, user, key, forUser, entity, startTime, endTime, type){
   
   var par                      = {};
   par[sSVarU.op]               = "uEsGet";
@@ -2048,6 +2049,7 @@ var SSUserEventsGet = function(resultHandler, errorHandler, user, key, forUser, 
   if(!jSGlobals.isEmpty(entity)){    par[sSVarU.entity]           = entity;}
   if(!jSGlobals.isEmpty(startTime)){ par[sSVarU.startTime]        = startTime;}
   if(!jSGlobals.isEmpty(endTime)){   par[sSVarU.endTime]          = endTime;}
+  if(!jSGlobals.isEmpty(type)){      par[sSVarU.type]             = type;}
   
   new SSJSONPOSTRequest("uEsGet", par, resultHandler, errorHandler).send();
 };
@@ -2071,4 +2073,34 @@ var SSUserEventGet = function(resultHandler, errorHandler, user, key, uE){
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("uEGet", par, resultHandler, errorHandler).send();
+};
+
+/**
+ * retrieve the number of certain user events
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} forUser to count user events for
+ * @param {URI} entity to count user events for
+ * @param {Long} startTime begin for user event inclusion
+ * @param {Long} endTime end for user event inclusiion
+ * @param {String} type user event type to retrieve
+ * @return {SSUECountGetRet} <br>
+ * {Integer} count number of user events for given restrictions
+ */
+var SSUECountGet = function(resultHandler, errorHandler, user, key, forUser, entity, startTime, endTime, type){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "uECountGet";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  
+  if(!jSGlobals.isEmpty(forUser)){   par[sSVarU.forUser]          = forUser;}
+  if(!jSGlobals.isEmpty(entity)){    par[sSVarU.entity]           = entity;}
+  if(!jSGlobals.isEmpty(startTime)){ par[sSVarU.startTime]        = startTime;}
+  if(!jSGlobals.isEmpty(endTime)){   par[sSVarU.endTime]          = endTime;}
+  if(!jSGlobals.isEmpty(type)){      par[sSVarU.type]             = type;}
+  
+  new SSJSONPOSTRequest("uECountGet", par, resultHandler, errorHandler).send();
 };
