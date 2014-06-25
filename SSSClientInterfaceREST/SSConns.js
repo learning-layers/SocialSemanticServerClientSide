@@ -1093,46 +1093,6 @@ var SSFileReplace = function(resultHandler, errorHandler, user, key, file, fileH
 };
 
 /**
- * currently just dummy implementation
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key
- * @param {URI} file entity to retrieve thumbnail for
- * @return {} description
- */
-var SSFileThumbGet = function(resultHandler, errorHandler, user, key, file){
-  
-  var xhr                    = new XMLHttpRequest();
-  
-  this.resultHandler         = resultHandler;
-  this.errorHandler          = errorHandler;
-  this.file                  = jSGlobals.removeTrailingSlash(file);
-  
-  if(jSGlobals.lastIndexOf(this.file, jSGlobals.slash) === -1){
-    return;
-  }
-  
-  this.file = jSGlobals.substring(this.file, jSGlobals.lastIndexOf(this.file, jSGlobals.slash) + 1, jSGlobals.length(this.file));
-  
-  xhr.onload = (function(thisRef){ return function(){
-      
-      if(
-        this.readyState    !== 4   ||
-        this.status        !== 200){
-        
-        thisRef.errorHandler(this.response);
-        return;
-      }
-      
-      thisRef.resultHandler(this.response);
-    };})(this);
-  
-  xhr.open (sSGlobals.httpMethGET, sSGlobals.hostREST + "fileThumbGet" + jSGlobals.slash + this.file, true);
-  xhr.send ();
-};
-
-/**
  * set the current version of a learning episode for a user
  * @param {Function} resultHandler
  * @param {Function} errorHandler
