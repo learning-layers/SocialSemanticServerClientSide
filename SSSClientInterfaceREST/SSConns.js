@@ -1897,22 +1897,24 @@ var SSTagAdd = function(resultHandler, errorHandler, user, key, entity, label, s
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} entity entity to retrieve tags for
- * @param {String} label tag label to consider for retrieving tag assignments
+ * @param {URI Array} entities entities to retrieve tags for
+ * @param {String} labels tag labels to consider for retrieving tag assignments
  * @param {String} space access restriction for the tag (i.e. private,public)
+ * @param {Long} startTime timestamp to retrieve tags
  * @return {SSTagUserFrequsGetRet} <br> 
  * {SSTagFrequ Array} tagFrequs tag assignments with frequency for user, entity, tag and space combination
  */
-var SSTagFrequsGet = function(resultHandler, errorHandler, user, key, entity, label, space){
+var SSTagFrequsGet = function(resultHandler, errorHandler, user, key, entities, labels, space, startTime){
   
   var par                      = {};
   par[sSVarU.op]               = "tagFrequsGet";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
-  if(!jSGlobals.isEmpty(entity)){    par[sSVarU.entity]         = entity;}
-  if(!jSGlobals.isEmpty(label)){     par[sSVarU.label]          = label;}
-  if(!jSGlobals.isEmpty(space)){     par[sSVarU.space]            = space;}
+  if(!jSGlobals.isEmpty(entities)){    par[sSVarU.entities]       = jSGlobals.commaSeparateStringArray(entities);}
+  if(!jSGlobals.isEmpty(labels)){      par[sSVarU.labels]         = jSGlobals.commaSeparateStringArray(labels);}
+  if(!jSGlobals.isEmpty(space)){       par[sSVarU.space]          = space;}
+  if(!jSGlobals.isEmpty(startTime)){   par[sSVarU.startTime]      = startTime;}
   
   new SSJSONPOSTRequest("tagFrequsGet", par, resultHandler, errorHandler).send();
 };
