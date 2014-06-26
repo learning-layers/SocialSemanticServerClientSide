@@ -2068,3 +2068,24 @@ var SSUECountGet = function(resultHandler, errorHandler, user, key, forUser, ent
   
   new SSJSONPOSTRequest("uECountGet", par, resultHandler, errorHandler).send();
 };
+
+/**
+ * test impl
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} entity 
+ * @return {SSNotificationTest1Ret} <br>
+ * {SSUri} entity
+ */
+var SSNotificationTest1 = function(resultHandler, errorHandler, user, key, entity){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "notificationTest1";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  par[sSVarU.entity]           = entity;
+  
+  new SSJSONPOSTRequest("notificationTest1", par, resultHandler, errorHandler).send();
+};
