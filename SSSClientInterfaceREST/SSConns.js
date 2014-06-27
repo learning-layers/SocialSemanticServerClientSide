@@ -1920,6 +1920,32 @@ var SSTagFrequsGet = function(resultHandler, errorHandler, user, key, entities, 
 };
 
 /**
+ * retrieve entities for tags (currently startTime is not used to retrieve entities)
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {String} labels tag labels to consider for retrieving tag assignments
+ * @param {String} space access restriction for the tag (i.e. private, public)
+ * @param {Long} startTime timestamp to retrieve tags
+ * @return {SSTagUserEntitiesForTagsGet} <br> 
+ * {SSUri Array} entities entities haven given tags attached
+ */
+var SSTagEntitiesForTagsGet = function(resultHandler, errorHandler, user, key, labels, space, startTime){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "tagEntitiesForTagsGet";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  
+  if(!jSGlobals.isEmpty(labels)){      par[sSVarU.labels]         = jSGlobals.commaSeparateStringArray(labels);}
+  if(!jSGlobals.isEmpty(space)){       par[sSVarU.space]          = space;}
+  if(!jSGlobals.isEmpty(startTime)){   par[sSVarU.startTime]      = startTime;}
+  
+  new SSJSONPOSTRequest("tagEntitiesForTagsGet", par, resultHandler, errorHandler).send();
+};
+
+/**
  * remove tag, user, entity, space combinations
  * @param {Function} resultHandler
  * @param {Function} errorHandler
