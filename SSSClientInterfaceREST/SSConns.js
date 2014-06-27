@@ -369,12 +369,13 @@ var SSCollsCouldSubscribeGet = function(resultHandler, errorHandler, user, key){
  * @param {String} type discussion type: disc, qa or chat
  * @param {String} label discussion name
  * @param {String} description describes the discussion in more detail
+ * @param {URI Array} users provides users to share this discussion with upon creation of a new discussion
  * @return {SSDiscUserEntryAddRet} <br>
  * {SSUri} disc discussion 
  * {SSUri} discEntry discussion entry
  */
 var SSDiscEntryAdd = function(
-  resultHandler, 
+  resultHandler,
 errorHandler,
 user, 
 key, 
@@ -384,7 +385,8 @@ entry,
 addNewDisc,
 type,
 label, 
-description){
+description,
+users){
   
   var par                = {};
   par[sSVarU.op]         = "discEntryAdd";
@@ -398,6 +400,7 @@ description){
   if(!jSGlobals.isEmpty(type)){         par[sSVarU.type]        = type;}
   if(!jSGlobals.isEmpty(label)){        par[sSVarU.label]       = label;}
   if(!jSGlobals.isEmpty(description)){  par[sSVarU.explanation] = description;}
+  if(!jSGlobals.isEmpty(users)){        par[sSVarU.users]       = jSGlobals.commaSeparateStringArray(users);}
   
   new SSJSONPOSTRequest("discEntryAdd", par, resultHandler, errorHandler).send();
 };
