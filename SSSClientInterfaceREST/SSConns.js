@@ -2098,6 +2098,25 @@ var SSUECountGet = function(resultHandler, errorHandler, user, key, forUser, ent
 };
 
 /**
+ * get predefined categories
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @return {SSCategoriesPredefinedGetRet} <br>
+ * {String Array} categories predefined categories
+ */
+var SSCategoriesPredefinedGet = function(resultHandler, errorHandler, user, key){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "categoriesPredefinedGet";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  
+  new SSJSONPOSTRequest("categoriesPredefinedGet", par, resultHandler, errorHandler).send();
+};
+
+/**
  * test impl
  * @param {Function} resultHandler
  * @param {Function} errorHandler
