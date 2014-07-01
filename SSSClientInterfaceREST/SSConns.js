@@ -1317,16 +1317,19 @@ y){
  * @param {URI} user the user's uri
  * @param {String} key auth key
  * @param {String} label episode label
+ * @param {String} description episode description
  * @return {SSLearnEpCreateRet} <br>
  * {SSUri} learnEp learning episode created
  */
-var SSLearnEpCreate = function(resultHandler, errorHandler, user, key, label){
+var SSLearnEpCreate = function(resultHandler, errorHandler, user, key, label, description){
   
   var par                      = {};
   par[sSVarU.op]               = "learnEpCreate";
   par[sSVarU.user]             = user;
   par[sSVarU.label]            = label;
   par[sSVarU.key]              = key;
+  
+  if(!jSGlobals.isEmpty(description)){  par[sSVarU.description]    = description;}
   
   new SSJSONPOSTRequest("learnEpCreate", par, resultHandler, errorHandler).send();
 };
