@@ -2123,6 +2123,25 @@ var SSCategoriesPredefinedGet = function(resultHandler, errorHandler, user, key)
 };
 
 /**
+ * import data from evernote for certain user
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @return {SSDataImportEvernoteRet} <br>
+ * {Boolean} worked whether import worked
+ */
+var SSDataImportEvernote = function(resultHandler, errorHandler, user, key){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "dataImportEvernote";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  
+  new SSJSONPOSTRequest("dataImportEvernote", par, resultHandler, errorHandler).send();
+};
+
+/**
  * test impl
  * @param {Function} resultHandler
  * @param {Function} errorHandler
