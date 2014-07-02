@@ -2146,22 +2146,57 @@ var SSDataImportEvernote = function(resultHandler, errorHandler, user, key){
 };
 
 /**
- * test impl
+ * retrieve flags set
  * @param {Function} resultHandler
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} entity 
- * @return {SSFlagTest1Ret} <br>
- * {SSUri} entity
+ * @param {URI Array} entities
+ * @param {String Array} types
+ * @param {Long} startTime
+ * @param {Long} endTime
+ * @return {SSFlagsUserGetRet} <br>
+ * {SSFlag Array} flags
  */
-var SSFlagTest1 = function(resultHandler, errorHandler, user, key, entity){
+var SSFlagsGet = function(resultHandler, errorHandler, user, key, entities, types, startTime, endTime){
   
   var par                      = {};
-  par[sSVarU.op]               = "flagTest1";
+  par[sSVarU.op]               = "flagsGet";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
-  par[sSVarU.entity]           = entity;
   
-  new SSJSONPOSTRequest("flagTest1", par, resultHandler, errorHandler).send();
+  if(!jSGlobals.isEmpty(entities)){      par[sSVarU.entities]         = jSGlobals.commaSeparateStringArray(entities);}
+  if(!jSGlobals.isEmpty(types)){         par[sSVarU.types]            = jSGlobals.commaSeparateStringArray(types);}
+  if(!jSGlobals.isEmpty(startTime)){     par[sSVarU.startTime]        = startTime;}
+  if(!jSGlobals.isEmpty(endTime)){       par[sSVarU.endTime]          = endTime;}
+  
+  new SSJSONPOSTRequest("flagsGet", par, resultHandler, errorHandler).send();
+};
+
+/**
+ * set flags
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI Array} entities
+ * @param {String Array} types
+ * @param {Long} endTime
+ * @param {Integer} value
+ * @return {SSFlagsUserSetRet} <br>
+ * {Boolean} worked
+ */
+var SSFlagsSet = function(resultHandler, errorHandler, user, key, entities, types, endTime, value){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "flagsSet";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  
+  if(!jSGlobals.isEmpty(entities)){      par[sSVarU.entities]         = jSGlobals.commaSeparateStringArray(entities);}
+  if(!jSGlobals.isEmpty(types)){         par[sSVarU.types]            = jSGlobals.commaSeparateStringArray(types);}
+  if(!jSGlobals.isEmpty(endTime)){       par[sSVarU.endTime]          = endTime;}
+  if(!jSGlobals.isEmpty(value)){         par[sSVarU.value]            = value;}
+  
+  new SSJSONPOSTRequest("flagsSet", par, resultHandler, errorHandler).send();
 };
