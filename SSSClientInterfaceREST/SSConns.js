@@ -1643,8 +1643,9 @@ var SSScaffRecommTagsBasedOnUserEntityTag = function(resultHandler, errorHandler
 /**
  * retrieve tag recommendations based on user, entity, tag and time combination <br>
  * - leave forUser and entity null to get most popular tags <br>
- * - set forUser to a user and leave entity null to get personalized tags for given user <br>
- * - set forUser to a user and set entity to entity to get personalized tags for given entity 
+ * - leave forUser null and set entity to get tags recommend for this entity <br>
+ * - set forUser and leave entity null to get personalized tags for given user <br>
+ * - set forUser and entity to get personalized tags for given entity 
  * @param {Function} resultHandler
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
@@ -1689,8 +1690,8 @@ var SSScaffRecommTagsBasedOnUserEntityTagCategory = function(resultHandler, erro
   par[sSVarU.user]            = user;
   par[sSVarU.key]             = key;
   
-  if(!jSGlobals.isEmpty(forUser)){    par[sSVarU.forUser]      = forUser;}
-  if(!jSGlobals.isEmpty(entity)){     par[sSVarU.entity]       = entity;}
+  if(!jSGlobals.isEmpty(forUser)){       par[sSVarU.forUser]         = forUser;}
+  if(!jSGlobals.isEmpty(entity)){        par[sSVarU.entity]          = entity;}
   if(!jSGlobals.isEmpty(categories)){    par[sSVarU.categories]      = jSGlobals.commaSeparateStringArray(categories);}
   if(!jSGlobals.isEmpty(maxTags)){       par[sSVarU.maxTags]         = maxTags;}
   
