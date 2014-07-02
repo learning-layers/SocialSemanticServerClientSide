@@ -1641,7 +1641,10 @@ var SSScaffRecommTagsBasedOnUserEntityTag = function(resultHandler, errorHandler
 };
 
 /**
- * retrieve tag recommendations based on user, entity, tag and time combination
+ * retrieve tag recommendations based on user, entity, tag and time combination <br>
+ * - leave forUser and entity null to get most popular tags <br>
+ * - set forUser to a user and leave entity null to get personalized tags for given user <br>
+ * - set forUser to a user and set entity to entity to get personalized tags for given entity 
  * @param {Function} resultHandler
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
@@ -1649,8 +1652,8 @@ var SSScaffRecommTagsBasedOnUserEntityTag = function(resultHandler, errorHandler
  * @param {URI} forUser user to retrieve recommendations for
  * @param {URI} entity entity to get the recommendations for
  * @param {Integer} maxTags number of tags to be returned
- * @return {SSScaffRecommTagsRet} <br>
- * {String Array} tags recommended tags
+ * @return {SSScaffRecommTagsBasedOnUserEntityTagTimeRet} <br>
+ * {SSTagLikelihood Array} tags recommended tags with likelihood
  */
 var SSScaffRecommTagsBasedOnUserEntityTagTime = function(resultHandler, errorHandler, user, key, forUser, entity, maxTags){
   
