@@ -2152,16 +2152,16 @@ var SSDataImportEvernote = function(resultHandler, errorHandler, user, key){
  * @param {URI} user the user's uri
  * @param {String} key auth key
  * @param {URI} entity 
- * @return {SSNotificationTest1Ret} <br>
+ * @return {SSFlagTest1Ret} <br>
  * {SSUri} entity
  */
-var SSNotificationTest1 = function(resultHandler, errorHandler, user, key, entity){
+var SSFlagTest1 = function(resultHandler, errorHandler, user, key, entity){
   
   var par                      = {};
-  par[sSVarU.op]               = "notificationTest1";
+  par[sSVarU.op]               = "flagTest1";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   par[sSVarU.entity]           = entity;
   
-  new SSJSONPOSTRequest("notificationTest1", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("flagTest1", par, resultHandler, errorHandler).send();
 };
