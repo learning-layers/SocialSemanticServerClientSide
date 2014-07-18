@@ -2286,3 +2286,22 @@ var SSFlagsSet = function(resultHandler, errorHandler, user, key, entities, type
   
   new SSJSONPOSTRequest("flagsSet", par, resultHandler, errorHandler).send();
 };
+
+/**
+ * retrieve the version of the sss instance
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @return {SSSystemVersionGetRet} <br>
+ * {String} version name of the current sss version
+ */
+var SSSystemVersionGet = function(resultHandler, errorHandler, user, key){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "systemVersionGet";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  
+  new SSJSONPOSTRequest("systemVersionGet", par, resultHandler, errorHandler).send();
+};
