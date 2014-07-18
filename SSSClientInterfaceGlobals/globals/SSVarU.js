@@ -17,6 +17,17 @@ var sSVarU = new SSVarU();
     
 function SSVarU(){
   
+  this.keywordsToSearchFor                            = "keywordsToSearchFor";
+  this.wordsToSearchFor                               = "wordsToSearchFor";
+  this.tagsToSearchFor                                = "tagsToSearchFor";
+  this.misToSearchFor                                 = "misToSearchFor";
+  this.labelsToSearchFor                              = "labelsToSearchFor";
+  this.descriptionsToSearchFor                        = "descriptionsToSearchFor";
+  this.typesToSearchOnlyFor                           = "typesToSearchOnlyFor";
+  this.includeOnlySubEntities                         = "includeOnlySubEntities";
+  this.entitiesToSearchWithin                         = "entitiesToSearchWithin";
+  this.includeRecommendedResults                      = "includeRecommendedResults";
+  this.provideEntries                                 = "provideEntries";
   this.getThumb                                       = "getThumb";
   this.getFlags                                       = "getFlags";
   this.getUEs                                         = "getUEs";

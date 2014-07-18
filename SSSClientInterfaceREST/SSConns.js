@@ -803,7 +803,18 @@ var SSEntityUpdate = function(resultHandler, errorHandler, user, key, entity, la
  * @return {SSEntityDescGetRet} <br>
  * {SSEntityDescA} desc entity details with respect to the type of the entity and chosen request parameters
  */
-var SSEntityDescGet = function(resultHandler, errorHandler, user, key, entity, getTags, getOverallRating, getDiscs, getUEs, getThumb, getFlags){
+var SSEntityDescGet = function(
+  resultHandler, 
+errorHandler, 
+user, 
+key, 
+entity, 
+getTags,
+getOverallRating, 
+getDiscs, 
+getUEs, 
+getThumb, 
+getFlags){
   
   var par                         = {};
   par[sSVarU.op]                  = "entityDescGet";
@@ -1734,6 +1745,79 @@ var SSScaffRecommTagsBasedOnUserEntityTagCategoryTime = function(resultHandler, 
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
+ * @param {String Array} keywordsToSearchFor general keywords to be searched for; get interpreted as, e.g. tags, words if respective flags set (e.g. includeTags)
+ * @param {Boolean} includeTextualContent whether the text content (if available) of entities should be scanned
+ * @param {String Array} wordsToSearchFor keywords to be used in textual content search
+ * @param {Boolean} includeTags whether tags of entities should be looked to find entities
+ * @param {String Array} tagsToSearchFor tags to be searched for
+ * @param {Boolean} includeMIs whether maturing indicators should be included in search
+ * @param {String Array} misToSearchFor maturing indicators of entities to be matched
+ * @param {Boolean} includeLabel whether labels of entities should be scanned
+ * @param {String Array} labelsToSearchFor certain labels to be search for
+ * @param {Boolean} includeDescription whether descriptions of entities should be scanned
+ * @param {String Array} descriptionsToSearchFor certain descriptions to be searched for
+ * @param {String Array} typesToSearchOnlyFor list of entity types to be considered for search exclusively 
+ * @param {Boolean} includeOnlySubEntities whether only sub-entities (e.g. collection entries) of entitiesToSearchWithin should be considered
+ * @param {URI Array} entitiesToSearchWithin entities for whom only sub entities get search for
+ * @param {Boolean} includeRecommendedResults whether possibly recommended entities should be included in search results
+ * @param {Boolean} provideEntries whether entries (if available) of search results (e.g. the entries of a found collection) should be returned as well
+ * @return {SSSearchRet} <br>
+ * {SSEntity Array} entities found entities with additional information
+ */
+var SSSearch = function(
+  resultHandler, 
+errorHandler, 
+user, 
+key, 
+keywordsToSearchFor,
+includeTextualContent,
+wordsToSearchFor,
+includeTags,
+tagsToSearchFor,
+includeMIs,
+misToSearchFor,
+includeLabel,
+labelsToSearchFor,
+includeDescription,
+descriptionsToSearchFor,
+typesToSearchOnlyFor,
+includeOnlySubEntities,
+entitiesToSearchWithin,
+includeRecommendedResults,
+provideEntries){
+  
+  var par                                 = {};
+  par[sSVarU.op]                          = "search";
+  par[sSVarU.user]                        = user;
+  par[sSVarU.key]                         = key;
+  
+  if(!jSGlobals.isEmpty(keywordsToSearchFor)){         par[sSVarU.keywordsToSearchFor]          = jSGlobals.commaSeparateStringArray(keywordsToSearchFor);}
+  if(!jSGlobals.isEmpty(includeTextualContent)){       par[sSVarU.includeTextualContent]        = includeTextualContent;}
+  if(!jSGlobals.isEmpty(wordsToSearchFor)){            par[sSVarU.wordsToSearchFor]             = jSGlobals.commaSeparateStringArray(wordsToSearchFor);}
+  if(!jSGlobals.isEmpty(includeTags)){                 par[sSVarU.includeTags]                  = includeTags;}
+  if(!jSGlobals.isEmpty(tagsToSearchFor)){             par[sSVarU.tagsToSearchFor]              = jSGlobals.commaSeparateStringArray(tagsToSearchFor);}
+  if(!jSGlobals.isEmpty(includeMIs)){                  par[sSVarU.includeMIs]                   = includeMIs;}
+  if(!jSGlobals.isEmpty(misToSearchFor)){              par[sSVarU.misToSearchFor]               = jSGlobals.commaSeparateStringArray(misToSearchFor);}
+  if(!jSGlobals.isEmpty(includeLabel)){                par[sSVarU.includeLabel]                 = includeLabel;}
+  if(!jSGlobals.isEmpty(labelsToSearchFor)){           par[sSVarU.labelsToSearchFor]            = jSGlobals.commaSeparateStringArray(labelsToSearchFor);}
+  if(!jSGlobals.isEmpty(includeDescription)){          par[sSVarU.includeDescription]           = includeDescription;}
+  if(!jSGlobals.isEmpty(descriptionsToSearchFor)){     par[sSVarU.descriptionsToSearchFor]      = jSGlobals.commaSeparateStringArray(descriptionsToSearchFor);}
+  if(!jSGlobals.isEmpty(typesToSearchOnlyFor)){        par[sSVarU.typesToSearchOnlyFor]         = jSGlobals.commaSeparateStringArray(typesToSearchOnlyFor);}
+  if(!jSGlobals.isEmpty(includeOnlySubEntities)){      par[sSVarU.includeOnlySubEntities]       = includeOnlySubEntities;}
+  if(!jSGlobals.isEmpty(entitiesToSearchWithin)){      par[sSVarU.entitiesToSearchWithin]       = jSGlobals.commaSeparateStringArray(entitiesToSearchWithin);}
+  if(!jSGlobals.isEmpty(includeRecommendedResults)){   par[sSVarU.includeRecommendedResults]    = includeRecommendedResults;}
+  if(!jSGlobals.isEmpty(provideEntries)){              par[sSVarU.provideEntries]               = provideEntries;}
+  
+  new SSJSONPOSTRequest("search", par, resultHandler, errorHandler).send();
+};
+
+/**
+ * @deprecated @see SSSearch
+ * search for entities
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
  * @param {String Array} keywords strings to search for
  * @param {URI Array} entities entitites to search within
  * @param {Boolean} onlySubEntities whether to search only in, e.g. collection entries, discussion entries
@@ -1780,7 +1864,7 @@ includeMIs){
 };
 
 /**
- * @deprecated @see SSSearchCombined
+ * @deprecated @see SSSearch
  * search for entities having given maturing indicators attached
  * @param {Function} resultHandler
  * @param {Function} errorHandler
@@ -1804,7 +1888,7 @@ var SSSearchWithMIs = function(resultHandler, errorHandler, user, key, searchOp,
 };
 
 /**
- * @deprecated @see SSSearchCombined
+ * @deprecated @see SSSearch
  * search for entities containing content-based keywords given
  * @param {Function} resultHandler
  * @param {Function} errorHandler
@@ -1828,7 +1912,7 @@ var SSSearchWithSolr = function(resultHandler, errorHandler, user, key, searchOp
 };
 
 /**
- * @deprecated @see SSSearchCombined
+ * @deprecated @see SSSearch
  * search for entities with given tags attached
  * @param {Function} resultHandler
  * @param {Function} errorHandler
@@ -1855,7 +1939,7 @@ var SSSearchWithTags = function(resultHandler, errorHandler, user, key, searchOp
 };
 
 /**
- * @deprecated @see SSSearchCombined
+ * @deprecated @see SSSearch
  * search for entities with given tags attached within given entity
  * @param {Function} resultHandler
  * @param {Function} errorHandler
