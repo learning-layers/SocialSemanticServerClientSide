@@ -1628,6 +1628,35 @@ var SSRatingSet = function(resultHandler, errorHandler, user, key, entity, value
 };
 
 /**
+ * retrieve tag recommendations based on user, entity, tag, time and category combinations
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} forUser user to be considered to retrieve recommendations for
+ * @param {URI} entity resource to be considered to retrieve recommendations for
+ * @param {URI Array} categories additional information to be taken into account
+ * @param {Integer} maxTags number of tags to be returned
+ * @return {SSRecommTagsRet} <br>
+ * {SSTagLikelihood Array} tags recommended tags with likelihood
+ */
+var SSRecommTags = function(resultHandler, errorHandler, user, key, forUser, entity, categories, maxTags){
+  
+  var par                     = {};
+  par[sSVarU.op]              = "recommTags";
+  par[sSVarU.user]            = user;
+  par[sSVarU.key]             = key;
+  
+  if(!jSGlobals.isEmpty(forUser)){       par[sSVarU.forUser]         = forUser;}
+  if(!jSGlobals.isEmpty(entity)){        par[sSVarU.entity]          = entity;}
+  if(!jSGlobals.isEmpty(categories)){    par[sSVarU.categories]      = jSGlobals.commaSeparateStringArray(categories);}
+  if(!jSGlobals.isEmpty(maxTags)){       par[sSVarU.maxTags]         = maxTags;}
+  
+  new SSJSONPOSTRequest("recommTags", par, resultHandler, errorHandler).send();
+};
+
+/**
+ * @deprecated @see recommTags
  * retrieve tag recommendations based on user, entity and tag combinations
  * @param {Function} resultHandler
  * @param {Function} errorHandler
@@ -1654,6 +1683,7 @@ var SSScaffRecommTagsBasedOnUserEntityTag = function(resultHandler, errorHandler
 };
 
 /**
+ * @deprecated @see recommTags
  * retrieve tag recommendations based on user, entity, tag and time combination <br>
  * - leave forUser and entity null to get most popular tags <br>
  * - leave forUser null and set entity to get tags recommend for this entity <br>
@@ -1684,6 +1714,7 @@ var SSScaffRecommTagsBasedOnUserEntityTagTime = function(resultHandler, errorHan
 };
 
 /**
+ * @deprecated @see recommTags
  * retrieve tag recommendations based on user, entity, tag and category combination
  * @param {Function} resultHandler
  * @param {Function} errorHandler
@@ -1712,6 +1743,7 @@ var SSScaffRecommTagsBasedOnUserEntityTagCategory = function(resultHandler, erro
 };
 
 /**
+ * @deprecated @see recommTags
  * retrieve tag recommendations based on user, entity, tag, category and time combination
  * @param {Function} resultHandler
  * @param {Function} errorHandler
