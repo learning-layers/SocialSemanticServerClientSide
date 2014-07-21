@@ -1783,6 +1783,7 @@ descriptionsToSearchFor,
 typesToSearchOnlyFor,
 includeOnlySubEntities,
 entitiesToSearchWithin,
+extendToParents,
 includeRecommendedResults,
 provideEntries){
   
@@ -1805,6 +1806,7 @@ provideEntries){
   if(!jSGlobals.isEmpty(typesToSearchOnlyFor)){        par[sSVarU.typesToSearchOnlyFor]         = jSGlobals.commaSeparateStringArray(typesToSearchOnlyFor);}
   if(!jSGlobals.isEmpty(includeOnlySubEntities)){      par[sSVarU.includeOnlySubEntities]       = includeOnlySubEntities;}
   if(!jSGlobals.isEmpty(entitiesToSearchWithin)){      par[sSVarU.entitiesToSearchWithin]       = jSGlobals.commaSeparateStringArray(entitiesToSearchWithin);}
+  if(!jSGlobals.isEmpty(extendToParents)){             par[sSVarU.extendToParents]              = extendToParents;}
   if(!jSGlobals.isEmpty(includeRecommendedResults)){   par[sSVarU.includeRecommendedResults]    = includeRecommendedResults;}
   if(!jSGlobals.isEmpty(provideEntries)){              par[sSVarU.provideEntries]               = provideEntries;}
   

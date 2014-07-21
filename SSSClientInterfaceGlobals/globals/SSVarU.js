@@ -17,6 +17,7 @@ var sSVarU = new SSVarU();
     
 function SSVarU(){
   
+  this.extendToParents                                = "extendToParents";
   this.keywordsToSearchFor                            = "keywordsToSearchFor";
   this.wordsToSearchFor                               = "wordsToSearchFor";
   this.tagsToSearchFor                                = "tagsToSearchFor";
