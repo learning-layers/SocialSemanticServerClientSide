@@ -370,6 +370,7 @@ var SSCollsCouldSubscribeGet = function(resultHandler, errorHandler, user, key){
  * @param {String} label discussion name
  * @param {String} description describes the discussion in more detail
  * @param {URI Array} users provides users to share this discussion with upon creation of a new discussion
+ * @param {URI Array} entities provides entities to be attached either to corresponding discussion if addNewDisc=true or to respective entry if addNewDisc=false 
  * @return {SSDiscUserEntryAddRet} <br>
  * {SSUri} disc discussion 
  * {SSUri} discEntry discussion entry
@@ -386,7 +387,8 @@ addNewDisc,
 type,
 label, 
 description,
-users){
+users,
+entities){
   
   var par                = {};
   par[sSVarU.op]         = "discEntryAdd";
@@ -401,6 +403,7 @@ users){
   if(!jSGlobals.isEmpty(label)){        par[sSVarU.label]       = label;}
   if(!jSGlobals.isEmpty(description)){  par[sSVarU.explanation] = description;}
   if(!jSGlobals.isEmpty(users)){        par[sSVarU.users]       = jSGlobals.commaSeparateStringArray(users);}
+  if(!jSGlobals.isEmpty(entities)){     par[sSVarU.entities]    = jSGlobals.commaSeparateStringArray(entities);}
   
   new SSJSONPOSTRequest("discEntryAdd", par, resultHandler, errorHandler).send();
 };
