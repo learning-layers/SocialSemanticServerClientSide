@@ -1018,15 +1018,13 @@ var SSFileDownload = function(resultHandler, errorHandler, user, key, file){
  * @param {URI} user the user's uri
  * @param {String} key auth key
  * @param {File} fileHandle HTML file handle
- * @param {URI} coll collection for the file to added to
  * @return {SSFileUploadRet} <br>
  * {SSUri} file identifier for the uploaded file
  */
-var SSFileUpload = function(resultHandler, errorHandler, user, key, fileHandle, coll){
+var SSFileUpload = function(resultHandler, errorHandler, user, key, fileHandle){
   
   this.resultHandler         = resultHandler;
   this.errorHandler          = errorHandler;
-  this.coll                  = coll;
   this.label                 = fileHandle.name;
   
   var par                    = {};
@@ -1043,7 +1041,7 @@ var SSFileUpload = function(resultHandler, errorHandler, user, key, fileHandle, 
   formData.append(sSVarU.jsonRequ, JSON.stringify(par));
   
   this.myResultHandler = (function(thisRef){ return function(result){
-      thisRef.resultHandler(thisRef.coll, result.file, thisRef.label);
+      thisRef.resultHandler(result.file, thisRef.label);
     };})(this);
   
   xhr.onload = (function(thisRef){ return function(){
