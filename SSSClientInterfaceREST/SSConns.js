@@ -2028,20 +2028,22 @@ var SSTagAdd = function(resultHandler, errorHandler, user, key, entity, label, s
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI Array} entities entities to retrieve tags for
- * @param {String} labels tag labels to consider for retrieving tag assignments
- * @param {String} space access restriction for the tag (i.e. private,public)
- * @param {Long} startTime timestamp to retrieve tags
+ * @param {URI} forUser user to retrieve tags for (optional)
+ * @param {URI Array} entities entities to retrieve tags for (optional)
+ * @param {String} labels tag labels to consider for retrieving tags (optional)
+ * @param {String} space access restriction for to be retrieved tags (i.e. privateSpace, sharedSpace) (optional)
+ * @param {Long} startTime timestamp to retrieve tags from a certain point in time(optional)
  * @return {SSTagUserFrequsGetRet} <br> 
- * {SSTagFrequ Array} tagFrequs tag assignments with frequency for user, entity, tag and space combination
+ * {SSTagFrequ Array} tagFrequs tags with frequencies
  */
-var SSTagFrequsGet = function(resultHandler, errorHandler, user, key, entities, labels, space, startTime){
+var SSTagFrequsGet = function(resultHandler, errorHandler, user, key, forUser, entities, labels, space, startTime){
   
   var par                      = {};
   par[sSVarU.op]               = "tagFrequsGet";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
+  if(!jSGlobals.isEmpty(forUser)){     par[sSVarU.forUser]        = forUser;}
   if(!jSGlobals.isEmpty(entities)){    par[sSVarU.entities]       = jSGlobals.commaSeparateStringArray(entities);}
   if(!jSGlobals.isEmpty(labels)){      par[sSVarU.labels]         = jSGlobals.commaSeparateStringArray(labels);}
   if(!jSGlobals.isEmpty(space)){       par[sSVarU.space]          = space;}
@@ -2056,19 +2058,21 @@ var SSTagFrequsGet = function(resultHandler, errorHandler, user, key, entities, 
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {String} labels tag labels to consider for retrieving tag assignments
- * @param {String} space access restriction for the tag (i.e. private, public)
- * @param {Long} startTime timestamp to retrieve tags
+ * @param {URI} forUser user to retrieve entities via tags for (optional)
+ * @param {String} labels tag labels to consider for retrieving entities via tags
+ * @param {String} space access restriction for tags to be considered (i.e. privateSpace, sharedSpace) (optional)
+ * @param {Long} startTime timestamp to retrieve tags (optional)
  * @return {SSTagUserEntitiesForTagsGet} <br> 
- * {SSUri Array} entities entities haven given tags attached
+ * {SSUri Array} entities entities having given tags attached
  */
-var SSTagEntitiesForTagsGet = function(resultHandler, errorHandler, user, key, labels, space, startTime){
+var SSTagEntitiesForTagsGet = function(resultHandler, errorHandler, user, key, forUser, labels, space, startTime){
   
   var par                      = {};
   par[sSVarU.op]               = "tagEntitiesForTagsGet";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
+  if(!jSGlobals.isEmpty(forUser)){     par[sSVarU.forUser]        = forUser;}
   if(!jSGlobals.isEmpty(labels)){      par[sSVarU.labels]         = jSGlobals.commaSeparateStringArray(labels);}
   if(!jSGlobals.isEmpty(space)){       par[sSVarU.space]          = space;}
   if(!jSGlobals.isEmpty(startTime)){   par[sSVarU.startTime]      = startTime;}
