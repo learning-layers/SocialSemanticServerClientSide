@@ -71,7 +71,6 @@ var SSActivitiesGet = function(resultHandler, errorHandler, user, key, types, us
   new SSJSONPOSTRequest("activitiesGet", par, resultHandler, errorHandler).send();
 };
 
-
 /**
  * retrieve all the user's collections given entity is in
  * @param {Function} resultHandler
@@ -510,6 +509,27 @@ var SSEntityEntityUsersGet = function(resultHandler, errorHandler, user, key, en
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("entityEntityUsersGet", par, resultHandler, errorHandler).send();
+};
+
+/**
+ * retrieve a certain circle 
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} circle the circle to retrieve
+ * @return {SSEntityUserCircleGetRet} <br>
+ * {SSEntityCircle} circle requested
+ */
+var SSEntityCircleGet = function(resultHandler, errorHandler, user, key, circle){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "entityCircleGet";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  par[sSVarU.circle]           = circle;
+  
+  new SSJSONPOSTRequest("entityCircleGet", par, resultHandler, errorHandler).send();
 };
 
 /**
