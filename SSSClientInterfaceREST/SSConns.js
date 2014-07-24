@@ -47,11 +47,11 @@ var SSAuthCheckCred = function(resultHandler, errorHandler, label, password){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {String Array} types of activities to be queried
- * @param {URI Array} users users which have been involved in activities
- * @param {URI Array} entities entities which have been involved in activities as targets (e.g. the target for a discussion)
- * @param {Long} startTime time frame start
- * @param {Long} endTime time frame end 
+ * @param {String Array} types of activities to be queried (optional)
+ * @param {URI Array} users users which have been involved in activities (optional)
+ * @param {URI Array} entities entities which have been involved in activities as targets (e.g. the target for a discussion) (optional)
+ * @param {Long} startTime time frame start (optional)
+ * @param {Long} endTime time frame end (optional)
  * @return {SSActivitiesUserGetRet} <br>
  * {SSActivity Array} activities activities for given query
  */
