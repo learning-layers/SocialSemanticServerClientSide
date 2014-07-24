@@ -2059,7 +2059,7 @@ var SSTagFrequsGet = function(resultHandler, errorHandler, user, key, forUser, e
  * @param {URI} user the user's uri
  * @param {String} key auth key
  * @param {URI} forUser user to retrieve entities via tags for (optional)
- * @param {String} labels tag labels to consider for retrieving entities via tags
+ * @param {String} labels tag labels to consider for retrieving entities via tags (optional)
  * @param {String} space access restriction for tags to be considered (i.e. privateSpace, sharedSpace) (optional)
  * @param {Long} startTime timestamp to retrieve tags (optional)
  * @return {SSTagUserEntitiesForTagsGet} <br> 
