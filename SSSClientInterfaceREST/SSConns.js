@@ -2023,7 +2023,7 @@ var SSTagAdd = function(resultHandler, errorHandler, user, key, entity, label, s
 };
 
 /**
- * retrieve tag assignments user, tag and space combination
+ * retrieve tag frequencies
  * @param {Function} resultHandler
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
@@ -2050,6 +2050,36 @@ var SSTagFrequsGet = function(resultHandler, errorHandler, user, key, forUser, e
   if(!jSGlobals.isEmpty(startTime)){   par[sSVarU.startTime]      = startTime;}
   
   new SSJSONPOSTRequest("tagFrequsGet", par, resultHandler, errorHandler).send();
+};
+
+/**
+ * retrieve tag assignments
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} forUser user to retrieve tag assignments for (optional)
+ * @param {URI Array} entities entities to retrieve tag assignments for (optional)
+ * @param {String} labels tag labels to consider for retrieving tag assignments (optional)
+ * @param {String} space access restriction for to be retrieved tag assignments (i.e. privateSpace, sharedSpace) (optional)
+ * @param {Long} startTime timestamp to retrieve tag assignments from a certain point in time (optional)
+ * @return {SSTagsUserGetRet} <br> 
+ * {SSTag Array} tag assignments
+ */
+var SSTagsGet = function(resultHandler, errorHandler, user, key, forUser, entities, labels, space, startTime){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "tagsGet";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  
+  if(!jSGlobals.isEmpty(forUser)){     par[sSVarU.forUser]        = forUser;}
+  if(!jSGlobals.isEmpty(entities)){    par[sSVarU.entities]       = jSGlobals.commaSeparateStringArray(entities);}
+  if(!jSGlobals.isEmpty(labels)){      par[sSVarU.labels]         = jSGlobals.commaSeparateStringArray(labels);}
+  if(!jSGlobals.isEmpty(space)){       par[sSVarU.space]          = space;}
+  if(!jSGlobals.isEmpty(startTime)){   par[sSVarU.startTime]      = startTime;}
+  
+  new SSJSONPOSTRequest("tagsGet", par, resultHandler, errorHandler).send();
 };
 
 /**
