@@ -361,15 +361,15 @@ var SSCollsCouldSubscribeGet = function(resultHandler, errorHandler, user, key){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} disc discussion to add an entry for
- * @param {URI} entity entity to start a discussion for
- * @param {String} entry text for the comment/answer/opinion
- * @param {Boolean} addNewDisc whether a new disc should be created
- * @param {String} type discussion type: disc, qa or chat
- * @param {String} label discussion name
- * @param {String} description describes the discussion in more detail
- * @param {URI Array} users provides users to share this discussion with upon creation of a new discussion
- * @param {URI Array} entities provides entities to be attached either to corresponding discussion if addNewDisc=true or to respective entry if addNewDisc=false 
+ * @param {URI} disc discussion to add an entry for (optional in case of a new discussion)
+ * @param {URI} entity entity to start a discussion for (optional)
+ * @param {String} entry text for the comment/answer/opinion (optional in case of a new discussion)
+ * @param {Boolean} addNewDisc whether a new disc should be created (optional)
+ * @param {String} type discussion type: disc, qa or chat (optional in case of an existing discussion)
+ * @param {String} label discussion name (optional in case of an existing discussion)
+ * @param {String} description describes the discussion in more detail (optional, except in case of a new discussion of type qa)
+ * @param {URI Array} users provides users to share this discussion with upon creation of a new discussion (optional, but works only for a new discussion)
+ * @param {URI Array} entities provides entities to be attached either to corresponding discussion if new discussion to be added or to respective entry in the other case (optional)
  * @return {SSDiscUserEntryAddRet} <br>
  * {SSUri} disc discussion 
  * {SSUri} discEntry discussion entry
