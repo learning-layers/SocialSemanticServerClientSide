@@ -833,6 +833,51 @@ getFlags){
 };
 
 /**
+ * retrieve more detailed information for given entities of a user
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI Array} entities entities to get details for (optional)
+ * @param {Boolean} getTags whether tags for entities should be delivered (optional)
+ * @param {Boolean} getOverallRating whether overall ratings for entities should be delivered (optional)
+ * @param {Boolean} getDiscs whether discussion uris for entities shall be included (optional)
+ * @param {Boolean} getUEs whether user events for user's given/resulting entities shall be returned (optional)
+ * @param {Boolean} getThumb whether a thumbnail for files should be included (optional)
+ * @param {Boolean} getFlags whether flags for the user's entities should be included (optional)
+ * @return {SSEntityDescsGetRet} <br>
+ * {SSEntityDescA Array} descs entities' details
+ */
+var SSEntityDescsGet = function(
+  resultHandler, 
+errorHandler, 
+user, 
+key, 
+entities, 
+getTags,
+getOverallRating, 
+getDiscs, 
+getUEs, 
+getThumb, 
+getFlags){
+  
+  var par                         = {};
+  par[sSVarU.op]                  = "entityDescsGet";
+  par[sSVarU.user]                = user;
+  par[sSVarU.key]                 = key;
+  
+  if(!jSGlobals.isEmpty(entities)){         par[sSVarU.entities]            = jSGlobals.commaSeparateStringArray(entities);}
+  if(!jSGlobals.isEmpty(getTags)){          par[sSVarU.getTags]             = getTags;}
+  if(!jSGlobals.isEmpty(getOverallRating)){ par[sSVarU.getOverallRating]    = getOverallRating;}
+  if(!jSGlobals.isEmpty(getDiscs)){         par[sSVarU.getDiscs]            = getDiscs;}
+  if(!jSGlobals.isEmpty(getUEs)){           par[sSVarU.getUEs]              = getUEs;}
+  if(!jSGlobals.isEmpty(getThumb)){         par[sSVarU.getThumb]            = getThumb;}
+  if(!jSGlobals.isEmpty(getFlags)){         par[sSVarU.getFlags]            = getFlags;}
+  
+  new SSJSONPOSTRequest("entityDescsGet", par, resultHandler, errorHandler).send();
+};
+
+/**
  * retrieve a file's extension
  * @param {Function} resultHandler
  * @param {Function} errorHandler
