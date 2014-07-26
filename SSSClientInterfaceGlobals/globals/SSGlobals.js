@@ -17,7 +17,7 @@ var sSGlobals = new SSGlobals();
 
 function SSGlobals(){
   
-  this.hostREST                                      = "http://localhost:8084/ss-adapter-rest/rest/SSAdapterRest/";
+  this.hostREST                                      = "http://test-ll.know-center.tugraz.at/ss-adapter-rest-bptest/rest/SSAdapterRest/";
   this.hostRESTSSL                                   = "https://localhost:9500/ss-adapter-rest/rest/SSAdapterRest/";
   this.host                                          = "ws://"  + "localhost:8084/ss-adapter-websocket/ss-adapter-websocket"; 
   this.hostSsl                                       = "wss://" + "localhost:8443/ss-adapter-websocket/ss-adapter-websocket";

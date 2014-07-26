@@ -47,11 +47,11 @@ var SSAuthCheckCred = function(resultHandler, errorHandler, label, password){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {String Array} types of activities to be queried (optional)
- * @param {URI Array} users users which have been involved in activities (optional)
- * @param {URI Array} entities entities which have been involved in activities as targets (e.g. the target for a discussion) (optional)
- * @param {Long} startTime time frame start (optional)
- * @param {Long} endTime time frame end (optional)
+ * @param {String Array} types of activities to be queried
+ * @param {URI Array} users users which have been involved in activities
+ * @param {URI Array} entities entities which have been involved in activities as targets (e.g. the target for a discussion)
+ * @param {Long} startTime time frame start
+ * @param {Long} endTime time frame end 
  * @return {SSActivitiesUserGetRet} <br>
  * {SSActivity Array} activities activities for given query
  */
@@ -70,6 +70,7 @@ var SSActivitiesGet = function(resultHandler, errorHandler, user, key, types, us
   
   new SSJSONPOSTRequest("activitiesGet", par, resultHandler, errorHandler).send();
 };
+
 
 /**
  * retrieve all the user's collections given entity is in
@@ -361,15 +362,14 @@ var SSCollsCouldSubscribeGet = function(resultHandler, errorHandler, user, key){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} disc discussion to add an entry for (optional in case of a new discussion)
- * @param {URI} entity entity to start a discussion for (optional)
- * @param {String} entry text for the comment/answer/opinion (optional in case of a new discussion)
- * @param {Boolean} addNewDisc whether a new disc should be created (optional)
- * @param {String} type discussion type: disc, qa or chat (optional in case of an existing discussion)
- * @param {String} label discussion name (optional in case of an existing discussion)
- * @param {String} description describes the discussion in more detail (optional, except in case of a new discussion of type qa)
- * @param {URI Array} users provides users to share this discussion with upon creation of a new discussion (optional, but works only for a new discussion)
- * @param {URI Array} entities provides entities to be attached either to corresponding discussion if new discussion to be added or to respective entry in the other case (optional)
+ * @param {URI} disc discussion to add an entry for
+ * @param {URI} entity entity to start a discussion for
+ * @param {String} entry text for the comment/answer/opinion
+ * @param {Boolean} addNewDisc whether a new disc should be created
+ * @param {String} type discussion type: disc, qa or chat
+ * @param {String} label discussion name
+ * @param {String} description describes the discussion in more detail
+ * @param {URI Array} users provides users to share this discussion with upon creation of a new discussion
  * @return {SSDiscUserEntryAddRet} <br>
  * {SSUri} disc discussion 
  * {SSUri} discEntry discussion entry
@@ -386,8 +386,7 @@ addNewDisc,
 type,
 label, 
 description,
-users,
-entities){
+users){
   
   var par                = {};
   par[sSVarU.op]         = "discEntryAdd";
@@ -402,7 +401,6 @@ entities){
   if(!jSGlobals.isEmpty(label)){        par[sSVarU.label]       = label;}
   if(!jSGlobals.isEmpty(description)){  par[sSVarU.explanation] = description;}
   if(!jSGlobals.isEmpty(users)){        par[sSVarU.users]       = jSGlobals.commaSeparateStringArray(users);}
-  if(!jSGlobals.isEmpty(entities)){     par[sSVarU.entities]    = jSGlobals.commaSeparateStringArray(entities);}
   
   new SSJSONPOSTRequest("discEntryAdd", par, resultHandler, errorHandler).send();
 };
@@ -509,27 +507,6 @@ var SSEntityEntityUsersGet = function(resultHandler, errorHandler, user, key, en
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("entityEntityUsersGet", par, resultHandler, errorHandler).send();
-};
-
-/**
- * retrieve a certain circle 
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key
- * @param {URI} circle the circle to retrieve
- * @return {SSEntityUserCircleGetRet} <br>
- * {SSEntityCircle} circle requested
- */
-var SSEntityCircleGet = function(resultHandler, errorHandler, user, key, circle){
-  
-  var par                      = {};
-  par[sSVarU.op]               = "entityCircleGet";
-  par[sSVarU.user]             = user;
-  par[sSVarU.key]              = key;
-  par[sSVarU.circle]           = circle;
-  
-  new SSJSONPOSTRequest("entityCircleGet", par, resultHandler, errorHandler).send();
 };
 
 /**
@@ -1041,13 +1018,15 @@ var SSFileDownload = function(resultHandler, errorHandler, user, key, file){
  * @param {URI} user the user's uri
  * @param {String} key auth key
  * @param {File} fileHandle HTML file handle
+ * @param {URI} coll collection for the file to added to
  * @return {SSFileUploadRet} <br>
  * {SSUri} file identifier for the uploaded file
  */
-var SSFileUpload = function(resultHandler, errorHandler, user, key, fileHandle){
+var SSFileUpload = function(resultHandler, errorHandler, user, key, fileHandle, coll){
   
   this.resultHandler         = resultHandler;
   this.errorHandler          = errorHandler;
+  this.coll                  = coll;
   this.label                 = fileHandle.name;
   
   var par                    = {};
@@ -1064,7 +1043,7 @@ var SSFileUpload = function(resultHandler, errorHandler, user, key, fileHandle){
   formData.append(sSVarU.jsonRequ, JSON.stringify(par));
   
   this.myResultHandler = (function(thisRef){ return function(result){
-      thisRef.resultHandler(result.file, thisRef.label);
+      thisRef.resultHandler(thisRef.coll, result.file, thisRef.label);
     };})(this);
   
   xhr.onload = (function(thisRef){ return function(){
@@ -2043,27 +2022,25 @@ var SSTagAdd = function(resultHandler, errorHandler, user, key, entity, label, s
 };
 
 /**
- * retrieve tag frequencies
+ * retrieve tag assignments user, tag and space combination
  * @param {Function} resultHandler
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} forUser user to retrieve tags for (optional)
- * @param {URI Array} entities entities to retrieve tags for (optional)
- * @param {String} labels tag labels to consider for retrieving tags (optional)
- * @param {String} space access restriction for to be retrieved tags (i.e. privateSpace, sharedSpace) (optional)
- * @param {Long} startTime timestamp to retrieve tags from a certain point in time(optional)
+ * @param {URI Array} entities entities to retrieve tags for
+ * @param {String} labels tag labels to consider for retrieving tag assignments
+ * @param {String} space access restriction for the tag (i.e. private,public)
+ * @param {Long} startTime timestamp to retrieve tags
  * @return {SSTagUserFrequsGetRet} <br> 
- * {SSTagFrequ Array} tagFrequs tags with frequencies
+ * {SSTagFrequ Array} tagFrequs tag assignments with frequency for user, entity, tag and space combination
  */
-var SSTagFrequsGet = function(resultHandler, errorHandler, user, key, forUser, entities, labels, space, startTime){
+var SSTagFrequsGet = function(resultHandler, errorHandler, user, key, entities, labels, space, startTime){
   
   var par                      = {};
   par[sSVarU.op]               = "tagFrequsGet";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
-  if(!jSGlobals.isEmpty(forUser)){     par[sSVarU.forUser]        = forUser;}
   if(!jSGlobals.isEmpty(entities)){    par[sSVarU.entities]       = jSGlobals.commaSeparateStringArray(entities);}
   if(!jSGlobals.isEmpty(labels)){      par[sSVarU.labels]         = jSGlobals.commaSeparateStringArray(labels);}
   if(!jSGlobals.isEmpty(space)){       par[sSVarU.space]          = space;}
@@ -2073,56 +2050,24 @@ var SSTagFrequsGet = function(resultHandler, errorHandler, user, key, forUser, e
 };
 
 /**
- * retrieve tag assignments
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key
- * @param {URI} forUser user to retrieve tag assignments for (optional)
- * @param {URI Array} entities entities to retrieve tag assignments for (optional)
- * @param {String} labels tag labels to consider for retrieving tag assignments (optional)
- * @param {String} space access restriction for to be retrieved tag assignments (i.e. privateSpace, sharedSpace) (optional)
- * @param {Long} startTime timestamp to retrieve tag assignments from a certain point in time (optional)
- * @return {SSTagsUserGetRet} <br> 
- * {SSTag Array} tag assignments
- */
-var SSTagsGet = function(resultHandler, errorHandler, user, key, forUser, entities, labels, space, startTime){
-  
-  var par                      = {};
-  par[sSVarU.op]               = "tagsGet";
-  par[sSVarU.user]             = user;
-  par[sSVarU.key]              = key;
-  
-  if(!jSGlobals.isEmpty(forUser)){     par[sSVarU.forUser]        = forUser;}
-  if(!jSGlobals.isEmpty(entities)){    par[sSVarU.entities]       = jSGlobals.commaSeparateStringArray(entities);}
-  if(!jSGlobals.isEmpty(labels)){      par[sSVarU.labels]         = jSGlobals.commaSeparateStringArray(labels);}
-  if(!jSGlobals.isEmpty(space)){       par[sSVarU.space]          = space;}
-  if(!jSGlobals.isEmpty(startTime)){   par[sSVarU.startTime]      = startTime;}
-  
-  new SSJSONPOSTRequest("tagsGet", par, resultHandler, errorHandler).send();
-};
-
-/**
  * retrieve entities for tags (currently startTime is not used to retrieve entities)
  * @param {Function} resultHandler
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} forUser user to retrieve entities via tags for (optional)
- * @param {String} labels tag labels to consider for retrieving entities via tags (optional)
- * @param {String} space access restriction for tags to be considered (i.e. privateSpace, sharedSpace) (optional)
- * @param {Long} startTime timestamp to retrieve tags (optional)
+ * @param {String} labels tag labels to consider for retrieving tag assignments
+ * @param {String} space access restriction for the tag (i.e. private, public)
+ * @param {Long} startTime timestamp to retrieve tags
  * @return {SSTagUserEntitiesForTagsGet} <br> 
- * {SSUri Array} entities entities having given tags attached
+ * {SSUri Array} entities entities haven given tags attached
  */
-var SSTagEntitiesForTagsGet = function(resultHandler, errorHandler, user, key, forUser, labels, space, startTime){
+var SSTagEntitiesForTagsGet = function(resultHandler, errorHandler, user, key, labels, space, startTime){
   
   var par                      = {};
   par[sSVarU.op]               = "tagEntitiesForTagsGet";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
-  if(!jSGlobals.isEmpty(forUser)){     par[sSVarU.forUser]        = forUser;}
   if(!jSGlobals.isEmpty(labels)){      par[sSVarU.labels]         = jSGlobals.commaSeparateStringArray(labels);}
   if(!jSGlobals.isEmpty(space)){       par[sSVarU.space]          = space;}
   if(!jSGlobals.isEmpty(startTime)){   par[sSVarU.startTime]      = startTime;}
