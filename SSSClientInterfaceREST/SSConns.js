@@ -1,6 +1,6 @@
 /**
  * Code contributed to the Learning Layers project
- * http://www.learning-layers.eu
+ * http://www.learning-layers.euSSEntityDescsGet
  * Development is partly funded by the FP7 Programme of the European Commission under
  * Grant Agreement FP7-ICT-318209.
  * Copyright (c) 2014, Graz University of Technology - KTI (Knowledge Technologies Institute).
@@ -838,7 +838,8 @@ getFlags){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI Array} entities entities to get details for (optional)
+ * @param {URI Array} entities entities to get details for (optional if types is set)
+ * @param {String Array} types of entities (optional if entities is set)
  * @param {Boolean} getTags whether tags for entities should be delivered (optional)
  * @param {Boolean} getOverallRating whether overall ratings for entities should be delivered (optional)
  * @param {Boolean} getDiscs whether discussion uris for entities shall be included (optional)
@@ -853,7 +854,8 @@ var SSEntityDescsGet = function(
 errorHandler, 
 user, 
 key, 
-entities, 
+entities,
+types,
 getTags,
 getOverallRating, 
 getDiscs, 
@@ -867,6 +869,7 @@ getFlags){
   par[sSVarU.key]                 = key;
   
   if(!jSGlobals.isEmpty(entities)){         par[sSVarU.entities]            = jSGlobals.commaSeparateStringArray(entities);}
+  if(!jSGlobals.isEmpty(types)){            par[sSVarU.types]               = jSGlobals.commaSeparateStringArray(types);}
   if(!jSGlobals.isEmpty(getTags)){          par[sSVarU.getTags]             = getTags;}
   if(!jSGlobals.isEmpty(getOverallRating)){ par[sSVarU.getOverallRating]    = getOverallRating;}
   if(!jSGlobals.isEmpty(getDiscs)){         par[sSVarU.getDiscs]            = getDiscs;}
