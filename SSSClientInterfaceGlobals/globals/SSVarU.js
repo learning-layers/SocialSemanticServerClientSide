@@ -42,7 +42,6 @@ function SSVarU(){
   this.description                                    = "description";
   this.types                                          = "types";
   this.comment                                        = "comment";
-  this.explanation                                    = "explanation";
   this.circleTypes                                    = "circleTypes";
   this.fileHandle                                     = "fileHandle";
   this.entry                                          = "entry";
