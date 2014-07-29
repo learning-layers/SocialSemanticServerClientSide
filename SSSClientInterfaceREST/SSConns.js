@@ -761,18 +761,19 @@ var SSEntityGet = function(resultHandler, errorHandler, user, key, entity){
 };
 
 /**
- * updates given properties for an entity
+ * updates/adds given properties for an entity
  * @param {Function} resultHandler
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
  * @param {URI} entity entity to update
- * @param {String} label entity's updated name
- * @param {String} description entity's updated description
- * @return {SSEntityUpdateRet} <br>
+ * @param {String} label entity's updated name (optional)
+ * @param {String} description entity's updated description (optional)
+ * @param {String Array} comments new textual annotations for the entity (optional)
+ * @return {SSEntityUserUpdateRet} <br>
  * {SSUri} entity entity updated
  */
-var SSEntityUpdate = function(resultHandler, errorHandler, user, key, entity, label, description){
+var SSEntityUpdate = function(resultHandler, errorHandler, user, key, entity, label, description, comments){
   
   var par                     = {};
   par[sSVarU.op]              = "entityUpdate";
@@ -782,6 +783,7 @@ var SSEntityUpdate = function(resultHandler, errorHandler, user, key, entity, la
   
   if(!jSGlobals.isEmpty(label)){          par[sSVarU.label]             = label;}
   if(!jSGlobals.isEmpty(description)){    par[sSVarU.description]       = description;}
+  if(!jSGlobals.isEmpty(comments)){       par[sSVarU.comments]          = jSGlobals.commaSeparateStringArray(comments);}
   
   new SSJSONPOSTRequest("entityUpdate", par, resultHandler, errorHandler).send();
 };
