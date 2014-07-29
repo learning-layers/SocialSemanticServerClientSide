@@ -12,3 +12,6 @@ Connectors as implemented in `SocialSemanticServerClientSide/SSSClientInterfaceR
 * the user's URI is needed for most of other connectors together with the user's key
 
 A more detailed description of use, parameters and return values can be found in `SSConns.js` directly.
+
+#### Contact
+* Dieter Theiler, Know-Center, Graz University of Technology, dtheiler@tugraz.at
