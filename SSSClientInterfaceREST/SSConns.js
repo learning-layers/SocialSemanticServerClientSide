@@ -1729,16 +1729,16 @@ provideEntries){
 };
 
 /**
- * add a tag in given space for an entity
+ * add a tag within for an entity within given space 
  * @param {Function} resultHandler
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} entity entity’ to add tag for
+ * @param {URI} entity entity to add tag for
  * @param {String} label label of the tag to add
- * @param {String} space access restriction for the tag (i.e. private,public)
+ * @param {String} space access restriction for the tag (i.e. privateSpace, sharedSpace)
  * @return {SSTagAddRet} <br>
- * {Boolean} worked whether adding the tag worked
+ * {SSUri} tag uri of the tag
  */
 var SSTagAdd = function(resultHandler, errorHandler, user, key, entity, label, space){
   
@@ -1751,6 +1751,55 @@ var SSTagAdd = function(resultHandler, errorHandler, user, key, entity, label, s
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("tagAdd", par, resultHandler, errorHandler).send();
+};
+
+/**
+ * changes the label of the tag assigned to entities by given user
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} tag tag to change the label for
+ * @param {String} label new label of the tag 
+ * @return {SSTagUserEditRet} <br>
+ * {URI} tag [new] uri of the tag
+ */
+var SSTagEdit = function(resultHandler, errorHandler, user, key, tag, label){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "tagEdit";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  par[sSVarU.tag]              = tag;
+  par[sSVarU.label]            = label;
+  
+  new SSJSONPOSTRequest("tagEdit", par, resultHandler, errorHandler).send();
+};
+
+/**
+ * remove tag, user, entity, space combinations
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} entity entity to consider removing tag assignments from
+ * @param {String} label label of the tag to consider when removing tag-assignments
+ * @param {String} space access restriction (i.e. private,public) for tag-assignments to be removed
+ * @return {SSTagsUserRemoveRet} <br>
+ * {Boolean} worked whether removing desired tag-assignments worked
+ */
+var SSTagsRemove = function(resultHandler, errorHandler, user, key, entity, label, space){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "tagsRemove";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  
+  if(!jSGlobals.isEmpty(entity)){    par[sSVarU.entity]       = entity;}
+  if(!jSGlobals.isEmpty(label)){     par[sSVarU.label]        = label;}
+  if(!jSGlobals.isEmpty(space)){     par[sSVarU.space]        = space;}
+  
+  new SSJSONPOSTRequest("tagsRemove", par, resultHandler, errorHandler).send();
 };
 
 /**
@@ -1839,32 +1888,6 @@ var SSTagEntitiesForTagsGet = function(resultHandler, errorHandler, user, key, f
   if(!jSGlobals.isEmpty(startTime)){   par[sSVarU.startTime]      = startTime;}
   
   new SSJSONPOSTRequest("tagEntitiesForTagsGet", par, resultHandler, errorHandler).send();
-};
-
-/**
- * remove tag, user, entity, space combinations
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key
- * @param {URI} entity entity to consider removing tag assignments from
- * @param {String} label label of the tag to consider when removing tag-assignments
- * @param {String} space access restriction (i.e. private,public) for tag-assignments to be removed
- * @return {SSTagsUserRemoveRet} <br>
- * {Boolean} worked whether removing desired tag-assignments worked
- */
-var SSTagsRemove = function(resultHandler, errorHandler, user, key, entity, label, space){
-  
-  var par                      = {};
-  par[sSVarU.op]               = "tagsRemove";
-  par[sSVarU.user]             = user;
-  par[sSVarU.key]              = key;
-  
-  if(!jSGlobals.isEmpty(entity)){    par[sSVarU.entity]       = entity;}
-  if(!jSGlobals.isEmpty(label)){     par[sSVarU.label]        = label;}
-  if(!jSGlobals.isEmpty(space)){     par[sSVarU.space]            = space;}
-  
-  new SSJSONPOSTRequest("tagsRemove", par, resultHandler, errorHandler).send();
 };
 
 /**
