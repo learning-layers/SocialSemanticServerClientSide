@@ -538,15 +538,18 @@ var SSEntityCircleGet = function(resultHandler, errorHandler, user, key, circle)
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
+ * @param {URI} forUser user to retrieve circles for (optional)
  * @return {SSEntityUserCirclesGetRet} <br>
  * {SSEntityCircle Array} circles all user-generated circles the user is in
  */
-var SSEntityUserCirclesGet = function(resultHandler, errorHandler, user, key){
+var SSEntityUserCirclesGet = function(resultHandler, errorHandler, user, key, forUser){
   
   var par                      = {};
   par[sSVarU.op]               = "entityUserCirclesGet";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
+  
+  if(!jSGlobals.isEmpty(forUser)){ par[sSVarU.forUser]   = forUser;}
   
   new SSJSONPOSTRequest("entityUserCirclesGet", par, resultHandler, errorHandler).send();
 };
