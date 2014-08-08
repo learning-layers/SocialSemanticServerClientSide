@@ -17,6 +17,7 @@ var sSVarU = new SSVarU();
     
 function SSVarU(){
   
+  this.circles                                        = "circles";
   this.tag                                            = "tag";
   this.comments                                       = "comments";
   this.extendToParents                                = "extendToParents";
