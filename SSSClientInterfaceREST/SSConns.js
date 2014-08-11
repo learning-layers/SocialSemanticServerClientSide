@@ -1895,58 +1895,6 @@ provideEntries){
 
 /**
  * @deprecated @see SSSearch
- * search for entities
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key
- * @param {String Array} keywords strings to search for
- * @param {URI Array} entities entitites to search within
- * @param {Boolean} onlySubEntities whether to search only in, e.g. collection entries, discussion entries
- * @param {String} types entity types to consider when searching
- * @param {Boolean} includeTags whether to use tags for search
- * @param {Boolean} includeTextualContent whether to search in the content of, e.g. a file
- * @param {Boolean} includeLabel whether to include the name/title of entities in search
- * @param {Boolean} includeDescription whether to include the description of entities in search
- * @param {Boolean} includeMIs whether to search with automatically calculated usage-based indicators
- * @return {SSSearchCombinedRet} <br>
- * {SSSearchResult Array} searchResults found entities with label, type and space (private or shared)
- */
-var SSSearchCombined = function(
-  resultHandler, 
-errorHandler, 
-user, 
-key, 
-keywords,
-entities,
-onlySubEntities,
-types,
-includeTags, 
-includeTextualContent,
-includeLabel,
-includeDescription,
-includeMIs){
-  
-  var par                     = {};
-  par[sSVarU.op]              = "searchCombined";
-  par[sSVarU.user]            = user;
-  par[sSVarU.key]             = key;
-  par[sSVarU.keywords]        = jSGlobals.commaSeparateStringArray(keywords);
-  
-  if(!jSGlobals.isEmpty(entities)){                 par[sSVarU.entities]                 = jSGlobals.commaSeparateStringArray(entities);}
-  if(!jSGlobals.isEmpty(onlySubEntities)){          par[sSVarU.onlySubEntities]          = onlySubEntities;}
-  if(!jSGlobals.isEmpty(types)){                    par[sSVarU.types]                    = jSGlobals.commaSeparateStringArray(types);}
-  if(!jSGlobals.isEmpty(includeTags)){              par[sSVarU.includeTags]              = includeTags;}
-  if(!jSGlobals.isEmpty(includeTextualContent)){    par[sSVarU.includeTextualContent]    = includeTextualContent;}
-  if(!jSGlobals.isEmpty(includeLabel)){             par[sSVarU.includeLabel]             = includeLabel;}
-  if(!jSGlobals.isEmpty(includeDescription)){       par[sSVarU.includeDescription]       = includeDescription;}
-  if(!jSGlobals.isEmpty(includeMIs)){               par[sSVarU.includeMIs]               = includeMIs;}
-  
-  new SSJSONPOSTRequest("searchCombined", par, resultHandler, errorHandler).send();
-};
-
-/**
- * @deprecated @see SSSearch
  * search for entities having given maturing indicators attached
  * @param {Function} resultHandler
  * @param {Function} errorHandler
