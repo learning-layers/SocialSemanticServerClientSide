@@ -89,7 +89,7 @@ endTime){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} entity entity searched for in user's collections
+ * @param {URI} entity entity to be searched for in user's collections
  * @return {SSCollsUserEntityIsInGetRet} <br>
  * {SSColl Array} colls user's collections the entity is in
  */
@@ -194,12 +194,12 @@ var SSCollEntryAdd = function(resultHandler, errorHandler, user, key, coll, entr
 };
 
 /**
- * add existing collections or entities to a collection
+ * add existing collections or (new) entities to a collection
  * @param {Function} resultHandler
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key 
- * @param {URI} coll collection to a sub-entity
+ * @param {URI} coll collection to add sub-entities to
  * @param {URI Array} entries entities to add
  * @param {String Array} labels collection item labels
  * @return {SSCollUserEntriesAddRet} <br>
@@ -447,7 +447,7 @@ var SSDiscWithEntriesGet = function(resultHandler, errorHandler, user, key, disc
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @return {SSDiscsAllGetRet} <br>
+ * @return {SSDiscsUserAllGetRet} <br>
  * {SSDisc Array} discs discussions without entries for given user
  */
 var SSDiscsAllGet = function(resultHandler, errorHandler, user, key){
@@ -1091,18 +1091,15 @@ var SSFileUpload = function(resultHandler, errorHandler, user, key, fileHandle){
   this.errorHandler          = errorHandler;
   this.label                 = fileHandle.name;
   
-  var par                    = {};
   var xhr                    = new XMLHttpRequest();
   var formData               = new FormData();
   
-  par[sSVarU.op]              = "fileUpload";
-  par[sSVarU.user]            = user;
-  par[sSVarU.mimeType]        = fileHandle.type;
-  par[sSVarU.label]           = fileHandle.name;
-  par[sSVarU.key]             = key;
-  
+  formData.append(sSVarU.op,         "fileUpload");
+  formData.append(sSVarU.user,       user);
+  formData.append(sSVarU.mimeType,   fileHandle.type);
+  formData.append(sSVarU.label,      fileHandle.name);
+  formData.append(sSVarU.key,        key);
   formData.append(sSVarU.fileHandle, fileHandle);
-  formData.append(sSVarU.jsonRequ, JSON.stringify(par));
   
   this.myResultHandler = (function(thisRef){ return function(result){
       thisRef.resultHandler(result.file, thisRef.label);
@@ -1139,17 +1136,14 @@ var SSFileReplace = function(resultHandler, errorHandler, user, key, file, fileH
   this.resultHandler         = resultHandler;
   this.errorHandler          = errorHandler;
   
-  var par                    = {};
   var xhr                    = new XMLHttpRequest();
   var formData               = new FormData();
   
-  par[sSVarU.op]              = "fileReplace";
-  par[sSVarU.user]            = user;
-  par[sSVarU.file]            = file;
-  par[sSVarU.key]             = key;
-  
+  formData.append(sSVarU.op,         "fileReplace");
+  formData.append(sSVarU.user,       user);
+  formData.append(sSVarU.file,       file);
+  formData.append(sSVarU.key,        key);
   formData.append(sSVarU.fileHandle, fileHandle);
-  formData.append(sSVarU.jsonRequ, JSON.stringify(par));
   
   this.myResultHandler = (function(thisRef){ return function(result){
       thisRef.resultHandler(result.file);
@@ -1737,6 +1731,7 @@ var SSRecommTags = function(resultHandler, errorHandler, user, key, forUser, ent
  * @param {String Array} typesToSearchOnlyFor list of entity types to be considered for search exclusively 
  * @param {Boolean} includeOnlySubEntities whether only sub-entities (e.g. collection entries) of entitiesToSearchWithin should be considered
  * @param {URI Array} entitiesToSearchWithin entities for whom only sub entities get search for
+ * @param {Boolean} extendToParents whether search results shall contain the parents of found entities as search results
  * @param {Boolean} includeRecommendedResults whether possibly recommended entities should be included in search results
  * @param {Boolean} provideEntries whether entries (if available) of search results (e.g. the entries of a found collection) should be returned as well
  * @return {SSSearchRet} <br>
@@ -1797,7 +1792,7 @@ provideEntries){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} entity entity to add tag for
+ * @param {URI} entity entity to add tag to
  * @param {String} label label of the tag to add
  * @param {String} space access restriction for the tag (i.e. privateSpace, sharedSpace)
  * @return {SSTagAddRet} <br>
@@ -1847,7 +1842,7 @@ var SSTagEdit = function(resultHandler, errorHandler, user, key, tag, label){
  * @param {String} key auth key
  * @param {URI} entity entity to consider removing tag assignments from
  * @param {String} label label of the tag to consider when removing tag-assignments
- * @param {String} space access restriction (i.e. private,public) for tag-assignments to be removed
+ * @param {String} space access restriction (i.e. privateSpace, sharedSpace) for tag-assignments to be removed
  * @return {SSTagsUserRemoveRet} <br>
  * {Boolean} worked whether removing desired tag-assignments worked
  */
@@ -1935,7 +1930,7 @@ var SSTagsGet = function(resultHandler, errorHandler, user, key, forUser, entiti
  * @param {String} labels tag labels to consider for retrieving entities via tags (optional)
  * @param {String} space access restriction for tags to be considered (i.e. privateSpace, sharedSpace) (optional)
  * @param {Long} startTime timestamp to retrieve tags (optional)
- * @return {SSTagUserEntitiesForTagsGet} <br> 
+ * @return {SSTagUserEntitiesForTagsGetRet} <br> 
  * {SSUri Array} entities entities having given tags attached
  */
 var SSTagEntitiesForTagsGet = function(resultHandler, errorHandler, user, key, forUser, labels, space, startTime){
@@ -2055,10 +2050,10 @@ var SSUserEventGet = function(resultHandler, errorHandler, user, key, uE){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} forUser to count user events for
- * @param {URI} entity to count user events for
+ * @param {URI} forUser user to count user events for
+ * @param {URI} entity entity to count user events for
  * @param {Long} startTime begin for user event inclusion
- * @param {Long} endTime end for user event inclusiion
+ * @param {Long} endTime end for user event inclusion
  * @param {String} type user event type to retrieve
  * @return {SSUECountGetRet} <br>
  * {Integer} count number of user events for given restrictions
@@ -2103,7 +2098,7 @@ var SSCategoriesPredefinedGet = function(resultHandler, errorHandler, user, key)
  * @param {Function} resultHandler
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
- * @param {String} key auth key
+ * @param {String} key evernote authentication key
  * @return {SSDataImportEvernoteRet} <br>
  * {Boolean} worked whether import worked
  */
