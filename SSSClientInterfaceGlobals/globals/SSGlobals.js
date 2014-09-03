@@ -17,7 +17,12 @@ var sSGlobals = new SSGlobals();
 
 function SSGlobals(){
   
-  this.hostREST                                      = "http://localhost:8084/ss-adapter-rest/rest/SSAdapterRest/";
+  this.serverHost                                    = "http://localhost:8084/ss-adapter-rest/";
+  this.hostREST                                      = this.serverHost + "SSAdapterRest/";
+  this.hostRESTFile                                  = this.serverHost + "SSAdapterRESTFile/";
+  this.hostRESTFileDownload                          = this.serverHost + "SSAdapterRESTFileDownload/";
+  this.hostRESTFileUpload                            = this.serverHost + "SSAdapterRESTFileUpload/";
+  this.hostRESTFileReplace                           = this.serverHost + "SSAdapterRESTFileReplace/";
   this.hostRESTSSL                                   = "https://localhost:9500/ss-adapter-rest/rest/SSAdapterRest/";
   this.host                                          = "ws://"  + "localhost:8084/ss-adapter-websocket/ss-adapter-websocket"; 
   this.hostSsl                                       = "wss://" + "localhost:8443/ss-adapter-websocket/ss-adapter-websocket";
@@ -245,11 +250,12 @@ SSJSONRequest.prototype = {
   }
 };
 
-var SSJSONPOSTRequest = function(op, par, resultHandler, errorHandler){
+var SSJSONPOSTRequest = function(op, par, resultHandler, errorHandler, apiURI){
   this.op            = op;
   this.resultHandler = resultHandler;
   this.errorHandler  = errorHandler;
   this.par           = par;
+  this.apiURI        = apiURI;
 };
 
 SSJSONPOSTRequest.prototype = {
@@ -259,7 +265,7 @@ SSJSONPOSTRequest.prototype = {
     var thisRef = this;
     
     jQuery.ajax({
-      'url' :         sSGlobals.hostREST + thisRef.op + jSGlobals.slash,
+      'url' :         thisRef.apiURI + thisRef.op + jSGlobals.slash,
       'type':         sSGlobals.httpMethPOST,
       'data' :        JSON.stringify(thisRef.par),
       'contentType' : "application/json",

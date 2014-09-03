@@ -38,7 +38,7 @@ var SSAuthCheckCred = function(resultHandler, errorHandler, label, password){
   par[sSVarU.label]     = label;
   par[sSVarU.password]  = password;
   
-  new SSJSONPOSTRequest("authCheckCred", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("authCheckCred", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -80,7 +80,7 @@ endTime){
   if(!jSGlobals.isEmpty(startTime)){       par[sSVarU.startTime]           = startTime;}
   if(!jSGlobals.isEmpty(endTime)){         par[sSVarU.endTime]             = endTime;}
   
-  new SSJSONPOSTRequest("activitiesGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("activitiesGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -101,7 +101,7 @@ var SSCollsEntityIsInGet = function(resultHandler, errorHandler, user, key, enti
   par[sSVarU.entity]     = entity;
   par[sSVarU.key]        = key;
   
-  new SSJSONPOSTRequest("collsEntityIsInGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("collsEntityIsInGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -122,7 +122,7 @@ var SSCollCumulatedTagsGet = function(resultHandler, errorHandler, user, key, co
   par[sSVarU.coll]       = coll;
   par[sSVarU.key]        = key;
   
-  new SSJSONPOSTRequest("collCumulatedTagsGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("collCumulatedTagsGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -143,7 +143,7 @@ var SSCollParentGet = function(resultHandler, errorHandler, user, key, coll){
   par[sSVarU.coll]       = coll;
   par[sSVarU.key]        = key;
   
-  new SSJSONPOSTRequest("collParentGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("collParentGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -162,7 +162,7 @@ var SSCollRootGet = function(resultHandler, errorHandler, user, key){
   par[sSVarU.user]       = user;
   par[sSVarU.key]        = key;
   
-  new SSJSONPOSTRequest("collRootGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("collRootGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -190,7 +190,7 @@ var SSCollEntryAdd = function(resultHandler, errorHandler, user, key, coll, entr
   if(!jSGlobals.isEmpty(addNewColl)){ par[sSVarU.addNewColl]       = addNewColl;}
   if(!jSGlobals.isEmpty(entry)){      par[sSVarU.entry]        = entry;}
   
-  new SSJSONPOSTRequest("collEntryAdd", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("collEntryAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -215,7 +215,7 @@ var SSCollEntriesAdd = function(resultHandler, errorHandler, user, key, coll, en
   par[sSVarU.labels]           = jSGlobals.commaSeparateStringArray(labels);
   par[sSVarU.key]              = key;
   
-  new SSJSONPOSTRequest("collEntriesAdd", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("collEntriesAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -238,7 +238,7 @@ var SSCollEntryChangePos = function(resultHandler, errorHandler, user, key, coll
   par[sSVarU.order]            = jSGlobals.commaSeparateStringArray(order);
   par[sSVarU.key]              = key;
   
-  new SSJSONPOSTRequest("collEntryChangePos", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("collEntryChangePos", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -261,7 +261,7 @@ var SSCollEntryDelete = function(resultHandler, errorHandler, user, key, coll, e
   par[sSVarU.entry]            = entry;
   par[sSVarU.key]              = key;
   
-  new SSJSONPOSTRequest("collEntryDelete", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("collEntryDelete", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -284,7 +284,7 @@ var SSCollEntriesDelete = function(resultHandler, errorHandler, user, key, coll,
   par[sSVarU.entries]          = jSGlobals.commaSeparateStringArray(entries);
   par[sSVarU.key]              = key;
   
-  new SSJSONPOSTRequest("collEntriesDelete", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("collEntriesDelete", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -305,7 +305,7 @@ var SSCollWithEntries = function(resultHandler, errorHandler, user, key, coll){
   par[sSVarU.coll]             = coll;
   par[sSVarU.key]              = key;
   
-  new SSJSONPOSTRequest("collWithEntries", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("collWithEntries", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -324,7 +324,7 @@ var SSCollsWithEntries = function(resultHandler, errorHandler, user, key){
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
-  new SSJSONPOSTRequest("collsWithEntries", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("collsWithEntries", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -345,7 +345,7 @@ var SSCollHierarchyGet = function(resultHandler, errorHandler, user, key, coll){
   par[sSVarU.coll]             = coll;
   par[sSVarU.key]              = key;
   
-  new SSJSONPOSTRequest("collHierarchyGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("collHierarchyGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -364,7 +364,7 @@ var SSCollsCouldSubscribeGet = function(resultHandler, errorHandler, user, key){
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
-  new SSJSONPOSTRequest("collsCouldSubscribeGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("collsCouldSubscribeGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -416,7 +416,7 @@ entities){
   if(!jSGlobals.isEmpty(users)){        par[sSVarU.users]       = jSGlobals.commaSeparateStringArray(users);}
   if(!jSGlobals.isEmpty(entities)){     par[sSVarU.entities]    = jSGlobals.commaSeparateStringArray(entities);}
   
-  new SSJSONPOSTRequest("discEntryAdd", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("discEntryAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -438,7 +438,7 @@ var SSDiscWithEntriesGet = function(resultHandler, errorHandler, user, key, disc
   par[sSVarU.maxEntries]      = 10;
   par[sSVarU.key]             = key;
   
-  new SSJSONPOSTRequest("discWithEntriesGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("discWithEntriesGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -457,7 +457,7 @@ var SSDiscsAllGet = function(resultHandler, errorHandler, user, key){
   par[sSVarU.user]            = user;
   par[sSVarU.key]             = key;
   
-  new SSJSONPOSTRequest("discsAllGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("discsAllGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -478,7 +478,7 @@ var SSDiscRemove = function(resultHandler, errorHandler, user, key, disc){
   par[sSVarU.disc]            = disc;
   par[sSVarU.key]             = key;
   
-  new SSJSONPOSTRequest("discRemove", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("discRemove", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -499,7 +499,7 @@ var SSDiscURIsForTargetGet = function(resultHandler, errorHandler, user, key, en
   par[sSVarU.entity]          = entity;
   par[sSVarU.key]             = key;
   
-  new SSJSONPOSTRequest("discURIsForTargetGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("discURIsForTargetGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -520,7 +520,7 @@ var SSEntityEntityUsersGet = function(resultHandler, errorHandler, user, key, en
   par[sSVarU.entity]           = entity;
   par[sSVarU.key]              = key;
   
-  new SSJSONPOSTRequest("entityEntityUsersGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("entityEntityUsersGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -541,7 +541,7 @@ var SSEntityCircleGet = function(resultHandler, errorHandler, user, key, circle)
   par[sSVarU.key]              = key;
   par[sSVarU.circle]           = circle;
   
-  new SSJSONPOSTRequest("entityCircleGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("entityCircleGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -563,7 +563,7 @@ var SSEntityUserCirclesGet = function(resultHandler, errorHandler, user, key, fo
   
   if(!jSGlobals.isEmpty(forUser)){ par[sSVarU.forUser]   = forUser;}
   
-  new SSJSONPOSTRequest("entityUserCirclesGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("entityUserCirclesGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -586,7 +586,7 @@ var SSEntityEntitiesToCircleAdd = function(resultHandler, errorHandler, user, ke
   par[sSVarU.entities]         = jSGlobals.commaSeparateStringArray(entities);
   par[sSVarU.key]              = key;
   
-  new SSJSONPOSTRequest("entityEntitiesToCircleAdd", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("entityEntitiesToCircleAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -609,7 +609,7 @@ var SSEntityUsersToCircleAdd = function(resultHandler, errorHandler, user, key, 
   par[sSVarU.users]            = jSGlobals.commaSeparateStringArray(users);
   par[sSVarU.key]              = key;
   
-  new SSJSONPOSTRequest("entityUsersToCircleAdd", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("entityUsersToCircleAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -638,7 +638,7 @@ var SSEntityCircleCreate = function(resultHandler, errorHandler, user, key, labe
   if(!jSGlobals.isEmpty(users)){       par[sSVarU.users]         = jSGlobals.commaSeparateStringArray(users);}
   if(!jSGlobals.isEmpty(description)){ par[sSVarU.description]   = description;}
   
-  new SSJSONPOSTRequest("entityCircleCreate", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("entityCircleCreate", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -666,7 +666,7 @@ var SSEntityCopy = function(resultHandler, errorHandler, user, key, entity, user
   if(!jSGlobals.isEmpty(entitiesToExclude)){ par[sSVarU.entitiesToExclude]   = jSGlobals.commaSeparateStringArray(entitiesToExclude);}
   if(!jSGlobals.isEmpty(comment)){           par[sSVarU.comment]             = comment;}
   
-  new SSJSONPOSTRequest("entityCopy", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("entityCopy", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -687,7 +687,7 @@ var SSEntityPublicSet = function(resultHandler, errorHandler, user, key, entity)
   par[sSVarU.entity]           = entity;
   par[sSVarU.key]              = key;
   
-  new SSJSONPOSTRequest("entityPublicSet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("entityPublicSet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -713,7 +713,7 @@ var SSEntityShare = function(resultHandler, errorHandler, user, key, entity, use
   
   if(!jSGlobals.isEmpty(comment)){ par[sSVarU.comment]       = comment;}
   
-  new SSJSONPOSTRequest("entityShare", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("entityShare", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -751,7 +751,7 @@ removeUserLocations){
   par[sSVarU.removeUserLocations] = removeUserLocations;
   par[sSVarU.key]                 = key;
   
-  new SSJSONPOSTRequest("entityDirectlyAdjoinedEntitiesRemove", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("entityDirectlyAdjoinedEntitiesRemove", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -772,7 +772,7 @@ var SSEntityGet = function(resultHandler, errorHandler, user, key, entity){
   par[sSVarU.entity]          = entity;
   par[sSVarU.key]             = key;
   
-  new SSJSONPOSTRequest("entityGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("entityGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -800,7 +800,7 @@ var SSEntityUpdate = function(resultHandler, errorHandler, user, key, entity, la
   if(!jSGlobals.isEmpty(description)){    par[sSVarU.description]       = description;}
   if(!jSGlobals.isEmpty(comments)){       par[sSVarU.comments]          = jSGlobals.commaSeparateStringArray(comments);}
   
-  new SSJSONPOSTRequest("entityUpdate", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("entityUpdate", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -845,7 +845,7 @@ getFlags){
   if(!jSGlobals.isEmpty(getThumb)){         par[sSVarU.getThumb]            = getThumb;}
   if(!jSGlobals.isEmpty(getFlags)){         par[sSVarU.getFlags]            = getFlags;}
   
-  new SSJSONPOSTRequest("entityDescGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("entityDescGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -893,7 +893,7 @@ getFlags){
   if(!jSGlobals.isEmpty(getThumb)){         par[sSVarU.getThumb]            = getThumb;}
   if(!jSGlobals.isEmpty(getFlags)){         par[sSVarU.getFlags]            = getFlags;}
   
-  new SSJSONPOSTRequest("entityDescsGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("entityDescsGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -914,7 +914,7 @@ var SSFileExtGet = function(resultHandler, errorHandler, user, key, file){
   par[sSVarU.file]            = file;
   par[sSVarU.key]             = key;
   
-  new SSJSONPOSTRequest("fileExtGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("fileExtGet", par, resultHandler, errorHandler, sSGlobals.hostRESTFile).send();
 };
 
 /**
@@ -936,7 +936,7 @@ var SSFileCanWrite = function(resultHandler, errorHandler, user, key, file){
   par[sSVarU.file]            = file;
   par[sSVarU.key]             = key;
   
-  new SSJSONPOSTRequest("fileCanWrite", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("fileCanWrite", par, resultHandler, errorHandler, sSGlobals.hostRESTFile).send();
 };
 
 /**
@@ -960,7 +960,7 @@ var SSFileSetReaderOrWriter = function(resultHandler, errorHandler, user, key, f
   par[sSVarU.write]           = write;
   par[sSVarU.key]             = key;
   
-  new SSJSONPOSTRequest("fileSetReaderOrWriter", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("fileSetReaderOrWriter", par, resultHandler, errorHandler, sSGlobals.hostRESTFile).send();
 };
 
 /**
@@ -980,7 +980,7 @@ var SSFileUserFileWrites = function(resultHandler, errorHandler, user, key){
   par[sSVarU.user]            = user;
   par[sSVarU.key]             = key;
   
-  new SSJSONPOSTRequest("fileUserFileWrites", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("fileUserFileWrites", par, resultHandler, errorHandler, sSGlobals.hostRESTFile).send();
 };
 
 /**
@@ -1002,7 +1002,7 @@ var SSFileWritingMinutesLeft = function(resultHandler, errorHandler, user, key, 
   par[sSVarU.file]            = file;
   par[sSVarU.key]             = key;
   
-  new SSJSONPOSTRequest("fileWritingMinutesLeft", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("fileWritingMinutesLeft", par, resultHandler, errorHandler, sSGlobals.hostRESTFile).send();
 };
 
 /**
@@ -1070,8 +1070,8 @@ var SSFileDownload = function(resultHandler, errorHandler, user, key, file){
       thisRef.resultHandler(this.response);
     };})(this);
   
-  xhr.open             (sSGlobals.httpMethPOST, sSGlobals.hostREST + "fileDownload" + jSGlobals.slash, true);
-  xhr.setRequestHeader (sSGlobals.contentType, sSGlobals.mimeTypeApplicationJson);
+  xhr.open             (sSGlobals.httpMethPOST, sSGlobals.hostRESTFileDownload + "fileDownload" + jSGlobals.slash, true);
+  xhr.setRequestHeader (sSGlobals.contentType,  sSGlobals.mimeTypeApplicationJson);
   xhr.send             (JSON.stringify(par));
 };
 
@@ -1116,7 +1116,7 @@ var SSFileUpload = function(resultHandler, errorHandler, user, key, fileHandle){
       new SSGlobals().onMessage(thisRef.myResultHandler, thisRef.errorHandler, jSGlobals.parseJson(this.response), "fileUpload");
     };})(this);
   
-  xhr.open (sSGlobals.httpMethPOST, sSGlobals.hostREST + "fileUpload" + jSGlobals.slash, true);
+  xhr.open (sSGlobals.httpMethPOST, sSGlobals.hostRESTFileUpload + "fileUpload" + jSGlobals.slash, true);
   xhr.send (formData);
 };
 
@@ -1160,7 +1160,7 @@ var SSFileReplace = function(resultHandler, errorHandler, user, key, file, fileH
       new SSGlobals().onMessage(thisRef.myResultHandler, thisRef.errorHandler, jSGlobals.parseJson(this.response), "fileReplace");
     };})(this);
   
-  xhr.open (sSGlobals.httpMethPOST, sSGlobals.hostREST + "fileReplace" + jSGlobals.slash, true);
+  xhr.open (sSGlobals.httpMethPOST, sSGlobals.hostRESTFileReplace + "fileReplace" + jSGlobals.slash, true);
   xhr.send (formData);
 };
 
@@ -1182,7 +1182,7 @@ var SSLearnEpVersionCurrentSet = function(resultHandler, errorHandler, user, key
   par[sSVarU.learnEpVersion]    = learnEpVersion;
   par[sSVarU.key]               = key;
   
-  new SSJSONPOSTRequest("learnEpVersionCurrentSet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("learnEpVersionCurrentSet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -1201,7 +1201,7 @@ var SSLearnEpVersionCurrentGet = function(resultHandler, errorHandler, user, key
   par[sSVarU.user]              = user;
   par[sSVarU.key]               = key;
   
-  new SSJSONPOSTRequest("learnEpVersionCurrentGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("learnEpVersionCurrentGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -1226,7 +1226,7 @@ var SSLearnEpVersionSetTimelineState = function(resultHandler, errorHandler, use
   par[sSVarU.endTime]           = endTime;
   par[sSVarU.key]               = key;
   
-  new SSJSONPOSTRequest("learnEpVersionSetTimelineState", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("learnEpVersionSetTimelineState", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -1247,7 +1247,7 @@ var SSLearnEpVersionGetTimelineState = function(resultHandler, errorHandler, use
   par[sSVarU.learnEpVersion]    = learnEpVersion;
   par[sSVarU.key]               = key;
   
-  new SSJSONPOSTRequest("learnEpVersionGetTimelineState", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("learnEpVersionGetTimelineState", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -1269,7 +1269,7 @@ var SSLearnEpVersionRemoveCircle = function(resultHandler, errorHandler, user, k
   par[sSVarU.learnEpCircle]    = learnEpCircle;
   par[sSVarU.key]              = key;
   
-  new SSJSONPOSTRequest("learnEpVersionRemoveCircle", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("learnEpVersionRemoveCircle", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -1291,7 +1291,7 @@ var SSLearnEpVersionRemoveEntity = function(resultHandler, errorHandler, user, k
   par[sSVarU.learnEpEntity]    = learnEpEntity;
   par[sSVarU.key]              = key;
   
-  new SSJSONPOSTRequest("learnEpVersionRemoveEntity", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("learnEpVersionRemoveEntity", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -1340,7 +1340,7 @@ yC){
   if(!jSGlobals.isEmpty(yC)){        par[sSVarU.yC]          = yC;}
   if(!jSGlobals.isEmpty(yC)){        par[sSVarU.yC]          = yC;}
   
-  new SSJSONPOSTRequest("learnEpVersionUpdateCircle", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("learnEpVersionUpdateCircle", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -1376,7 +1376,7 @@ y){
   if(!jSGlobals.isEmpty(x)){               par[sSVarU.x]             = x;}
   if(!jSGlobals.isEmpty(y)){               par[sSVarU.y]             = y;}
   
-  new SSJSONPOSTRequest("learnEpVersionUpdateEntity", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("learnEpVersionUpdateEntity", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -1400,7 +1400,7 @@ var SSLearnEpCreate = function(resultHandler, errorHandler, user, key, label, de
   
   if(!jSGlobals.isEmpty(description)){  par[sSVarU.description]    = description;}
   
-  new SSJSONPOSTRequest("learnEpCreate", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("learnEpCreate", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -1421,7 +1421,7 @@ var SSLearnEpVersionCreate = function(resultHandler, errorHandler, user, key, le
   par[sSVarU.learnEp]          = learnEp;
   par[sSVarU.key]              = key;
   
-  new SSJSONPOSTRequest("learnEpVersionCreate", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("learnEpVersionCreate", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -1468,7 +1468,7 @@ yC){
   par[sSVarU.yC]                = yC;
   par[sSVarU.key]               = key;
   
-  new SSJSONPOSTRequest("learnEpVersionAddCircle", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("learnEpVersionAddCircle", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -1503,7 +1503,7 @@ y){
   par[sSVarU.y]                 = y;
   par[sSVarU.key]               = key;
   
-  new SSJSONPOSTRequest("learnEpVersionAddEntity", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("learnEpVersionAddEntity", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -1524,7 +1524,7 @@ var SSLearnEpVersionGet = function(resultHandler, errorHandler, user, key, learn
   par[sSVarU.learnEpVersion]    = learnEpVersion;
   par[sSVarU.key]               = key;
   
-  new SSJSONPOSTRequest("learnEpVersionGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("learnEpVersionGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -1545,7 +1545,7 @@ var SSLearnEpVersionsGet = function(resultHandler, errorHandler, user, key, lear
   par[sSVarU.learnEp]           = learnEp;
   par[sSVarU.key]               = key;
   
-  new SSJSONPOSTRequest("learnEpVersionsGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("learnEpVersionsGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -1564,7 +1564,7 @@ var SSLearnEpsGet = function(resultHandler, errorHandler, user, key){
   par[sSVarU.user]              = user;
   par[sSVarU.key]               = key;
   
-  new SSJSONPOSTRequest("learnEpsGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("learnEpsGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -1587,7 +1587,7 @@ var SSLocationAdd = function(resultHandler, errorHandler, user, key, entity, loc
   par[sSVarU.location]        = location;
   par[sSVarU.key]             = key;
   
-  new SSJSONPOSTRequest("locationAdd", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("locationAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -1608,7 +1608,7 @@ var SSLocationsGet = function(resultHandler, errorHandler, user, key, entity){
   par[sSVarU.entity]          = entity;
   par[sSVarU.key]             = key;
   
-  new SSJSONPOSTRequest("locationsGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("locationsGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -1636,7 +1636,7 @@ var SSResourceDetailsGet = function(resultHandler, errorHandler, user, key, enti
   par[sSVarU.entity]          = entity;
   par[sSVarU.key]             = key;
   
-	new SSJSONPOSTRequest("modelUEResourceDetails", par, resultHandler, errorHandler).send();
+	new SSJSONPOSTRequest("modelUEResourceDetails", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -1657,7 +1657,7 @@ var SSRatingOverallGet = function(resultHandler, errorHandler, user, key, entity
   par[sSVarU.entity]          = entity;
   par[sSVarU.key]             = key;
   
-  new SSJSONPOSTRequest("ratingOverallGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("ratingOverallGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -1680,7 +1680,7 @@ var SSRatingSet = function(resultHandler, errorHandler, user, key, entity, value
   par[sSVarU.value]           = value;
   par[sSVarU.key]             = key;
   
-  new SSJSONPOSTRequest("ratingSet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("ratingSet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -1708,7 +1708,7 @@ var SSRecommTags = function(resultHandler, errorHandler, user, key, forUser, ent
   if(!jSGlobals.isEmpty(categories)){    par[sSVarU.categories]      = jSGlobals.commaSeparateStringArray(categories);}
   if(!jSGlobals.isEmpty(maxTags)){       par[sSVarU.maxTags]         = maxTags;}
   
-  new SSJSONPOSTRequest("recommTags", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("recommTags", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -1783,7 +1783,7 @@ provideEntries){
   if(!jSGlobals.isEmpty(includeRecommendedResults)){   par[sSVarU.includeRecommendedResults]    = includeRecommendedResults;}
   if(!jSGlobals.isEmpty(provideEntries)){              par[sSVarU.provideEntries]               = provideEntries;}
   
-  new SSJSONPOSTRequest("search", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("search", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -1808,7 +1808,7 @@ var SSTagAdd = function(resultHandler, errorHandler, user, key, entity, label, s
   par[sSVarU.space]            = space;
   par[sSVarU.key]              = key;
   
-  new SSJSONPOSTRequest("tagAdd", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("tagAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -1831,7 +1831,7 @@ var SSTagEdit = function(resultHandler, errorHandler, user, key, tag, label){
   par[sSVarU.tag]              = tag;
   par[sSVarU.label]            = label;
   
-  new SSJSONPOSTRequest("tagEdit", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("tagEdit", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -1857,7 +1857,7 @@ var SSTagsRemove = function(resultHandler, errorHandler, user, key, entity, labe
   if(!jSGlobals.isEmpty(label)){     par[sSVarU.label]        = label;}
   if(!jSGlobals.isEmpty(space)){     par[sSVarU.space]        = space;}
   
-  new SSJSONPOSTRequest("tagsRemove", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("tagsRemove", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -1887,7 +1887,7 @@ var SSTagFrequsGet = function(resultHandler, errorHandler, user, key, forUser, e
   if(!jSGlobals.isEmpty(space)){       par[sSVarU.space]          = space;}
   if(!jSGlobals.isEmpty(startTime)){   par[sSVarU.startTime]      = startTime;}
   
-  new SSJSONPOSTRequest("tagFrequsGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("tagFrequsGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -1917,7 +1917,7 @@ var SSTagsGet = function(resultHandler, errorHandler, user, key, forUser, entiti
   if(!jSGlobals.isEmpty(space)){       par[sSVarU.space]          = space;}
   if(!jSGlobals.isEmpty(startTime)){   par[sSVarU.startTime]      = startTime;}
   
-  new SSJSONPOSTRequest("tagsGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("tagsGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -1945,7 +1945,7 @@ var SSTagEntitiesForTagsGet = function(resultHandler, errorHandler, user, key, f
   if(!jSGlobals.isEmpty(space)){       par[sSVarU.space]          = space;}
   if(!jSGlobals.isEmpty(startTime)){   par[sSVarU.startTime]      = startTime;}
   
-  new SSJSONPOSTRequest("tagEntitiesForTagsGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("tagEntitiesForTagsGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -1964,7 +1964,7 @@ var SSUserAll = function(resultHandler, errorHandler, user, key){
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
-  new SSJSONPOSTRequest("userAll", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("userAll", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -1990,7 +1990,7 @@ var SSUserEventAdd = function(resultHandler, errorHandler, user, key, type, enti
   if(!jSGlobals.isEmpty(entity)){   par[sSVarU.entity]         = entity;}
   if(!jSGlobals.isEmpty(content)){  par[sSVarU.content]        = content;}
   
-  new SSJSONPOSTRequest("uEAdd", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("uEAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -2020,7 +2020,7 @@ var SSUserEventsGet = function(resultHandler, errorHandler, user, key, forUser, 
   if(!jSGlobals.isEmpty(endTime)){   par[sSVarU.endTime]          = endTime;}
   if(!jSGlobals.isEmpty(type)){      par[sSVarU.type]             = type;}
   
-  new SSJSONPOSTRequest("uEsGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("uEsGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -2041,7 +2041,7 @@ var SSUserEventGet = function(resultHandler, errorHandler, user, key, uE){
   par[sSVarU.uE]               = uE;
   par[sSVarU.key]              = key;
   
-  new SSJSONPOSTRequest("uEGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("uEGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -2071,7 +2071,7 @@ var SSUECountGet = function(resultHandler, errorHandler, user, key, forUser, ent
   if(!jSGlobals.isEmpty(endTime)){   par[sSVarU.endTime]          = endTime;}
   if(!jSGlobals.isEmpty(type)){      par[sSVarU.type]             = type;}
   
-  new SSJSONPOSTRequest("uECountGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("uECountGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -2090,7 +2090,7 @@ var SSCategoriesPredefinedGet = function(resultHandler, errorHandler, user, key)
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
-  new SSJSONPOSTRequest("categoriesPredefinedGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("categoriesPredefinedGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -2109,7 +2109,7 @@ var SSDataImportEvernote = function(resultHandler, errorHandler, user, key){
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
-  new SSJSONPOSTRequest("dataImportEvernote", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("dataImportEvernote", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -2137,7 +2137,7 @@ var SSFlagsGet = function(resultHandler, errorHandler, user, key, entities, type
   if(!jSGlobals.isEmpty(startTime)){     par[sSVarU.startTime]        = startTime;}
   if(!jSGlobals.isEmpty(endTime)){       par[sSVarU.endTime]          = endTime;}
   
-  new SSJSONPOSTRequest("flagsGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("flagsGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -2165,7 +2165,7 @@ var SSFlagsSet = function(resultHandler, errorHandler, user, key, entities, type
   if(!jSGlobals.isEmpty(endTime)){       par[sSVarU.endTime]          = endTime;}
   if(!jSGlobals.isEmpty(value)){         par[sSVarU.value]            = value;}
   
-  new SSJSONPOSTRequest("flagsSet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("flagsSet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -2184,5 +2184,5 @@ var SSSystemVersionGet = function(resultHandler, errorHandler, user, key){
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
-  new SSJSONPOSTRequest("systemVersionGet", par, resultHandler, errorHandler).send();
+  new SSJSONPOSTRequest("systemVersionGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
