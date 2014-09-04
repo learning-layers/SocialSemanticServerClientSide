@@ -1,8 +1,12 @@
 SocialSemanticServerClientSide
 ==============================
-This project represents the client-side Javascript library which may be used for connecting to the [Social Semantic Server (SSS)](https://github.com/learning-layers/SocialSemanticServer).
-
-Make sure to have variable `hostREST` in `SocialSemanticServerClientSide/SSSClientInterfaceGlobals/globals/SSGlobals.js` set to `http://yourHost:yourPort/ss-adapter-rest/rest/SSAdapterRest/`, i.e. the REST API of SSS.
+* This project represents the client-side Javascript library which may be used for connecting to the [Social Semantic Server (SSS)](https://github.com/learning-layers/SocialSemanticServer).
+* Make sure to have variables `hostRESTxxx` in `SocialSemanticServerClientSide/SSSClientInterfaceGlobals/globals/SSGlobals.js` set to `http://{yourHost}:{yourPort}/ss-adapter-rest/{API}/` where `API` is one of the following:
+ * `SSAdapterRest` for all REST operations except for file handling
+ * `SSAdapterRESTFil`e for REST operations dealing with files not using any multipart form parameters as input
+ * `SSAdapterRESTFileDownload` for REST operations dealing with file downloading
+ * `SSAdapterRESTFileUpload` for REST operations dealing with file uploading
+ * `SSAdapterRESTFileReplace` for REST operations dealing with file replacing
 
 Connectors as implemented in `SocialSemanticServerClientSide/SSSClientInterfaceREST/SSConns.js` can be instantiated as follows: 
 * e.g. `new SSCollParentGet(resultHandler, errorHandler, user, key, coll)`
