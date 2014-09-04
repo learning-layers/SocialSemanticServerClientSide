@@ -1,7 +1,8 @@
 SocialSemanticServerClientSide
 ==============================
-* This project represents the client-side Javascript library which may be used for connecting to the [Social Semantic Server (SSS)](https://github.com/learning-layers/SocialSemanticServer).
-* Make sure to have variable `serverHost` in `SocialSemanticServerClientSide/SSSClientInterfaceGlobals/globals/SSGlobals.js` set to `http://{yourHost}:{yourPort}/ss-adapter-rest/`.
+This project represents the client-side Javascript library which may be used for connecting to the [Social Semantic Server (SSS)](https://github.com/learning-layers/SocialSemanticServer).
+
+Make sure to have variable `serverHost` in `SocialSemanticServerClientSide/SSSClientInterfaceGlobals/globals/SSGlobals.js` set to `http://{yourHost}:{yourPort}/ss-adapter-rest/`.
 
 Connectors as implemented in `SocialSemanticServerClientSide/SSSClientInterfaceREST/SSConns.js` can be instantiated as follows: 
 * e.g. `new SSCollParentGet(resultHandler, errorHandler, user, key, coll)`
