@@ -73,10 +73,10 @@ endTime){
   par[sSVarU.user]      = user;
   par[sSVarU.key]       = key;
   
-  if(!jSGlobals.isEmpty(types)){           par[sSVarU.types]               = jSGlobals.commaSeparateStringArray(types);}
-  if(!jSGlobals.isEmpty(users)){           par[sSVarU.users]               = jSGlobals.commaSeparateStringArray(users);}
-  if(!jSGlobals.isEmpty(entities)){        par[sSVarU.entities]            = jSGlobals.commaSeparateStringArray(entities);}
-  if(!jSGlobals.isEmpty(circles)){         par[sSVarU.circles]             = jSGlobals.commaSeparateStringArray(circles);}
+  if(!jSGlobals.isEmpty(types)){           par[sSVarU.types]               = types;}
+  if(!jSGlobals.isEmpty(users)){           par[sSVarU.users]               = users;}
+  if(!jSGlobals.isEmpty(entities)){        par[sSVarU.entities]            = entities;}
+  if(!jSGlobals.isEmpty(circles)){         par[sSVarU.circles]             = circles;}
   if(!jSGlobals.isEmpty(startTime)){       par[sSVarU.startTime]           = startTime;}
   if(!jSGlobals.isEmpty(endTime)){         par[sSVarU.endTime]             = endTime;}
   
@@ -211,8 +211,8 @@ var SSCollEntriesAdd = function(resultHandler, errorHandler, user, key, coll, en
   par[sSVarU.op]               = "collEntriesAdd";
   par[sSVarU.user]             = user;
   par[sSVarU.coll]             = coll;
-  par[sSVarU.entries]          = jSGlobals.commaSeparateStringArray(entries);
-  par[sSVarU.labels]           = jSGlobals.commaSeparateStringArray(labels);
+  par[sSVarU.entries]          = entries;
+  par[sSVarU.labels]           = labels;
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("collEntriesAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
@@ -235,7 +235,7 @@ var SSCollEntryChangePos = function(resultHandler, errorHandler, user, key, coll
   par[sSVarU.op]               = "collEntryChangePos";
   par[sSVarU.user]             = user;
   par[sSVarU.coll]             = coll;
-  par[sSVarU.order]            = jSGlobals.commaSeparateStringArray(order);
+  par[sSVarU.order]            = order;
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("collEntryChangePos", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
@@ -281,7 +281,7 @@ var SSCollEntriesDelete = function(resultHandler, errorHandler, user, key, coll,
   par[sSVarU.op]               = "collEntriesDelete";
   par[sSVarU.user]             = user;
   par[sSVarU.coll]             = coll;
-  par[sSVarU.entries]          = jSGlobals.commaSeparateStringArray(entries);
+  par[sSVarU.entries]          = entries;
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("collEntriesDelete", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
@@ -413,8 +413,8 @@ entities){
   if(!jSGlobals.isEmpty(type)){         par[sSVarU.type]        = type;}
   if(!jSGlobals.isEmpty(label)){        par[sSVarU.label]       = label;}
   if(!jSGlobals.isEmpty(description)){  par[sSVarU.description] = description;}
-  if(!jSGlobals.isEmpty(users)){        par[sSVarU.users]       = jSGlobals.commaSeparateStringArray(users);}
-  if(!jSGlobals.isEmpty(entities)){     par[sSVarU.entities]    = jSGlobals.commaSeparateStringArray(entities);}
+  if(!jSGlobals.isEmpty(users)){        par[sSVarU.users]       = users;}
+  if(!jSGlobals.isEmpty(entities)){     par[sSVarU.entities]    = entities;}
   
   new SSJSONPOSTRequest("discEntryAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
@@ -583,7 +583,7 @@ var SSEntityEntitiesToCircleAdd = function(resultHandler, errorHandler, user, ke
   par[sSVarU.op]               = "entityEntitiesToCircleAdd";
   par[sSVarU.user]             = user;
   par[sSVarU.circle]           = circle;
-  par[sSVarU.entities]         = jSGlobals.commaSeparateStringArray(entities);
+  par[sSVarU.entities]         = entities;
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("entityEntitiesToCircleAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
@@ -606,7 +606,7 @@ var SSEntityUsersToCircleAdd = function(resultHandler, errorHandler, user, key, 
   par[sSVarU.op]               = "entityUsersToCircleAdd";
   par[sSVarU.user]             = user;
   par[sSVarU.circle]           = circle;
-  par[sSVarU.users]            = jSGlobals.commaSeparateStringArray(users);
+  par[sSVarU.users]            = users;
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("entityUsersToCircleAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
@@ -634,8 +634,8 @@ var SSEntityCircleCreate = function(resultHandler, errorHandler, user, key, labe
   par[sSVarU.label]            = label;
   par[sSVarU.key]              = key;
   
-  if(!jSGlobals.isEmpty(entities)){    par[sSVarU.entities]      = jSGlobals.commaSeparateStringArray(entities);}
-  if(!jSGlobals.isEmpty(users)){       par[sSVarU.users]         = jSGlobals.commaSeparateStringArray(users);}
+  if(!jSGlobals.isEmpty(entities)){    par[sSVarU.entities]      = entities;}
+  if(!jSGlobals.isEmpty(users)){       par[sSVarU.users]         = users;}
   if(!jSGlobals.isEmpty(description)){ par[sSVarU.description]   = description;}
   
   new SSJSONPOSTRequest("entityCircleCreate", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
@@ -659,11 +659,11 @@ var SSEntityCopy = function(resultHandler, errorHandler, user, key, entity, user
   var par                      = {};
   par[sSVarU.op]               = "entityCopy";
   par[sSVarU.user]             = user;
-  par[sSVarU.users]            = jSGlobals.commaSeparateStringArray(users);
+  par[sSVarU.users]            = users;
   par[sSVarU.entity]           = entity;
   par[sSVarU.key]              = key;
   
-  if(!jSGlobals.isEmpty(entitiesToExclude)){ par[sSVarU.entitiesToExclude]   = jSGlobals.commaSeparateStringArray(entitiesToExclude);}
+  if(!jSGlobals.isEmpty(entitiesToExclude)){ par[sSVarU.entitiesToExclude]   = entitiesToExclude;}
   if(!jSGlobals.isEmpty(comment)){           par[sSVarU.comment]             = comment;}
   
   new SSJSONPOSTRequest("entityCopy", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
@@ -708,7 +708,7 @@ var SSEntityShare = function(resultHandler, errorHandler, user, key, entity, use
   par[sSVarU.op]               = "entityShare";
   par[sSVarU.user]             = user;
   par[sSVarU.entity]           = entity;
-  par[sSVarU.users]            = jSGlobals.commaSeparateStringArray(users);
+  par[sSVarU.users]            = users;
   par[sSVarU.key]              = key;
   
   if(!jSGlobals.isEmpty(comment)){ par[sSVarU.comment]       = comment;}
@@ -798,7 +798,7 @@ var SSEntityUpdate = function(resultHandler, errorHandler, user, key, entity, la
   
   if(!jSGlobals.isEmpty(label)){          par[sSVarU.label]             = label;}
   if(!jSGlobals.isEmpty(description)){    par[sSVarU.description]       = description;}
-  if(!jSGlobals.isEmpty(comments)){       par[sSVarU.comments]          = jSGlobals.commaSeparateStringArray(comments);}
+  if(!jSGlobals.isEmpty(comments)){       par[sSVarU.comments]          = comments;}
   
   new SSJSONPOSTRequest("entityUpdate", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
@@ -884,8 +884,8 @@ getFlags){
   par[sSVarU.user]                = user;
   par[sSVarU.key]                 = key;
   
-  if(!jSGlobals.isEmpty(entities)){         par[sSVarU.entities]            = jSGlobals.commaSeparateStringArray(entities);}
-  if(!jSGlobals.isEmpty(types)){            par[sSVarU.types]               = jSGlobals.commaSeparateStringArray(types);}
+  if(!jSGlobals.isEmpty(entities)){         par[sSVarU.entities]            = entities;}
+  if(!jSGlobals.isEmpty(types)){            par[sSVarU.types]               = types;}
   if(!jSGlobals.isEmpty(getTags)){          par[sSVarU.getTags]             = getTags;}
   if(!jSGlobals.isEmpty(getOverallRating)){ par[sSVarU.getOverallRating]    = getOverallRating;}
   if(!jSGlobals.isEmpty(getDiscs)){         par[sSVarU.getDiscs]            = getDiscs;}
@@ -1705,7 +1705,7 @@ var SSRecommTags = function(resultHandler, errorHandler, user, key, forUser, ent
   
   if(!jSGlobals.isEmpty(forUser)){       par[sSVarU.forUser]         = forUser;}
   if(!jSGlobals.isEmpty(entity)){        par[sSVarU.entity]          = entity;}
-  if(!jSGlobals.isEmpty(categories)){    par[sSVarU.categories]      = jSGlobals.commaSeparateStringArray(categories);}
+  if(!jSGlobals.isEmpty(categories)){    par[sSVarU.categories]      = categories;}
   if(!jSGlobals.isEmpty(maxTags)){       par[sSVarU.maxTags]         = maxTags;}
   
   new SSJSONPOSTRequest("recommTags", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
@@ -1765,20 +1765,20 @@ provideEntries){
   par[sSVarU.user]                        = user;
   par[sSVarU.key]                         = key;
   
-  if(!jSGlobals.isEmpty(keywordsToSearchFor)){         par[sSVarU.keywordsToSearchFor]          = jSGlobals.commaSeparateStringArray(keywordsToSearchFor);}
+  if(!jSGlobals.isEmpty(keywordsToSearchFor)){         par[sSVarU.keywordsToSearchFor]          = keywordsToSearchFor;}
   if(!jSGlobals.isEmpty(includeTextualContent)){       par[sSVarU.includeTextualContent]        = includeTextualContent;}
-  if(!jSGlobals.isEmpty(wordsToSearchFor)){            par[sSVarU.wordsToSearchFor]             = jSGlobals.commaSeparateStringArray(wordsToSearchFor);}
+  if(!jSGlobals.isEmpty(wordsToSearchFor)){            par[sSVarU.wordsToSearchFor]             = wordsToSearchFor;}
   if(!jSGlobals.isEmpty(includeTags)){                 par[sSVarU.includeTags]                  = includeTags;}
-  if(!jSGlobals.isEmpty(tagsToSearchFor)){             par[sSVarU.tagsToSearchFor]              = jSGlobals.commaSeparateStringArray(tagsToSearchFor);}
+  if(!jSGlobals.isEmpty(tagsToSearchFor)){             par[sSVarU.tagsToSearchFor]              = tagsToSearchFor;}
   if(!jSGlobals.isEmpty(includeMIs)){                  par[sSVarU.includeMIs]                   = includeMIs;}
-  if(!jSGlobals.isEmpty(misToSearchFor)){              par[sSVarU.misToSearchFor]               = jSGlobals.commaSeparateStringArray(misToSearchFor);}
+  if(!jSGlobals.isEmpty(misToSearchFor)){              par[sSVarU.misToSearchFor]               = misToSearchFor;}
   if(!jSGlobals.isEmpty(includeLabel)){                par[sSVarU.includeLabel]                 = includeLabel;}
-  if(!jSGlobals.isEmpty(labelsToSearchFor)){           par[sSVarU.labelsToSearchFor]            = jSGlobals.commaSeparateStringArray(labelsToSearchFor);}
+  if(!jSGlobals.isEmpty(labelsToSearchFor)){           par[sSVarU.labelsToSearchFor]            = labelsToSearchFor;}
   if(!jSGlobals.isEmpty(includeDescription)){          par[sSVarU.includeDescription]           = includeDescription;}
-  if(!jSGlobals.isEmpty(descriptionsToSearchFor)){     par[sSVarU.descriptionsToSearchFor]      = jSGlobals.commaSeparateStringArray(descriptionsToSearchFor);}
-  if(!jSGlobals.isEmpty(typesToSearchOnlyFor)){        par[sSVarU.typesToSearchOnlyFor]         = jSGlobals.commaSeparateStringArray(typesToSearchOnlyFor);}
+  if(!jSGlobals.isEmpty(descriptionsToSearchFor)){     par[sSVarU.descriptionsToSearchFor]      = descriptionsToSearchFor;}
+  if(!jSGlobals.isEmpty(typesToSearchOnlyFor)){        par[sSVarU.typesToSearchOnlyFor]         = typesToSearchOnlyFor;}
   if(!jSGlobals.isEmpty(includeOnlySubEntities)){      par[sSVarU.includeOnlySubEntities]       = includeOnlySubEntities;}
-  if(!jSGlobals.isEmpty(entitiesToSearchWithin)){      par[sSVarU.entitiesToSearchWithin]       = jSGlobals.commaSeparateStringArray(entitiesToSearchWithin);}
+  if(!jSGlobals.isEmpty(entitiesToSearchWithin)){      par[sSVarU.entitiesToSearchWithin]       = entitiesToSearchWithin;}
   if(!jSGlobals.isEmpty(extendToParents)){             par[sSVarU.extendToParents]              = extendToParents;}
   if(!jSGlobals.isEmpty(includeRecommendedResults)){   par[sSVarU.includeRecommendedResults]    = includeRecommendedResults;}
   if(!jSGlobals.isEmpty(provideEntries)){              par[sSVarU.provideEntries]               = provideEntries;}
@@ -1882,8 +1882,8 @@ var SSTagFrequsGet = function(resultHandler, errorHandler, user, key, forUser, e
   par[sSVarU.key]              = key;
   
   if(!jSGlobals.isEmpty(forUser)){     par[sSVarU.forUser]        = forUser;}
-  if(!jSGlobals.isEmpty(entities)){    par[sSVarU.entities]       = jSGlobals.commaSeparateStringArray(entities);}
-  if(!jSGlobals.isEmpty(labels)){      par[sSVarU.labels]         = jSGlobals.commaSeparateStringArray(labels);}
+  if(!jSGlobals.isEmpty(entities)){    par[sSVarU.entities]       = entities;}
+  if(!jSGlobals.isEmpty(labels)){      par[sSVarU.labels]         = labels;}
   if(!jSGlobals.isEmpty(space)){       par[sSVarU.space]          = space;}
   if(!jSGlobals.isEmpty(startTime)){   par[sSVarU.startTime]      = startTime;}
   
@@ -1912,8 +1912,8 @@ var SSTagsGet = function(resultHandler, errorHandler, user, key, forUser, entiti
   par[sSVarU.key]              = key;
   
   if(!jSGlobals.isEmpty(forUser)){     par[sSVarU.forUser]        = forUser;}
-  if(!jSGlobals.isEmpty(entities)){    par[sSVarU.entities]       = jSGlobals.commaSeparateStringArray(entities);}
-  if(!jSGlobals.isEmpty(labels)){      par[sSVarU.labels]         = jSGlobals.commaSeparateStringArray(labels);}
+  if(!jSGlobals.isEmpty(entities)){    par[sSVarU.entities]       = entities;}
+  if(!jSGlobals.isEmpty(labels)){      par[sSVarU.labels]         = labels;}
   if(!jSGlobals.isEmpty(space)){       par[sSVarU.space]          = space;}
   if(!jSGlobals.isEmpty(startTime)){   par[sSVarU.startTime]      = startTime;}
   
@@ -1941,7 +1941,7 @@ var SSTagEntitiesForTagsGet = function(resultHandler, errorHandler, user, key, f
   par[sSVarU.key]              = key;
   
   if(!jSGlobals.isEmpty(forUser)){     par[sSVarU.forUser]        = forUser;}
-  if(!jSGlobals.isEmpty(labels)){      par[sSVarU.labels]         = jSGlobals.commaSeparateStringArray(labels);}
+  if(!jSGlobals.isEmpty(labels)){      par[sSVarU.labels]         = labels;}
   if(!jSGlobals.isEmpty(space)){       par[sSVarU.space]          = space;}
   if(!jSGlobals.isEmpty(startTime)){   par[sSVarU.startTime]      = startTime;}
   
@@ -2132,8 +2132,8 @@ var SSFlagsGet = function(resultHandler, errorHandler, user, key, entities, type
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
-  if(!jSGlobals.isEmpty(entities)){      par[sSVarU.entities]         = jSGlobals.commaSeparateStringArray(entities);}
-  if(!jSGlobals.isEmpty(types)){         par[sSVarU.types]            = jSGlobals.commaSeparateStringArray(types);}
+  if(!jSGlobals.isEmpty(entities)){      par[sSVarU.entities]         = entities;}
+  if(!jSGlobals.isEmpty(types)){         par[sSVarU.types]            = types;}
   if(!jSGlobals.isEmpty(startTime)){     par[sSVarU.startTime]        = startTime;}
   if(!jSGlobals.isEmpty(endTime)){       par[sSVarU.endTime]          = endTime;}
   
@@ -2160,8 +2160,8 @@ var SSFlagsSet = function(resultHandler, errorHandler, user, key, entities, type
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
-  if(!jSGlobals.isEmpty(entities)){      par[sSVarU.entities]         = jSGlobals.commaSeparateStringArray(entities);}
-  if(!jSGlobals.isEmpty(types)){         par[sSVarU.types]            = jSGlobals.commaSeparateStringArray(types);}
+  if(!jSGlobals.isEmpty(entities)){      par[sSVarU.entities]         = entities;}
+  if(!jSGlobals.isEmpty(types)){         par[sSVarU.types]            = types;}
   if(!jSGlobals.isEmpty(endTime)){       par[sSVarU.endTime]          = endTime;}
   if(!jSGlobals.isEmpty(value)){         par[sSVarU.value]            = value;}
   
