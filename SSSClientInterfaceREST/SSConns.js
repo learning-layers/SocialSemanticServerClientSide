@@ -42,6 +42,42 @@ var SSAuthCheckCred = function(resultHandler, errorHandler, label, password){
 };
 
 /**
+ * add an activity
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {String} type type of the activity
+ * @param {URI Array} users users which have been involved in the activity (optional)
+ * @param {URI Array} entities entities which have been involved in the activity (optional)
+ * @param {String Array} comments textual comments to this activity (optional)
+ * @return {SSActivityUserAddRet} <br>
+ * {SSURI} activity id of the activity stored
+ */
+var SSActivityAdd = function(
+  resultHandler, 
+errorHandler, 
+user, 
+key, 
+type,
+users,
+entities,
+comments){
+  
+  var par               = {};
+  par[sSVarU.op]        = "activityAdd";
+  par[sSVarU.user]      = user;
+  par[sSVarU.key]       = key;
+  
+  if(!jSGlobals.isEmpty(type)){           par[sSVarU.type]                 = type;}
+  if(!jSGlobals.isEmpty(users)){          par[sSVarU.users]               = users;}
+  if(!jSGlobals.isEmpty(entities)){       par[sSVarU.entities]            = entities;}
+  if(!jSGlobals.isEmpty(comments)){       par[sSVarU.comments]             = comments;}
+  
+  new SSJSONPOSTRequest("activityAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/**
  * retrieve activities from within a certain time frame
  * @param {Function} resultHandler
  * @param {Function} errorHandler
@@ -1904,7 +1940,16 @@ var SSTagFrequsGet = function(resultHandler, errorHandler, user, key, forUser, e
  * @return {SSTagsUserGetRet} <br> 
  * {SSTag Array} tag assignments
  */
-var SSTagsGet = function(resultHandler, errorHandler, user, key, forUser, entities, labels, space, startTime){
+var SSTagsGet = function(
+  resultHandler, 
+errorHandler, 
+user, 
+key, 
+forUser, 
+entities, 
+labels, 
+space, 
+startTime){
   
   var par                      = {};
   par[sSVarU.op]               = "tagsGet";
