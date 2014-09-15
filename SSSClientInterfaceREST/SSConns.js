@@ -1831,10 +1831,11 @@ provideEntries){
  * @param {URI} entity entity to add tag to
  * @param {String} label label of the tag to add
  * @param {String} space access restriction for the tag (i.e. privateSpace, sharedSpace)
+ * @param {Long} creationTime timestamp for the tag assignment to be created at in milliseconds
  * @return {SSTagAddRet} <br>
  * {SSUri} tag uri of the tag
  */
-var SSTagAdd = function(resultHandler, errorHandler, user, key, entity, label, space){
+var SSTagAdd = function(resultHandler, errorHandler, user, key, entity, label, space, creationTime){
   
   var par                       = {};
   par[sSVarU.op]               = "tagAdd";
@@ -1843,6 +1844,8 @@ var SSTagAdd = function(resultHandler, errorHandler, user, key, entity, label, s
   par[sSVarU.label]            = label;
   par[sSVarU.space]            = space;
   par[sSVarU.key]              = key;
+  
+  if(!jSGlobals.isEmpty(creationTime)){              par[sSVarU.creationTime]               = creationTime;}
   
   new SSJSONPOSTRequest("tagAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
