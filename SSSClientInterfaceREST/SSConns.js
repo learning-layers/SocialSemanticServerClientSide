@@ -1823,180 +1823,6 @@ provideEntries){
 };
 
 /**
- * add a tag within for an entity within given space 
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key
- * @param {URI} entity entity to add tag to
- * @param {String} label label of the tag to add
- * @param {String} space access restriction for the tag (i.e. privateSpace, sharedSpace)
- * @param {Long} creationTime timestamp for the tag assignment to be created at in milliseconds
- * @return {SSTagAddRet} <br>
- * {SSUri} tag uri of the tag
- */
-var SSTagAdd = function(resultHandler, errorHandler, user, key, entity, label, space, creationTime){
-  
-  var par                       = {};
-  par[sSVarU.op]               = "tagAdd";
-  par[sSVarU.user]             = user;
-  par[sSVarU.entity]           = entity;
-  par[sSVarU.label]            = label;
-  par[sSVarU.space]            = space;
-  par[sSVarU.key]              = key;
-  
-  if(!jSGlobals.isEmpty(creationTime)){              par[sSVarU.creationTime]               = creationTime;}
-  
-  new SSJSONPOSTRequest("tagAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
-};
-
-/**
- * changes the label of the tag assigned to entities by given user
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key
- * @param {URI} tag tag to change the label for
- * @param {String} label new label of the tag 
- * @return {SSTagUserEditRet} <br>
- * {URI} tag [new] uri of the tag
- */
-var SSTagEdit = function(resultHandler, errorHandler, user, key, tag, label){
-  
-  var par                      = {};
-  par[sSVarU.op]               = "tagEdit";
-  par[sSVarU.user]             = user;
-  par[sSVarU.key]              = key;
-  par[sSVarU.tag]              = tag;
-  par[sSVarU.label]            = label;
-  
-  new SSJSONPOSTRequest("tagEdit", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
-};
-
-/**
- * remove tag, user, entity, space combinations
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key
- * @param {URI} entity entity to consider removing tag assignments from
- * @param {String} label label of the tag to consider when removing tag-assignments
- * @param {String} space access restriction (i.e. privateSpace, sharedSpace) for tag-assignments to be removed
- * @return {SSTagsUserRemoveRet} <br>
- * {Boolean} worked whether removing desired tag-assignments worked
- */
-var SSTagsRemove = function(resultHandler, errorHandler, user, key, entity, label, space){
-  
-  var par                      = {};
-  par[sSVarU.op]               = "tagsRemove";
-  par[sSVarU.user]             = user;
-  par[sSVarU.key]              = key;
-  
-  if(!jSGlobals.isEmpty(entity)){    par[sSVarU.entity]       = entity;}
-  if(!jSGlobals.isEmpty(label)){     par[sSVarU.label]        = label;}
-  if(!jSGlobals.isEmpty(space)){     par[sSVarU.space]        = space;}
-  
-  new SSJSONPOSTRequest("tagsRemove", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
-};
-
-/**
- * retrieve tag frequencies
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key
- * @param {URI} forUser user to retrieve tags for (optional)
- * @param {URI Array} entities entities to retrieve tags for (optional)
- * @param {String} labels tag labels to consider for retrieving tags (optional)
- * @param {String} space access restriction for to be retrieved tags (i.e. privateSpace, sharedSpace) (optional)
- * @param {Long} startTime timestamp to retrieve tags from a certain point in time(optional)
- * @return {SSTagUserFrequsGetRet} <br> 
- * {SSTagFrequ Array} tagFrequs tags with frequencies
- */
-var SSTagFrequsGet = function(resultHandler, errorHandler, user, key, forUser, entities, labels, space, startTime){
-  
-  var par                      = {};
-  par[sSVarU.op]               = "tagFrequsGet";
-  par[sSVarU.user]             = user;
-  par[sSVarU.key]              = key;
-  
-  if(!jSGlobals.isEmpty(forUser)){     par[sSVarU.forUser]        = forUser;}
-  if(!jSGlobals.isEmpty(entities)){    par[sSVarU.entities]       = entities;}
-  if(!jSGlobals.isEmpty(labels)){      par[sSVarU.labels]         = labels;}
-  if(!jSGlobals.isEmpty(space)){       par[sSVarU.space]          = space;}
-  if(!jSGlobals.isEmpty(startTime)){   par[sSVarU.startTime]      = startTime;}
-  
-  new SSJSONPOSTRequest("tagFrequsGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
-};
-
-/**
- * retrieve tag assignments
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key
- * @param {URI} forUser user to retrieve tag assignments for (optional)
- * @param {URI Array} entities entities to retrieve tag assignments for (optional)
- * @param {String} labels tag labels to consider for retrieving tag assignments (optional)
- * @param {String} space access restriction for to be retrieved tag assignments (i.e. privateSpace, sharedSpace) (optional)
- * @param {Long} startTime timestamp to retrieve tag assignments from a certain point in time (optional)
- * @return {SSTagsUserGetRet} <br> 
- * {SSTag Array} tag assignments
- */
-var SSTagsGet = function(
-  resultHandler, 
-errorHandler, 
-user, 
-key, 
-forUser, 
-entities, 
-labels, 
-space, 
-startTime){
-  
-  var par                      = {};
-  par[sSVarU.op]               = "tagsGet";
-  par[sSVarU.user]             = user;
-  par[sSVarU.key]              = key;
-  
-  if(!jSGlobals.isEmpty(forUser)){     par[sSVarU.forUser]        = forUser;}
-  if(!jSGlobals.isEmpty(entities)){    par[sSVarU.entities]       = entities;}
-  if(!jSGlobals.isEmpty(labels)){      par[sSVarU.labels]         = labels;}
-  if(!jSGlobals.isEmpty(space)){       par[sSVarU.space]          = space;}
-  if(!jSGlobals.isEmpty(startTime)){   par[sSVarU.startTime]      = startTime;}
-  
-  new SSJSONPOSTRequest("tagsGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
-};
-
-/**
- * retrieve entities for tags (currently startTime is not used to retrieve entities)
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key
- * @param {URI} forUser user to retrieve entities via tags for (optional)
- * @param {String} labels tag labels to consider for retrieving entities via tags (optional)
- * @param {String} space access restriction for tags to be considered (i.e. privateSpace, sharedSpace) (optional)
- * @param {Long} startTime timestamp to retrieve tags (optional)
- * @return {SSTagUserEntitiesForTagsGetRet} <br> 
- * {SSUri Array} entities entities having given tags attached
- */
-var SSTagEntitiesForTagsGet = function(resultHandler, errorHandler, user, key, forUser, labels, space, startTime){
-  
-  var par                      = {};
-  par[sSVarU.op]               = "tagEntitiesForTagsGet";
-  par[sSVarU.user]             = user;
-  par[sSVarU.key]              = key;
-  
-  if(!jSGlobals.isEmpty(forUser)){     par[sSVarU.forUser]        = forUser;}
-  if(!jSGlobals.isEmpty(labels)){      par[sSVarU.labels]         = labels;}
-  if(!jSGlobals.isEmpty(space)){       par[sSVarU.space]          = space;}
-  if(!jSGlobals.isEmpty(startTime)){   par[sSVarU.startTime]      = startTime;}
-  
-  new SSJSONPOSTRequest("tagEntitiesForTagsGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
-};
-
-/**
  * retrieve all users
  * @param {Function} resultHandler
  * @param {Function} errorHandler
@@ -2233,4 +2059,356 @@ var SSSystemVersionGet = function(resultHandler, errorHandler, user, key){
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("systemVersionGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/* tag */
+
+/**
+ * add a tag within for an entity within given space 
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} entity entity to add tag to
+ * @param {String} label label of the tag to add
+ * @param {String} space access restriction for the tag (i.e. privateSpace, sharedSpace)
+ * @param {Long} creationTime timestamp for the tag assignment to be created at in milliseconds
+ * @return {SSTagAddRet} <br>
+ * {SSUri} tag uri of the tag
+ */
+var SSTagAdd = function(resultHandler, errorHandler, user, key, entity, label, space, creationTime){
+  
+  var par                       = {};
+  par[sSVarU.op]               = "tagAdd";
+  par[sSVarU.user]             = user;
+  par[sSVarU.entity]           = entity;
+  par[sSVarU.label]            = label;
+  par[sSVarU.space]            = space;
+  par[sSVarU.key]              = key;
+  
+  if(!jSGlobals.isEmpty(creationTime)){              par[sSVarU.creationTime]               = creationTime;}
+  
+  new SSJSONPOSTRequest("tagAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/**
+ * changes the label of the tag assigned to entities by given user
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} tag tag to change the label for
+ * @param {String} label new label of the tag 
+ * @return {SSTagUserEditRet} <br>
+ * {URI} tag [new] uri of the tag
+ */
+var SSTagEdit = function(resultHandler, errorHandler, user, key, tag, label){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "tagEdit";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  par[sSVarU.tag]              = tag;
+  par[sSVarU.label]            = label;
+  
+  new SSJSONPOSTRequest("tagEdit", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/**
+ * remove tag, user, entity, space combinations
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} entity entity to consider removing tag assignments from
+ * @param {String} label label of the tag to consider when removing tag-assignments
+ * @param {String} space access restriction (i.e. privateSpace, sharedSpace) for tag-assignments to be removed
+ * @return {SSTagsUserRemoveRet} <br>
+ * {Boolean} worked whether removing desired tag-assignments worked
+ */
+var SSTagsRemove = function(resultHandler, errorHandler, user, key, entity, label, space){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "tagsRemove";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  
+  if(!jSGlobals.isEmpty(entity)){    par[sSVarU.entity]       = entity;}
+  if(!jSGlobals.isEmpty(label)){     par[sSVarU.label]        = label;}
+  if(!jSGlobals.isEmpty(space)){     par[sSVarU.space]        = space;}
+  
+  new SSJSONPOSTRequest("tagsRemove", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/**
+ * retrieve tag frequencies
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} forUser user to retrieve tags for (optional)
+ * @param {URI Array} entities entities to retrieve tags for (optional)
+ * @param {String} labels tag labels to consider for retrieving tags (optional)
+ * @param {String} space access restriction for to be retrieved tags (i.e. privateSpace, sharedSpace) (optional)
+ * @param {Long} startTime timestamp to retrieve tags from a certain point in time(optional)
+ * @return {SSTagUserFrequsGetRet} <br> 
+ * {SSTagFrequ Array} tagFrequs tags with frequencies
+ */
+var SSTagFrequsGet = function(resultHandler, errorHandler, user, key, forUser, entities, labels, space, startTime){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "tagFrequsGet";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  
+  if(!jSGlobals.isEmpty(forUser)){     par[sSVarU.forUser]        = forUser;}
+  if(!jSGlobals.isEmpty(entities)){    par[sSVarU.entities]       = entities;}
+  if(!jSGlobals.isEmpty(labels)){      par[sSVarU.labels]         = labels;}
+  if(!jSGlobals.isEmpty(space)){       par[sSVarU.space]          = space;}
+  if(!jSGlobals.isEmpty(startTime)){   par[sSVarU.startTime]      = startTime;}
+  
+  new SSJSONPOSTRequest("tagFrequsGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/**
+ * retrieve tag assignments
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} forUser user to retrieve tag assignments for (optional)
+ * @param {URI Array} entities entities to retrieve tag assignments for (optional)
+ * @param {String} labels tag labels to consider for retrieving tag assignments (optional)
+ * @param {String} space access restriction for to be retrieved tag assignments (i.e. privateSpace, sharedSpace) (optional)
+ * @param {Long} startTime timestamp to retrieve tag assignments from a certain point in time (optional)
+ * @return {SSTagsUserGetRet} <br> 
+ * {SSTag Array} tag assignments
+ */
+var SSTagsGet = function(
+  resultHandler, 
+errorHandler, 
+user, 
+key, 
+forUser, 
+entities, 
+labels, 
+space, 
+startTime){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "tagsGet";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  
+  if(!jSGlobals.isEmpty(forUser)){     par[sSVarU.forUser]        = forUser;}
+  if(!jSGlobals.isEmpty(entities)){    par[sSVarU.entities]       = entities;}
+  if(!jSGlobals.isEmpty(labels)){      par[sSVarU.labels]         = labels;}
+  if(!jSGlobals.isEmpty(space)){       par[sSVarU.space]          = space;}
+  if(!jSGlobals.isEmpty(startTime)){   par[sSVarU.startTime]      = startTime;}
+  
+  new SSJSONPOSTRequest("tagsGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/**
+ * retrieve entities for tags (currently startTime is not used to retrieve entities)
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} forUser user to retrieve entities via tags for (optional)
+ * @param {String} labels tag labels to consider for retrieving entities via tags (optional)
+ * @param {String} space access restriction for tags to be considered (i.e. privateSpace, sharedSpace) (optional)
+ * @param {Long} startTime timestamp to retrieve tags (optional)
+ * @return {SSTagUserEntitiesForTagsGetRet} <br> 
+ * {SSUri Array} entities entities having given tags attached
+ */
+var SSTagEntitiesForTagsGet = function(resultHandler, errorHandler, user, key, forUser, labels, space, startTime){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "tagEntitiesForTagsGet";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  
+  if(!jSGlobals.isEmpty(forUser)){     par[sSVarU.forUser]        = forUser;}
+  if(!jSGlobals.isEmpty(labels)){      par[sSVarU.labels]         = labels;}
+  if(!jSGlobals.isEmpty(space)){       par[sSVarU.space]          = space;}
+  if(!jSGlobals.isEmpty(startTime)){   par[sSVarU.startTime]      = startTime;}
+  
+  new SSJSONPOSTRequest("tagEntitiesForTagsGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/* category */
+
+/**
+ * add a category within for an entity within given space 
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} entity entity to add category to
+ * @param {String} label label of the category to add
+ * @param {String} space access restriction for the category (i.e. privateSpace, sharedSpace)
+ * @param {Long} creationTime timestamp for the category assignment to be created at in milliseconds
+ * @return {SSCategoryAddRet} <br>
+ * {SSUri} category uri of the category
+ */
+var SSCategoryAdd = function(resultHandler, errorHandler, user, key, entity, label, space, creationTime){
+  
+  var par                       = {};
+  par[sSVarU.op]               = "categoryAdd";
+  par[sSVarU.user]             = user;
+  par[sSVarU.entity]           = entity;
+  par[sSVarU.label]            = label;
+  par[sSVarU.space]            = space;
+  par[sSVarU.key]              = key;
+  
+  if(!jSGlobals.isEmpty(creationTime)){              par[sSVarU.creationTime]               = creationTime;}
+  
+  new SSJSONPOSTRequest("categoryAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/**
+ * changes the label of the category assigned to entities by given user
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} category category to change the label for
+ * @param {String} label new label for the category 
+ * @return {SSCategoryUserEditRet} <br>
+ * {URI} category [new] uri of the category
+ */
+var SSCategoryEdit = function(resultHandler, errorHandler, user, key, category, label){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "categoryEdit";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  par[sSVarU.category]         = category;
+  par[sSVarU.label]            = label;
+  
+  new SSJSONPOSTRequest("categoryEdit", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/**
+ * remove category, user, entity, space combinations
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} entity entity to consider removing category assignments from
+ * @param {String} label label of the category to consider when removing category-assignments
+ * @param {String} space access restriction (i.e. privateSpace, sharedSpace) for category-assignments to be removed
+ * @return {SSCategoriesUserRemoveRet} <br>
+ * {Boolean} worked whether removing desired category-assignments worked
+ */
+var SSCategoriesRemove = function(resultHandler, errorHandler, user, key, entity, label, space){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "categoriesRemove";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  
+  if(!jSGlobals.isEmpty(entity)){    par[sSVarU.entity]       = entity;}
+  if(!jSGlobals.isEmpty(label)){     par[sSVarU.label]        = label;}
+  if(!jSGlobals.isEmpty(space)){     par[sSVarU.space]        = space;}
+  
+  new SSJSONPOSTRequest("categoriesRemove", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/**
+ * retrieve category frequencies
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} forUser user to retrieve categories for (optional)
+ * @param {URI Array} entities entities to retrieve categories for (optional)
+ * @param {String} labels category labels to consider for retrieving categories (optional)
+ * @param {String} space access restriction for to be retrieved categories (i.e. privateSpace, sharedSpace) (optional)
+ * @param {Long} startTime timestamp to retrieve categories from a certain point in time(optional)
+ * @return {SSCategoryUserFrequsGetRet} <br> 
+ * {SSCategoryFrequ Array} categoryFrequs categories with frequencies
+ */
+var SSCategoryFrequsGet = function(resultHandler, errorHandler, user, key, forUser, entities, labels, space, startTime){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "categoryFrequsGet";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  
+  if(!jSGlobals.isEmpty(forUser)){     par[sSVarU.forUser]        = forUser;}
+  if(!jSGlobals.isEmpty(entities)){    par[sSVarU.entities]       = entities;}
+  if(!jSGlobals.isEmpty(labels)){      par[sSVarU.labels]         = labels;}
+  if(!jSGlobals.isEmpty(space)){       par[sSVarU.space]          = space;}
+  if(!jSGlobals.isEmpty(startTime)){   par[sSVarU.startTime]      = startTime;}
+  
+  new SSJSONPOSTRequest("categoryFrequsGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/**
+ * retrieve category assignments
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} forUser user to retrieve category assignments for (optional)
+ * @param {URI Array} entities entities to retrieve category assignments for (optional)
+ * @param {String} labels category labels to consider for retrieving category assignments (optional)
+ * @param {String} space access restriction for to be retrieved category assignments (i.e. privateSpace, sharedSpace) (optional)
+ * @param {Long} startTime timestamp to retrieve category assignments from a certain point in time (optional)
+ * @return {SSCategoriesUserGetRet} <br> 
+ * {SSCategory Array} category assignments
+ */
+var SSCategoriesGet = function(
+  resultHandler, 
+errorHandler, 
+user, 
+key, 
+forUser, 
+entities, 
+labels, 
+space, 
+startTime){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "categoriesGet";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  
+  if(!jSGlobals.isEmpty(forUser)){     par[sSVarU.forUser]        = forUser;}
+  if(!jSGlobals.isEmpty(entities)){    par[sSVarU.entities]       = entities;}
+  if(!jSGlobals.isEmpty(labels)){      par[sSVarU.labels]         = labels;}
+  if(!jSGlobals.isEmpty(space)){       par[sSVarU.space]          = space;}
+  if(!jSGlobals.isEmpty(startTime)){   par[sSVarU.startTime]      = startTime;}
+  
+  new SSJSONPOSTRequest("categoriesGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/**
+ * retrieve entities for categories (currently startTime is not used to retrieve entities)
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} forUser user to retrieve entities via categories for (optional)
+ * @param {String} labels category labels to consider for retrieving entities via categories (optional)
+ * @param {String} space access restriction for categories to be considered (i.e. privateSpace, sharedSpace) (optional)
+ * @param {Long} startTime timestamp to retrieve categories (optional)
+ * @return {SSCategoryUserEntitiesForCategoriesGetRet} <br> 
+ * {SSUri Array} entities entities having given categories attached
+ */
+var SSCategoryEntitiesForCategoriesGet = function(resultHandler, errorHandler, user, key, forUser, labels, space, startTime){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "categoryEntitiesForCategoriesGet";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  
+  if(!jSGlobals.isEmpty(forUser)){     par[sSVarU.forUser]        = forUser;}
+  if(!jSGlobals.isEmpty(labels)){      par[sSVarU.labels]         = labels;}
+  if(!jSGlobals.isEmpty(space)){       par[sSVarU.space]          = space;}
+  if(!jSGlobals.isEmpty(startTime)){   par[sSVarU.startTime]      = startTime;}
+  
+  new SSJSONPOSTRequest("categoryEntitiesForCategoriesGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
