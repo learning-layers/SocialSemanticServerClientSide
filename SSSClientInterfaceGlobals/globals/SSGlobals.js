@@ -17,13 +17,12 @@ var sSGlobals = new SSGlobals();
 
 function SSGlobals(){
   
-  this.serverHost                                    = "http://localhost:8084/ss-adapter-rest/";
+  this.serverHost                                    = "https://localhost:8443/ss-adapter-rest/";
   this.hostREST                                      = this.serverHost + "SSAdapterRest/";
   this.hostRESTFile                                  = this.serverHost + "SSAdapterRESTFile/";
   this.hostRESTFileDownload                          = this.serverHost + "SSAdapterRESTFileDownload/";
   this.hostRESTFileUpload                            = this.serverHost + "SSAdapterRESTFileUpload/";
   this.hostRESTFileReplace                           = this.serverHost + "SSAdapterRESTFileReplace/";
-  this.hostRESTSSL                                   = "https://localhost:9500/ss-adapter-rest/rest/SSAdapterRest/";
   this.host                                          = "ws://"  + "localhost:8084/ss-adapter-websocket/ss-adapter-websocket"; 
   this.hostSsl                                       = "wss://" + "localhost:8443/ss-adapter-websocket/ss-adapter-websocket";
   
