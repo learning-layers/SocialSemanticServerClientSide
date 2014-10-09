@@ -290,6 +290,48 @@ SSJSONPOSTRequest.prototype = {
   }
 };
 
+var SSJSONPOSTOIDCRequest = function(op, par, resultHandler, errorHandler, apiURI, authToken){
+  this.op            = op;
+  this.resultHandler = resultHandler;
+  this.errorHandler  = errorHandler;
+  this.par           = par;
+  this.apiURI        = apiURI;
+  this.authToken     = authToken;
+};
+
+SSJSONPOSTOIDCRequest.prototype = {
+  
+  send : function(){
+    
+    var thisRef = this;
+    
+    jQuery.ajax({
+      'url' :         thisRef.apiURI + thisRef.op + jSGlobals.slash,
+      'type':         sSGlobals.httpMethPOST,
+      'data' :        JSON.stringify(thisRef.par),
+      'contentType' : "application/json",
+      'async' :       true,
+      headers:        {Authorization : "Bearer " + thisRef.authToken},
+      dataType:       "application/json",
+      'complete' : function(jqXHR, textStatus) {
+        
+        if(
+          jqXHR.readyState    !== 4   ||
+          jqXHR.status        !== 200){
+          console.log("sss json request failed");
+          return;
+        }
+        
+        new SSGlobals().onMessage(
+          thisRef.resultHandler, 
+        thisRef.errorHandler, 
+        jSGlobals.parseJson(jqXHR.responseText), 
+        thisRef.op);
+      }
+    });
+  }
+};
+
 //function getSSResultFromMessage(message){
 
 //if(

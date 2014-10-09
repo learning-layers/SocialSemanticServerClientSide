@@ -20,13 +20,34 @@
  */
 
 /**
+ * retrieve the authentication key and user's uri for OIDC authentication token
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {String} authToken authentication token from OIDC
+ * @return {SSAuthCheckCredRet} <br>
+ * {String} key user's sss authentication token <br>
+ * {URI} uri user's identifier in the system
+ */
+var SSAuthCheckCredOIDC = function(resultHandler, errorHandler, authToken){
+  
+  var par               = {};
+  par[sSVarU.op]        = "authCheckCred";
+  par[sSVarU.user]      = "mailto:dummyUser";
+  par[sSVarU.key]       = "someKey";
+  par[sSVarU.label]     = "someLabel";
+  par[sSVarU.password]  = "somePassword";
+  
+  new SSJSONPOSTOIDCRequest("authCheckCred", par, resultHandler, errorHandler, sSGlobals.hostREST, authToken).send();
+};
+
+/**
  * retrieve the authentication key and user's uri for credentials
  * @param {Function} resultHandler
  * @param {Function} errorHandler
  * @param {String} label name of the user, e.g. 'hugo'
  * @param {String} password the user’s password
  * @return {SSAuthCheckCredRet} <br>
- * {String} key user's authentication token <br>
+ * {String} key user's sss authentication token <br>
  * {URI} uri user's identifier in the system
  */
 var SSAuthCheckCred = function(resultHandler, errorHandler, label, password){
