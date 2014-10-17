@@ -1769,6 +1769,36 @@ var SSRecommTags = function(resultHandler, errorHandler, user, key, forUser, ent
 };
 
 /**
+ * retrieve resource recommendations based on user, entity, tag, time and category combinations
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} forUser user to be considered to retrieve recommendations for
+ * @param {URI} entity resource to be considered to retrieve recommendations for
+ * @param {URI Array} categories additional information to be taken into account
+ * @param {Integer} maxResources number of resources to be returned
+ * @param {String Array} typesToRecommOnly sss entity types to be returned only
+ * @return {SSRecommResourcesRet} <br>
+ * {SSResourceLikelihood Array} resources recommended resources with likelihood
+ */
+var SSRecommResources = function(resultHandler, errorHandler, user, key, forUser, entity, categories, maxResources, typesToRecommOnly){
+  
+  var par                     = {};
+  par[sSVarU.op]              = "recommResources";
+  par[sSVarU.user]            = user;
+  par[sSVarU.key]             = key;
+  
+  if(!jSGlobals.isEmpty(forUser)){             par[sSVarU.forUser]                   = forUser;}
+  if(!jSGlobals.isEmpty(entity)){              par[sSVarU.entity]                    = entity;}
+  if(!jSGlobals.isEmpty(categories)){          par[sSVarU.categories]                = categories;}
+  if(!jSGlobals.isEmpty(maxResources)){        par[sSVarU.maxResources]              = maxResources;}
+  if(!jSGlobals.isEmpty(typesToRecommOnly)){   par[sSVarU.typesToRecommOnly]         = typesToRecommOnly;}
+  
+  new SSJSONPOSTRequest("recommResources", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/**
  * search for entities
  * @param {Function} resultHandler
  * @param {Function} errorHandler

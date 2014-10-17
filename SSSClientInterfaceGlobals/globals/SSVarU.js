@@ -17,6 +17,8 @@ var sSVarU = new SSVarU();
     
 function SSVarU(){
   
+  this.typesToRecommOnly                              = "typesToRecommOnly";
+  this.maxResources                                   = "maxResources";
   this.creationTime                                   = "creationTime";
   this.circles                                        = "circles";
   this.tag                                            = "tag";
