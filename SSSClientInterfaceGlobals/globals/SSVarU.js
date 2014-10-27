@@ -17,6 +17,9 @@ var sSVarU = new SSVarU();
     
 function SSVarU(){
   
+  this.pageNumber                                     = "pageNumber";
+  this.pagesID                                        = "pagesID";
+  this.pageNumbers                                    = "pageNumbers";
   this.typesToRecommOnly                              = "typesToRecommOnly";
   this.maxResources                                   = "maxResources";
   this.creationTime                                   = "creationTime";

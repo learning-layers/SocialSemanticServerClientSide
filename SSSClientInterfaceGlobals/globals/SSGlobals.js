@@ -17,8 +17,8 @@ var sSGlobals = new SSGlobals();
 
 function SSGlobals(){
   
-  this.serverHost                                    = "https://localhost:8443/ss-adapter-rest/";
-  this.hostREST                                      = this.serverHost + "SSAdapterRest/";
+  this.serverHost                                    = "http://localhost:8080/ss-adapter-rest/"; //"http://137.226.58.15:8280/SocialSemanticServer/"; //http://localhost:8443/ss-adapter-rest/";
+  this.hostREST                                      = this.serverHost + "SSAdapterRest/"; //"http://137.226.58.15:8280/SocialSemanticServer/"//this.serverHost + "SSAdapterRest/";
   this.hostRESTFile                                  = this.serverHost + "SSAdapterRESTFile/";
   this.hostRESTFileDownload                          = this.serverHost + "SSAdapterRESTFileDownload/";
   this.hostRESTFileUpload                            = this.serverHost + "SSAdapterRESTFileUpload/";
@@ -239,6 +239,7 @@ SSJSONRequest.prototype = {
       'contentType' : "application/json",
       'async' :       true,
       dataType:       "application/json",
+      'crossDomain': true,
       'complete' : function(jqXHR, textStatus) {
         thisRef.response   = jqXHR.responseText;
         thisRef.status     = jqXHR.status;

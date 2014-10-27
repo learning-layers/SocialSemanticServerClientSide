@@ -1821,6 +1821,8 @@ var SSRecommResources = function(resultHandler, errorHandler, user, key, forUser
  * @param {Boolean} extendToParents whether search results shall contain the parents of found entities as search results
  * @param {Boolean} includeRecommendedResults whether possibly recommended entities should be included in search results
  * @param {Boolean} provideEntries whether entries (if available) of search results (e.g. the entries of a found collection) should be returned as well
+ * @param {String} pagesID unique identifier for the pages of a previous search result
+ * @param {Integer} pageNumber number of the page to be requested from a previous search result
  * @return {SSSearchRet} <br>
  * {SSEntity Array} entities found entities with additional information
  */
@@ -1845,7 +1847,9 @@ includeOnlySubEntities,
 entitiesToSearchWithin,
 extendToParents,
 includeRecommendedResults,
-provideEntries){
+provideEntries, 
+pagesID, 
+pageNumber){
   
   var par                                 = {};
   par[sSVarU.op]                          = "search";
@@ -1869,6 +1873,8 @@ provideEntries){
   if(!jSGlobals.isEmpty(extendToParents)){             par[sSVarU.extendToParents]              = extendToParents;}
   if(!jSGlobals.isEmpty(includeRecommendedResults)){   par[sSVarU.includeRecommendedResults]    = includeRecommendedResults;}
   if(!jSGlobals.isEmpty(provideEntries)){              par[sSVarU.provideEntries]               = provideEntries;}
+  if(!jSGlobals.isEmpty(pagesID)){                     par[sSVarU.pagesID]                      = pagesID;}
+  if(!jSGlobals.isEmpty(pageNumber)){                  par[sSVarU.pageNumber]                   = pageNumber;}
   
   new SSJSONPOSTRequest("search", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
