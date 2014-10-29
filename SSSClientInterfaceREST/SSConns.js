@@ -1092,7 +1092,18 @@ var SSJsonLD = function(resultHandler, errorHandler, uri){
 };
 
 /**
- * download a file
+ * download a file via GET request with query params
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} file file to be downloaded
+ * @return binary file
+ */
+var SSFileDownloadGET = function(user, key, file){
+  window.location = sSGlobals.hostRESTFileDownload + "fileDownloadGET?user=" + user + "&key=" + key + "&file=" + file;
+};
+
+/**
+ * download a file via POST request and AJAX handling
  * @param {Function} resultHandler
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
