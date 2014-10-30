@@ -17,6 +17,10 @@ var sSVarU = new SSVarU();
     
 function SSVarU(){
   
+  this.message                                        = "message";
+  this.messages                                       = "messages";
+  this.includeRead                                    = "includeRead";
+  this.read                                           = "read";
   this.pageNumber                                     = "pageNumber";
   this.pagesID                                        = "pagesID";
   this.pageNumbers                                    = "pageNumbers";

@@ -842,10 +842,20 @@ var SSEntityGet = function(resultHandler, errorHandler, user, key, entity){
  * @param {String} label entity's updated name (optional)
  * @param {String} description entity's updated description (optional)
  * @param {String Array} comments new textual annotations for the entity (optional)
+ * @param {Boolean} read whether the user has read the entity (optional)
  * @return {SSEntityUserUpdateRet} <br>
  * {SSUri} entity entity updated
  */
-var SSEntityUpdate = function(resultHandler, errorHandler, user, key, entity, label, description, comments){
+var SSEntityUpdate = function(
+  resultHandler, 
+errorHandler, 
+user, 
+key, 
+entity, 
+label, 
+description, 
+comments,
+read){
   
   var par                     = {};
   par[sSVarU.op]              = "entityUpdate";
@@ -856,6 +866,7 @@ var SSEntityUpdate = function(resultHandler, errorHandler, user, key, entity, la
   if(!jSGlobals.isEmpty(label)){          par[sSVarU.label]             = label;}
   if(!jSGlobals.isEmpty(description)){    par[sSVarU.description]       = description;}
   if(!jSGlobals.isEmpty(comments)){       par[sSVarU.comments]          = comments;}
+  if(!jSGlobals.isEmpty(read)){           par[sSVarU.read]              = read;}
   
   new SSJSONPOSTRequest("entityUpdate", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
@@ -2479,4 +2490,49 @@ var SSCategoryEntitiesForCategoriesGet = function(resultHandler, errorHandler, u
   if(!jSGlobals.isEmpty(startTime)){   par[sSVarU.startTime]      = startTime;}
   
   new SSJSONPOSTRequest("categoryEntitiesForCategoriesGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/**
+ * send a message to a user
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} forUser user to send the message to
+ * @param {String} message textual message to send
+ * @return {SSMessageSendRet} <br> 
+ * {SSUri} message
+ */
+var SSMessageSend = function(resultHandler, errorHandler, user, key, forUser, message){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "messageSend";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  par[sSVarU.forUser]          = forUser;
+  par[sSVarU.message]          = message;
+  
+  new SSJSONPOSTRequest("messageSend", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/**
+ * retrieve messages for the user
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {String} includeRead whether already read messages should be retrieved as well
+ * @return {SSMessagesGetRet} <br> 
+ * {SSMessage Array} messages for the user
+ */
+var SSMessagesGet = function(resultHandler, errorHandler, user, key, includeRead){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "messagesGet";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  
+  if(!jSGlobals.isEmpty(includeRead)){     par[sSVarU.includeRead]        = includeRead;}
+  
+  new SSJSONPOSTRequest("messagesGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };

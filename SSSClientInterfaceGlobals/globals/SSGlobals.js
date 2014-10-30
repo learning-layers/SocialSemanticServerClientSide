@@ -18,6 +18,7 @@ var sSGlobals = new SSGlobals();
 function SSGlobals(){
   
   this.serverHost                                    = "http://localhost:8080/ss-adapter-rest/"; //"http://137.226.58.15:8280/SocialSemanticServer/"; //http://localhost:8443/ss-adapter-rest/";
+//  this.hostREST                                      = "http://137.226.58.15:8280/SocialSemanticServer/"; //this.serverHost + "SSAdapterRest/";
   this.hostREST                                      = this.serverHost + "SSAdapterRest/"; //"http://137.226.58.15:8280/SocialSemanticServer/"//this.serverHost + "SSAdapterRest/";
   this.hostRESTFile                                  = this.serverHost + "SSAdapterRESTFile/";
   this.hostRESTFileDownload                          = this.serverHost + "SSAdapterRESTFileDownload/";
