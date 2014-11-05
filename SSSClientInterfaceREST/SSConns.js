@@ -2536,3 +2536,79 @@ var SSMessagesGet = function(resultHandler, errorHandler, user, key, includeRead
   
   new SSJSONPOSTRequest("messagesGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
+
+/**
+ * add an app
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {String} label name
+ * @param {String} descriptionShort short description
+ * @param {String} descriptionFunctional functional description
+ * @param {String} descriptionTechnical technical description
+ * @param {String} descriptionInstall install description
+ * @param {URI Array} downloads download links
+ * @param {URI} downloadIOS download link IOS
+ * @param {URI} downloadAndroid download link Android
+ * @param {URI} fork github fork link
+ * @param {URI Array} screenShots screen shots
+ * @param {URI Array} videos videos
+ * @return {SSAppAddRet} <br> 
+ * {SSURI} app created app
+ */
+var SSAppAdd = function(
+  resultHandler, 
+errorHandler, 
+user, 
+key, 
+label,
+descriptionShort,
+descriptionFunctional,
+descriptionTechnical,
+descriptionInstall,
+downloads,
+downloadIOS,
+downloadAndroid,
+fork,
+screenShots,
+videos){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "appAdd";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  par[sSVarU.label]            = label;
+  
+  if(!jSGlobals.isEmpty(descriptionShort)){       par[sSVarU.descriptionShort]          = descriptionShort;}
+  if(!jSGlobals.isEmpty(descriptionFunctional)){  par[sSVarU.descriptionFunctional]     = descriptionFunctional;}
+  if(!jSGlobals.isEmpty(descriptionTechnical)){   par[sSVarU.descriptionTechnical]      = descriptionTechnical;}
+  if(!jSGlobals.isEmpty(descriptionInstall)){     par[sSVarU.descriptionInstall]        = descriptionInstall;}
+  if(!jSGlobals.isEmpty(downloads)){              par[sSVarU.downloads]                 = downloads;}
+  if(!jSGlobals.isEmpty(downloadIOS)){            par[sSVarU.downloadIOS]               = downloadIOS;}
+  if(!jSGlobals.isEmpty(downloadAndroid)){        par[sSVarU.downloadAndroid]           = downloadAndroid;}
+  if(!jSGlobals.isEmpty(fork)){                   par[sSVarU.fork]                      = fork;}
+  if(!jSGlobals.isEmpty(screenShots)){            par[sSVarU.screenShots]               = screenShots;}
+  if(!jSGlobals.isEmpty(videos)){                 par[sSVarU.videos]                    = videos;}
+  
+  new SSJSONPOSTRequest("appAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/**
+ * retrieve apps
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @return {SSAppsGetRet} <br> 
+ * {SSApp Array} apps retrieved
+ */
+var SSAppsGet = function(resultHandler, errorHandler, user, key){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "appsGet";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  
+  new SSJSONPOSTRequest("appsGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};

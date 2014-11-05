@@ -17,6 +17,16 @@ var sSVarU = new SSVarU();
     
 function SSVarU(){
   
+  this.descriptionShort                               = "descriptionShort";
+  this.descriptionFunctional                          = "descriptionFunctional";
+  this.descriptionTechnical                           = "descriptionTechnical";
+  this.descriptionInstall                             = "descriptionInstall";
+  this.downloads                                      = "downloads";      
+  this.downloadIOS                                    = "downloadIOS";    
+  this.downloadAndroid                                = "downloadAndroid"; 
+  this.fork                                           = "fork";            
+  this.screenShots                                    = "screenShots";     
+  this.videos                                         = "videos";          
   this.message                                        = "message";
   this.messages                                       = "messages";
   this.includeRead                                    = "includeRead";
