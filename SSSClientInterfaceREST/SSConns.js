@@ -97,6 +97,28 @@ comments){
   
   new SSJSONPOSTRequest("activityAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
+/**
+ * retrieve available activity types
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @return {SSActivityTypesGetRet} <br>
+ * {SSActivityE Array} types of possible activities
+ */
+var SSActivityTypesGet = function(
+  resultHandler, 
+errorHandler, 
+user, 
+key){
+  
+  var par               = {};
+  par[sSVarU.op]        = "activityTypesGet";
+  par[sSVarU.user]      = user;
+  par[sSVarU.key]       = key;
+  
+  new SSJSONPOSTRequest("activityTypesGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
 
 /**
  * retrieve activities from within a certain time frame
