@@ -754,20 +754,30 @@ var SSEntityPublicSet = function(resultHandler, errorHandler, user, key, entity)
  * @param {URI} user the user's uri
  * @param {String} key auth key
  * @param {URI} entity entity to be shared
- * @param {Array} users user to share the entity with
+ * @param {URI Array} users user to share the entity with
  * @param {String} comment textual comment for sharing
+ * @param {URI Array} circles circles to share with
  * @return {SSEntityUserShareRet} <br>
- * {SSUri} circle system-generated circle representing the share
+ * {SSUri} entity entity shared
  */
-var SSEntityShare = function(resultHandler, errorHandler, user, key, entity, users, comment){
+var SSEntityShare = function(
+  resultHandler, 
+errorHandler, 
+user, 
+key, 
+entity, 
+users, 
+comment, 
+circles){
   
   var par                      = {};
   par[sSVarU.op]               = "entityShare";
   par[sSVarU.user]             = user;
   par[sSVarU.entity]           = entity;
-  par[sSVarU.users]            = users;
   par[sSVarU.key]              = key;
-  
+
+  if(!jSGlobals.isEmpty(users)){   par[sSVarU.users]         = users;}
+  if(!jSGlobals.isEmpty(circles)){ par[sSVarU.circles]       = circles;}
   if(!jSGlobals.isEmpty(comment)){ par[sSVarU.comment]       = comment;}
   
   new SSJSONPOSTRequest("entityShare", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
