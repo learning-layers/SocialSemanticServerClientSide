@@ -2644,3 +2644,43 @@ var SSAppsGet = function(resultHandler, errorHandler, user, key){
   
   new SSJSONPOSTRequest("appsGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
+
+/**
+ * add a friend
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} friend friend's URI
+ * @return {SSFriendUserAddRet} <br> 
+ * {SSUri} friend URI
+ */
+var SSFriendAdd = function(resultHandler, errorHandler, user, key, friend){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "friendAdd";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  par[sSVarU.friend]           = friend;
+  
+  new SSJSONPOSTRequest("friendAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/**
+ * retrieve thes user's friends
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @return {SSFriendsUserGetRet} <br> 
+ * {SSUri Array} friends requested
+ */
+var SSFriendsGet = function(resultHandler, errorHandler, user, key){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "friendsGet";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  
+  new SSJSONPOSTRequest("friendsGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};

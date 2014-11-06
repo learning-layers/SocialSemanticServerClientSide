@@ -17,6 +17,8 @@ var sSVarU = new SSVarU();
     
 function SSVarU(){
   
+  this.friends                                        = "friends";
+  this.friend                                         = "friend";
   this.descriptionShort                               = "descriptionShort";
   this.descriptionFunctional                          = "descriptionFunctional";
   this.descriptionTechnical                           = "descriptionTechnical";
