@@ -930,7 +930,9 @@ getOverallRating,
 getDiscs, 
 getUEs, 
 getThumb, 
-getFlags){
+getFlags,
+getCircles,
+getFriends){
   
   var par                         = {};
   par[sSVarU.op]                  = "entityDescGet";
@@ -944,6 +946,8 @@ getFlags){
   if(!jSGlobals.isEmpty(getUEs)){           par[sSVarU.getUEs]              = getUEs;}
   if(!jSGlobals.isEmpty(getThumb)){         par[sSVarU.getThumb]            = getThumb;}
   if(!jSGlobals.isEmpty(getFlags)){         par[sSVarU.getFlags]            = getFlags;}
+  if(!jSGlobals.isEmpty(getCircles)){       par[sSVarU.getCircles]          = getCircles;}
+  if(!jSGlobals.isEmpty(getFriends)){       par[sSVarU.getFriends]          = getFriends;}
   
   new SSJSONPOSTRequest("entityDescGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
