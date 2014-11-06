@@ -916,6 +916,7 @@ read){
  * @param {Boolean} getUEs whether user events for given user and entity should be included
  * @param {Boolean} getThumb whether a thumbnail for files should be included
  * @param {Boolean} getFlags whether flags for this user and entity should be included
+ * @param {Boolean} getCircles whether circles the entity is in shall be included
  * @return {SSEntityDescGetRet} <br>
  * {SSEntityDescA} desc entity details with respect to the type of the entity and chosen request parameters
  */
@@ -931,8 +932,7 @@ getDiscs,
 getUEs, 
 getThumb, 
 getFlags,
-getCircles,
-getFriends){
+getCircles){
   
   var par                         = {};
   par[sSVarU.op]                  = "entityDescGet";
@@ -947,7 +947,6 @@ getFriends){
   if(!jSGlobals.isEmpty(getThumb)){         par[sSVarU.getThumb]            = getThumb;}
   if(!jSGlobals.isEmpty(getFlags)){         par[sSVarU.getFlags]            = getFlags;}
   if(!jSGlobals.isEmpty(getCircles)){       par[sSVarU.getCircles]          = getCircles;}
-  if(!jSGlobals.isEmpty(getFriends)){       par[sSVarU.getFriends]          = getFriends;}
   
   new SSJSONPOSTRequest("entityDescGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };

@@ -17,7 +17,6 @@ var sSVarU = new SSVarU();
     
 function SSVarU(){
   
-  this.getFriends                                     = "getFriends";
   this.getCircles                                     = "getCircles";
   this.friends                                        = "friends";
   this.friend                                         = "friend";
