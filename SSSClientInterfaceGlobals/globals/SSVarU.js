@@ -17,6 +17,8 @@ var sSVarU = new SSVarU();
     
 function SSVarU(){
   
+  this.stack                                          = "stack";
+  this.app                                            = "app";
   this.getCircles                                     = "getCircles";
   this.friends                                        = "friends";
   this.friend                                         = "friend";
