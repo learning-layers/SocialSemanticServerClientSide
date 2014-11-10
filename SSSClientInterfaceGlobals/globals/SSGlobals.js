@@ -17,9 +17,17 @@ var sSGlobals = new SSGlobals();
 
 function SSGlobals(){
   
-  this.serverHost                                    = "http://localhost:8080/ss-adapter-rest/"; //"http://137.226.58.15:8280/SocialSemanticServer/"; //http://localhost:8443/ss-adapter-rest/";
-//  this.hostREST                                      = "http://137.226.58.15:8280/SocialSemanticServer/"; //this.serverHost + "SSAdapterRest/";
-  this.hostREST                                      = this.serverHost + "SSAdapterRest/"; //"http://137.226.58.15:8280/SocialSemanticServer/"//this.serverHost + "SSAdapterRest/";
+  // Layers Adapter API usage
+//  this.serverHost                                    = "http://api.learning-layers.eu:8280/SocialSemanticServer/";
+//  this.hostREST                                      = this.serverHost   /* + "SSAdapterRest/" */; 
+//  this.hostRESTFile                                  = this.serverHost   /* + "SSAdapterRESTFile/" */;
+//  this.hostRESTFileDownload                          = this.serverHost   /* + "SSAdapterRESTFileDownload/" */;
+//  this.hostRESTFileUpload                            = this.serverHost   /* + "SSAdapterRESTFileUpload/" */;
+//  this.hostRESTFileReplace                           = this.serverHost   /* + "SSAdapterRESTFileReplace/" */;
+  
+  //using SSS REST Adapter directly (without Layers Adapter)
+  this.serverHost                                    = "http://localhost:8080/ss-adapter-rest/";
+  this.hostREST                                      = this.serverHost + "SSAdapterRest/"; 
   this.hostRESTFile                                  = this.serverHost + "SSAdapterRESTFile/";
   this.hostRESTFileDownload                          = this.serverHost + "SSAdapterRESTFileDownload/";
   this.hostRESTFileUpload                            = this.serverHost + "SSAdapterRESTFileUpload/";
