@@ -17,6 +17,10 @@ var sSVarU = new SSVarU();
     
 function SSVarU(){
   
+  this.forEntity                                      = "forEntity";
+  this.timePoint                                      = "timePoint";
+  this.genre                                          = "genre";
+  this.uuid                                           = "uuid";
   this.stack                                          = "stack";
   this.app                                            = "app";
   this.getCircles                                     = "getCircles";
@@ -31,6 +35,7 @@ function SSVarU(){
   this.downloadAndroid                                = "downloadAndroid"; 
   this.fork                                           = "fork";            
   this.screenShots                                    = "screenShots";     
+  this.video                                          = "video";          
   this.videos                                         = "videos";          
   this.message                                        = "message";
   this.messages                                       = "messages";

@@ -2758,3 +2758,109 @@ var SSAppStackLayoutsGet = function(resultHandler, errorHandler, user, key){
   
   new SSJSONPOSTRequest("appStackLayoutsGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
+
+/**
+ * add a video
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} uuid possible existing video identifier to be used for sss id generation
+ * @param {URI} genre the video is categorized in
+ * @param {String} label name of the video
+ * @param {String} description for the video
+ * @param {Date} creationTime timestamp for when the video was created
+ * @param {URI} forEntity entity to add the video to
+ * @return {SSVideoAddRet} <br> 
+ * {SSUri} video URI
+ */
+var SSVideoAdd = function(
+  resultHandler, 
+errorHandler, 
+user, 
+key, 
+uuid, 
+genre, 
+label, 
+description, 
+creationTime,
+forEntity){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "videoAdd";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  
+  if(!jSGlobals.isEmpty(uuid)){                  par[sSVarU.uuid]                     = uuid;}
+  if(!jSGlobals.isEmpty(genre)){                 par[sSVarU.genre]                    = genre;}
+  if(!jSGlobals.isEmpty(label)){                 par[sSVarU.label]                    = label;}
+  if(!jSGlobals.isEmpty(description)){           par[sSVarU.description]              = description;}
+  if(!jSGlobals.isEmpty(creationTime)){          par[sSVarU.creationTime]             = creationTime;}
+  if(!jSGlobals.isEmpty(forEntity)){             par[sSVarU.forEntity]                = forEntity;}
+  
+  new SSJSONPOSTRequest("videoAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/**
+ * add an annotation to a video 
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} video to add this annotation
+ * @param {Float} x coordinate where to add
+ * @param {Float} y coordinate where to add
+ * @param {Date} timePoint time point the annoation is added to the video
+ * @param {String} label name of the annotation
+ * @param {String} description of the annoation
+ * @return {SSVideoAnnotationAddRet} <br> 
+ * {SSUri} annotation URI
+ */
+var SSVideoAnnotationAdd = function(
+  resultHandler, 
+errorHandler, 
+user, 
+key,
+video, 
+x, 
+y,
+timePoint, 
+label, 
+description){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "videoAnnotationAdd";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  par[sSVarU.video]            = video;
+  
+  if(!jSGlobals.isEmpty(x)){                 par[sSVarU.x]                    = x;}
+  if(!jSGlobals.isEmpty(y)){                 par[sSVarU.y]                    = y;}
+  if(!jSGlobals.isEmpty(timePoint)){         par[sSVarU.timePoint]            = timePoint;}
+  if(!jSGlobals.isEmpty(label)){             par[sSVarU.label]                = label;}
+  if(!jSGlobals.isEmpty(description)){       par[sSVarU.description]          = description;}
+  
+  new SSJSONPOSTRequest("videoAnnotationAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/**
+ * retrieve all videos
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} forEntity entity to get videos for
+ * @return {SSAppStackLayoutsGetRet} <br> 
+ * {SSUri Array} friends requested
+ */
+var SSVideosGet = function(resultHandler, errorHandler, user, key, forEntity){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "videosGet";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  
+  if(!jSGlobals.isEmpty(forEntity)){       par[sSVarU.forEntity]          = forEntity;}
+  
+  new SSJSONPOSTRequest("videosGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
