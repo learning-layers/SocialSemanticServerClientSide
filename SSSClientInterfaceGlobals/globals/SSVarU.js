@@ -16,7 +16,9 @@
 var sSVarU = new SSVarU();
     
 function SSVarU(){
-  
+  this.longitude                                      = "longitude";
+  this.latitude                                       = "latitude";
+  this.accuracy                                       = "accuracy";
   this.forEntity                                      = "forEntity";
   this.timePoint                                      = "timePoint";
   this.genre                                          = "genre";

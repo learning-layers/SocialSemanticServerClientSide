@@ -2771,6 +2771,9 @@ var SSAppStackLayoutsGet = function(resultHandler, errorHandler, user, key){
  * @param {String} description for the video
  * @param {Date} creationTime timestamp for when the video was created
  * @param {URI} forEntity entity to add the video to
+ * @param {Double} latitude of the annoation
+ * @param {Double} longitude of the annoation 
+ * @param {Float} accuracy of the annoation
  * @return {SSVideoAddRet} <br> 
  * {SSUri} video URI
  */
@@ -2784,7 +2787,10 @@ genre,
 label, 
 description, 
 creationTime,
-forEntity){
+forEntity,
+latitude,
+longitude,
+accuracy){
   
   var par                      = {};
   par[sSVarU.op]               = "videoAdd";
@@ -2797,6 +2803,9 @@ forEntity){
   if(!jSGlobals.isEmpty(description)){           par[sSVarU.description]              = description;}
   if(!jSGlobals.isEmpty(creationTime)){          par[sSVarU.creationTime]             = creationTime;}
   if(!jSGlobals.isEmpty(forEntity)){             par[sSVarU.forEntity]                = forEntity;}
+  if(!jSGlobals.isEmpty(latitude)){              par[sSVarU.latitude]                 = latitude;}
+  if(!jSGlobals.isEmpty(longitude)){             par[sSVarU.longitude]                = longitude;}
+  if(!jSGlobals.isEmpty(accuracy)){              par[sSVarU.accuracy]                 = accuracy;}
   
   new SSJSONPOSTRequest("videoAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
