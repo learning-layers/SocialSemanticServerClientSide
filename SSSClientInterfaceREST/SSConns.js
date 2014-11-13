@@ -2853,7 +2853,7 @@ description){
 };
 
 /**
- * retrieve all videos
+ * retrieve all videos for the user
  * @param {Function} resultHandler
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
