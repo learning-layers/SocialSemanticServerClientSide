@@ -16,6 +16,7 @@
 var sSVarU = new SSVarU();
     
 function SSVarU(){
+  this.link                                           = "link";
   this.longitude                                      = "longitude";
   this.latitude                                       = "latitude";
   this.accuracy                                       = "accuracy";

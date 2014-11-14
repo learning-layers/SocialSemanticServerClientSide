@@ -2747,7 +2747,7 @@ var SSAppStackLayoutTileAdd = function(resultHandler, errorHandler, user, key, s
  * @param {URI} user the user's uri
  * @param {String} key auth key
  * @return {SSAppStackLayoutsGetRet} <br> 
- * {SSUri Array} friends requested
+ * {SSUri Array} stacks requested
  */
 var SSAppStackLayoutsGet = function(resultHandler, errorHandler, user, key){
   
@@ -2760,12 +2760,13 @@ var SSAppStackLayoutsGet = function(resultHandler, errorHandler, user, key){
 };
 
 /**
- * add a video
+ * add a video for the user
  * @param {Function} resultHandler
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} uuid possible existing video identifier to be used for sss id generation
+ * @param {String} uuid video's uuid (if provided used within id if link is not set)
+ * @param {URI} link to actual video (if provided used as id - overrides uuid)
  * @param {URI} genre the video is categorized in
  * @param {String} label name of the video
  * @param {String} description for the video
@@ -2783,6 +2784,7 @@ errorHandler,
 user, 
 key, 
 uuid, 
+link,
 genre, 
 label, 
 description, 
@@ -2798,6 +2800,7 @@ accuracy){
   par[sSVarU.key]              = key;
   
   if(!jSGlobals.isEmpty(uuid)){                  par[sSVarU.uuid]                     = uuid;}
+  if(!jSGlobals.isEmpty(link)){                  par[sSVarU.link]                     = link;}
   if(!jSGlobals.isEmpty(genre)){                 par[sSVarU.genre]                    = genre;}
   if(!jSGlobals.isEmpty(label)){                 par[sSVarU.label]                    = label;}
   if(!jSGlobals.isEmpty(description)){           par[sSVarU.description]              = description;}
@@ -2853,23 +2856,31 @@ description){
 };
 
 /**
- * retrieve all videos for the user
+ * retrieve videos [the user owns]
  * @param {Function} resultHandler
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
  * @param {URI} forEntity entity to get videos for
- * @return {SSAppStackLayoutsGetRet} <br> 
- * {SSUri Array} friends requested
+ * @param {URI} forUser user to get videos for
+ * @return {SSVideosUserGetRet} <br> 
+ * {SSVideo Array} videos requested
  */
-var SSVideosGet = function(resultHandler, errorHandler, user, key, forEntity){
+var SSVideosGet = function(
+  resultHandler, 
+errorHandler, 
+user, 
+key, 
+forEntity, 
+forUser){
   
   var par                      = {};
   par[sSVarU.op]               = "videosGet";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
-  if(!jSGlobals.isEmpty(forEntity)){       par[sSVarU.forEntity]          = forEntity;}
+  if(!jSGlobals.isEmpty(forEntity)){       par[sSVarU.forEntity]        = forEntity;}
+  if(!jSGlobals.isEmpty(forUser)){         par[sSVarU.forUser]          = forUser;}
   
   new SSJSONPOSTRequest("videosGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
