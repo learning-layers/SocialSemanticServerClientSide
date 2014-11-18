@@ -459,7 +459,8 @@ var SSCollsCouldSubscribeGet = function(resultHandler, errorHandler, user, key){
  * @param {String} type discussion type: disc, qa or chat (optional in case of an existing discussion)
  * @param {String} label discussion name (optional in case of an existing discussion)
  * @param {String} description describes the discussion in more detail (optional, except in case of a new discussion of type qa)
- * @param {URI Array} users provides users to share this discussion with upon creation of a new discussion (optional, but works only for a new discussion)
+ * @param {URI Array} users to share this discussion with upon creation of a new discussion (optional, though works only for a new discussion)
+ * @param {URI Array} circles to share this discussion with upon creation of a new discussion (optional, though works only for a new discussion)
  * @param {URI Array} entities provides entities to be attached either to corresponding discussion if new discussion to be added or to respective entry in the other case (optional)
  * @return {SSDiscUserEntryAddRet} <br>
  * {SSUri} disc discussion 
@@ -478,7 +479,8 @@ type,
 label, 
 description,
 users,
-entities){
+entities,
+circles){
   
   var par                = {};
   par[sSVarU.op]         = "discEntryAdd";
@@ -494,6 +496,7 @@ entities){
   if(!jSGlobals.isEmpty(description)){  par[sSVarU.description] = description;}
   if(!jSGlobals.isEmpty(users)){        par[sSVarU.users]       = users;}
   if(!jSGlobals.isEmpty(entities)){     par[sSVarU.entities]    = entities;}
+  if(!jSGlobals.isEmpty(circles)){      par[sSVarU.circles]     = circles;}
   
   new SSJSONPOSTRequest("discEntryAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
