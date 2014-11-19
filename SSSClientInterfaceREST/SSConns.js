@@ -77,7 +77,6 @@ var SSVideoAdd = function(
 errorHandler, 
 authToken, 
 uuid, 
-link,
 genre, 
 label, 
 description, 
@@ -90,7 +89,6 @@ accuracy){
   var payload                      = {};
   
   if(!jSGlobals.isEmpty(uuid)){                  payload[sSVarU.uuid]                     = uuid;}
-  if(!jSGlobals.isEmpty(link)){                  payload[sSVarU.link]                     = link;}
   if(!jSGlobals.isEmpty(genre)){                 payload[sSVarU.genre]                    = genre;}
   if(!jSGlobals.isEmpty(label)){                 payload[sSVarU.label]                    = label;}
   if(!jSGlobals.isEmpty(description)){           payload[sSVarU.description]              = description;}
@@ -100,7 +98,7 @@ accuracy){
   if(!jSGlobals.isEmpty(longitude)){             payload[sSVarU.longitude]                = longitude;}
   if(!jSGlobals.isEmpty(accuracy)){              payload[sSVarU.accuracy]                 = accuracy;}
   
-  new SSJSONPOSTOIDCRequest(payload, resultHandler, errorHandler, sSGlobals.serverHost + "video", authToken).send();
+  new SSJSONPOSTOIDCRequest(payload, resultHandler, errorHandler, sSGlobals.serverHost + "videos/video", authToken).send();
 };
 
 /**
@@ -138,7 +136,7 @@ description){
   if(!jSGlobals.isEmpty(label)){             payload[sSVarU.label]                = label;}
   if(!jSGlobals.isEmpty(description)){       payload[sSVarU.description]          = description;}
   
-  new SSJSONPOSTOIDCRequest(payload, resultHandler, errorHandler, sSGlobals.serverHost + "video/annotation", authToken).send();
+  new SSJSONPOSTOIDCRequest(payload, resultHandler, errorHandler, sSGlobals.serverHost + "videos/annotation", authToken).send();
 };
 
 /**
@@ -154,7 +152,7 @@ var SSVideosGet = function(
 errorHandler,
 authToken){
   
-  new SSJSONGETOIDCRequest(resultHandler, errorHandler, sSGlobals.serverHost + "video", authToken).send();
+  new SSJSONGETOIDCRequest(resultHandler, errorHandler, sSGlobals.serverHost + "videos/video", authToken).send();
 };
 
 /**
