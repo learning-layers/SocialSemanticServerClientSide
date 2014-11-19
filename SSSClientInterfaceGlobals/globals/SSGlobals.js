@@ -299,11 +299,55 @@ SSJSONPOSTRequest.prototype = {
   }
 };
 
-var SSJSONPOSTOIDCRequest = function(op, par, resultHandler, errorHandler, apiURI, authToken){
-  this.op            = op;
+var SSJSONGETOIDCRequest = function(resultHandler, errorHandler, apiURI, authToken){
   this.resultHandler = resultHandler;
   this.errorHandler  = errorHandler;
-  this.par           = par;
+  this.apiURI        = apiURI;
+  this.authToken     = authToken;
+};
+
+SSJSONGETOIDCRequest.prototype = {
+  
+  send : function(){
+    
+    var thisRef = this;
+    
+    jQuery.ajax({
+      'url' :         thisRef.apiURI,
+      'type':         sSGlobals.httpMethGET,
+      'contentType' : "application/json",
+      'async' :       true,
+      headers:        {Authorization : "Bearer " + thisRef.authToken},
+      dataType:       "application/json",
+      'complete' : function(jqXHR, textStatus) {
+        
+        if(
+          jqXHR.readyState    !== 4   ||
+          jqXHR.status        !== 200){
+          
+          var response = jSGlobals.parseJson(jqXHR.responseText);
+          
+          console.log("sss error:");
+          console.log(response);
+          
+          if(jSGlobals.isNotEmpty(thisRef.errorHandler)){
+            errorHandler(response); 
+          }
+          
+          return;
+        }
+        
+        thisRef.resultHandler(jSGlobals.parseJson(jqXHR.responseText));
+        return;
+      }
+    });
+  }
+};
+
+var SSJSONPOSTOIDCRequest = function(payload, resultHandler, errorHandler, apiURI, authToken){
+  this.resultHandler = resultHandler;
+  this.errorHandler  = errorHandler;
+  this.payload       = payload;
   this.apiURI        = apiURI;
   this.authToken     = authToken;
 };
@@ -315,9 +359,9 @@ SSJSONPOSTOIDCRequest.prototype = {
     var thisRef = this;
     
     jQuery.ajax({
-      'url' :         thisRef.apiURI + thisRef.op + jSGlobals.slash,
+      'url' :         thisRef.apiURI,
       'type':         sSGlobals.httpMethPOST,
-      'data' :        JSON.stringify(thisRef.par),
+      'data' :        JSON.stringify(thisRef.payload),
       'contentType' : "application/json",
       'async' :       true,
       headers:        {Authorization : "Bearer " + thisRef.authToken},
@@ -326,16 +370,22 @@ SSJSONPOSTOIDCRequest.prototype = {
         
         if(
           jqXHR.readyState    !== 4   ||
-          jqXHR.status        !== 200){
-          console.log("sss json request failed");
+          jqXHR.status        !== 201){
+          
+          var response = jSGlobals.parseJson(jqXHR.responseText);
+          
+          console.log("sss error:");
+          console.log(response);
+          
+          if(jSGlobals.isNotEmpty(thisRef.errorHandler)){
+            errorHandler(response); 
+          }
+          
           return;
         }
         
-        new SSGlobals().onMessage(
-          thisRef.resultHandler, 
-        thisRef.errorHandler, 
-        jSGlobals.parseJson(jqXHR.responseText), 
-        thisRef.op);
+        thisRef.resultHandler(jSGlobals.parseJson(jqXHR.responseText));
+        return;
       }
     });
   }

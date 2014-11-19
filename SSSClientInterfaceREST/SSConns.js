@@ -29,15 +29,7 @@
  * {URI} uri user's identifier in the system
  */
 var SSAuthCheckCredOIDC = function(resultHandler, errorHandler, authToken){
-  
-  var par               = {};
-  par[sSVarU.op]        = "authCheckCred";
-  par[sSVarU.user]      = "mailto:dummyUser";
-  par[sSVarU.key]       = "someKey";
-  par[sSVarU.label]     = "someLabel";
-  par[sSVarU.password]  = "somePassword";
-  
-  new SSJSONPOSTOIDCRequest("authCheckCred", par, resultHandler, errorHandler, sSGlobals.hostREST, authToken).send();
+  new SSJSONGETOIDCRequest(resultHandler, errorHandler, sSGlobals.serverHost + "auths/auth", authToken).send();
 };
 
 /**
@@ -60,6 +52,109 @@ var SSAuthCheckCred = function(resultHandler, errorHandler, label, password){
   par[sSVarU.password]  = password;
   
   new SSJSONPOSTRequest("authCheckCred", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/**
+ * add a video for the user
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {String} authToken authentication token from OIDC
+ * @param {String} uuid video's uuid (if provided used within id if link is not set)
+ * @param {URI} link to actual video (if provided used as id - overrides uuid)
+ * @param {URI} genre the video is categorized in
+ * @param {String} label name of the video
+ * @param {String} description for the video
+ * @param {Date} creationTime timestamp for when the video was created
+ * @param {URI} forEntity entity to add the video to
+ * @param {Double} latitude of the annoation
+ * @param {Double} longitude of the annoation 
+ * @param {Float} accuracy of the annoation
+ * @return {SSVideoAddRet} <br> 
+ * {SSUri} video URI
+ */
+var SSVideoAdd = function(
+  resultHandler, 
+errorHandler, 
+authToken, 
+uuid, 
+link,
+genre, 
+label, 
+description, 
+creationTime,
+forEntity,
+latitude,
+longitude,
+accuracy){
+  
+  var payload                      = {};
+  
+  if(!jSGlobals.isEmpty(uuid)){                  payload[sSVarU.uuid]                     = uuid;}
+  if(!jSGlobals.isEmpty(link)){                  payload[sSVarU.link]                     = link;}
+  if(!jSGlobals.isEmpty(genre)){                 payload[sSVarU.genre]                    = genre;}
+  if(!jSGlobals.isEmpty(label)){                 payload[sSVarU.label]                    = label;}
+  if(!jSGlobals.isEmpty(description)){           payload[sSVarU.description]              = description;}
+  if(!jSGlobals.isEmpty(creationTime)){          payload[sSVarU.creationTime]             = creationTime;}
+  if(!jSGlobals.isEmpty(forEntity)){             payload[sSVarU.forEntity]                = forEntity;}
+  if(!jSGlobals.isEmpty(latitude)){              payload[sSVarU.latitude]                 = latitude;}
+  if(!jSGlobals.isEmpty(longitude)){             payload[sSVarU.longitude]                = longitude;}
+  if(!jSGlobals.isEmpty(accuracy)){              payload[sSVarU.accuracy]                 = accuracy;}
+  
+  new SSJSONPOSTOIDCRequest(payload, resultHandler, errorHandler, sSGlobals.serverHost + "video", authToken).send();
+};
+
+/**
+ * add an annotation to a video 
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {String} authToken authentication token from OIDC
+ * @param {URI} video to add this annotation
+ * @param {Float} x coordinate where to add
+ * @param {Float} y coordinate where to add
+ * @param {Date} timePoint time point the annoation is added to the video
+ * @param {String} label name of the annotation
+ * @param {String} description of the annoation
+ * @return {SSVideoAnnotationAddRet} <br> 
+ * {SSUri} annotation URI
+ */
+var SSVideoAnnotationAdd = function(
+  resultHandler, 
+errorHandler, 
+authToken,
+video, 
+x, 
+y,
+timePoint, 
+label, 
+description){
+  
+  var payload                      = {};
+  
+  payload[sSVarU.video]            = video;
+  
+  if(!jSGlobals.isEmpty(x)){                 payload[sSVarU.x]                    = x;}
+  if(!jSGlobals.isEmpty(y)){                 payload[sSVarU.y]                    = y;}
+  if(!jSGlobals.isEmpty(timePoint)){         payload[sSVarU.timePoint]            = timePoint;}
+  if(!jSGlobals.isEmpty(label)){             payload[sSVarU.label]                = label;}
+  if(!jSGlobals.isEmpty(description)){       payload[sSVarU.description]          = description;}
+  
+  new SSJSONPOSTOIDCRequest(payload, resultHandler, errorHandler, sSGlobals.serverHost + "video/annotation", authToken).send();
+};
+
+/**
+ * retrieve videos [the user owns]
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {String} authToken authentication token from OIDC
+ * @return {SSVideosUserGetRet} <br> 
+ * {SSVideo Array} videos requested
+ */
+var SSVideosGet = function(
+  resultHandler, 
+errorHandler,
+authToken){
+  
+  new SSJSONGETOIDCRequest(resultHandler, errorHandler, sSGlobals.serverHost + "video", authToken).send();
 };
 
 /**
@@ -2772,130 +2867,4 @@ var SSAppStackLayoutsGet = function(resultHandler, errorHandler, user, key){
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("appStackLayoutsGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
-};
-
-/**
- * add a video for the user
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key
- * @param {String} uuid video's uuid (if provided used within id if link is not set)
- * @param {URI} link to actual video (if provided used as id - overrides uuid)
- * @param {URI} genre the video is categorized in
- * @param {String} label name of the video
- * @param {String} description for the video
- * @param {Date} creationTime timestamp for when the video was created
- * @param {URI} forEntity entity to add the video to
- * @param {Double} latitude of the annoation
- * @param {Double} longitude of the annoation 
- * @param {Float} accuracy of the annoation
- * @return {SSVideoAddRet} <br> 
- * {SSUri} video URI
- */
-var SSVideoAdd = function(
-  resultHandler, 
-errorHandler, 
-user, 
-key, 
-uuid, 
-link,
-genre, 
-label, 
-description, 
-creationTime,
-forEntity,
-latitude,
-longitude,
-accuracy){
-  
-  var par                      = {};
-  par[sSVarU.op]               = "videoAdd";
-  par[sSVarU.user]             = user;
-  par[sSVarU.key]              = key;
-  
-  if(!jSGlobals.isEmpty(uuid)){                  par[sSVarU.uuid]                     = uuid;}
-  if(!jSGlobals.isEmpty(link)){                  par[sSVarU.link]                     = link;}
-  if(!jSGlobals.isEmpty(genre)){                 par[sSVarU.genre]                    = genre;}
-  if(!jSGlobals.isEmpty(label)){                 par[sSVarU.label]                    = label;}
-  if(!jSGlobals.isEmpty(description)){           par[sSVarU.description]              = description;}
-  if(!jSGlobals.isEmpty(creationTime)){          par[sSVarU.creationTime]             = creationTime;}
-  if(!jSGlobals.isEmpty(forEntity)){             par[sSVarU.forEntity]                = forEntity;}
-  if(!jSGlobals.isEmpty(latitude)){              par[sSVarU.latitude]                 = latitude;}
-  if(!jSGlobals.isEmpty(longitude)){             par[sSVarU.longitude]                = longitude;}
-  if(!jSGlobals.isEmpty(accuracy)){              par[sSVarU.accuracy]                 = accuracy;}
-  
-  new SSJSONPOSTRequest("videoAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
-};
-
-/**
- * add an annotation to a video 
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key
- * @param {URI} video to add this annotation
- * @param {Float} x coordinate where to add
- * @param {Float} y coordinate where to add
- * @param {Date} timePoint time point the annoation is added to the video
- * @param {String} label name of the annotation
- * @param {String} description of the annoation
- * @return {SSVideoAnnotationAddRet} <br> 
- * {SSUri} annotation URI
- */
-var SSVideoAnnotationAdd = function(
-  resultHandler, 
-errorHandler, 
-user, 
-key,
-video, 
-x, 
-y,
-timePoint, 
-label, 
-description){
-  
-  var par                      = {};
-  par[sSVarU.op]               = "videoAnnotationAdd";
-  par[sSVarU.user]             = user;
-  par[sSVarU.key]              = key;
-  par[sSVarU.video]            = video;
-  
-  if(!jSGlobals.isEmpty(x)){                 par[sSVarU.x]                    = x;}
-  if(!jSGlobals.isEmpty(y)){                 par[sSVarU.y]                    = y;}
-  if(!jSGlobals.isEmpty(timePoint)){         par[sSVarU.timePoint]            = timePoint;}
-  if(!jSGlobals.isEmpty(label)){             par[sSVarU.label]                = label;}
-  if(!jSGlobals.isEmpty(description)){       par[sSVarU.description]          = description;}
-  
-  new SSJSONPOSTRequest("videoAnnotationAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
-};
-
-/**
- * retrieve videos [the user owns]
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key
- * @param {URI} forEntity entity to get videos for
- * @param {URI} forUser user to get videos for
- * @return {SSVideosUserGetRet} <br> 
- * {SSVideo Array} videos requested
- */
-var SSVideosGet = function(
-  resultHandler, 
-errorHandler, 
-user, 
-key, 
-forEntity, 
-forUser){
-  
-  var par                      = {};
-  par[sSVarU.op]               = "videosGet";
-  par[sSVarU.user]             = user;
-  par[sSVarU.key]              = key;
-  
-  if(!jSGlobals.isEmpty(forEntity)){       par[sSVarU.forEntity]        = forEntity;}
-  if(!jSGlobals.isEmpty(forUser)){         par[sSVarU.forUser]          = forUser;}
-  
-  new SSJSONPOSTRequest("videosGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
