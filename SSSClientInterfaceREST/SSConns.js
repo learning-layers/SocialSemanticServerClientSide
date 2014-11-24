@@ -19,6 +19,209 @@
  * limitations under the License.
  */
 
+/* start calls with RESTful counterpart */
+
+/**
+ * retrieve circles the user is in
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} forUser user to retrieve circles for (optional)
+ * @return {SSEntityUserCirclesGetRet} <br>
+ * {SSEntityCircle Array} circles all user-generated circles the user is in
+ */
+var SSEntityUserCirclesGet = function(
+  resultHandler, 
+errorHandler, 
+user, 
+key, 
+forUser){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "entityUserCirclesGet";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  
+  if(!jSGlobals.isEmpty(forUser)){ par[sSVarU.forUser]   = forUser;}
+  
+  new SSJSONPOSTRequest("entityUserCirclesGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/**
+ * retrieve circles the user is in
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {String} authToken authentication token from OIDC
+ * @return {SSEntityUserCirclesGetRet} <br>
+ * {SSEntityCircle Array} circles all user-generated circles the user is in
+ */
+var SSEntityUserCirclesGetOIDC = function(
+  resultHandler, 
+errorHandler,
+authToken){
+  
+  new SSJSONGETOIDCRequest(resultHandler, errorHandler, sSGlobals.serverHost + "circles/circle", authToken).send();
+};
+
+/**
+ * add given entities to a user-generated circle
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} circle circle to add entities to
+ * @param {URI Array} entities entities to add
+ * @return {SSEntityUserEntitiesToCircleAddRet} <br> 
+ * {SSUri} circle circle of entities added
+ */
+var SSEntityEntitiesToCircleAdd = function(resultHandler, errorHandler, user, key, circle, entities){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "entityEntitiesToCircleAdd";
+  par[sSVarU.user]             = user;
+  par[sSVarU.circle]           = circle;
+  par[sSVarU.entities]         = entities;
+  par[sSVarU.key]              = key;
+  
+  new SSJSONPOSTRequest("entityEntitiesToCircleAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/**
+ * add given entities to a user-generated circle
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {String} authToken authentication token from OIDC
+ * @param {URI} circle circle to add entities to
+ * @param {URI Array} entities entities to add
+ * @return {SSEntityUserEntitiesToCircleAddRet} <br> 
+ * {SSUri} circle circle of entities added
+ */
+var SSEntityEntitiesToCircleAddOIDC = function(
+  resultHandler, 
+errorHandler, 
+authToken, 
+circle, 
+entities){
+  
+  var payload                      = {};
+  
+  payload[sSVarU.circle]           = circle;
+  payload[sSVarU.entities]         = entities;
+  
+  new SSJSONPOSTOIDCRequest(payload, resultHandler, errorHandler, sSGlobals.serverHost + "circles/circle/entities", authToken).send();
+};
+
+/**
+ * add given users to a user-generated circle
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} circle circle to add users to
+ * @param {Array} users users to add
+ * @return {SSEntityUserUsersToCircleAddRet} <br>
+ * {SSUri} circle circle of users added
+ */
+var SSEntityUsersToCircleAdd = function(resultHandler, errorHandler, user, key, circle, users){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "entityUsersToCircleAdd";
+  par[sSVarU.user]             = user;
+  par[sSVarU.circle]           = circle;
+  par[sSVarU.users]            = users;
+  par[sSVarU.key]              = key;
+  
+  new SSJSONPOSTRequest("entityUsersToCircleAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/**
+ * add given users to a user-generated circle
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {String} authToken authentication token from OIDC
+ * @param {URI} circle circle to add users to
+ * @param {Array} users users to add
+ * @return {SSEntityUserUsersToCircleAddRet} <br>
+ * {SSUri} circle circle of users added
+ */
+var SSEntityUsersToCircleAddOIDC = function(
+  resultHandler, 
+errorHandler, 
+authToken, 
+circle, 
+users){
+  
+  var payload                      = {};
+  
+  payload[sSVarU.circle]           = circle;
+  payload[sSVarU.users]            = users;
+  
+  new SSJSONPOSTOIDCRequest(payload, resultHandler, errorHandler, sSGlobals.serverHost + "circles/circle/users", authToken).send();
+};
+
+/**
+ * create a circle and add users and entities to
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {String} label circle name
+ * @param {Array} entities entities to add
+ * @param {Array} users users to add
+ * @param {String} description textual annotation
+ * @return {SSEntityUserCircleCreateRet} <br>
+ * {SSUri} circle circle created
+ */
+var SSEntityCircleCreate = function(resultHandler, errorHandler, user, key, label, entities, users, description){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "entityCircleCreate";
+  par[sSVarU.user]             = user;
+  par[sSVarU.type]             = sSGlobals.circleTypeGroup;
+  par[sSVarU.label]            = label;
+  par[sSVarU.key]              = key;
+  
+  if(!jSGlobals.isEmpty(entities)){    par[sSVarU.entities]      = entities;}
+  if(!jSGlobals.isEmpty(users)){       par[sSVarU.users]         = users;}
+  if(!jSGlobals.isEmpty(description)){ par[sSVarU.description]   = description;}
+  
+  new SSJSONPOSTRequest("entityCircleCreate", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/**
+ * create a circle and add users and entities to
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {String} authToken authentication token from OIDC
+ * @param {String} label circle name
+ * @param {Array} entities entities to add
+ * @param {Array} users users to add
+ * @param {String} description textual annotation
+ * @return {SSEntityUserCircleCreateRet} <br>
+ * {SSUri} circle circle created
+ */
+var SSEntityCircleCreateOIDC = function(
+  resultHandler, 
+errorHandler, 
+authToken, 
+label, 
+entities, 
+users, 
+description){
+  
+  var payload                      = {};
+
+  payload[sSVarU.type]             = sSGlobals.circleTypeGroup;
+  payload[sSVarU.label]            = label;
+  
+  if(!jSGlobals.isEmpty(entities)){    payload[sSVarU.entities]      = entities;}
+  if(!jSGlobals.isEmpty(users)){       payload[sSVarU.users]         = users;}
+  if(!jSGlobals.isEmpty(description)){ payload[sSVarU.description]   = description;}
+  
+  new SSJSONPOSTOIDCRequest(payload, resultHandler, errorHandler, sSGlobals.serverHost + "circles/circle", authToken).send();
+};
+
 /**
  * retrieve the authentication key and user's uri for OIDC authentication token
  * @param {Function} resultHandler
@@ -77,6 +280,7 @@ var SSVideoAdd = function(
 errorHandler, 
 authToken, 
 uuid, 
+link,
 genre, 
 label, 
 description, 
@@ -89,6 +293,7 @@ accuracy){
   var payload                      = {};
   
   if(!jSGlobals.isEmpty(uuid)){                  payload[sSVarU.uuid]                     = uuid;}
+  if(!jSGlobals.isEmpty(link)){                  payload[sSVarU.link]                     = link;}
   if(!jSGlobals.isEmpty(genre)){                 payload[sSVarU.genre]                    = genre;}
   if(!jSGlobals.isEmpty(label)){                 payload[sSVarU.label]                    = label;}
   if(!jSGlobals.isEmpty(description)){           payload[sSVarU.description]              = description;}
@@ -154,6 +359,10 @@ authToken){
   
   new SSJSONGETOIDCRequest(resultHandler, errorHandler, sSGlobals.serverHost + "videos/video", authToken).send();
 };
+
+
+/* end calls with RESTful counterpart */
+
 
 /**
  * add an activity
@@ -696,124 +905,6 @@ var SSEntityEntityUsersGet = function(resultHandler, errorHandler, user, key, en
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("entityEntityUsersGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
-};
-
-/**
- * retrieve a certain circle 
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key
- * @param {URI} circle the circle to retrieve
- * @return {SSEntityUserCircleGetRet} <br>
- * {SSEntityCircle} circle requested
- */
-var SSEntityCircleGet = function(resultHandler, errorHandler, user, key, circle){
-  
-  var par                      = {};
-  par[sSVarU.op]               = "entityCircleGet";
-  par[sSVarU.user]             = user;
-  par[sSVarU.key]              = key;
-  par[sSVarU.circle]           = circle;
-  
-  new SSJSONPOSTRequest("entityCircleGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
-};
-
-/**
- * retrieve circles the user is in
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key
- * @param {URI} forUser user to retrieve circles for (optional)
- * @return {SSEntityUserCirclesGetRet} <br>
- * {SSEntityCircle Array} circles all user-generated circles the user is in
- */
-var SSEntityUserCirclesGet = function(resultHandler, errorHandler, user, key, forUser){
-  
-  var par                      = {};
-  par[sSVarU.op]               = "entityUserCirclesGet";
-  par[sSVarU.user]             = user;
-  par[sSVarU.key]              = key;
-  
-  if(!jSGlobals.isEmpty(forUser)){ par[sSVarU.forUser]   = forUser;}
-  
-  new SSJSONPOSTRequest("entityUserCirclesGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
-};
-
-/**
- * add given entities to a user-generated circle
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key
- * @param {URI} circle circle to add entities to
- * @param {URI Array} entities entities to add
- * @return {SSEntityUserEntitiesToCircleAddRet} <br> 
- * {SSUri} circle circle of entities added
- */
-var SSEntityEntitiesToCircleAdd = function(resultHandler, errorHandler, user, key, circle, entities){
-  
-  var par                      = {};
-  par[sSVarU.op]               = "entityEntitiesToCircleAdd";
-  par[sSVarU.user]             = user;
-  par[sSVarU.circle]           = circle;
-  par[sSVarU.entities]         = entities;
-  par[sSVarU.key]              = key;
-  
-  new SSJSONPOSTRequest("entityEntitiesToCircleAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
-};
-
-/**
- * add given users to a user-generated circle
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key
- * @param {URI} circle circle to add users to
- * @param {Array} users users to add
- * @return {SSEntityUserUsersToCircleAddRet} <br>
- * {SSUri} circle circle of users added
- */
-var SSEntityUsersToCircleAdd = function(resultHandler, errorHandler, user, key, circle, users){
-  
-  var par                      = {};
-  par[sSVarU.op]               = "entityUsersToCircleAdd";
-  par[sSVarU.user]             = user;
-  par[sSVarU.circle]           = circle;
-  par[sSVarU.users]            = users;
-  par[sSVarU.key]              = key;
-  
-  new SSJSONPOSTRequest("entityUsersToCircleAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
-};
-
-/**
- * create a circle and add users and entities to
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key
- * @param {String} label circle name
- * @param {Array} entities entities to add
- * @param {Array} users users to add
- * @param {String} description textual annotation
- * @return {SSEntityUserCircleCreateRet} <br>
- * {SSUri} circle circle created
- */
-var SSEntityCircleCreate = function(resultHandler, errorHandler, user, key, label, entities, users, description){
-  
-  var par                      = {};
-  par[sSVarU.op]               = "entityCircleCreate";
-  par[sSVarU.user]             = user;
-  par[sSVarU.type]             = sSGlobals.circleTypeGroup;
-  par[sSVarU.label]            = label;
-  par[sSVarU.key]              = key;
-  
-  if(!jSGlobals.isEmpty(entities)){    par[sSVarU.entities]      = entities;}
-  if(!jSGlobals.isEmpty(users)){       par[sSVarU.users]         = users;}
-  if(!jSGlobals.isEmpty(description)){ par[sSVarU.description]   = description;}
-  
-  new SSJSONPOSTRequest("entityCircleCreate", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -2865,4 +2956,25 @@ var SSAppStackLayoutsGet = function(resultHandler, errorHandler, user, key){
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("appStackLayoutsGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/**
+ * retrieve a certain circle 
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} circle the circle to retrieve
+ * @return {SSEntityUserCircleGetRet} <br>
+ * {SSEntityCircle} circle requested
+ */
+var SSEntityCircleGet = function(resultHandler, errorHandler, user, key, circle){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "entityCircleGet";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  par[sSVarU.circle]           = circle;
+  
+  new SSJSONPOSTRequest("entityCircleGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
