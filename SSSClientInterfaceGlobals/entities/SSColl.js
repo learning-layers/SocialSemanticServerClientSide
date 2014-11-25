@@ -24,7 +24,7 @@ function SSColl(){
 
   this.rootColl      = null;
 
-  this.nameSpaceColl = "/coll/";
+  this.nameSpaceColl = "/collection/";
   this.typeColl      = "collection";
 	
   this.iconCollShared                                                = "styles/images/used/mySharedCollection.png";
