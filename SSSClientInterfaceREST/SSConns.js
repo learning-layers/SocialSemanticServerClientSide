@@ -192,7 +192,6 @@ users){
   
   var payload                      = {};
   
-  payload[sSVarU.circle]           = circle;
   payload[sSVarU.users]            = users;
   
   new SSJSONPOSTOIDCRequest(payload, resultHandler, errorHandler, sSGlobals.serverHost + "circles/circle/" + encodeURIComponent(circle) + "/users", authToken).send();
