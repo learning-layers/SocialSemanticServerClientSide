@@ -131,7 +131,7 @@ var SSEntityEntitiesToCircleAdd = function(resultHandler, errorHandler, user, ke
  * @param {Function} resultHandler
  * @param {Function} errorHandler
  * @param {String} authToken authentication token from OIDC
- * @param {String} circleID id of the circle to add entities to
+ * @param {String} circle circle to add entities to
  * @param {URI Array} entities entities to add
  * @return {SSEntityUserEntitiesToCircleAddRet} <br> 
  * {SSUri} circle circle of entities added
@@ -140,14 +140,14 @@ var SSEntityEntitiesToCircleAddOIDC = function(
   resultHandler, 
 errorHandler, 
 authToken, 
-circleID, 
+circle, 
 entities){
   
   var payload                      = {};
   
   payload[sSVarU.entities]         = entities;
   
-  new SSJSONPOSTOIDCRequest(payload, resultHandler, errorHandler, sSGlobals.serverHost + "circles/circle/" + circleID + "/entities", authToken).send();
+  new SSJSONPOSTOIDCRequest(payload, resultHandler, errorHandler, sSGlobals.serverHost + "circles/circle/" + encodeURIComponent(circle) + "/entities", authToken).send();
 };
 
 /**
@@ -178,7 +178,7 @@ var SSEntityUsersToCircleAdd = function(resultHandler, errorHandler, user, key, 
  * @param {Function} resultHandler
  * @param {Function} errorHandler
  * @param {String} authToken authentication token from OIDC
- * @param {String} circleID id of the circle to add users to
+ * @param {String} circle the circle to add users to
  * @param {Array} users users to add
  * @return {SSEntityUserUsersToCircleAddRet} <br>
  * {SSUri} circle circle of users added
@@ -187,7 +187,7 @@ var SSEntityUsersToCircleAddOIDC = function(
   resultHandler, 
 errorHandler, 
 authToken, 
-circleID, 
+circle, 
 users){
   
   var payload                      = {};
@@ -195,7 +195,7 @@ users){
   payload[sSVarU.circle]           = circle;
   payload[sSVarU.users]            = users;
   
-  new SSJSONPOSTOIDCRequest(payload, resultHandler, errorHandler, sSGlobals.serverHost + "circles/circle/" + circleID + "/users", authToken).send();
+  new SSJSONPOSTOIDCRequest(payload, resultHandler, errorHandler, sSGlobals.serverHost + "circles/circle/" + encodeURIComponent(circle) + "/users", authToken).send();
 };
 
 /**
