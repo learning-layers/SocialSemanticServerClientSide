@@ -61,7 +61,7 @@ var SSEntityUserCirclesGetOIDC = function(
 errorHandler,
 authToken){
   
-  new SSJSONGETOIDCRequest(resultHandler, errorHandler, sSGlobals.serverHost + "circles/circle", authToken).send();
+  new SSJSONGETOIDCRequest(resultHandler, errorHandler, sSGlobals.serverHost + "circles/circles", authToken).send();
 };
 
 /**
@@ -70,7 +70,7 @@ authToken){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} circle the circle to retrieve
+ * @param {URI} circle to retrieve
  * @return {SSEntityUserCircleGetRet} <br>
  * {SSEntityCircle} circle requested
  */
@@ -90,7 +90,7 @@ var SSEntityCircleGet = function(resultHandler, errorHandler, user, key, circle)
  * @param {Function} resultHandler
  * @param {Function} errorHandler
  * @param {String} authToken authentication token from OIDC
- * @param {URI} circle the circle to retrieve
+ * @param {URI} circle to retrieve
  * @return {SSEntityUserCircleGetRet} <br>
  * {SSEntityCircle} circle requested
  */
@@ -100,7 +100,7 @@ errorHandler,
 authToken, 
 circle){
   
-  new SSJSONGETOIDCRequest(resultHandler, errorHandler, sSGlobals.serverHost + "circles/circle/" + encodeURIComponent(circle), authToken).send();
+  new SSJSONGETOIDCRequest(resultHandler, errorHandler, sSGlobals.serverHost + "circles/circles/" + encodeURIComponent(circle), authToken).send();
 };
 
 /**
@@ -109,7 +109,7 @@ circle){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} circle circle to add entities to
+ * @param {URI} circle to add entities to
  * @param {URI Array} entities entities to add
  * @return {SSEntityUserEntitiesToCircleAddRet} <br> 
  * {SSUri} circle circle of entities added
@@ -131,7 +131,7 @@ var SSEntityEntitiesToCircleAdd = function(resultHandler, errorHandler, user, ke
  * @param {Function} resultHandler
  * @param {Function} errorHandler
  * @param {String} authToken authentication token from OIDC
- * @param {String} circle circle to add entities to
+ * @param {String} circle to add entities to
  * @param {URI Array} entities entities to add
  * @return {SSEntityUserEntitiesToCircleAddRet} <br> 
  * {SSUri} circle circle of entities added
@@ -147,7 +147,7 @@ entities){
   
   payload[sSVarU.entities]         = entities;
   
-  new SSJSONPOSTOIDCRequest(payload, resultHandler, errorHandler, sSGlobals.serverHost + "circles/circle/" + encodeURIComponent(circle) + "/entities", authToken).send();
+  new SSJSONPOSTOIDCRequest(payload, resultHandler, errorHandler, sSGlobals.serverHost + "circles/circles/" + encodeURIComponent(circle) + "/entities", authToken).send();
 };
 
 /**
@@ -156,7 +156,7 @@ entities){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {URI} circle circle to add users to
+ * @param {URI} circle to add users to
  * @param {Array} users users to add
  * @return {SSEntityUserUsersToCircleAddRet} <br>
  * {SSUri} circle circle of users added
@@ -178,7 +178,7 @@ var SSEntityUsersToCircleAdd = function(resultHandler, errorHandler, user, key, 
  * @param {Function} resultHandler
  * @param {Function} errorHandler
  * @param {String} authToken authentication token from OIDC
- * @param {String} circle the circle to add users to
+ * @param {String} circle to add users to
  * @param {Array} users users to add
  * @return {SSEntityUserUsersToCircleAddRet} <br>
  * {SSUri} circle circle of users added
@@ -194,7 +194,7 @@ users){
   
   payload[sSVarU.users]            = users;
   
-  new SSJSONPOSTOIDCRequest(payload, resultHandler, errorHandler, sSGlobals.serverHost + "circles/circle/" + encodeURIComponent(circle) + "/users", authToken).send();
+  new SSJSONPOSTOIDCRequest(payload, resultHandler, errorHandler, sSGlobals.serverHost + "circles/circles/" + encodeURIComponent(circle) + "/users", authToken).send();
 };
 
 /**
@@ -256,7 +256,7 @@ description){
   if(!jSGlobals.isEmpty(users)){       payload[sSVarU.users]         = users;}
   if(!jSGlobals.isEmpty(description)){ payload[sSVarU.description]   = description;}
   
-  new SSJSONPOSTOIDCRequest(payload, resultHandler, errorHandler, sSGlobals.serverHost + "circles/circle", authToken).send();
+  new SSJSONPOSTOIDCRequest(payload, resultHandler, errorHandler, sSGlobals.serverHost + "circles/circles", authToken).send();
 };
 
 /**
@@ -269,7 +269,7 @@ description){
  * {URI} uri user's identifier in the system
  */
 var SSAuthCheckCredOIDC = function(resultHandler, errorHandler, authToken){
-  new SSJSONGETOIDCRequest(resultHandler, errorHandler, sSGlobals.serverHost + "auths/auth", authToken).send();
+  new SSJSONGETOIDCRequest(resultHandler, errorHandler, sSGlobals.serverHost + "auths/auths", authToken).send();
 };
 
 /**
@@ -340,7 +340,7 @@ accuracy){
   if(!jSGlobals.isEmpty(longitude)){             payload[sSVarU.longitude]                = longitude;}
   if(!jSGlobals.isEmpty(accuracy)){              payload[sSVarU.accuracy]                 = accuracy;}
   
-  new SSJSONPOSTOIDCRequest(payload, resultHandler, errorHandler, sSGlobals.serverHost + "videos/video", authToken).send();
+  new SSJSONPOSTOIDCRequest(payload, resultHandler, errorHandler, sSGlobals.serverHost + "videos/videos", authToken).send();
 };
 
 /**
@@ -378,7 +378,7 @@ description){
   if(!jSGlobals.isEmpty(label)){             payload[sSVarU.label]                = label;}
   if(!jSGlobals.isEmpty(description)){       payload[sSVarU.description]          = description;}
   
-  new SSJSONPOSTOIDCRequest(payload, resultHandler, errorHandler, sSGlobals.serverHost + "videos/annotation", authToken).send();
+  new SSJSONPOSTOIDCRequest(payload, resultHandler, errorHandler, sSGlobals.serverHost + "videos/videos/" + encodeURIComponent(video) + "/annotation", authToken).send();
 };
 
 /**
@@ -394,7 +394,7 @@ var SSVideosGet = function(
 errorHandler,
 authToken){
   
-  new SSJSONGETOIDCRequest(resultHandler, errorHandler, sSGlobals.serverHost + "videos/video", authToken).send();
+  new SSJSONGETOIDCRequest(resultHandler, errorHandler, sSGlobals.serverHost + "videos/videos", authToken).send();
 };
 
 
