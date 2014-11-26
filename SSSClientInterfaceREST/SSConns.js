@@ -880,7 +880,11 @@ includeComments){
  * @return {SSDiscsUserAllGetRet} <br>
  * {SSDisc Array} discs discussions without entries for given user
  */
-var SSDiscsAllGet = function(resultHandler, errorHandler, user, key){
+var SSDiscsAllGet = function(
+  resultHandler, 
+errorHandler, 
+user, 
+ke){
   
   var par                     = {};
   par[sSVarU.op]              = "discsAllGet";
