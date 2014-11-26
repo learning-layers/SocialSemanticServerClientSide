@@ -847,10 +847,17 @@ circles){
  * @param {URI} user the user's uri
  * @param {String} key auth key
  * @param {URI} disc discussion to retrieve
+ * @param {Boolean} includeComments whether comments attached to the disc/q&a and their entries shall be returned
  * @return {SSDiscUserWithEntriesRet} <br>
  * {SSDisc} disc discussion with its entries
  */
-var SSDiscWithEntriesGet = function(resultHandler, errorHandler, user, key, disc){
+var SSDiscWithEntriesGet = function(
+  resultHandler, 
+errorHandler, 
+user, 
+key, 
+disc,
+includeComments){
   
   var par                     = {};
   par[sSVarU.op]              = "discWithEntriesGet";
@@ -858,6 +865,8 @@ var SSDiscWithEntriesGet = function(resultHandler, errorHandler, user, key, disc
   par[sSVarU.disc]            = disc;
   par[sSVarU.maxEntries]      = 10;
   par[sSVarU.key]             = key;
+  
+  if(!jSGlobals.isEmpty(includeComments)){ par[sSVarU.includeComments]   = includeComments;}
   
   new SSJSONPOSTRequest("discWithEntriesGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };

@@ -17,6 +17,7 @@ var sSVarU = new SSVarU();
     
 function SSVarU(){
   
+  this.includeComments                                = "includeComments";
   this.setCircleTypes                                 = "setCircleTypes";
   this.link                                           = "link";
   this.longitude                                      = "longitude";
