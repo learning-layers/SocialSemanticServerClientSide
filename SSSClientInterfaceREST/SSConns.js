@@ -884,7 +884,7 @@ var SSDiscsAllGet = function(
   resultHandler, 
 errorHandler, 
 user, 
-ke){
+key){
   
   var par                     = {};
   par[sSVarU.op]              = "discsAllGet";
