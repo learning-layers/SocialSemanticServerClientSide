@@ -3007,3 +3007,32 @@ var SSAppStackLayoutsGet = function(resultHandler, errorHandler, user, key){
   
   new SSJSONPOSTRequest("appStackLayoutsGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
+
+/**
+ * like / dislike / neutral an entity
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} entity to like / dislike / neutral
+ * @param {Integer} value like: 1, neutral: 0, dislike: -1
+ * @return {SSLikeUserSetRet} <br> 
+ * {SSUri} entity liked / disliked / neutralized
+ */
+var SSLikeSet = function(
+  resultHandler, 
+errorHandler, 
+user, 
+key, 
+entity, 
+value){
+  
+  var par                      = {};
+  par[sSVarU.op]               = "likeSet";
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  par[sSVarU.entity]           = entity;
+  par[sSVarU.value]            = value;
+  
+  new SSJSONPOSTRequest("likeSet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
