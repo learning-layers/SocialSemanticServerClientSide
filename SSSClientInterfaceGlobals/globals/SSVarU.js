@@ -17,6 +17,8 @@ var sSVarU = new SSVarU();
     
 function SSVarU(){
   
+  this.minRating                                      = "minRating";
+  this.maxRating                                      = "maxRating";
   this.includeComments                                = "includeComments";
   this.setCircleTypes                                 = "setCircleTypes";
   this.link                                           = "link";

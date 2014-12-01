@@ -2129,6 +2129,8 @@ setCircleTypes){
  * @param {Boolean} provideEntries whether entries (if available) of search results (e.g. the entries of a found collection) should be returned as well
  * @param {String} pagesID unique identifier for the pages of a previous search result
  * @param {Integer} pageNumber number of the page to be requested from a previous search result
+ * @param {Integer} minRating minimum overall star rating the entity must have to be returned
+ * @param {Integer} maxRating maximum overall star rating the entity must have to be returned
  * @return {SSSearchRet} <br>
  * {SSEntity Array} entities found entities with additional information
  */
@@ -2155,7 +2157,9 @@ extendToParents,
 includeRecommendedResults,
 provideEntries, 
 pagesID, 
-pageNumber){
+pageNumber,
+minRating,
+maxRating){
   
   var par                                 = {};
   par[sSVarU.op]                          = "search";
@@ -2181,6 +2185,8 @@ pageNumber){
   if(!jSGlobals.isEmpty(provideEntries)){              par[sSVarU.provideEntries]               = provideEntries;}
   if(!jSGlobals.isEmpty(pagesID)){                     par[sSVarU.pagesID]                      = pagesID;}
   if(!jSGlobals.isEmpty(pageNumber)){                  par[sSVarU.pageNumber]                   = pageNumber;}
+  if(!jSGlobals.isEmpty(minRating)){                   par[sSVarU.minRating]                    = minRating;}
+  if(!jSGlobals.isEmpty(maxRating)){                   par[sSVarU.maxRating]                    = maxRating;}
   
   new SSJSONPOSTRequest("search", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
