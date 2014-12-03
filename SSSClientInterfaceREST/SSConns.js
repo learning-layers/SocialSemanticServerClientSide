@@ -2074,6 +2074,7 @@ var SSRecommTags = function(resultHandler, errorHandler, user, key, forUser, ent
  * @param {Integer} maxResources number of resources to be returned
  * @param {String Array} typesToRecommOnly sss entity types to be returned only
  * @param {Boolean} setCircleTypes whether circle types (i.e. priv, group, pub) for recommended entities shall be set
+ * @param {Boolean} includeOwn whether own entities should be included in the result
  * @return {SSRecommResourcesRet} <br>
  * {SSResourceLikelihood Array} resources recommended resources with likelihood
  */
@@ -2087,7 +2088,8 @@ entity,
 categories, 
 maxResources, 
 typesToRecommOnly,
-setCircleTypes){
+setCircleTypes,
+includeOwn){
   
   var par                     = {};
   par[sSVarU.op]              = "recommResources";
@@ -2100,6 +2102,7 @@ setCircleTypes){
   if(!jSGlobals.isEmpty(maxResources)){        par[sSVarU.maxResources]              = maxResources;}
   if(!jSGlobals.isEmpty(typesToRecommOnly)){   par[sSVarU.typesToRecommOnly]         = typesToRecommOnly;}
   if(!jSGlobals.isEmpty(setCircleTypes)){      par[sSVarU.setCircleTypes]            = setCircleTypes;}
+  if(!jSGlobals.isEmpty(includeOwn)){          par[sSVarU.includeOwn]                = includeOwn;}
   
   new SSJSONPOSTRequest("recommResources", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };

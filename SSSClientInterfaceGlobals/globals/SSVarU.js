@@ -17,6 +17,7 @@ var sSVarU = new SSVarU();
     
 function SSVarU(){
   
+  this.includeOwn                                     = "includeOwn";
   this.minRating                                      = "minRating";
   this.maxRating                                      = "maxRating";
   this.includeComments                                = "includeComments";
