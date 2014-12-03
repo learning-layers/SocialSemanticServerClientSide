@@ -18,12 +18,12 @@ var sSGlobals = new SSGlobals();
 function SSGlobals(){
   
   // Layers Adapter API usage
-//  this.serverHost                                    = "http://api.learning-layers.eu:8280/SocialSemanticServer/";
-//  this.hostREST                                      = this.serverHost   /* + "SSAdapterRest/" */; 
-//  this.hostRESTFile                                  = this.serverHost   /* + "SSAdapterRESTFile/" */;
-//  this.hostRESTFileDownload                          = this.serverHost   /* + "SSAdapterRESTFileDownload/" */;
-//  this.hostRESTFileUpload                            = this.serverHost   /* + "SSAdapterRESTFileUpload/" */;
-//  this.hostRESTFileReplace                           = this.serverHost   /* + "SSAdapterRESTFileReplace/" */;
+//  this.serverHost                                    = "https://api.learning-layers.eu/sss/xxx/";
+//  this.hostREST                                      = this.serverHost    + "SSAdapterRest/"; 
+//  this.hostRESTFile                                  = this.serverHost    + "SSAdapterRESTFile/";
+//  this.hostRESTFileDownload                          = this.serverHost    + "SSAdapterRESTFileDownload/";
+//  this.hostRESTFileUpload                            = this.serverHost    + "SSAdapterRESTFileUpload/";
+//  this.hostRESTFileReplace                           = this.serverHost    + "SSAdapterRESTFileReplace/";
   
   //using SSS REST Adapter directly (without Layers Adapter)
   this.serverHost                                    = "http://localhost:8080/ss-adapter-rest/";
