@@ -22,6 +22,22 @@
 /* start calls with RESTful counterpart */
 
 /**
+ * retrieve information for entities the user has access to
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {String} authToken authentication token from OIDC
+ * @return {SSEntitiesUserGetNewRet} <br>
+ * {SSEntity Array} entities the user has access to
+ */
+var SSEntitiesUserGetNewOIDC = function(
+  resultHandler, 
+errorHandler,
+authToken){
+  
+  new SSJSONGETOIDCRequest(resultHandler, errorHandler, sSGlobals.serverHost + "entities/entities", authToken).send();
+};
+
+/**
  * retrieve circles the user is in
  * @param {Function} resultHandler
  * @param {Function} errorHandler
