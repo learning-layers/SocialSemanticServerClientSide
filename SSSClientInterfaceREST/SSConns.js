@@ -378,7 +378,7 @@ description){
   if(!jSGlobals.isEmpty(label)){             payload[sSVarU.label]                = label;}
   if(!jSGlobals.isEmpty(description)){       payload[sSVarU.description]          = description;}
   
-  new SSJSONPOSTOIDCRequest(payload, resultHandler, errorHandler, sSGlobals.serverHost + "videos/videos/" + encodeURIComponent(video) + "/annotation", authToken).send();
+  new SSJSONPOSTOIDCRequest(payload, resultHandler, errorHandler, sSGlobals.serverHost + "videos/videos/" + encodeURIComponent(video) + "/annotations", authToken).send();
 };
 
 /**
