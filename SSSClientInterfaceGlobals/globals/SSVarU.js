@@ -17,6 +17,8 @@ var sSVarU = new SSVarU();
     
 function SSVarU(){
   
+  this.globalSearchOp                                 = "globalSearchOp";
+  this.localSearchOp                                  = "localSearchOp";
   this.includeOwn                                     = "includeOwn";
   this.minRating                                      = "minRating";
   this.maxRating                                      = "maxRating";

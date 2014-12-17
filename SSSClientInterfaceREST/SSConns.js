@@ -2150,6 +2150,8 @@ includeOwn){
  * @param {Integer} pageNumber number of the page to be requested from a previous search result
  * @param {Integer} minRating minimum overall star rating the entity must have to be returned
  * @param {Integer} maxRating maximum overall star rating the entity must have to be returned
+ * @param {Boolean} localSearchOp how results will be comined for query parameter separately (i.e. or | and; e.g. and: results have to match for all tags given in tagsToSearchFor)
+ * @param {Boolean} globalSearchOp how results will be comined overall (i.e. or | and; e.g. and: results have to match all given tags labels) 
  * @return {SSSearchRet} <br>
  * {SSEntity Array} entities found entities with additional information
  */
@@ -2178,7 +2180,9 @@ provideEntries,
 pagesID, 
 pageNumber,
 minRating,
-maxRating){
+maxRating,
+localSearchOp,
+globalSearchOp){
   
   var par                                 = {};
   par[sSVarU.op]                          = "search";
@@ -2206,6 +2210,8 @@ maxRating){
   if(!jSGlobals.isEmpty(pageNumber)){                  par[sSVarU.pageNumber]                   = pageNumber;}
   if(!jSGlobals.isEmpty(minRating)){                   par[sSVarU.minRating]                    = minRating;}
   if(!jSGlobals.isEmpty(maxRating)){                   par[sSVarU.maxRating]                    = maxRating;}
+  if(!jSGlobals.isEmpty(localSearchOp)){               par[sSVarU.localSearchOp]                = localSearchOp;}
+  if(!jSGlobals.isEmpty(globalSearchOp)){              par[sSVarU.globalSearchOp]               = globalSearchOp;}
   
   new SSJSONPOSTRequest("search", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
