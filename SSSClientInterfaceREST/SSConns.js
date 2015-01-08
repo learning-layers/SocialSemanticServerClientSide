@@ -55,13 +55,12 @@ key,
 forUser){
   
   var par                      = {};
-  par[sSVarU.op]               = "entityUserCirclesGet";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
   if(!jSGlobals.isEmpty(forUser)){ par[sSVarU.forUser]   = forUser;}
   
-  new SSJSONPOSTRequest("entityUserCirclesGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+  new SSJSONPOSTRequest("circlesGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -93,12 +92,11 @@ authToken){
 var SSEntityCircleGet = function(resultHandler, errorHandler, user, key, circle){
   
   var par                      = {};
-  par[sSVarU.op]               = "entityCircleGet";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   par[sSVarU.circle]           = circle;
   
-  new SSJSONPOSTRequest("entityCircleGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+  new SSJSONPOSTRequest("circleGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -133,13 +131,12 @@ circle){
 var SSEntityEntitiesToCircleAdd = function(resultHandler, errorHandler, user, key, circle, entities){
   
   var par                      = {};
-  par[sSVarU.op]               = "entityEntitiesToCircleAdd";
   par[sSVarU.user]             = user;
   par[sSVarU.circle]           = circle;
   par[sSVarU.entities]         = entities;
   par[sSVarU.key]              = key;
   
-  new SSJSONPOSTRequest("entityEntitiesToCircleAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+  new SSJSONPOSTRequest("circleEntitiesAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -180,13 +177,12 @@ entities){
 var SSEntityUsersToCircleAdd = function(resultHandler, errorHandler, user, key, circle, users){
   
   var par                      = {};
-  par[sSVarU.op]               = "entityUsersToCircleAdd";
   par[sSVarU.user]             = user;
   par[sSVarU.circle]           = circle;
   par[sSVarU.users]            = users;
   par[sSVarU.key]              = key;
   
-  new SSJSONPOSTRequest("entityUsersToCircleAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+  new SSJSONPOSTRequest("circleUsersAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -229,9 +225,7 @@ users){
 var SSEntityCircleCreate = function(resultHandler, errorHandler, user, key, label, entities, users, description){
   
   var par                      = {};
-  par[sSVarU.op]               = "entityCircleCreate";
   par[sSVarU.user]             = user;
-  par[sSVarU.type]             = sSGlobals.circleTypeGroup;
   par[sSVarU.label]            = label;
   par[sSVarU.key]              = key;
   
@@ -239,7 +233,7 @@ var SSEntityCircleCreate = function(resultHandler, errorHandler, user, key, labe
   if(!jSGlobals.isEmpty(users)){       par[sSVarU.users]         = users;}
   if(!jSGlobals.isEmpty(description)){ par[sSVarU.description]   = description;}
   
-  new SSJSONPOSTRequest("entityCircleCreate", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+  new SSJSONPOSTRequest("circleCreate", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
@@ -301,9 +295,6 @@ var SSAuthCheckCredOIDC = function(resultHandler, errorHandler, authToken){
 var SSAuthCheckCred = function(resultHandler, errorHandler, label, password){
   
   var par               = {};
-  par[sSVarU.op]        = "authCheckCred";
-  par[sSVarU.user]      = "mailto:dummyUser";
-  par[sSVarU.key]       = "someKey";
   par[sSVarU.label]     = label;
   par[sSVarU.password]  = password;
   
@@ -441,7 +432,6 @@ entities,
 comments){
   
   var par               = {};
-  par[sSVarU.op]        = "activityAdd";
   par[sSVarU.user]      = user;
   par[sSVarU.key]       = key;
   
@@ -468,7 +458,6 @@ user,
 key){
   
   var par               = {};
-  par[sSVarU.op]        = "activityTypesGet";
   par[sSVarU.user]      = user;
   par[sSVarU.key]       = key;
   
@@ -503,7 +492,6 @@ startTime,
 endTime){
   
   var par               = {};
-  par[sSVarU.op]        = "activitiesGet";
   par[sSVarU.user]      = user;
   par[sSVarU.key]       = key;
   
@@ -530,7 +518,6 @@ endTime){
 var SSCollsEntityIsInGet = function(resultHandler, errorHandler, user, key, entity){
   
   var par                = {};
-  par[sSVarU.op]         = "collsEntityIsInGet";
   par[sSVarU.user]       = user;
   par[sSVarU.entity]     = entity;
   par[sSVarU.key]        = key;
@@ -551,7 +538,6 @@ var SSCollsEntityIsInGet = function(resultHandler, errorHandler, user, key, enti
 var SSCollCumulatedTagsGet = function(resultHandler, errorHandler, user, key, coll){
   
   var par                = {};
-  par[sSVarU.op]         = "collCumulatedTagsGet";
   par[sSVarU.user]       = user;
   par[sSVarU.coll]       = coll;
   par[sSVarU.key]        = key;
@@ -572,7 +558,6 @@ var SSCollCumulatedTagsGet = function(resultHandler, errorHandler, user, key, co
 var SSCollParentGet = function(resultHandler, errorHandler, user, key, coll){
   
   var par                = {};
-  par[sSVarU.op]         = "collParentGet";
   par[sSVarU.user]       = user;
   par[sSVarU.coll]       = coll;
   par[sSVarU.key]        = key;
@@ -592,7 +577,6 @@ var SSCollParentGet = function(resultHandler, errorHandler, user, key, coll){
 var SSCollRootGet = function(resultHandler, errorHandler, user, key){
   
   var par                = {};
-  par[sSVarU.op]         = "collRootGet";
   par[sSVarU.user]       = user;
   par[sSVarU.key]        = key;
   
@@ -615,7 +599,6 @@ var SSCollRootGet = function(resultHandler, errorHandler, user, key){
 var SSCollEntryAdd = function(resultHandler, errorHandler, user, key, coll, entry, label, addNewColl){
   
   var par                      = {};
-  par[sSVarU.op]               = "collEntryAdd";
   par[sSVarU.user]             = user;
   par[sSVarU.coll]             = coll;
   par[sSVarU.label]            = label;
@@ -642,7 +625,6 @@ var SSCollEntryAdd = function(resultHandler, errorHandler, user, key, coll, entr
 var SSCollEntriesAdd = function(resultHandler, errorHandler, user, key, coll, entries, labels){
   
   var par                       = {};
-  par[sSVarU.op]               = "collEntriesAdd";
   par[sSVarU.user]             = user;
   par[sSVarU.coll]             = coll;
   par[sSVarU.entries]          = entries;
@@ -666,7 +648,6 @@ var SSCollEntriesAdd = function(resultHandler, errorHandler, user, key, coll, en
 var SSCollEntryChangePos = function(resultHandler, errorHandler, user, key, coll, order){
   
   var par                      = {};
-  par[sSVarU.op]               = "collEntryChangePos";
   par[sSVarU.user]             = user;
   par[sSVarU.coll]             = coll;
   par[sSVarU.order]            = order;
@@ -689,7 +670,6 @@ var SSCollEntryChangePos = function(resultHandler, errorHandler, user, key, coll
 var SSCollEntryDelete = function(resultHandler, errorHandler, user, key, coll, entry){
   
   var par                      = {};
-  par[sSVarU.op]               = "collEntryDelete";
   par[sSVarU.user]             = user;
   par[sSVarU.coll]             = coll;
   par[sSVarU.entry]            = entry;
@@ -712,7 +692,6 @@ var SSCollEntryDelete = function(resultHandler, errorHandler, user, key, coll, e
 var SSCollEntriesDelete = function(resultHandler, errorHandler, user, key, coll, entries){
   
   var par                      = {};
-  par[sSVarU.op]               = "collEntriesDelete";
   par[sSVarU.user]             = user;
   par[sSVarU.coll]             = coll;
   par[sSVarU.entries]          = entries;
@@ -734,7 +713,6 @@ var SSCollEntriesDelete = function(resultHandler, errorHandler, user, key, coll,
 var SSCollWithEntries = function(resultHandler, errorHandler, user, key, coll){
   
   var par                      = {};
-  par[sSVarU.op]               = "collWithEntries";
   par[sSVarU.user]             = user;
   par[sSVarU.coll]             = coll;
   par[sSVarU.key]              = key;
@@ -754,7 +732,6 @@ var SSCollWithEntries = function(resultHandler, errorHandler, user, key, coll){
 var SSCollsWithEntries = function(resultHandler, errorHandler, user, key){
   
   var par                      = {};
-  par[sSVarU.op]               = "collsWithEntries";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
@@ -774,7 +751,6 @@ var SSCollsWithEntries = function(resultHandler, errorHandler, user, key){
 var SSCollHierarchyGet = function(resultHandler, errorHandler, user, key, coll){
   
   var par                      = {};
-  par[sSVarU.op]               = "collHierarchyGet";
   par[sSVarU.user]             = user;
   par[sSVarU.coll]             = coll;
   par[sSVarU.key]              = key;
@@ -794,7 +770,6 @@ var SSCollHierarchyGet = function(resultHandler, errorHandler, user, key, coll){
 var SSCollsCouldSubscribeGet = function(resultHandler, errorHandler, user, key){
   
   var par                      = {};
-  par[sSVarU.op]               = "collsCouldSubscribeGet";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
@@ -838,7 +813,6 @@ entities,
 circles){
   
   var par                = {};
-  par[sSVarU.op]         = "discEntryAdd";
   par[sSVarU.user]       = user;
   par[sSVarU.key]        = key;
   
@@ -876,7 +850,6 @@ disc,
 includeComments){
   
   var par                     = {};
-  par[sSVarU.op]              = "discWithEntriesGet";
   par[sSVarU.user]            = user;
   par[sSVarU.disc]            = disc;
   par[sSVarU.maxEntries]      = 10;
@@ -903,7 +876,6 @@ user,
 key){
   
   var par                     = {};
-  par[sSVarU.op]              = "discsAllGet";
   par[sSVarU.user]            = user;
   par[sSVarU.key]             = key;
   
@@ -923,7 +895,6 @@ key){
 var SSDiscRemove = function(resultHandler, errorHandler, user, key, disc){
   
   var par                     = {};
-  par[sSVarU.op]              = "discRemove";
   par[sSVarU.user]            = user;
   par[sSVarU.disc]            = disc;
   par[sSVarU.key]             = key;
@@ -944,7 +915,6 @@ var SSDiscRemove = function(resultHandler, errorHandler, user, key, disc){
 var SSDiscURIsForTargetGet = function(resultHandler, errorHandler, user, key, entity){
   
   var par                     = {};
-  par[sSVarU.op]              = "discURIsForTargetGet";
   par[sSVarU.user]            = user;
   par[sSVarU.entity]          = entity;
   par[sSVarU.key]             = key;
@@ -965,7 +935,6 @@ var SSDiscURIsForTargetGet = function(resultHandler, errorHandler, user, key, en
 var SSEntityEntityUsersGet = function(resultHandler, errorHandler, user, key, entity){
   
   var par                      = {};
-  par[sSVarU.op]               = "entityEntityUsersGet";
   par[sSVarU.user]             = user;
   par[sSVarU.entity]           = entity;
   par[sSVarU.key]              = key;
@@ -989,7 +958,6 @@ var SSEntityEntityUsersGet = function(resultHandler, errorHandler, user, key, en
 var SSEntityCopy = function(resultHandler, errorHandler, user, key, entity, users, entitiesToExclude, comment){
   
   var par                      = {};
-  par[sSVarU.op]               = "entityCopy";
   par[sSVarU.user]             = user;
   par[sSVarU.users]            = users;
   par[sSVarU.entity]           = entity;
@@ -1014,7 +982,6 @@ var SSEntityCopy = function(resultHandler, errorHandler, user, key, entity, user
 var SSEntityPublicSet = function(resultHandler, errorHandler, user, key, entity){
   
   var par                      = {};
-  par[sSVarU.op]               = "entityPublicSet";
   par[sSVarU.user]             = user;
   par[sSVarU.entity]           = entity;
   par[sSVarU.key]              = key;
@@ -1046,7 +1013,6 @@ comment,
 circles){
   
   var par                      = {};
-  par[sSVarU.op]               = "entityShare";
   par[sSVarU.user]             = user;
   par[sSVarU.entity]           = entity;
   par[sSVarU.key]              = key;
@@ -1084,7 +1050,6 @@ removeFromUserColls,
 removeUserLocations){
   
   var par                         = {};
-  par[sSVarU.op]                  = "entityDirectlyAdjoinedEntitiesRemove";
   par[sSVarU.user]                = user;
   par[sSVarU.entity]              = entity;
   par[sSVarU.removeUserTags]      = removeUserTags;
@@ -1109,7 +1074,6 @@ removeUserLocations){
 var SSEntityGet = function(resultHandler, errorHandler, user, key, entity){
   
   var par                     = {};
-  par[sSVarU.op]              = "entityGet";
   par[sSVarU.user]            = user;
   par[sSVarU.entity]          = entity;
   par[sSVarU.key]             = key;
@@ -1143,7 +1107,6 @@ comments,
 read){
   
   var par                     = {};
-  par[sSVarU.op]              = "entityUpdate";
   par[sSVarU.user]            = user;
   par[sSVarU.entity]          = entity;
   par[sSVarU.key]             = key;
@@ -1188,7 +1151,6 @@ getFlags,
 getCircles){
   
   var par                         = {};
-  par[sSVarU.op]                  = "entityDescGet";
   par[sSVarU.user]                = user;
   par[sSVarU.entity]              = entity;
   par[sSVarU.key]                 = key;
@@ -1236,7 +1198,6 @@ getThumb,
 getFlags){
   
   var par                         = {};
-  par[sSVarU.op]                  = "entityDescsGet";
   par[sSVarU.user]                = user;
   par[sSVarU.key]                 = key;
   
@@ -1265,7 +1226,6 @@ getFlags){
 var SSFileExtGet = function(resultHandler, errorHandler, user, key, file){
   
   var par                     = {};
-  par[sSVarU.op]              = "fileExtGet";
   par[sSVarU.user]            = user;
   par[sSVarU.file]            = file;
   par[sSVarU.key]             = key;
@@ -1287,7 +1247,6 @@ var SSFileExtGet = function(resultHandler, errorHandler, user, key, file){
 var SSFileCanWrite = function(resultHandler, errorHandler, user, key, file){
   
   var par                     = {};
-  par[sSVarU.op]              = "fileCanWrite";
   par[sSVarU.user]            = user;
   par[sSVarU.file]            = file;
   par[sSVarU.key]             = key;
@@ -1310,7 +1269,6 @@ var SSFileCanWrite = function(resultHandler, errorHandler, user, key, file){
 var SSFileSetReaderOrWriter = function(resultHandler, errorHandler, user, key, file, write){
   
   var par                     = {};
-  par[sSVarU.op]              = "fileSetReaderOrWriter";
   par[sSVarU.user]            = user;
   par[sSVarU.file]            = file;
   par[sSVarU.write]           = write;
@@ -1332,7 +1290,6 @@ var SSFileSetReaderOrWriter = function(resultHandler, errorHandler, user, key, f
 var SSFileUserFileWrites = function(resultHandler, errorHandler, user, key){
   
   var par                     = {};
-  par[sSVarU.op]              = "fileUserFileWrites";
   par[sSVarU.user]            = user;
   par[sSVarU.key]             = key;
   
@@ -1353,7 +1310,6 @@ var SSFileUserFileWrites = function(resultHandler, errorHandler, user, key){
 var SSFileWritingMinutesLeft = function(resultHandler, errorHandler, user, key, file){
   
   var par                     = {};
-  par[sSVarU.op]              = "fileWritingMinutesLeft";
   par[sSVarU.user]            = user;
   par[sSVarU.file]            = file;
   par[sSVarU.key]             = key;
@@ -1544,7 +1500,6 @@ var SSFileReplace = function(resultHandler, errorHandler, user, key, file, fileH
 var SSLearnEpVersionCurrentSet = function(resultHandler, errorHandler, user, key, learnEpVersion){
   
   var par                       = {};
-  par[sSVarU.op]                = "learnEpVersionCurrentSet";
   par[sSVarU.user]              = user;
   par[sSVarU.learnEpVersion]    = learnEpVersion;
   par[sSVarU.key]               = key;
@@ -1564,7 +1519,6 @@ var SSLearnEpVersionCurrentSet = function(resultHandler, errorHandler, user, key
 var SSLearnEpVersionCurrentGet = function(resultHandler, errorHandler, user, key){
   
   var par                       = {};
-  par[sSVarU.op]                = "learnEpVersionCurrentGet";
   par[sSVarU.user]              = user;
   par[sSVarU.key]               = key;
   
@@ -1586,7 +1540,6 @@ var SSLearnEpVersionCurrentGet = function(resultHandler, errorHandler, user, key
 var SSLearnEpVersionSetTimelineState = function(resultHandler, errorHandler, user, key, learnEpVersion, startTime, endTime){
   
   var par                       = {};
-  par[sSVarU.op]                = "learnEpVersionSetTimelineState";
   par[sSVarU.user]              = user;
   par[sSVarU.learnEpVersion]    = learnEpVersion;
   par[sSVarU.startTime]         = startTime;
@@ -1609,7 +1562,6 @@ var SSLearnEpVersionSetTimelineState = function(resultHandler, errorHandler, use
 var SSLearnEpVersionGetTimelineState = function(resultHandler, errorHandler, user, key, learnEpVersion){
   
   var par                       = {};
-  par[sSVarU.op]                = "learnEpVersionGetTimelineState";
   par[sSVarU.user]              = user;
   par[sSVarU.learnEpVersion]    = learnEpVersion;
   par[sSVarU.key]               = key;
@@ -1631,7 +1583,6 @@ var SSLearnEpVersionGetTimelineState = function(resultHandler, errorHandler, use
 var SSLearnEpVersionRemoveCircle = function(resultHandler, errorHandler, user, key, learnEpCircle){
   
   var par                      = {};
-  par[sSVarU.op]               = "learnEpVersionRemoveCircle";
   par[sSVarU.user]             = user;
   par[sSVarU.learnEpCircle]    = learnEpCircle;
   par[sSVarU.key]              = key;
@@ -1653,7 +1604,6 @@ var SSLearnEpVersionRemoveCircle = function(resultHandler, errorHandler, user, k
 var SSLearnEpVersionRemoveEntity = function(resultHandler, errorHandler, user, key, learnEpEntity){
   
   var par                      = {};
-  par[sSVarU.op]               = "learnEpVersionRemoveEntity";
   par[sSVarU.user]             = user;
   par[sSVarU.learnEpEntity]    = learnEpEntity;
   par[sSVarU.key]              = key;
@@ -1693,7 +1643,6 @@ xC,
 yC){
   
   var par                      = {};
-  par[sSVarU.op]               = "learnEpVersionUpdateCircle";
   par[sSVarU.user]             = user;
   par[sSVarU.learnEpCircle]    = learnEpCircle;
   par[sSVarU.key]              = key;
@@ -1734,7 +1683,6 @@ x,
 y){
   
   var par                      = {};
-  par[sSVarU.op]               = "learnEpVersionUpdateEntity";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
@@ -1760,7 +1708,6 @@ y){
 var SSLearnEpCreate = function(resultHandler, errorHandler, user, key, label, description){
   
   var par                      = {};
-  par[sSVarU.op]               = "learnEpCreate";
   par[sSVarU.user]             = user;
   par[sSVarU.label]            = label;
   par[sSVarU.key]              = key;
@@ -1783,7 +1730,6 @@ var SSLearnEpCreate = function(resultHandler, errorHandler, user, key, label, de
 var SSLearnEpVersionCreate = function(resultHandler, errorHandler, user, key, learnEp){
   
   var par                      = {};
-  par[sSVarU.op]               = "learnEpVersionCreate";
   par[sSVarU.user]             = user;
   par[sSVarU.learnEp]          = learnEp;
   par[sSVarU.key]              = key;
@@ -1823,7 +1769,6 @@ xC,
 yC){
   
   var par                       = {};
-  par[sSVarU.op]                = "learnEpVersionAddCircle";
   par[sSVarU.user]              = user;
   par[sSVarU.learnEpVersion]    = learnEpVersion;
   par[sSVarU.label]             = label;
@@ -1862,7 +1807,6 @@ x,
 y){
   
   var par                       = {};
-  par[sSVarU.op]                = "learnEpVersionAddEntity";
   par[sSVarU.user]              = user;
   par[sSVarU.learnEpVersion]    = learnEpVersion;
   par[sSVarU.entity]            = entity;
@@ -1886,7 +1830,6 @@ y){
 var SSLearnEpVersionGet = function(resultHandler, errorHandler, user, key, learnEpVersion){
   
   var par                       = {};
-  par[sSVarU.op]                = "learnEpVersionGet";
   par[sSVarU.user]              = user;
   par[sSVarU.learnEpVersion]    = learnEpVersion;
   par[sSVarU.key]               = key;
@@ -1907,7 +1850,6 @@ var SSLearnEpVersionGet = function(resultHandler, errorHandler, user, key, learn
 var SSLearnEpVersionsGet = function(resultHandler, errorHandler, user, key, learnEp){
   
   var par                       = {};
-  par[sSVarU.op]                = "learnEpVersionsGet";
   par[sSVarU.user]              = user;
   par[sSVarU.learnEp]           = learnEp;
   par[sSVarU.key]               = key;
@@ -1927,7 +1869,6 @@ var SSLearnEpVersionsGet = function(resultHandler, errorHandler, user, key, lear
 var SSLearnEpsGet = function(resultHandler, errorHandler, user, key){
   
   var par                       = {};
-  par[sSVarU.op]                = "learnEpsGet";
   par[sSVarU.user]              = user;
   par[sSVarU.key]               = key;
   
@@ -1948,7 +1889,6 @@ var SSLearnEpsGet = function(resultHandler, errorHandler, user, key){
 var SSLocationAdd = function(resultHandler, errorHandler, user, key, entity, location){
   
   var par                     = {};
-  par[sSVarU.op]              = "locationAdd";
   par[sSVarU.user]            = user;
   par[sSVarU.entity]          = entity;
   par[sSVarU.location]        = location;
@@ -1970,7 +1910,6 @@ var SSLocationAdd = function(resultHandler, errorHandler, user, key, entity, loc
 var SSLocationsGet = function(resultHandler, errorHandler, user, key, entity){
   
   var par                     = {};
-  par[sSVarU.op]              = "locationsGet";
   par[sSVarU.user]            = user;
   par[sSVarU.entity]          = entity;
   par[sSVarU.key]             = key;
@@ -1998,7 +1937,6 @@ var SSLocationsGet = function(resultHandler, errorHandler, user, key, entity){
 var SSResourceDetailsGet = function(resultHandler, errorHandler, user, key, entity){
   
   var par                     = {};
-  par[sSVarU.op]              = "modelUEResourceDetails";
   par[sSVarU.user]            = user;
   par[sSVarU.entity]          = entity;
   par[sSVarU.key]             = key;
@@ -2019,7 +1957,6 @@ var SSResourceDetailsGet = function(resultHandler, errorHandler, user, key, enti
 var SSRatingOverallGet = function(resultHandler, errorHandler, user, key, entity){
   
   var par                     = {};
-  par[sSVarU.op]              = "ratingOverallGet";
   par[sSVarU.user]            = user;
   par[sSVarU.entity]          = entity;
   par[sSVarU.key]             = key;
@@ -2041,7 +1978,6 @@ var SSRatingOverallGet = function(resultHandler, errorHandler, user, key, entity
 var SSRatingSet = function(resultHandler, errorHandler, user, key, entity, value){
   
   var par                     = {};
-  par[sSVarU.op]              = "ratingSet";
   par[sSVarU.user]            = user;
   par[sSVarU.entity]          = entity;
   par[sSVarU.value]           = value;
@@ -2066,7 +2002,6 @@ var SSRatingSet = function(resultHandler, errorHandler, user, key, entity, value
 var SSRecommTags = function(resultHandler, errorHandler, user, key, forUser, entity, categories, maxTags){
   
   var par                     = {};
-  par[sSVarU.op]              = "recommTags";
   par[sSVarU.user]            = user;
   par[sSVarU.key]             = key;
   
@@ -2108,7 +2043,6 @@ setCircleTypes,
 includeOwn){
   
   var par                     = {};
-  par[sSVarU.op]              = "recommResources";
   par[sSVarU.user]            = user;
   par[sSVarU.key]             = key;
   
@@ -2185,7 +2119,6 @@ localSearchOp,
 globalSearchOp){
   
   var par                                 = {};
-  par[sSVarU.op]                          = "search";
   par[sSVarU.user]                        = user;
   par[sSVarU.key]                         = key;
   
@@ -2228,7 +2161,6 @@ globalSearchOp){
 var SSUserAll = function(resultHandler, errorHandler, user, key){
   
   var par                      = {};
-  par[sSVarU.op]               = "userAll";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
@@ -2250,7 +2182,6 @@ var SSUserAll = function(resultHandler, errorHandler, user, key){
 var SSUserEventAdd = function(resultHandler, errorHandler, user, key, type, entity, content){
   
   var par                      = {};
-  par[sSVarU.op]               = "uEAdd";
   par[sSVarU.user]             = user;
   par[sSVarU.type]             = type;
   par[sSVarU.key]              = key;
@@ -2278,7 +2209,6 @@ var SSUserEventAdd = function(resultHandler, errorHandler, user, key, type, enti
 var SSUserEventsGet = function(resultHandler, errorHandler, user, key, forUser, entity, startTime, endTime, type){
   
   var par                      = {};
-  par[sSVarU.op]               = "uEsGet";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
@@ -2304,7 +2234,6 @@ var SSUserEventsGet = function(resultHandler, errorHandler, user, key, forUser, 
 var SSUserEventGet = function(resultHandler, errorHandler, user, key, uE){
   
   var par                      = {};
-  par[sSVarU.op]               = "uEGet";
   par[sSVarU.user]             = user;
   par[sSVarU.uE]               = uE;
   par[sSVarU.key]              = key;
@@ -2329,7 +2258,6 @@ var SSUserEventGet = function(resultHandler, errorHandler, user, key, uE){
 var SSUECountGet = function(resultHandler, errorHandler, user, key, forUser, entity, startTime, endTime, type){
   
   var par                      = {};
-  par[sSVarU.op]               = "uECountGet";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
@@ -2354,7 +2282,6 @@ var SSUECountGet = function(resultHandler, errorHandler, user, key, forUser, ent
 var SSCategoriesPredefinedGet = function(resultHandler, errorHandler, user, key){
   
   var par                      = {};
-  par[sSVarU.op]               = "categoriesPredefinedGet";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
@@ -2373,7 +2300,6 @@ var SSCategoriesPredefinedGet = function(resultHandler, errorHandler, user, key)
 var SSDataImportEvernote = function(resultHandler, errorHandler, user, key){
   
   var par                      = {};
-  par[sSVarU.op]               = "dataImportEvernote";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
@@ -2396,7 +2322,6 @@ var SSDataImportEvernote = function(resultHandler, errorHandler, user, key){
 var SSFlagsGet = function(resultHandler, errorHandler, user, key, entities, types, startTime, endTime){
   
   var par                      = {};
-  par[sSVarU.op]               = "flagsGet";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
@@ -2424,7 +2349,6 @@ var SSFlagsGet = function(resultHandler, errorHandler, user, key, entities, type
 var SSFlagsSet = function(resultHandler, errorHandler, user, key, entities, types, endTime, value){
   
   var par                      = {};
-  par[sSVarU.op]               = "flagsSet";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
@@ -2448,7 +2372,6 @@ var SSFlagsSet = function(resultHandler, errorHandler, user, key, entities, type
 var SSSystemVersionGet = function(resultHandler, errorHandler, user, key){
   
   var par                      = {};
-  par[sSVarU.op]               = "systemVersionGet";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
@@ -2473,7 +2396,6 @@ var SSSystemVersionGet = function(resultHandler, errorHandler, user, key){
 var SSTagAdd = function(resultHandler, errorHandler, user, key, entity, label, space, creationTime){
   
   var par                       = {};
-  par[sSVarU.op]               = "tagAdd";
   par[sSVarU.user]             = user;
   par[sSVarU.entity]           = entity;
   par[sSVarU.label]            = label;
@@ -2499,7 +2421,6 @@ var SSTagAdd = function(resultHandler, errorHandler, user, key, entity, label, s
 var SSTagEdit = function(resultHandler, errorHandler, user, key, tag, label){
   
   var par                      = {};
-  par[sSVarU.op]               = "tagEdit";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   par[sSVarU.tag]              = tag;
@@ -2523,7 +2444,6 @@ var SSTagEdit = function(resultHandler, errorHandler, user, key, tag, label){
 var SSTagsRemove = function(resultHandler, errorHandler, user, key, entity, label, space){
   
   var par                      = {};
-  par[sSVarU.op]               = "tagsRemove";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
@@ -2551,7 +2471,6 @@ var SSTagsRemove = function(resultHandler, errorHandler, user, key, entity, labe
 var SSTagFrequsGet = function(resultHandler, errorHandler, user, key, forUser, entities, labels, space, startTime){
   
   var par                      = {};
-  par[sSVarU.op]               = "tagFrequsGet";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
@@ -2590,7 +2509,6 @@ space,
 startTime){
   
   var par                      = {};
-  par[sSVarU.op]               = "tagsGet";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
@@ -2619,7 +2537,6 @@ startTime){
 var SSTagEntitiesForTagsGet = function(resultHandler, errorHandler, user, key, forUser, labels, space, startTime){
   
   var par                      = {};
-  par[sSVarU.op]               = "tagEntitiesForTagsGet";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
@@ -2649,7 +2566,6 @@ var SSTagEntitiesForTagsGet = function(resultHandler, errorHandler, user, key, f
 var SSCategoryAdd = function(resultHandler, errorHandler, user, key, entity, label, space, creationTime){
   
   var par                       = {};
-  par[sSVarU.op]               = "categoryAdd";
   par[sSVarU.user]             = user;
   par[sSVarU.entity]           = entity;
   par[sSVarU.label]            = label;
@@ -2675,7 +2591,6 @@ var SSCategoryAdd = function(resultHandler, errorHandler, user, key, entity, lab
 var SSCategoryEdit = function(resultHandler, errorHandler, user, key, category, label){
   
   var par                      = {};
-  par[sSVarU.op]               = "categoryEdit";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   par[sSVarU.category]         = category;
@@ -2699,7 +2614,6 @@ var SSCategoryEdit = function(resultHandler, errorHandler, user, key, category, 
 var SSCategoriesRemove = function(resultHandler, errorHandler, user, key, entity, label, space){
   
   var par                      = {};
-  par[sSVarU.op]               = "categoriesRemove";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
@@ -2727,7 +2641,6 @@ var SSCategoriesRemove = function(resultHandler, errorHandler, user, key, entity
 var SSCategoryFrequsGet = function(resultHandler, errorHandler, user, key, forUser, entities, labels, space, startTime){
   
   var par                      = {};
-  par[sSVarU.op]               = "categoryFrequsGet";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
@@ -2766,7 +2679,6 @@ space,
 startTime){
   
   var par                      = {};
-  par[sSVarU.op]               = "categoriesGet";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
@@ -2795,7 +2707,6 @@ startTime){
 var SSCategoryEntitiesForCategoriesGet = function(resultHandler, errorHandler, user, key, forUser, labels, space, startTime){
   
   var par                      = {};
-  par[sSVarU.op]               = "categoryEntitiesForCategoriesGet";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
@@ -2821,7 +2732,6 @@ var SSCategoryEntitiesForCategoriesGet = function(resultHandler, errorHandler, u
 var SSMessageSend = function(resultHandler, errorHandler, user, key, forUser, message){
   
   var par                      = {};
-  par[sSVarU.op]               = "messageSend";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   par[sSVarU.forUser]          = forUser;
@@ -2843,7 +2753,6 @@ var SSMessageSend = function(resultHandler, errorHandler, user, key, forUser, me
 var SSMessagesGet = function(resultHandler, errorHandler, user, key, includeRead){
   
   var par                      = {};
-  par[sSVarU.op]               = "messagesGet";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
@@ -2890,7 +2799,6 @@ screenShots,
 videos){
   
   var par                      = {};
-  par[sSVarU.op]               = "appAdd";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   par[sSVarU.label]            = label;
@@ -2921,7 +2829,6 @@ videos){
 var SSAppsGet = function(resultHandler, errorHandler, user, key){
   
   var par                      = {};
-  par[sSVarU.op]               = "appsGet";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
@@ -2941,7 +2848,6 @@ var SSAppsGet = function(resultHandler, errorHandler, user, key){
 var SSFriendAdd = function(resultHandler, errorHandler, user, key, friend){
   
   var par                      = {};
-  par[sSVarU.op]               = "friendAdd";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   par[sSVarU.friend]           = friend;
@@ -2961,7 +2867,6 @@ var SSFriendAdd = function(resultHandler, errorHandler, user, key, friend){
 var SSFriendsGet = function(resultHandler, errorHandler, user, key){
   
   var par                      = {};
-  par[sSVarU.op]               = "friendsGet";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
@@ -2983,7 +2888,6 @@ var SSFriendsGet = function(resultHandler, errorHandler, user, key){
 var SSAppStackLayoutCreate = function(resultHandler, errorHandler, user, key, app, label, description){
   
   var par                      = {};
-  par[sSVarU.op]               = "appStackLayoutCreate";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
@@ -3009,7 +2913,6 @@ var SSAppStackLayoutCreate = function(resultHandler, errorHandler, user, key, ap
 var SSAppStackLayoutTileAdd = function(resultHandler, errorHandler, user, key, stack, app, label){
   
   var par                      = {};
-  par[sSVarU.op]               = "appStackLayoutTileAdd";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
@@ -3032,7 +2935,6 @@ var SSAppStackLayoutTileAdd = function(resultHandler, errorHandler, user, key, s
 var SSAppStackLayoutsGet = function(resultHandler, errorHandler, user, key){
   
   var par                      = {};
-  par[sSVarU.op]               = "appStackLayoutsGet";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
@@ -3059,7 +2961,6 @@ entity,
 value){
   
   var par                      = {};
-  par[sSVarU.op]               = "likeSet";
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   par[sSVarU.entity]           = entity;
