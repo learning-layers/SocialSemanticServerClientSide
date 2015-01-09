@@ -19,24 +19,6 @@
  * limitations under the License.
  */
 
-/* start calls with RESTful counterpart */
-
-/**
- * retrieve information for entities the user has access to
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {String} authToken authentication token from OIDC
- * @return {SSEntitiesUserGetNewRet} <br>
- * {SSEntity Array} entities the user has access to
- */
-var SSEntitiesUserGetNewOIDC = function(
-  resultHandler, 
-errorHandler,
-authToken){
-  
-  new SSJSONGETOIDCRequest(resultHandler, errorHandler, sSGlobals.serverHost + "entities/entities", authToken).send();
-};
-
 /**
  * retrieve circles the user is in
  * @param {Function} resultHandler
@@ -64,22 +46,6 @@ forUser){
 };
 
 /**
- * retrieve circles the user is in
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {String} authToken authentication token from OIDC
- * @return {SSEntityUserCirclesGetRet} <br>
- * {SSEntityCircle Array} circles all user-generated circles the user is in
- */
-var SSEntityUserCirclesGetOIDC = function(
-  resultHandler, 
-errorHandler,
-authToken){
-  
-  new SSJSONGETOIDCRequest(resultHandler, errorHandler, sSGlobals.serverHost + "circles/circles", authToken).send();
-};
-
-/**
  * retrieve a certain circle 
  * @param {Function} resultHandler
  * @param {Function} errorHandler
@@ -97,24 +63,6 @@ var SSEntityCircleGet = function(resultHandler, errorHandler, user, key, circle)
   par[sSVarU.circle]           = circle;
   
   new SSJSONPOSTRequest("circleGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
-};
-
-/**
- * retrieve a certain circle 
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {String} authToken authentication token from OIDC
- * @param {URI} circle to retrieve
- * @return {SSEntityUserCircleGetRet} <br>
- * {SSEntityCircle} circle requested
- */
-var SSEntityCircleGetOIDC = function(
-  resultHandler, 
-errorHandler, 
-authToken, 
-circle){
-  
-  new SSJSONGETOIDCRequest(resultHandler, errorHandler, sSGlobals.serverHost + "circles/circles/" + encodeURIComponent(circle), authToken).send();
 };
 
 /**
@@ -140,30 +88,6 @@ var SSEntityEntitiesToCircleAdd = function(resultHandler, errorHandler, user, ke
 };
 
 /**
- * add given entities to a user-generated circle
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {String} authToken authentication token from OIDC
- * @param {String} circle to add entities to
- * @param {URI Array} entities entities to add
- * @return {SSEntityUserEntitiesToCircleAddRet} <br> 
- * {SSUri} circle circle of entities added
- */
-var SSEntityEntitiesToCircleAddOIDC = function(
-  resultHandler, 
-errorHandler, 
-authToken, 
-circle, 
-entities){
-  
-  var payload                      = {};
-  
-  payload[sSVarU.entities]         = entities;
-  
-  new SSJSONPOSTOIDCRequest(payload, resultHandler, errorHandler, sSGlobals.serverHost + "circles/circles/" + encodeURIComponent(circle) + "/entities", authToken).send();
-};
-
-/**
  * add given users to a user-generated circle
  * @param {Function} resultHandler
  * @param {Function} errorHandler
@@ -183,30 +107,6 @@ var SSEntityUsersToCircleAdd = function(resultHandler, errorHandler, user, key, 
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("circleUsersAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
-};
-
-/**
- * add given users to a user-generated circle
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {String} authToken authentication token from OIDC
- * @param {String} circle to add users to
- * @param {Array} users users to add
- * @return {SSEntityUserUsersToCircleAddRet} <br>
- * {SSUri} circle circle of users added
- */
-var SSEntityUsersToCircleAddOIDC = function(
-  resultHandler, 
-errorHandler, 
-authToken, 
-circle, 
-users){
-  
-  var payload                      = {};
-  
-  payload[sSVarU.users]            = users;
-  
-  new SSJSONPOSTOIDCRequest(payload, resultHandler, errorHandler, sSGlobals.serverHost + "circles/circles/" + encodeURIComponent(circle) + "/users", authToken).send();
 };
 
 /**
@@ -237,52 +137,6 @@ var SSEntityCircleCreate = function(resultHandler, errorHandler, user, key, labe
 };
 
 /**
- * create a circle and add users and entities to
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {String} authToken authentication token from OIDC
- * @param {String} label circle name
- * @param {Array} entities entities to add
- * @param {Array} users users to add
- * @param {String} description textual annotation
- * @return {SSEntityUserCircleCreateRet} <br>
- * {SSUri} circle circle created
- */
-var SSEntityCircleCreateOIDC = function(
-  resultHandler, 
-errorHandler, 
-authToken, 
-label, 
-entities, 
-users, 
-description){
-  
-  var payload                      = {};
-
-  payload[sSVarU.type]             = sSGlobals.circleTypeGroup;
-  payload[sSVarU.label]            = label;
-  
-  if(!jSGlobals.isEmpty(entities)){    payload[sSVarU.entities]      = entities;}
-  if(!jSGlobals.isEmpty(users)){       payload[sSVarU.users]         = users;}
-  if(!jSGlobals.isEmpty(description)){ payload[sSVarU.description]   = description;}
-  
-  new SSJSONPOSTOIDCRequest(payload, resultHandler, errorHandler, sSGlobals.serverHost + "circles/circles", authToken).send();
-};
-
-/**
- * retrieve the authentication key and user's uri for OIDC authentication token
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {String} authToken authentication token from OIDC
- * @return {SSAuthCheckCredRet} <br>
- * {String} key user's sss authentication token <br>
- * {URI} uri user's identifier in the system
- */
-var SSAuthCheckCredOIDC = function(resultHandler, errorHandler, authToken){
-  new SSJSONGETOIDCRequest(resultHandler, errorHandler, sSGlobals.serverHost + "auths/auths", authToken).send();
-};
-
-/**
  * retrieve the authentication key and user's uri for credentials
  * @param {Function} resultHandler
  * @param {Function} errorHandler
@@ -300,113 +154,6 @@ var SSAuthCheckCred = function(resultHandler, errorHandler, label, password){
   
   new SSJSONPOSTRequest("authCheckCred", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
-
-/**
- * add a video for the user
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {String} authToken authentication token from OIDC
- * @param {String} uuid video's uuid (if provided used within id if link is not set)
- * @param {URI} link to actual video (if provided used as id - overrides uuid)
- * @param {URI} genre the video is categorized in
- * @param {String} label name of the video
- * @param {String} description for the video
- * @param {Date} creationTime timestamp for when the video was created
- * @param {URI} forEntity entity to add the video to
- * @param {Double} latitude of the annoation
- * @param {Double} longitude of the annoation 
- * @param {Float} accuracy of the annoation
- * @return {SSVideoAddRet} <br> 
- * {SSUri} video URI
- */
-var SSVideoAdd = function(
-  resultHandler, 
-errorHandler, 
-authToken, 
-uuid, 
-link,
-genre, 
-label, 
-description, 
-creationTime,
-forEntity,
-latitude,
-longitude,
-accuracy){
-  
-  var payload                      = {};
-  
-  if(!jSGlobals.isEmpty(uuid)){                  payload[sSVarU.uuid]                     = uuid;}
-  if(!jSGlobals.isEmpty(link)){                  payload[sSVarU.link]                     = link;}
-  if(!jSGlobals.isEmpty(genre)){                 payload[sSVarU.genre]                    = genre;}
-  if(!jSGlobals.isEmpty(label)){                 payload[sSVarU.label]                    = label;}
-  if(!jSGlobals.isEmpty(description)){           payload[sSVarU.description]              = description;}
-  if(!jSGlobals.isEmpty(creationTime)){          payload[sSVarU.creationTime]             = creationTime;}
-  if(!jSGlobals.isEmpty(forEntity)){             payload[sSVarU.forEntity]                = forEntity;}
-  if(!jSGlobals.isEmpty(latitude)){              payload[sSVarU.latitude]                 = latitude;}
-  if(!jSGlobals.isEmpty(longitude)){             payload[sSVarU.longitude]                = longitude;}
-  if(!jSGlobals.isEmpty(accuracy)){              payload[sSVarU.accuracy]                 = accuracy;}
-  
-  new SSJSONPOSTOIDCRequest(payload, resultHandler, errorHandler, sSGlobals.serverHost + "videos/videos", authToken).send();
-};
-
-/**
- * add an annotation to a video 
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {String} authToken authentication token from OIDC
- * @param {URI} video to add this annotation
- * @param {Float} x coordinate where to add
- * @param {Float} y coordinate where to add
- * @param {Date} timePoint time point the annoation is added to the video
- * @param {String} label name of the annotation
- * @param {String} description of the annoation
- * @return {SSVideoAnnotationAddRet} <br> 
- * {SSUri} annotation URI
- */
-var SSVideoAnnotationAdd = function(
-  resultHandler, 
-errorHandler, 
-authToken,
-video, 
-x, 
-y,
-timePoint, 
-label, 
-description){
-  
-  var payload                      = {};
-  
-  payload[sSVarU.video]            = video;
-  
-  if(!jSGlobals.isEmpty(x)){                 payload[sSVarU.x]                    = x;}
-  if(!jSGlobals.isEmpty(y)){                 payload[sSVarU.y]                    = y;}
-  if(!jSGlobals.isEmpty(timePoint)){         payload[sSVarU.timePoint]            = timePoint;}
-  if(!jSGlobals.isEmpty(label)){             payload[sSVarU.label]                = label;}
-  if(!jSGlobals.isEmpty(description)){       payload[sSVarU.description]          = description;}
-  
-  new SSJSONPOSTOIDCRequest(payload, resultHandler, errorHandler, sSGlobals.serverHost + "videos/videos/" + encodeURIComponent(video) + "/annotations", authToken).send();
-};
-
-/**
- * retrieve videos [the user owns]
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {String} authToken authentication token from OIDC
- * @return {SSVideosUserGetRet} <br> 
- * {SSVideo Array} videos requested
- */
-var SSVideosGet = function(
-  resultHandler, 
-errorHandler,
-authToken){
-  
-  new SSJSONGETOIDCRequest(resultHandler, errorHandler, sSGlobals.serverHost + "videos/videos", authToken).send();
-};
-
-
-/* end calls with RESTful counterpart */
-
 
 /**
  * add an activity

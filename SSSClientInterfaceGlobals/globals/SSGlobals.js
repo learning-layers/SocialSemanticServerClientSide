@@ -32,8 +32,8 @@ function SSGlobals(){
   this.hostRESTFileDownload                          = this.serverHost + "SSAdapterRESTFileDownload/";
   this.hostRESTFileUpload                            = this.serverHost + "SSAdapterRESTFileUpload/";
   this.hostRESTFileReplace                           = this.serverHost + "SSAdapterRESTFileReplace/";
-  this.host                                          = "ws://"  + "localhost:8084/ss-adapter-websocket/ss-adapter-websocket"; 
-  this.hostSsl                                       = "wss://" + "localhost:8443/ss-adapter-websocket/ss-adapter-websocket";
+//  this.host                                          = "ws://"  + "localhost:8084/ss-adapter-websocket/ss-adapter-websocket"; 
+//  this.hostSsl                                       = "wss://" + "localhost:8443/ss-adapter-websocket/ss-adapter-websocket";
   
   this.timeOutGetWritingMinutesLeft                  = 30000;
   this.fileUploadChunkSize                           = 50000;
@@ -299,97 +299,97 @@ SSJSONPOSTRequest.prototype = {
   }
 };
 
-var SSJSONGETOIDCRequest = function(resultHandler, errorHandler, apiURI, authToken){
-  this.resultHandler = resultHandler;
-  this.errorHandler  = errorHandler;
-  this.apiURI        = apiURI;
-  this.authToken     = authToken;
-};
+//var SSJSONGETOIDCRequest = function(resultHandler, errorHandler, apiURI, authToken){
+//  this.resultHandler = resultHandler;
+//  this.errorHandler  = errorHandler;
+//  this.apiURI        = apiURI;
+//  this.authToken     = authToken;
+//};
 
-SSJSONGETOIDCRequest.prototype = {
-  
-  send : function(){
-    
-    var thisRef = this;
-    
-    jQuery.ajax({
-      'url' :         thisRef.apiURI,
-      'type':         sSGlobals.httpMethGET,
-      'contentType' : "application/json",
-      'async' :       true,
-      headers:        {Authorization : "Bearer " + thisRef.authToken},
-      dataType:       "application/json",
-      'complete' : function(jqXHR, textStatus) {
-        
-        if(
-          jqXHR.readyState    !== 4   ||
-          jqXHR.status        !== 200){
-          
-          var response = jSGlobals.parseJson(jqXHR.responseText);
-          
-          console.log("sss error:");
-          console.log(response);
-          
-          if(jSGlobals.isNotEmpty(thisRef.errorHandler)){
-            errorHandler(response); 
-          }
-          
-          return;
-        }
-        
-        thisRef.resultHandler(jSGlobals.parseJson(jqXHR.responseText));
-        return;
-      }
-    });
-  }
-};
+//SSJSONGETOIDCRequest.prototype = {
+//  
+//  send : function(){
+//    
+//    var thisRef = this;
+//    
+//    jQuery.ajax({
+//      'url' :         thisRef.apiURI,
+//      'type':         sSGlobals.httpMethGET,
+//      'contentType' : "application/json",
+//      'async' :       true,
+//      headers:        {Authorization : "Bearer " + thisRef.authToken},
+//      dataType:       "application/json",
+//      'complete' : function(jqXHR, textStatus) {
+//        
+//        if(
+//          jqXHR.readyState    !== 4   ||
+//          jqXHR.status        !== 200){
+//          
+//          var response = jSGlobals.parseJson(jqXHR.responseText);
+//          
+//          console.log("sss error:");
+//          console.log(response);
+//          
+//          if(jSGlobals.isNotEmpty(thisRef.errorHandler)){
+//            errorHandler(response); 
+//          }
+//          
+//          return;
+//        }
+//        
+//        thisRef.resultHandler(jSGlobals.parseJson(jqXHR.responseText));
+//        return;
+//      }
+//    });
+//  }
+//};
 
-var SSJSONPOSTOIDCRequest = function(payload, resultHandler, errorHandler, apiURI, authToken){
-  this.resultHandler = resultHandler;
-  this.errorHandler  = errorHandler;
-  this.payload       = payload;
-  this.apiURI        = apiURI;
-  this.authToken     = authToken;
-};
+//var SSJSONPOSTOIDCRequest = function(payload, resultHandler, errorHandler, apiURI, authToken){
+//  this.resultHandler = resultHandler;
+//  this.errorHandler  = errorHandler;
+//  this.payload       = payload;
+//  this.apiURI        = apiURI;
+//  this.authToken     = authToken;
+//};
 
-SSJSONPOSTOIDCRequest.prototype = {
-  
-  send : function(){
-    
-    var thisRef = this;
-    
-    jQuery.ajax({
-      'url' :         thisRef.apiURI,
-      'type':         sSGlobals.httpMethPOST,
-      'data' :        JSON.stringify(thisRef.payload),
-      'contentType' : "application/json",
-      'async' :       true,
-      headers:        {Authorization : "Bearer " + thisRef.authToken},
-      dataType:       "application/json",
-      'complete' : function(jqXHR, textStatus) {
-        
-        if(
-          jqXHR.readyState    !== 4   ||
-          jqXHR.status        !== 201){
-          
-          var response = jSGlobals.parseJson(jqXHR.responseText);
-          
-          console.log("sss error:");
-          console.log(response);
-          
-          if(jSGlobals.isNotEmpty(thisRef.errorHandler)){
-            errorHandler(response); 
-          }
-          
-          return;
-        }
-        
-        thisRef.resultHandler(jSGlobals.parseJson(jqXHR.responseText));
-        return;
-      }
-    });
-  }
-};
+//SSJSONPOSTOIDCRequest.prototype = {
+//  
+//  send : function(){
+//    
+//    var thisRef = this;
+//    
+//    jQuery.ajax({
+//      'url' :         thisRef.apiURI,
+//      'type':         sSGlobals.httpMethPOST,
+//      'data' :        JSON.stringify(thisRef.payload),
+//      'contentType' : "application/json",
+//      'async' :       true,
+//      headers:        {Authorization : "Bearer " + thisRef.authToken},
+//      dataType:       "application/json",
+//      'complete' : function(jqXHR, textStatus) {
+//        
+//        if(
+//          jqXHR.readyState    !== 4   ||
+//          jqXHR.status        !== 201){
+//          
+//          var response = jSGlobals.parseJson(jqXHR.responseText);
+//          
+//          console.log("sss error:");
+//          console.log(response);
+//          
+//          if(jSGlobals.isNotEmpty(thisRef.errorHandler)){
+//            errorHandler(response); 
+//          }
+//          
+//          return;
+//        }
+//        
+//        thisRef.resultHandler(jSGlobals.parseJson(jqXHR.responseText));
+//        return;
+//      }
+//    });
+//  }
+//};
 
 //function getSSResultFromMessage(message){
 
