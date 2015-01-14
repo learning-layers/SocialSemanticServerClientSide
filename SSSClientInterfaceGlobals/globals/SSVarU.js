@@ -17,6 +17,7 @@ var sSVarU = new SSVarU();
     
 function SSVarU(){
   
+  this.useUsersEntities                               = "useUsersEntities";
   this.globalSearchOp                                 = "globalSearchOp";
   this.localSearchOp                                  = "localSearchOp";
   this.includeOwn                                     = "includeOwn";

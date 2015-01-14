@@ -2212,20 +2212,32 @@ var SSTagsRemove = function(resultHandler, errorHandler, user, key, entity, labe
  * @param {String} labels tag labels to consider for retrieving tags (optional)
  * @param {String} space access restriction for to be retrieved tags (i.e. privateSpace, sharedSpace) (optional)
  * @param {Long} startTime timestamp to retrieve tags from a certain point in time(optional)
+ * @param {Boolean} useUsersEntities whether all user's entities in the system shall be considered to retrieve tag frequencies (optional)
  * @return {SSTagUserFrequsGetRet} <br> 
  * {SSTagFrequ Array} tagFrequs tags with frequencies
  */
-var SSTagFrequsGet = function(resultHandler, errorHandler, user, key, forUser, entities, labels, space, startTime){
+var SSTagFrequsGet = function(
+  resultHandler, 
+errorHandler, 
+user, 
+key, 
+forUser, 
+entities, 
+labels, 
+space, 
+startTime,
+useUsersEntities){
   
   var par                      = {};
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
-  if(!jSGlobals.isEmpty(forUser)){     par[sSVarU.forUser]        = forUser;}
-  if(!jSGlobals.isEmpty(entities)){    par[sSVarU.entities]       = entities;}
-  if(!jSGlobals.isEmpty(labels)){      par[sSVarU.labels]         = labels;}
-  if(!jSGlobals.isEmpty(space)){       par[sSVarU.space]          = space;}
-  if(!jSGlobals.isEmpty(startTime)){   par[sSVarU.startTime]      = startTime;}
+  if(!jSGlobals.isEmpty(forUser)){            par[sSVarU.forUser]               = forUser;}
+  if(!jSGlobals.isEmpty(entities)){           par[sSVarU.entities]              = entities;}
+  if(!jSGlobals.isEmpty(labels)){             par[sSVarU.labels]                = labels;}
+  if(!jSGlobals.isEmpty(space)){              par[sSVarU.space]                 = space;}
+  if(!jSGlobals.isEmpty(startTime)){          par[sSVarU.startTime]             = startTime;}
+  if(!jSGlobals.isEmpty(useUsersEntities)){   par[sSVarU.useUsersEntities]      = useUsersEntities;}
   
   new SSJSONPOSTRequest("tagFrequsGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
