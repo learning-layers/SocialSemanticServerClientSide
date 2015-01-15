@@ -1831,8 +1831,8 @@ includeOwn){
  * @param {Integer} pageNumber number of the page to be requested from a previous search result
  * @param {Integer} minRating minimum overall star rating the entity must have to be returned
  * @param {Integer} maxRating maximum overall star rating the entity must have to be returned
- * @param {Boolean} localSearchOp how results will be combined for query parameters separately (i.e. or | and; e.g. and: results have to match for all tags given in tagsToSearchFor)
- * @param {Boolean} globalSearchOp how results will be combined overall (i.e. or | and; e.g. and: results have to match all given tags and labels) 
+ * @param {String} localSearchOp how results will be combined for query parameters separately (i.e. or | and; e.g. and: results have to match for all tags given in tagsToSearchFor)
+ * @param {String} globalSearchOp how results will be combined overall (i.e. or | and; e.g. and: results have to match all given tags and labels) 
  * @return {SSSearchRet} <br>
  * {SSEntity Array} entities found entities with additional information
  */
