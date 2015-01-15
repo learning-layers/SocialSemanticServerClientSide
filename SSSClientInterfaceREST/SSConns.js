@@ -1442,6 +1442,68 @@ y){
 };
 
 /**
+ * locks an learning episode to be edited by given user only
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} forUser user to the be allowed to edit the episode
+ * @param {URI} learnEp learning episode which shall be editable by user only
+ * @return {SSLearnEpLockSetRet} <br>
+ * {Boolean} worked whether setting the lock worked
+ */
+var SSLearnEpLockSet = function(resultHandler, errorHandler, user, key, forUser, learnEp){
+  
+  var par                      = {};
+  par[sSVarU.user]             = user;
+  par[sSVarU.forUser]          = forUser;
+  par[sSVarU.learnEp]          = learnEp;
+  par[sSVarU.key]              = key;
+  
+  new SSJSONPOSTRequest("learnEpLockSet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/**
+ * unlocks an learning episode to be edited by given user only
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} forUser user holding the lock on the episode
+ * @param {URI} learnEp learning episode which shall able to be locked by all users again
+ * @return {SSLearnEpLockRemoveRet} <br>
+ * {Boolean} worked whether releasing the lock worked
+ */
+var SSLearnEpLockRemove = function(resultHandler, errorHandler, user, key, forUser, learnEp){
+  
+  var par                      = {};
+  par[sSVarU.user]             = user;
+  par[sSVarU.forUser]          = forUser;
+  par[sSVarU.learnEp]          = learnEp;
+  par[sSVarU.key]              = key;
+  
+  new SSJSONPOSTRequest("learnEpLockRemove", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/**
+ * retrieve current broadcasts
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @return {SSBroadcastsGetRet} <br>
+ * {SSBroadcast Array} broadcasts
+ */
+var SSBroadcastsGet = function(resultHandler, errorHandler, user, key){
+  
+  var par                      = {};
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  
+  new SSJSONPOSTRequest("broadcastsGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/**
  * create a learning episode
  * @param {Function} resultHandler
  * @param {Function} errorHandler
