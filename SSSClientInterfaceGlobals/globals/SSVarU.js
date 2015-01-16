@@ -63,7 +63,6 @@ function SSVarU(){
   this.tag                                            = "tag";
   this.comments                                       = "comments";
   this.extendToParents                                = "extendToParents";
-  this.keywordsToSearchFor                            = "keywordsToSearchFor";
   this.wordsToSearchFor                               = "wordsToSearchFor";
   this.tagsToSearchFor                                = "tagsToSearchFor";
   this.misToSearchFor                                 = "misToSearchFor";

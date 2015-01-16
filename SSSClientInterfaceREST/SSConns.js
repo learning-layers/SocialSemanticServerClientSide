@@ -1872,7 +1872,6 @@ includeOwn){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
- * @param {String Array} keywordsToSearchFor general keywords to be searched for; get interpreted as, e.g. tags, words if respective flags set (e.g. includeTags)
  * @param {Boolean} includeTextualContent whether the text content (if available) of entities should be scanned
  * @param {String Array} wordsToSearchFor keywords to be used in textual content search
  * @param {Boolean} includeTags whether tags of entities should be looked to find entities
@@ -1903,7 +1902,6 @@ var SSSearch = function(
 errorHandler, 
 user, 
 key, 
-keywordsToSearchFor,
 includeTextualContent,
 wordsToSearchFor,
 includeTags,
@@ -1931,7 +1929,6 @@ globalSearchOp){
   par[sSVarU.user]                        = user;
   par[sSVarU.key]                         = key;
   
-  if(!jSGlobals.isEmpty(keywordsToSearchFor)){         par[sSVarU.keywordsToSearchFor]          = keywordsToSearchFor;}
   if(!jSGlobals.isEmpty(includeTextualContent)){       par[sSVarU.includeTextualContent]        = includeTextualContent;}
   if(!jSGlobals.isEmpty(wordsToSearchFor)){            par[sSVarU.wordsToSearchFor]             = wordsToSearchFor;}
   if(!jSGlobals.isEmpty(includeTags)){                 par[sSVarU.includeTags]                  = includeTags;}
