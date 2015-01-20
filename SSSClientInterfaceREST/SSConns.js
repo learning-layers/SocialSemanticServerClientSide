@@ -1961,14 +1961,17 @@ globalSearchOp){
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
+ * @param {Boolean} setFriends whether friends for retrieved users shall be set
  * @return {SSUserAllRet} <br>
  * {SSUser Array} users all users from within SSS
  */
-var SSUserAll = function(resultHandler, errorHandler, user, key){
+var SSUserAll = function(resultHandler, errorHandler, user, key, setFriends){
   
   var par                      = {};
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
+  
+   if(!jSGlobals.isEmpty(setFriends)){              par[sSVarU.setFriends]               = setFriends;}
   
   new SSJSONPOSTRequest("userAll", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
