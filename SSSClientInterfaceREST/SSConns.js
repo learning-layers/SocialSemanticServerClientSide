@@ -1442,6 +1442,26 @@ y){
 };
 
 /**
+ * checks whether the current user holds the lock on given episode
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} learnEp episode to be checked
+ * @return {SSLearnEpLockHoldRet} <br>
+ * {Boolean} lockedByUser whether lock is hold by user currently
+ */
+var SSLearnEpLockHold = function(resultHandler, errorHandler, user, key, learnEp){
+  
+  var par                      = {};
+  par[sSVarU.user]             = user;
+  par[sSVarU.learnEp]          = learnEp;
+  par[sSVarU.key]              = key;
+  
+  new SSJSONPOSTRequest("learnEpLockHold", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/**
  * locks an learning episode to be edited by given user only
  * @param {Function} resultHandler
  * @param {Function} errorHandler
@@ -2717,31 +2737,6 @@ var SSAppStackLayoutCreate = function(resultHandler, errorHandler, user, key, ap
   if(!jSGlobals.isEmpty(description)){         par[sSVarU.description]            = description;}
   
   new SSJSONPOSTRequest("appStackLayoutCreate", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
-};
-
-/**
- * add a tile to a stack (app tile arrangement)
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key
- * @param {URI} stack stack to add this tile
- * @param {URI} app link to the app the tile conains
- * @param {String} label name of the tile
- * @return {SSAppStackLayoutTileAddRet} <br> 
- * {SSUri} tile URI
- */
-var SSAppStackLayoutTileAdd = function(resultHandler, errorHandler, user, key, stack, app, label){
-  
-  var par                      = {};
-  par[sSVarU.user]             = user;
-  par[sSVarU.key]              = key;
-  
-  if(!jSGlobals.isEmpty(stack)){                 par[sSVarU.stack]                    = stack;}
-  if(!jSGlobals.isEmpty(app)){                   par[sSVarU.app]                      = app;}
-  if(!jSGlobals.isEmpty(label)){                 par[sSVarU.label]                    = label;}
-  
-  new SSJSONPOSTRequest("appStackLayoutTileAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
