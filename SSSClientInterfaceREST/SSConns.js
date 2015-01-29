@@ -1825,10 +1825,20 @@ var SSRatingSet = function(resultHandler, errorHandler, user, key, entity, value
  * @param {URI} entity resource to be considered to retrieve recommendations for
  * @param {URI Array} categories additional information to be taken into account
  * @param {Integer} maxTags number of tags to be returned
+ * @param {Boolean} includeOwn whether own tags should be included in the result
  * @return {SSRecommTagsRet} <br>
  * {SSTagLikelihood Array} tags recommended tags with likelihood
  */
-var SSRecommTags = function(resultHandler, errorHandler, user, key, forUser, entity, categories, maxTags){
+var SSRecommTags = function(
+  resultHandler, 
+errorHandler, 
+user, 
+key, 
+forUser,
+entity, 
+categories, 
+maxTags,
+includeOwn){
   
   var par                     = {};
   par[sSVarU.user]            = user;
@@ -1838,6 +1848,7 @@ var SSRecommTags = function(resultHandler, errorHandler, user, key, forUser, ent
   if(!jSGlobals.isEmpty(entity)){        par[sSVarU.entity]          = entity;}
   if(!jSGlobals.isEmpty(categories)){    par[sSVarU.categories]      = categories;}
   if(!jSGlobals.isEmpty(maxTags)){       par[sSVarU.maxTags]         = maxTags;}
+  if(!jSGlobals.isEmpty(includeOwn)){    par[sSVarU.includeOwn]      = includeOwn;}
   
   new SSJSONPOSTRequest("recommTags", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
