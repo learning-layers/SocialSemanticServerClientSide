@@ -352,7 +352,7 @@ var SSCollEntryAdd = function(resultHandler, errorHandler, user, key, coll, entr
   par[sSVarU.key]              = key;
   
   if(!jSGlobals.isEmpty(addNewColl)){ par[sSVarU.addNewColl]       = addNewColl;}
-  if(!jSGlobals.isEmpty(entry)){      par[sSVarU.entry]        = entry;}
+  if(!jSGlobals.isEmpty(entry)){      par[sSVarU.entry]            = entry;}
   
   new SSJSONPOSTRequest("collEntryAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
@@ -1443,13 +1443,17 @@ y){
 
 /**
  * checks whether the current user holds the lock on given episode
+ * @deprecated
  * @param {Function} resultHandler
  * @param {Function} errorHandler
  * @param {URI} user the user's uri
  * @param {String} key auth key
  * @param {URI} learnEp episode to be checked
  * @return {SSLearnEpLockHoldRet} <br>
- * {Boolean} lockedByUser whether lock is hold by user currently
+ * {SSUri} learnEp episode lock information was queried for <br>
+ * {Boolean} lockedByUser whether episode is locked by current user <br>
+ * {Boolean} locked whether episode is locked <br>
+ * {Long} remainingTime time remaining for automatic release of lock
  */
 var SSLearnEpLockHold = function(resultHandler, errorHandler, user, key, learnEp){
   
@@ -1459,6 +1463,27 @@ var SSLearnEpLockHold = function(resultHandler, errorHandler, user, key, learnEp
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("learnEpLockHold", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/**
+ * checks whether locks are set for episodes
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI Array} learnEps episodes to be checked (if left empty, user's episodes will be checked)
+ * @return {SSLearnEpsLockHoldRet} <br>
+ * {SSLearnEpLockHoldRet Array} learnEpLocks lock information for episodes
+ */
+var SSLearnEpsLockHold = function(resultHandler, errorHandler, user, key, learnEps){
+  
+  var par                      = {};
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  
+  if(!jSGlobals.isEmpty(learnEps)){      par[sSVarU.learnEps]        = learnEps;}
+  
+  new SSJSONPOSTRequest("learnEpsLockHold", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
