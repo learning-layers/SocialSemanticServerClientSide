@@ -223,6 +223,7 @@ key){
  * @param {URI Array} circles groups for which activities shall be retrieved (optional)
  * @param {Long} startTime time frame start (optional)
  * @param {Long} endTime time frame end (optional)
+ * @param {Long} includeOnlyLastActivities whether only the last activitiy - for the combination of the activities' author, targeted entity and type - shall be retrieved
  * @return {SSActivitiesUserGetRet} <br>
  * {SSActivity Array} activities activities for given query
  */
@@ -236,18 +237,20 @@ users,
 entities, 
 circles,
 startTime, 
-endTime){
+endTime,
+includeOnlyLastActivities){
   
   var par               = {};
   par[sSVarU.user]      = user;
   par[sSVarU.key]       = key;
   
-  if(!jSGlobals.isEmpty(types)){           par[sSVarU.types]               = types;}
-  if(!jSGlobals.isEmpty(users)){           par[sSVarU.users]               = users;}
-  if(!jSGlobals.isEmpty(entities)){        par[sSVarU.entities]            = entities;}
-  if(!jSGlobals.isEmpty(circles)){         par[sSVarU.circles]             = circles;}
-  if(!jSGlobals.isEmpty(startTime)){       par[sSVarU.startTime]           = startTime;}
-  if(!jSGlobals.isEmpty(endTime)){         par[sSVarU.endTime]             = endTime;}
+  if(!jSGlobals.isEmpty(types)){                      par[sSVarU.types]                     = types;}
+  if(!jSGlobals.isEmpty(users)){                      par[sSVarU.users]                     = users;}
+  if(!jSGlobals.isEmpty(entities)){                   par[sSVarU.entities]                  = entities;}
+  if(!jSGlobals.isEmpty(circles)){                    par[sSVarU.circles]                   = circles;}
+  if(!jSGlobals.isEmpty(startTime)){                  par[sSVarU.startTime]                 = startTime;}
+  if(!jSGlobals.isEmpty(endTime)){                    par[sSVarU.endTime]                   = endTime;}
+  if(!jSGlobals.isEmpty(includeOnlyLastActivities)){  par[sSVarU.includeOnlyLastActivities] = includeOnlyLastActivities;}
   
   new SSJSONPOSTRequest("activitiesGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };

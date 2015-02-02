@@ -17,6 +17,7 @@ var sSVarU = new SSVarU();
     
 function SSVarU(){
   
+  this.includeOnlyLastActivities                      = "includeOnlyLastActivities";
   this.setFriends                                     = "setFriends";
   this.useUsersEntities                               = "useUsersEntities";
   this.globalSearchOp                                 = "globalSearchOp";
