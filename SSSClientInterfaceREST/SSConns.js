@@ -2823,3 +2823,38 @@ value){
   
   new SSJSONPOSTRequest("likeSet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
+
+/**
+ * add a new entity of type "entity"
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} link the URI for the entity (optional; if used, set as ID)
+ * @param {String} label entity's title
+ * @param {String} description entity's description
+ * @param {Long} creationTime alleged time of creation
+ * @return {SSEntityUserAddRet} <br>
+ * {URI} entity uri of the new entity
+ */
+var SSEntityAdd = function(
+  resultHandler, 
+errorHandler, 
+user, 
+key, 
+link, 
+label, 
+description, 
+creationTime){
+  
+  var par                      = {};
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  
+  if(!jSGlobals.isEmpty(link)){              par[sSVarU.link]          = link;}
+  if(!jSGlobals.isEmpty(label)){             par[sSVarU.label]         = label;}
+  if(!jSGlobals.isEmpty(description)){       par[sSVarU.description]   = description;}
+  if(!jSGlobals.isEmpty(creationTime)){      par[sSVarU.creationTime]  = creationTime;}
+  
+  new SSJSONPOSTRequest("entityAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
