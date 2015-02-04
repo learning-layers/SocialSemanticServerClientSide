@@ -2831,6 +2831,7 @@ value){
  * @param {URI} user the user's uri
  * @param {String} key auth key
  * @param {URI} link the URI for the entity (optional; if used, set as ID)
+ * @param {String} type either "palceholder" or "entity" currently
  * @param {String} label entity's title
  * @param {String} description entity's description
  * @param {Long} creationTime alleged time of creation
@@ -2843,6 +2844,7 @@ errorHandler,
 user, 
 key, 
 link, 
+type,
 label, 
 description, 
 creationTime){
@@ -2852,6 +2854,7 @@ creationTime){
   par[sSVarU.key]              = key;
   
   if(!jSGlobals.isEmpty(link)){              par[sSVarU.link]          = link;}
+  if(!jSGlobals.isEmpty(type)){              par[sSVarU.type]          = type;}
   if(!jSGlobals.isEmpty(label)){             par[sSVarU.label]         = label;}
   if(!jSGlobals.isEmpty(description)){       par[sSVarU.description]   = description;}
   if(!jSGlobals.isEmpty(creationTime)){      par[sSVarU.creationTime]  = creationTime;}
