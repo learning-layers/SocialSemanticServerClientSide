@@ -2282,17 +2282,20 @@ var SSTagAdd = function(resultHandler, errorHandler, user, key, entity, label, s
  * @param {URI} user the user's uri
  * @param {String} key auth key
  * @param {URI} tag tag to change the label for
+ * @param {URI} entity entity to change the tag label for
  * @param {String} label new label of the tag 
  * @return {SSTagUserEditRet} <br>
  * {URI} tag [new] uri of the tag
  */
-var SSTagEdit = function(resultHandler, errorHandler, user, key, tag, label){
+var SSTagEdit = function(resultHandler, errorHandler, user, key, tag, entity, label){
   
   var par                      = {};
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   par[sSVarU.tag]              = tag;
   par[sSVarU.label]            = label;
+  
+  if(!jSGlobals.isEmpty(entity)){              par[sSVarU.entity]               = entity;}
   
   new SSJSONPOSTRequest("tagEdit", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
