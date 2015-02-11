@@ -223,7 +223,7 @@ key){
  * @param {URI Array} circles groups for which activities shall be retrieved (optional)
  * @param {Long} startTime time frame start (optional)
  * @param {Long} endTime time frame end (optional)
- * @param {Long} includeOnlyLastActivities whether only the last activitiy - for the combination of the activities' author, targeted entity and type - shall be retrieved
+ * @param {Boolean} includeOnlyLastActivities whether only the last activity - for the combination of the activities' author, targeted entity and type - shall be retrieved
  * @return {SSActivitiesUserGetRet} <br>
  * {SSActivity Array} activities activities for given query
  */
