@@ -17,6 +17,7 @@ var sSVarU = new SSVarU();
     
 function SSVarU(){
   
+  this.toolContext                                    = "toolContext";
   this.includeOnlyLastActivities                      = "includeOnlyLastActivities";
   this.setFriends                                     = "setFriends";
   this.useUsersEntities                               = "useUsersEntities";

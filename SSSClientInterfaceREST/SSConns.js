@@ -2864,3 +2864,47 @@ creationTime){
   
   new SSJSONPOSTRequest("entityAdd", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
+
+/**
+ * log a certain event for evaluation purposes
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} type type of the log event
+ * @param {String} toolContext context in tool where log was triggered
+ * @param {String} forUser user to be logged
+ * @param {String} entity entity to be logged
+ * @param {Long} content content to be logged
+ * @param {Long} entities entities to be logged
+ * @param {Long} users users to be logged
+ * @return {SSEvalLogRet} <br>
+ * {Boolean} worked whether logging worked
+ */
+var SSEvalLog = function(
+  resultHandler, 
+errorHandler, 
+user, 
+key, 
+type,
+toolContext,
+forUser, 
+entity,
+content, 
+entities,
+users){
+  
+  var par                      = {};
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  par[sSVarU.type]             = type;
+  
+  if(!jSGlobals.isEmpty(toolContext)){   par[sSVarU.toolContext]    = toolContext;}
+  if(!jSGlobals.isEmpty(forUser)){       par[sSVarU.forUser]        = forUser;}
+  if(!jSGlobals.isEmpty(entity)){        par[sSVarU.entity]         = entity;}
+  if(!jSGlobals.isEmpty(content)){       par[sSVarU.content]        = content;}
+  if(!jSGlobals.isEmpty(entities)){      par[sSVarU.entities]       = entities;}
+  if(!jSGlobals.isEmpty(users)){         par[sSVarU.users]          = users;}
+  
+  new SSJSONPOSTRequest("evalLog", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
