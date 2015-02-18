@@ -2908,3 +2908,32 @@ users){
   
   new SSJSONPOSTRequest("evalLog", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
+
+/**
+ * remove resources from given circle
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {URI} circle from which the entities shall be removed
+ * @param {String} entities to be removed
+ * @return {SSCircleEnitiesRemoveRet} <br>
+ * {SSUri Array} entities which have been removed
+ */
+var SSCircleEntitiesRemove = function(
+  resultHandler, 
+errorHandler, 
+user, 
+key, 
+circle,
+entities){
+  
+  var par                      = {};
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  par[sSVarU.circle]           = circle;
+  
+  if(!jSGlobals.isEmpty(entities)){      par[sSVarU.entities]       = entities;}
+  
+  new SSJSONPOSTRequest("circleEntitiesRemove", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
