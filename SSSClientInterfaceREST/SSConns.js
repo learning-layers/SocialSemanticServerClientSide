@@ -2630,16 +2630,24 @@ var SSMessageSend = function(resultHandler, errorHandler, user, key, forUser, me
  * @param {URI} user the user's uri
  * @param {String} key auth key
  * @param {String} includeRead whether already read messages should be retrieved as well
+ * @param {Long} startTime time from when on to retrieve messages
  * @return {SSMessagesGetRet} <br> 
  * {SSMessage Array} messages for the user
  */
-var SSMessagesGet = function(resultHandler, errorHandler, user, key, includeRead){
+var SSMessagesGet = function(
+  resultHandler, 
+errorHandler, 
+user, 
+key, 
+includeRead, 
+startTime){
   
   var par                      = {};
   par[sSVarU.user]             = user;
   par[sSVarU.key]              = key;
   
   if(!jSGlobals.isEmpty(includeRead)){     par[sSVarU.includeRead]        = includeRead;}
+  if(!jSGlobals.isEmpty(startTime)){       par[sSVarU.startTime]          = startTime;}
   
   new SSJSONPOSTRequest("messagesGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
