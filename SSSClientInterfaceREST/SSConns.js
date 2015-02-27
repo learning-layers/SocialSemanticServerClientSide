@@ -1575,6 +1575,26 @@ var SSLearnEpCreate = function(resultHandler, errorHandler, user, key, label, de
 };
 
 /**
+ * remove a learning episode from given user
+ * @param {Function} resultHandler
+ * @param {Function} errorHandler
+ * @param {URI} user the user's uri
+ * @param {String} key auth key
+ * @param {String} learnEp episode to be removed
+ * @return {SSLearnEpRemoveRet} <br>
+ * {SSUri} learnEp learning episode removed
+ */
+var SSLearnEpRemove = function(resultHandler, errorHandler, user, key, learnEp){
+  
+  var par                      = {};
+  par[sSVarU.user]             = user;
+  par[sSVarU.key]              = key;
+  par[sSVarU.learnEp]          = learnEp;
+  
+  new SSJSONPOSTRequest("learnEpRemove", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
+};
+
+/**
  * create a version for giving learning episode
  * @param {Function} resultHandler
  * @param {Function} errorHandler
