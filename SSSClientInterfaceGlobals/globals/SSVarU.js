@@ -17,6 +17,7 @@ var sSVarU = new SSVarU();
     
 function SSVarU(){
   
+  this.entityTypesToIncludeOnly                       = "entityTypesToIncludeOnly";
   this.toolContext                                    = "toolContext";
   this.includeOnlyLastActivities                      = "includeOnlyLastActivities";
   this.setFriends                                     = "setFriends";
