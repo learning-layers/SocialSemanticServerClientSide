@@ -26,7 +26,7 @@ function SSGlobals(){
 //  this.hostRESTFileReplace                           = this.serverHost    + "SSAdapterRESTFileReplace/";
   
   //using SSS REST Adapter directly (without Layers Adapter)
-  this.serverHost                                    = "http://localhost:8080/ss-adapter-rest/";
+  this.serverHost                                    = "http://localhost:8080/sss.adapter.rest.v1/";
   this.hostREST                                      = this.serverHost + "SSAdapterRest/"; 
   this.hostRESTFile                                  = this.serverHost + "SSAdapterRESTFile/";
   this.hostRESTFileDownload                          = this.serverHost + "SSAdapterRESTFileDownload/";
@@ -258,6 +258,7 @@ SSJSONRequest.prototype = {
     });
   }
 };
+
 
 var SSJSONPOSTRequest = function(op, par, resultHandler, errorHandler, apiURI){
   this.op            = op;

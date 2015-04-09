@@ -841,44 +841,6 @@ var SSEntityGet = function(resultHandler, errorHandler, user, key, entity){
 };
 
 /**
- * updates/adds given properties for an entity
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key
- * @param {URI} entity entity to update
- * @param {String} label entity's updated name (optional)
- * @param {String} description entity's updated description (optional)
- * @param {String Array} comments new textual annotations for the entity (optional)
- * @param {Boolean} read whether the user has read the entity (optional)
- * @return {SSEntityUserUpdateRet} <br>
- * {SSUri} entity entity updated
- */
-var SSEntityUpdate = function(
-  resultHandler, 
-errorHandler, 
-user, 
-key, 
-entity, 
-label, 
-description, 
-comments,
-read){
-  
-  var par                     = {};
-  par[sSVarU.user]            = user;
-  par[sSVarU.entity]          = entity;
-  par[sSVarU.key]             = key;
-  
-  if(!jSGlobals.isEmpty(label)){          par[sSVarU.label]             = label;}
-  if(!jSGlobals.isEmpty(description)){    par[sSVarU.description]       = description;}
-  if(!jSGlobals.isEmpty(comments)){       par[sSVarU.comments]          = comments;}
-  if(!jSGlobals.isEmpty(read)){           par[sSVarU.read]              = read;}
-  
-  new SSJSONPOSTRequest("entityUpdate", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
-};
-
-/**
  * retrieve more detailed information for given entity
  * @param {Function} resultHandler
  * @param {Function} errorHandler
