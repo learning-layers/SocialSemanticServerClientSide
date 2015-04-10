@@ -24,6 +24,7 @@ var sssGlobals = new SSSGobals();
 function SSSGobals(){
   this.sssAPI               = "http://localhost:8080/sss.adapter.rest.v2/";
   this.sssAPIResourceEntity = "entities/entities/";
+  this.sssAPIResourceCircle = "circles/circles/";
   this.httpMethodPUT        = "PUT";
   this.httpMethodGET        = "GET";
   this.httpMethodPOST       = "POST";
@@ -53,7 +54,7 @@ SSSJSONRequest.prototype = {
     jQuery.ajax({
       'url' :         encodeURI(thisRef.apiURI + resource + path),
       'type':         thisRef.method,
-      'data' :        JSON.stringify(bodyPar),
+      'data' :        ((!sssFcts.isEmpty(bodyPar)) ? JSON.stringify(bodyPar) : ""),
       'contentType' : "application/json",
       'async' :       true,
       dataType:       "application/json",
@@ -64,7 +65,7 @@ SSSJSONRequest.prototype = {
       'complete' : function(jqXHR, textStatus) {
         
         if(jqXHR.readyState    !== 4){
-          console.log("could not connect to SSS REST API");
+          console.error("could not connect to SSS REST API");
           
           thisRef.errorHandler(jqXHR.responseText);
           return;
@@ -75,7 +76,7 @@ SSSJSONRequest.prototype = {
 //        thisRef.readyState = jqXHR.readyState;
 //        thisRef.onload();
 
-        thisRef.resultHandler(jqXHR.responseText);
+        thisRef.resultHandler(jQuery.parseJSON(jqXHR.responseText));
       }
     });
   }
@@ -244,9 +245,19 @@ key,
 entity, 
 label){
   
+  if(sssFcts.isEmpty(entity)){  
+    console.error("entity requried");
+    return;
+  }
+  
+  if(sssFcts.isEmpty(label)){  
+    console.error("label requried");
+    return;
+  }
+  
   var par = {};
   
-  if(!sssFcts.isEmpty(label)){          par[sssNames.label]             = label;}
+  par[sssNames.label] = label;
   
   new SSSJSONRequest(
     resultHandler,
@@ -266,9 +277,19 @@ key,
 entity, 
 description){
   
+  if(sssFcts.isEmpty(entity)){  
+    console.error("entity requried");
+    return;
+  }
+  
+  if(sssFcts.isEmpty(description)){  
+    console.error("description requried");
+    return;
+  }
+  
   var par = {};
   
-  if(!sssFcts.isEmpty(description)){          par[sssNames.description]             = description;}
+  par[sssNames.description] = description;
   
   new SSSJSONRequest(
     resultHandler,
@@ -288,9 +309,19 @@ key,
 entity, 
 comments){
   
+  if(sssFcts.isEmpty(entity)){  
+    console.error("entity requried");
+    return;
+  }
+  
+  if(sssFcts.isEmpty(comments)){  
+    console.error("comments requried");
+    return;
+  }
+  
   var par = {};
   
-  if(!sssFcts.isEmpty(comments)){       par[sssNames.comments]          = comments;}
+  par[sssNames.comments] = comments;
   
   new SSSJSONRequest(
     resultHandler,
@@ -311,6 +342,11 @@ entity,
 label, 
 description){
   
+  if(sssFcts.isEmpty(entity)){  
+    console.error("entity requried");
+    return;
+  }
+  
   var par = {};
   
   if(!sssFcts.isEmpty(label)){          par[sssNames.label]             = label;}
@@ -324,5 +360,45 @@ description){
     key).send(
       sssGlobals.sssAPIResourceEntity,
       encodeURIComponent(entity) + "/update",
+      par);
+};
+
+var SSCirclesGet = function(
+  resultHandler, 
+errorHandler, 
+key){
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodGET,
+    key).send(
+      sssGlobals.sssAPIResourceCircle,
+      "",
+      null);
+};
+
+var SSCirclesForUserGet = function(
+  resultHandler, 
+errorHandler, 
+key,
+forUser){
+  
+  if(sssFcts.isEmpty(forUser)){  
+    console.error("forUser requried");
+    return;
+  }
+  
+  var par = {};
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodGET,
+    key).send(
+      sssGlobals.sssAPIResourceCircle,
+      "user/" + encodeURIComponent(forUser),
       par);
 };
