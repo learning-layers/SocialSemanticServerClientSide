@@ -20,35 +20,6 @@
  */
 
 /**
- * retrieve a certain circle 
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key
- * @param {URI} circle to retrieve
- * @param {String Array} entityTypesToIncludeOnly entity types to include in 'entitites' only
- * @return {SSEntityUserCircleGetRet} <br>
- * {SSEntityCircle} circle requested
- */
-var SSEntityCircleGet = function(
-  resultHandler, 
-errorHandler, 
-user, 
-key, 
-circle, 
-entityTypesToIncludeOnly){
-  
-  var par                      = {};
-  par[sSVarU.user]             = user;
-  par[sSVarU.key]              = key;
-  par[sSVarU.circle]           = circle;
-  
-  if(!jSGlobals.isEmpty(entityTypesToIncludeOnly)){ par[sSVarU.entityTypesToIncludeOnly]   = entityTypesToIncludeOnly;}
-  
-  new SSJSONPOSTRequest("circleGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
-};
-
-/**
  * add given entities to a user-generated circle
  * @param {Function} resultHandler
  * @param {Function} errorHandler

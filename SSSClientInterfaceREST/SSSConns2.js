@@ -399,6 +399,66 @@ forUser){
     sssGlobals.httpMethodGET,
     key).send(
       sssGlobals.sssAPIResourceCircle,
-      "user/" + encodeURIComponent(forUser),
+      "users/" + encodeURIComponent(forUser),
+      par);
+};
+
+var SSCircleGet = function(
+  resultHandler, 
+errorHandler, 
+key, 
+circle, 
+entityTypesToIncludeOnly){
+  
+  if(sssFcts.isEmpty(circle)){  
+    console.error("circle requried");
+    return;
+  }
+  
+  var par                      = {};
+  
+  if(!sssFcts.isEmpty(entityTypesToIncludeOnly)){ par[sssNames.entityTypesToIncludeOnly]   = entityTypesToIncludeOnly;}
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodPOST,
+    key).send(
+      sssGlobals.sssAPIResourceCircle,
+      encodeURIComponent(circle),
+      par);
+};
+
+var SSCircleForUserGet = function(
+  resultHandler, 
+errorHandler, 
+key, 
+circle, 
+forUser,
+entityTypesToIncludeOnly){
+  
+  if(sssFcts.isEmpty(circle)){  
+    console.error("circle requried");
+    return;
+  }
+  
+  if(sssFcts.isEmpty(forUser)){  
+    console.error("forUser requried");
+    return;
+  }
+  
+  var par                      = {};
+  
+  if(!sssFcts.isEmpty(entityTypesToIncludeOnly)){ par[sssNames.entityTypesToIncludeOnly]   = entityTypesToIncludeOnly;}
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodPOST,
+    key).send(
+      sssGlobals.sssAPIResourceCircle,
+      encodeURIComponent(circle) + "/users/" + encodeURIComponent(forUser),
       par);
 };

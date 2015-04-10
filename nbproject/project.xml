@@ -8,6 +8,7 @@
             <web-module-libraries/>
             <web-module-additional-libraries/>
             <source-roots>
+                <root id="src.JSUtilities.dir"/>
                 <root id="src.dir" name="globals"/>
                 <root id="src.dir2" name="rest"/>
             </source-roots>
