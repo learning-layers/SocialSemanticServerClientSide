@@ -25,6 +25,11 @@ function SSSGobals(){
   this.sssAPI               = "http://localhost:8080/sss.adapter.rest.v2/";
   this.sssAPIResourceEntity = "entities/entities/";
   this.sssAPIResourceCircle = "circles/circles/";
+  this.sssAPIResourceAuth   = "auth/auth/";
+  this.sssAPIResourceDisc   = "discs/discs/";
+  this.sssAPIResourceLike   = "likes/likes/";
+  this.sssAPIResourceTag    = "tags/tags/";
+  this.sssAPIResourceSearch = "search/search/";
   this.httpMethodPUT        = "PUT";
   this.httpMethodGET        = "GET";
   this.httpMethodPOST       = "POST";
@@ -60,7 +65,9 @@ SSSJSONRequest.prototype = {
       dataType:       "application/json",
       'crossDomain':  true,
       'beforeSend': function (request){
-        request.setRequestHeader("Authorization", "Bearer " + thisRef.authToken);
+        if(!sssFcts.isEmpty(thisRef.authToken)){
+          request.setRequestHeader("Authorization", "Bearer " + thisRef.authToken);
+        }
       },
       'complete' : function(jqXHR, textStatus) {
         
@@ -460,5 +467,567 @@ entityTypesToIncludeOnly){
     key).send(
       sssGlobals.sssAPIResourceCircle,
       encodeURIComponent(circle) + "/users/" + encodeURIComponent(forUser),
+      par);
+};
+
+var SSCircleEntitiesAdd = function(
+  resultHandler, 
+errorHandler, 
+key, 
+circle, 
+entities){
+  
+  if(sssFcts.isEmpty(circle)){  
+    console.error("circle requried");
+    return;
+  }
+  
+  if(sssFcts.isEmpty(entities)){  
+    console.error("entities requried");
+    return;
+  }
+  
+  var par                      = {};
+  
+  par[sssNames.entities] = entities;
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodPOST,
+    key).send(
+      sssGlobals.sssAPIResourceCircle,
+      encodeURIComponent(circle) + "/entities/",
+      par);
+};
+
+var SSCircleUsersAdd = function(
+  resultHandler, 
+errorHandler,
+key, 
+circle, 
+users){
+  
+  if(sssFcts.isEmpty(circle)){  
+    console.error("circle requried");
+    return;
+  }
+  
+  if(sssFcts.isEmpty(users)){  
+    console.error("users requried");
+    return;
+  }
+  
+  var par                      = {};
+  
+  par[sssNames.users] = users;
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodPOST,
+    key).send(
+      sssGlobals.sssAPIResourceCircle,
+      encodeURIComponent(circle) + "/users/",
+      par);
+};
+
+var SSCircleCreate = function(
+  resultHandler, 
+errorHandler, 
+key, 
+label, 
+entities, 
+users, 
+description){
+  
+  if(sssFcts.isEmpty(label)){  
+    console.error("label requried");
+    return;
+  }
+  
+  var par                      = {};
+  
+  par[sssNames.label]       = label;
+  
+  if(!sssFcts.isEmpty(description)){    par[sssNames.description]      = description;}
+  if(!sssFcts.isEmpty(entities)){       par[sssNames.entities]         = entities;}
+  if(!sssFcts.isEmpty(users)){          par[sssNames.users]            = users;}
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodPOST,
+    key).send(
+      sssGlobals.sssAPIResourceCircle,
+      "",
+      par);
+};
+
+var SSCircleEntitiesRemove = function(
+  resultHandler, 
+errorHandler, 
+key, 
+circle,
+entities){
+  
+  if(sssFcts.isEmpty(circle)){  
+    console.error("circle requried");
+    return;
+  }
+  
+  if(sssFcts.isEmpty(entities)){  
+    console.error("entities requried");
+    return;
+  }
+  
+  var par                      = {};
+  
+  par[sssNames.entities]           = entities;
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodDELETE,
+    key).send(
+      sssGlobals.sssAPIResourceCircle,
+      encodeURIComponent(circle) + "/entities",
+      par);
+};
+
+var SSAuthCheckCredPOST = function(
+  resultHandler, 
+errorHandler,
+label, 
+password){
+  
+  if(sssFcts.isEmpty(label)){  
+    console.error("label / username requried");
+    return;
+  }
+  
+  if(sssFcts.isEmpty(label)){  
+    console.error("password requried");
+    return;
+  }
+  
+  var par               = {};
+  
+  par[sssNames.label]          = label;
+  par[sssNames.password]       = password;
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodPOST,
+    "").send(
+      sssGlobals.sssAPIResourceAuth,
+      "",
+      par);
+};
+
+var SSDiscsGet = function(
+  resultHandler, 
+errorHandler, 
+key){
+  
+  var par                     = {};
+
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodGET,
+    key).send(
+      sssGlobals.sssAPIResourceDisc,
+      "",
+      par);
+};
+
+var SSDiscEntryAdd = function(
+  resultHandler,
+errorHandler,
+key, 
+disc, 
+entity, 
+entry, 
+addNewDisc,
+type,
+label, 
+description,
+users,
+entities,
+circles){
+  
+  var par                = {};
+  
+  if(!sssFcts.isEmpty(disc)){         par[sssNames.disc]        = disc;}
+  if(!sssFcts.isEmpty(entity)){       par[sssNames.entity]      = entity;}
+  if(!sssFcts.isEmpty(entry)){        par[sssNames.entry]       = entry;}
+  if(!sssFcts.isEmpty(addNewDisc)){   par[sssNames.addNewDisc]  = addNewDisc;}
+  if(!sssFcts.isEmpty(type)){         par[sssNames.type]        = type;}
+  if(!sssFcts.isEmpty(label)){        par[sssNames.label]       = label;}
+  if(!sssFcts.isEmpty(description)){  par[sssNames.description] = description;}
+  if(!sssFcts.isEmpty(users)){        par[sssNames.users]       = users;}
+  if(!sssFcts.isEmpty(entities)){     par[sssNames.entities]    = entities;}
+  if(!sssFcts.isEmpty(circles)){      par[sssNames.circles]     = circles;}
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodPOST,
+    key).send(
+      sssGlobals.sssAPIResourceDisc,
+      "",
+      par);
+};
+
+var SSDiscGet = function(
+  resultHandler, 
+errorHandler, 
+key, 
+disc,
+includeComments){
+  
+  if(sssFcts.isEmpty(disc)){  
+    console.error("disc requried");
+    return;
+  }
+  
+  var par                     = {};
+  
+  if(!sssFcts.isEmpty(includeComments)){ par[sssNames.includeComments]   = includeComments;}
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodPOST,
+    key).send(
+      sssGlobals.sssAPIResourceDisc,
+      encodeURIComponent(disc),
+      par);
+};
+
+var SSDiscURIsForTargetGet = function(
+  resultHandler, 
+errorHandler, 
+key, 
+entity){
+  
+  if(sssFcts.isEmpty(entity)){  
+    console.error("entity requried");
+    return;
+  }
+  
+  var par                     = {};
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodGET,
+    key).send(
+      sssGlobals.sssAPIResourceDisc,
+      "entities/" + encodeURIComponent(entity),
+      par);
+};
+
+var SSLikeUpdate = function(
+  resultHandler, 
+errorHandler, 
+key, 
+entity, 
+value){
+  
+  
+  if(sssFcts.isEmpty(entity)){  
+    console.error("entity requried");
+    return;
+  }
+  
+  if(sssFcts.isEmpty(value)){  
+    console.error("value requried");
+    return;
+  }
+  
+  var par                      = {};
+  
+  par[sssNames.value] = value;
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodPUT,
+    key).send(
+      sssGlobals.sssAPIResourceLike,
+      "entities/" + encodeURIComponent(entity),
+      par);
+};
+
+var SSTagAdd = function(
+  resultHandler, 
+errorHandler, 
+key,
+entity, 
+label, 
+space, 
+creationTime){
+  
+  if(sssFcts.isEmpty(entity)){  
+    console.error("entity requried");
+    return;
+  }
+
+  if(sssFcts.isEmpty(label)){  
+    console.error("label requried");
+    return;
+  }
+  
+  if(sssFcts.isEmpty(space)){  
+    console.error("space requried");
+    return;
+  }
+  
+  var par                       = {};
+  
+  par[sssNames.label]            = label;
+  par[sssNames.space]            = space;
+  
+  if(!sssFcts.isEmpty(creationTime)){ par[sssNames.creationTime]   = creationTime;}
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodPOST,
+    key).send(
+      sssGlobals.sssAPIResourceTag,
+      "entities/" + encodeURIComponent(entity),
+      par);
+};
+
+var SSTagsGetPOST = function(
+  resultHandler, 
+errorHandler, 
+key, 
+forUser, 
+entities, 
+labels, 
+space, 
+startTime){
+  
+  var par                      = {};
+  
+  if(!sssFcts.isEmpty(forUser)){     par[sssNames.forUser]        = forUser;}
+  if(!sssFcts.isEmpty(entities)){    par[sssNames.entities]       = entities;}
+  if(!sssFcts.isEmpty(labels)){      par[sssNames.labels]         = labels;}
+  if(!sssFcts.isEmpty(space)){       par[sssNames.space]          = space;}
+  if(!sssFcts.isEmpty(startTime)){   par[sssNames.startTime]      = startTime;}
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodPOST,
+    key).send(
+      sssGlobals.sssAPIResourceTag,
+      "",
+      par);
+};
+
+var SSTagFrequsGetPOST = function(
+  resultHandler, 
+errorHandler, 
+key, 
+forUser, 
+entities, 
+labels, 
+space, 
+startTime,
+useUsersEntities){
+  
+  var par                      = {};
+  
+  if(!sssFcts.isEmpty(forUser)){            par[sssNames.forUser]               = forUser;}
+  if(!sssFcts.isEmpty(entities)){           par[sssNames.entities]              = entities;}
+  if(!sssFcts.isEmpty(labels)){             par[sssNames.labels]                = labels;}
+  if(!sssFcts.isEmpty(space)){              par[sssNames.space]                 = space;}
+  if(!sssFcts.isEmpty(startTime)){          par[sssNames.startTime]             = startTime;}
+  if(!sssFcts.isEmpty(useUsersEntities)){   par[sssNames.useUsersEntities]      = useUsersEntities;}
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodPOST,
+    key).send(
+      sssGlobals.sssAPIResourceTag,
+      "frequs",
+      par);
+};
+
+var SSEntitiesForTagsGet = function(
+  resultHandler, 
+errorHandler, 
+key,
+forUser, 
+labels, 
+space, 
+startTime){
+  
+  var par                      = {};
+  
+  if(!sssFcts.isEmpty(forUser)){     par[sssNames.forUser]        = forUser;}
+  if(!sssFcts.isEmpty(labels)){      par[sssNames.labels]         = labels;}
+  if(!sssFcts.isEmpty(space)){       par[sssNames.space]          = space;}
+  if(!sssFcts.isEmpty(startTime)){   par[sssNames.startTime]      = startTime;}
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodPOST,
+    key).send(
+      sssGlobals.sssAPIResourceTag,
+      "entities/tags",
+      par);
+};
+
+var SSTagsRemove = function(
+  resultHandler, 
+errorHandler, 
+key,
+entity, 
+label, 
+space){
+  
+  if(sssFcts.isEmpty(entity)){  
+    console.error("entity requried");
+    return;
+  }
+  
+  var par                      = {};
+  
+  if(!sssFcts.isEmpty(label)){     par[sssNames.label]        = label;}
+  if(!sssFcts.isEmpty(space)){     par[sssNames.space]        = space;}
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodDELETE,
+    key).send(
+      sssGlobals.sssAPIResourceTag,
+      "entities/" + encodeURIComponent(entity),
+      par);
+};
+
+var SSTagEdit = function(
+  resultHandler, 
+errorHandler, 
+key, 
+tag, 
+entity, 
+label){
+  
+  if(sssFcts.isEmpty(tag)){  
+    console.error("tag requried");
+    return;
+  }
+  
+  if(sssFcts.isEmpty(entity)){  
+    console.error("entity requried");
+    return;
+  }
+  
+  if(sssFcts.isEmpty(label)){  
+    console.error("label requried");
+    return;
+  }
+  
+  var par                      = {};
+  
+  par[sssNames.entity]         = entity;
+  par[sssNames.label]          = label;
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodPUT,
+    key).send(
+      sssGlobals.sssAPIResourceTag,
+      encodeURIComponent(tag) + "/entities/" + encodeURIComponent(entity),
+      par);
+};
+
+var SSSearch = function(
+  resultHandler, 
+errorHandler, 
+key, 
+includeTextualContent,
+wordsToSearchFor,
+includeTags,
+tagsToSearchFor,
+includeMIs,
+misToSearchFor,
+includeLabel,
+labelsToSearchFor,
+includeDescription,
+descriptionsToSearchFor,
+typesToSearchOnlyFor,
+includeOnlySubEntities,
+entitiesToSearchWithin,
+extendToParents,
+includeRecommendedResults,
+provideEntries, 
+pagesID, 
+pageNumber,
+minRating,
+maxRating,
+localSearchOp,
+globalSearchOp){
+  
+  var par                                 = {};
+  
+  if(!sssFcts.isEmpty(includeTextualContent)){       par[sssNames.includeTextualContent]        = includeTextualContent;}
+  if(!sssFcts.isEmpty(wordsToSearchFor)){            par[sssNames.wordsToSearchFor]             = wordsToSearchFor;}
+  if(!sssFcts.isEmpty(includeTags)){                 par[sssNames.includeTags]                  = includeTags;}
+  if(!sssFcts.isEmpty(tagsToSearchFor)){             par[sssNames.tagsToSearchFor]              = tagsToSearchFor;}
+  if(!sssFcts.isEmpty(includeMIs)){                  par[sssNames.includeMIs]                   = includeMIs;}
+  if(!sssFcts.isEmpty(misToSearchFor)){              par[sssNames.misToSearchFor]               = misToSearchFor;}
+  if(!sssFcts.isEmpty(includeLabel)){                par[sssNames.includeLabel]                 = includeLabel;}
+  if(!sssFcts.isEmpty(labelsToSearchFor)){           par[sssNames.labelsToSearchFor]            = labelsToSearchFor;}
+  if(!sssFcts.isEmpty(includeDescription)){          par[sssNames.includeDescription]           = includeDescription;}
+  if(!sssFcts.isEmpty(descriptionsToSearchFor)){     par[sssNames.descriptionsToSearchFor]      = descriptionsToSearchFor;}
+  if(!sssFcts.isEmpty(typesToSearchOnlyFor)){        par[sssNames.typesToSearchOnlyFor]         = typesToSearchOnlyFor;}
+  if(!sssFcts.isEmpty(includeOnlySubEntities)){      par[sssNames.includeOnlySubEntities]       = includeOnlySubEntities;}
+  if(!sssFcts.isEmpty(entitiesToSearchWithin)){      par[sssNames.entitiesToSearchWithin]       = entitiesToSearchWithin;}
+  if(!sssFcts.isEmpty(extendToParents)){             par[sssNames.extendToParents]              = extendToParents;}
+  if(!sssFcts.isEmpty(includeRecommendedResults)){   par[sssNames.includeRecommendedResults]    = includeRecommendedResults;}
+  if(!sssFcts.isEmpty(provideEntries)){              par[sssNames.provideEntries]               = provideEntries;}
+  if(!sssFcts.isEmpty(pagesID)){                     par[sssNames.pagesID]                      = pagesID;}
+  if(!sssFcts.isEmpty(pageNumber)){                  par[sssNames.pageNumber]                   = pageNumber;}
+  if(!sssFcts.isEmpty(minRating)){                   par[sssNames.minRating]                    = minRating;}
+  if(!sssFcts.isEmpty(maxRating)){                   par[sssNames.maxRating]                    = maxRating;}
+  if(!sssFcts.isEmpty(localSearchOp)){               par[sssNames.localSearchOp]                = localSearchOp;}
+  if(!sssFcts.isEmpty(globalSearchOp)){              par[sssNames.globalSearchOp]               = globalSearchOp;}
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodPOST,
+    key).send(
+      sssGlobals.sssAPIResourceSearch,
+      "",
       par);
 };
