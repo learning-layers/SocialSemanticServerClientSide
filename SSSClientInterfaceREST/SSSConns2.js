@@ -798,7 +798,6 @@ creationTime){
   
   var par                       = {};
   
-  par[sssNames.label]            = label;
   par[sssNames.space]            = space;
   
   if(!sssFcts.isEmpty(creationTime)){ par[sssNames.creationTime]   = creationTime;}
@@ -810,7 +809,7 @@ creationTime){
     sssGlobals.httpMethodPOST,
     key).send(
       sssGlobals.sssAPIResourceTag,
-      "entities/" + encodeURIComponent(entity),
+      encodeURIComponent(label) + "/entities/" + encodeURIComponent(entity),
       par);
 };
 
