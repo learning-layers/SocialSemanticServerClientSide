@@ -22,18 +22,27 @@
 var sssGlobals = new SSSGobals();
 
 function SSSGobals(){
-  this.sssAPI               = "http://localhost:8080/sss.adapter.rest.v2/";
-  this.sssAPIResourceEntity = "entities/entities/";
-  this.sssAPIResourceCircle = "circles/circles/";
-  this.sssAPIResourceAuth   = "auth/auth/";
-  this.sssAPIResourceDisc   = "discs/discs/";
-  this.sssAPIResourceLike   = "likes/likes/";
-  this.sssAPIResourceTag    = "tags/tags/";
-  this.sssAPIResourceSearch = "search/search/";
-  this.httpMethodPUT        = "PUT";
-  this.httpMethodGET        = "GET";
-  this.httpMethodPOST       = "POST";
-  this.httpMethodDELETE     = "DELETE";
+  this.sssAPI                 = "http://localhost:8080/sss.adapter.rest.v2/";
+  this.sssAPIResourceEntity   = "entities/entities/";
+  this.sssAPIResourceCircle   = "circles/circles/";
+  this.sssAPIResourceAuth     = "auth/auth/";
+  this.sssAPIResourceDisc     = "discs/discs/";
+  this.sssAPIResourceLike     = "likes/likes/";
+  this.sssAPIResourceTag      = "tags/tags/";
+  this.sssAPIResourceSearch   = "search/search/";
+  this.sssAPIResourceCategory = "categories/categories/";
+  this.sssAPIResourceFriend   = "friends/friends/";
+  this.sssAPIResourceUser     = "users/users/";
+  this.sssAPIResourceUE       = "ues/ues/";
+  this.sssAPIResourceSystem   = "system/system/";
+  this.sssAPIResourceFlag     = "flags/flags/";
+  this.sssAPIResourceRecomm   = "recomm/recomm/";
+  this.sssAPIResourceRating   = "ratings/ratings/";
+  this.sssAPIResourceMessage  = "messages/messages";
+  this.httpMethodPUT          = "PUT";
+  this.httpMethodGET          = "GET";
+  this.httpMethodPOST         = "POST";
+  this.httpMethodDELETE       = "DELETE";
 }
 
 var SSSJSONRequest = function(
@@ -1027,6 +1036,449 @@ globalSearchOp){
     sssGlobals.httpMethodPOST,
     key).send(
       sssGlobals.sssAPIResourceSearch,
+      "",
+      par);
+};
+
+var SSCategoriesPredefinedGet = function(
+  resultHandler, 
+errorHandler, 
+key){
+  
+  var par                      = {};
+  
+    new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodGET,
+    key).send(
+      sssGlobals.sssAPIResourceCategory,
+      "",
+      par);
+};
+
+var SSFriendAdd = function(
+  resultHandler, 
+errorHandler, 
+key, 
+friend){
+  
+  if(sssFcts.isEmpty(friend)){  
+    console.error("friend requried");
+    return;
+  }
+  
+  var par                      = {};
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodPOST,
+    key).send(
+      sssGlobals.sssAPIResourceFriend,
+      encodeURIComponent(friend),
+      par);
+};
+
+var SSFriendsGet = function(
+  resultHandler, 
+errorHandler, 
+key){
+  
+  var par                      = {};
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodGET,
+    key).send(
+      sssGlobals.sssAPIResourceFriend,
+      "",
+      par);
+};
+
+var SSUsersGet = function(
+  resultHandler, 
+errorHandler, 
+key){
+  
+  var par                      = {};
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodGET,
+    key).send(
+      sssGlobals.sssAPIResourceUser,
+      "",
+      par);
+};
+
+var SSUEGet = function(
+  resultHandler, 
+errorHandler, 
+key, 
+uE){
+  
+  if(sssFcts.isEmpty(uE)){  
+    console.error("uE requried");
+    return;
+  }
+  
+  var par                      = {};
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodGET,
+    key).send(
+      sssGlobals.sssAPIResourceUE,
+      encodeURIComponent(uE),
+      par);
+};
+
+var SSUEsGetPOST = function(
+  resultHandler, 
+errorHandler, 
+key, 
+forUser, 
+entity, 
+startTime, 
+endTime, 
+type){
+  
+  var par                      = {};
+  
+  if(!sssFcts.isEmpty(forUser)){   par[sssNames.forUser]          = forUser;}
+  if(!sssFcts.isEmpty(entity)){    par[sssNames.entity]           = entity;}
+  if(!sssFcts.isEmpty(startTime)){ par[sssNames.startTime]        = startTime;}
+  if(!sssFcts.isEmpty(endTime)){   par[sssNames.endTime]          = endTime;}
+  if(!sssFcts.isEmpty(type)){      par[sssNames.type]             = type;}
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodGET,
+    key).send(
+      sssGlobals.sssAPIResourceUE,
+      "",
+      par);
+};
+
+var SSUECountGet = function(
+  resultHandler, 
+errorHandler, 
+key, 
+forUser, 
+entity, 
+startTime, 
+endTime, 
+type){
+  
+  var par                      = {};
+  
+  if(!sssFcts.isEmpty(forUser)){   par[sssNames.forUser]          = forUser;}
+  if(!sssFcts.isEmpty(entity)){    par[sssNames.entity]           = entity;}
+  if(!sssFcts.isEmpty(startTime)){ par[sssNames.startTime]        = startTime;}
+  if(!sssFcts.isEmpty(endTime)){   par[sssNames.endTime]          = endTime;}
+  if(!sssFcts.isEmpty(type)){      par[sssNames.type]             = type;}
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodPOST,
+    key).send(
+      sssGlobals.sssAPIResourceUE,
+      "count",
+      par);
+};
+
+var SSUEAdd = function(
+  resultHandler, 
+errorHandler, 
+key, 
+type, 
+entity, 
+content){
+    
+  if(sssFcts.isEmpty(type)){  
+    console.error("type requried");
+    return;
+  }
+  
+  var par                       = {};
+  
+  if(!sssFcts.isEmpty(entity)){   par[sssNames.entity]         = entity;}
+  if(!sssFcts.isEmpty(content)){  par[sssNames.content]        = content;}
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodPOST,
+    key).send(
+      sssGlobals.sssAPIResourceUE,
+      encodeURIComponent(type),
+      par);
+};
+
+var SSSystemVersionGet = function(
+  resultHandler, 
+errorHandler, 
+key){
+  
+  var par   = {};
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodGET,
+    key).send(
+      sssGlobals.sssAPIResourceSystem,
+      "",
+      par);
+};
+
+var SSFlagsGet = function(
+  resultHandler, 
+errorHandler, 
+key, 
+entities, 
+types, 
+startTime, 
+endTime){
+  
+  var par                      = {};
+  
+  if(!sssFcts.isEmpty(entities)){      par[sssNames.entities]         = entities;}
+  if(!sssFcts.isEmpty(types)){         par[sssNames.types]            = types;}
+  if(!sssFcts.isEmpty(startTime)){     par[sssNames.startTime]        = startTime;}
+  if(!sssFcts.isEmpty(endTime)){       par[sssNames.endTime]          = endTime;}
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodPOST,
+    key).send(
+      sssGlobals.sssAPIResourceFlag,
+      "",
+      par);
+};
+
+var SSFlagsSet = function(
+  resultHandler, 
+errorHandler, 
+key, 
+entities, 
+types, 
+endTime, 
+value){
+  
+  if(sssFcts.isEmpty(entities)){  
+    console.error("entities requried");
+    return;
+  }
+  
+  if(sssFcts.isEmpty(types)){  
+    console.error("types requried");
+    return;
+  }
+  
+  var par                      = {};
+  
+  par[sssNames.entities]       = entities;
+  par[sssNames.types]          = types;
+  
+  if(!sssFcts.isEmpty(endTime)){       par[sssNames.endTime]          = endTime;}
+  if(!sssFcts.isEmpty(value)){         par[sssNames.value]            = value;}
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodPOST,
+    key).send(
+      sssGlobals.sssAPIResourceFlag,
+      "entities",
+      par);
+};
+
+var SSRecommResources = function(
+  resultHandler, 
+errorHandler, 
+key, 
+forUser, 
+entity, 
+categories, 
+maxResources, 
+typesToRecommOnly,
+setCircleTypes,
+includeOwn){
+  
+  var par                     = {};
+  
+  if(!sssFcts.isEmpty(forUser)){             par[sssNames.forUser]                   = forUser;}
+  if(!sssFcts.isEmpty(entity)){              par[sssNames.entity]                    = entity;}
+  if(!sssFcts.isEmpty(categories)){          par[sssNames.categories]                = categories;}
+  if(!sssFcts.isEmpty(maxResources)){        par[sssNames.maxResources]              = maxResources;}
+  if(!sssFcts.isEmpty(typesToRecommOnly)){   par[sssNames.typesToRecommOnly]         = typesToRecommOnly;}
+  if(!sssFcts.isEmpty(setCircleTypes)){      par[sssNames.setCircleTypes]            = setCircleTypes;}
+  if(!sssFcts.isEmpty(includeOwn)){          par[sssNames.includeOwn]                = includeOwn;}
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodPOST,
+    key).send(
+      sssGlobals.sssAPIResourceRecomm,
+      "resources",
+      par);
+};
+
+var SSRecommTags = function(
+  resultHandler, 
+errorHandler, 
+key, 
+forUser,
+entity, 
+categories, 
+maxTags,
+includeOwn){
+  
+  var par                     = {};
+  
+  if(!sssFcts.isEmpty(forUser)){       par[sssNames.forUser]         = forUser;}
+  if(!sssFcts.isEmpty(entity)){        par[sssNames.entity]          = entity;}
+  if(!sssFcts.isEmpty(categories)){    par[sssNames.categories]      = categories;}
+  if(!sssFcts.isEmpty(maxTags)){       par[sssNames.maxTags]         = maxTags;}
+  if(!sssFcts.isEmpty(includeOwn)){    par[sssNames.includeOwn]      = includeOwn;}
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodPOST,
+    key).send(
+      sssGlobals.sssAPIResourceRecomm,
+      "tags",
+      par);
+};
+
+var SSRatingOverallGet = function(
+  resultHandler, 
+errorHandler, 
+key, 
+entity){
+  
+  if(sssFcts.isEmpty(entity)){  
+    console.error("entity requried");
+    return;
+  }
+  
+  var par                     = {};
+  
+    new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodGET,
+    key).send(
+      sssGlobals.sssAPIResourceRating,
+      "entities/" + encodeURIComponent(entity) + "/overall",
+      par);
+};
+
+var SSRatingSet = function(
+  resultHandler, 
+errorHandler, 
+key, 
+entity, 
+value){
+  
+  if(sssFcts.isEmpty(entity)){  
+    console.error("entity requried");
+    return;
+  }
+  
+  if(sssFcts.isEmpty(value)){  
+    console.error("value requried");
+    return;
+  }
+  
+  var par = {};
+  
+ new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodPOST,
+    key).send(
+      sssGlobals.sssAPIResourceRating,
+      "entities/" + encodeURIComponent(entity) + "/value/" + encodeURIComponent(value),
+      par);
+};
+
+var SSMessageSend = function(
+  resultHandler, 
+errorHandler, 
+key, 
+forUser, 
+message){
+  
+  if(sssFcts.isEmpty(forUser)){  
+    console.error("forUser requried");
+    return;
+  }
+  
+  if(sssFcts.isEmpty(message)){  
+    console.error("message requried");
+    return;
+  }
+  
+  var par                      = {};
+  
+  par[sssNames.message]        = message;
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodPOST,
+    key).send(
+      sssGlobals.sssAPIResourceMessage,
+      "users/" + encodeURIComponent(forUser),
+      par);
+};
+
+var SSMessagesGetPOST = function(
+  resultHandler, 
+errorHandler, 
+key,
+includeRead, 
+startTime){
+  
+  var par                      = {};
+  
+  if(!sssFcts.isEmpty(includeRead)){     par[sssNames.includeRead]        = includeRead;}
+  if(!sssFcts.isEmpty(startTime)){       par[sssNames.startTime]          = startTime;}
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodPOST,
+    key).send(
+      sssGlobals.sssAPIResourceMessage,
       "",
       par);
 };
