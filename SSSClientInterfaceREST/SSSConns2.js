@@ -102,6 +102,8 @@ var sssNames = new SSSNames();
 
 function SSSNames(){
   
+  this.includeAuthors                                 = "includeAuthors";
+  this.authorsToSearchFor                             = "authorsToSearchFor";
   this.entityTypesToIncludeOnly                       = "entityTypesToIncludeOnly";
   this.toolContext                                    = "toolContext";
   this.includeOnlyLastActivities                      = "includeOnlyLastActivities";
@@ -985,6 +987,8 @@ includeTextualContent,
 wordsToSearchFor,
 includeTags,
 tagsToSearchFor,
+includeAuthors,
+authorsToSearchFor,
 includeMIs,
 misToSearchFor,
 includeLabel,
@@ -1010,6 +1014,8 @@ globalSearchOp){
   if(!sssFcts.isEmpty(wordsToSearchFor)){            par[sssNames.wordsToSearchFor]             = wordsToSearchFor;}
   if(!sssFcts.isEmpty(includeTags)){                 par[sssNames.includeTags]                  = includeTags;}
   if(!sssFcts.isEmpty(tagsToSearchFor)){             par[sssNames.tagsToSearchFor]              = tagsToSearchFor;}
+  if(!sssFcts.isEmpty(includeAuthors)){              par[sssNames.includeAuthors]               = includeAuthors;}
+  if(!sssFcts.isEmpty(authorsToSearchFor)){          par[sssNames.authorsToSearchFor]           = authorsToSearchFor;}
   if(!sssFcts.isEmpty(includeMIs)){                  par[sssNames.includeMIs]                   = includeMIs;}
   if(!sssFcts.isEmpty(misToSearchFor)){              par[sssNames.misToSearchFor]               = misToSearchFor;}
   if(!sssFcts.isEmpty(includeLabel)){                par[sssNames.includeLabel]                 = includeLabel;}
