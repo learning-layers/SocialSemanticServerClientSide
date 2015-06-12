@@ -183,6 +183,7 @@ function SSSNames(){
   this.labels                                         = "labels";
   this.circle                                         = "circle";
   this.entities                                       = "entities";
+  this.entityLabels                                   = "entityLabels";
   this.users                                          = "users";
   this.categories                                     = "categories";
   this.removeUserTags                                 = "removeUserTags";
@@ -673,6 +674,7 @@ label,
 description,
 users,
 entities,
+entityLabels,
 circles){
   
   var par                = {};
@@ -686,6 +688,7 @@ circles){
   if(!sssFcts.isEmpty(description)){  par[sssNames.description] = description;}
   if(!sssFcts.isEmpty(users)){        par[sssNames.users]       = users;}
   if(!sssFcts.isEmpty(entities)){     par[sssNames.entities]    = entities;}
+  if(!sssFcts.isEmpty(entityLabels)){ par[sssNames.entityLabels]= entityLabels;}
   if(!sssFcts.isEmpty(circles)){      par[sssNames.circles]     = circles;}
   
   new SSSJSONRequest(
