@@ -39,6 +39,7 @@ function SSSGobals(){
   this.sssAPIResourceRecomm   = "recomm/recomm/";
   this.sssAPIResourceRating   = "ratings/ratings/";
   this.sssAPIResourceMessage  = "messages/messages";
+  this.sssAPIResourceJSONLD   = "jsonld/jsonld";
   this.httpMethodPUT          = "PUT";
   this.httpMethodGET          = "GET";
   this.httpMethodPOST         = "POST";
@@ -1489,5 +1490,29 @@ startTime){
     key).send(
       sssGlobals.sssAPIResourceMessage,
       "",
+      par);
+};
+
+var SSJSONLDGET = function(
+resultHandler, 
+errorHandler, 
+key,
+type){
+  
+  if(sssFcts.isEmpty(type)){  
+    console.error("type requried");
+    return;
+  }
+  
+  var par                     = {};
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodGET,
+    key).send(
+      sssGlobals.sssAPIResourceJSONLD,
+      "type/" + encodeURIComponent(type),
       par);
 };
