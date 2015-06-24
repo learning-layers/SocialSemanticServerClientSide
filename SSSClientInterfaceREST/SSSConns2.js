@@ -39,8 +39,9 @@ function SSSGobals(){
   this.sssAPIResourceRecomm   = "recomm/recomm/";
   this.sssAPIResourceRating   = "ratings/ratings/";
   this.sssAPIResourceMessage  = "messages/messages";
-  this.sssAPIResourceJSONLD   = "jsonld/jsonld";
-  this.sssAPIResourceFile     = "files/files";
+  this.sssAPIResourceJSONLD   = "jsonld/jsonld/";
+  this.sssAPIResourceFile     = "files/files/";
+  this.sssAPIResourceActivity = "activities/activities/";
   this.httpMethodPUT          = "PUT";
   this.httpMethodGET          = "GET";
   this.httpMethodPOST         = "POST";
@@ -1540,8 +1541,6 @@ fileHandle){
   formData.append(sSVarU.label,      this.fileName);
   formData.append(sSVarU.mimeType,   fileHandle.type);
   
-  xhr.responseType = "application/json";
-  
   xhr.onload = (function(thisRef){ return function(){
       
       if(this.readyState !== 4){
@@ -1552,7 +1551,7 @@ fileHandle){
       thisRef.resultHandler(jQuery.parseJSON(this.responseText), thisRef.fileName);
     };})(this);
   
-  path = encodeURI(sssGlobals.sssAPI + sssGlobals.sssAPIResourceFile + "/upload");
+  path = encodeURI(sssGlobals.sssAPI + sssGlobals.sssAPIResourceFile + "upload");
   
   xhr.open(sSGlobals.httpMethPOST, path, true);
   
@@ -1596,7 +1595,7 @@ file){
       thisRef.resultHandler(this.response);
     };})(this);
   
-  path = encodeURI(sssGlobals.sssAPI + sssGlobals.sssAPIResourceFile + "/download/" + encodeURIComponent(file));
+  path = encodeURI(sssGlobals.sssAPI + sssGlobals.sssAPIResourceFile + "download/" + encodeURIComponent(file));
   
   xhr.open(sSGlobals.httpMethGET, path, true);
   
@@ -1645,4 +1644,88 @@ file){
       sssGlobals.sssAPIResourceFile,
       "ext/" + encodeURIComponent(file),
       par);
+};
+
+var SSActivityAdd = function(
+  resultHandler, 
+errorHandler, 
+key, 
+type,
+users,
+entities,
+comments){
+  
+  if(sssFcts.isEmpty(type)){  
+    console.error("type requried");
+    return;
+  }
+  
+  var par               = {};
+  
+  par[sSVarU.type]                = type;
+  
+  if(!jSGlobals.isEmpty(users)){          par[sSVarU.users]               = users;}
+  if(!jSGlobals.isEmpty(entities)){       par[sSVarU.entities]            = entities;}
+  if(!jSGlobals.isEmpty(comments)){       par[sSVarU.comments]            = comments;}
+  
+  new SSSJSONRequest(
+    resultHandler,
+    errorHandler,
+    sssGlobals.sssAPI,
+    sssGlobals.httpMethodPOST,
+    key).send(
+      sssGlobals.sssAPIResourceActivity,
+      "",
+      par);
+};
+
+var SSActivityTypesGet = function(
+  resultHandler, 
+errorHandler, 
+key){
+  
+  var par               = {};
+  
+  new SSSJSONRequest(
+    resultHandler,
+  errorHandler,
+  sssGlobals.sssAPI,
+  sssGlobals.httpMethodGET,
+  key).send(
+    sssGlobals.sssAPIResourceActivity,
+  "types",
+  par);
+};
+
+var SSActivitiesGetFiltered = function(
+  resultHandler, 
+errorHandler, 
+key, 
+types, 
+users, 
+entities, 
+circles,
+startTime, 
+endTime,
+includeOnlyLastActivities){
+  
+  var par               = {};
+  
+  if(!jSGlobals.isEmpty(types)){                      par[sSVarU.types]                     = types;}
+  if(!jSGlobals.isEmpty(users)){                      par[sSVarU.users]                     = users;}
+  if(!jSGlobals.isEmpty(entities)){                   par[sSVarU.entities]                  = entities;}
+  if(!jSGlobals.isEmpty(circles)){                    par[sSVarU.circles]                   = circles;}
+  if(!jSGlobals.isEmpty(startTime)){                  par[sSVarU.startTime]                 = startTime;}
+  if(!jSGlobals.isEmpty(endTime)){                    par[sSVarU.endTime]                   = endTime;}
+  if(!jSGlobals.isEmpty(includeOnlyLastActivities)){  par[sSVarU.includeOnlyLastActivities] = includeOnlyLastActivities;}
+  
+  new SSSJSONRequest(
+    resultHandler,
+  errorHandler,
+  sssGlobals.sssAPI,
+  sssGlobals.httpMethodPOST,
+  key).send(
+    sssGlobals.sssAPIResourceActivity,
+  "filtered",
+  par);
 };
