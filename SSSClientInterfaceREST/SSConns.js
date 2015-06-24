@@ -644,26 +644,6 @@ getFlags){
 };
 
 /**
- * retrieve a file's extension
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key
- * @param {URI} file file to retrieve the extension for
- * @return {SSFileExtGetRet} <br>
- * {String} fileExt extension for the file
- */
-var SSFileExtGet = function(resultHandler, errorHandler, user, key, file){
-  
-  var par                     = {};
-  par[sSVarU.user]            = user;
-  par[sSVarU.file]            = file;
-  par[sSVarU.key]             = key;
-  
-  new SSJSONPOSTRequest("fileExtGet", par, resultHandler, errorHandler, sSGlobals.hostRESTFile).send();
-};
-
-/**
  * set the current version of a learning episode for a user
  * @param {Function} resultHandler
  * @param {Function} errorHandler

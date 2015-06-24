@@ -1529,22 +1529,22 @@ fileHandle){
     return;
   }
   
+  var xhr                    = new XMLHttpRequest();
+  var formData               = new FormData();
+  
   this.resultHandler         = resultHandler;
   this.errorHandler          = errorHandler;
   this.fileName              = fileHandle.name;
-  
-  var xhr                    = new XMLHttpRequest();
-  var formData               = new FormData();
   
   formData.append(sSVarU.file,       fileHandle);
   formData.append(sSVarU.label,      this.fileName);
   formData.append(sSVarU.mimeType,   fileHandle.type);
   
+  xhr.responseType = "application/json";
+  
   xhr.onload = (function(thisRef){ return function(){
       
       if(this.readyState !== 4){
-        console.error("could not connect to SSS REST API");
-        
         thisRef.errorHandler(this.responseText);
         return;
       }
@@ -1552,14 +1552,9 @@ fileHandle){
       thisRef.resultHandler(jQuery.parseJSON(this.responseText), thisRef.fileName);
     };})(this);
   
-  xhr.open(
-    sSGlobals.httpMethPOST, 
-  encodeURI(
-    sssGlobals.sssAPI + 
-    sssGlobals.sssAPIResourceFile + 
-    "/" +
-    "upload"), 
-  true);
+  path = encodeURI(sssGlobals.sssAPI + sssGlobals.sssAPIResourceFile + "/upload");
+  
+  xhr.open(sSGlobals.httpMethPOST, path, true);
   
   if(!sssFcts.isEmpty(key)){
      xhr.setRequestHeader("Authorization", "Bearer " + key);
@@ -1567,17 +1562,6 @@ fileHandle){
   
   xhr.send (formData);
 };
-
-///**
-// * download a file via GET request with query params
-// * @param {URI} user the user's uri
-// * @param {String} key auth key
-// * @param {URI} file file to be downloaded
-// * @return binary file
-// */
-//var SSFileDownloadGET = function(user, key, file){
-//  window.location = sSGlobals.hostRESTFileDownload + "fileDownloadGET?user=" + user + "&key=" + key + "&file=" + file;
-//};
 
 var SSFileDownload = function(
   resultHandler, 
@@ -1591,87 +1575,74 @@ file){
   }
   
   var par                     = {};
-//  var xhr                     = new XMLHttpRequest(); 
-//  
-//  xhr.responseType            = sSGlobals.mimeTypeBlob;
-//  par[sSVarU.op]              = "fileDownload";
-//  par[sSVarU.user]            = user;
-//  par[sSVarU.file]            = file;
-//  par[sSVarU.key]             = key;
-//  
-//  xhr.onload = (function(thisRef){ return function(){
-//      
-//      if(
-//        this.readyState    !== 4   ||
-//        this.status        !== 200 ||
-//        this.response.type !== sSGlobals.mimeTypeApplicationOctetStream){
-//        
-//        thisRef.errorHandler(this.response);
-//        return;
-//      }
-//      
-//      thisRef.resultHandler(this.response);
-//    };})(this);
-//  
-//  xhr.open             (sSGlobals.httpMethPOST, sSGlobals.hostRESTFileDownload + "fileDownload" + jSGlobals.slash, true);
-//  xhr.setRequestHeader (sSGlobals.contentType,  sSGlobals.mimeTypeApplicationJson);
-//  xhr.send             (JSON.stringify(par));
+  var xhr                     = new XMLHttpRequest();
+  var path;
   
-  new SSSJSONRequestForBlob(
+  this.resultHandler = resultHandler;
+  this.errorHandler  = errorHandler;
+  
+  xhr.responseType = "blob";
+  
+  xhr.onload = (function(thisRef){ return function(){
+      
+      if(
+        this.readyState    !== 4   ||
+        this.status        !== 200){
+        
+        thisRef.errorHandler(this.response);
+        return;
+      }
+      
+      thisRef.resultHandler(this.response);
+    };})(this);
+  
+  path = encodeURI(sssGlobals.sssAPI + sssGlobals.sssAPIResourceFile + "/download/" + encodeURIComponent(file));
+  
+  xhr.open(sSGlobals.httpMethGET, path, true);
+  
+  if(!sssFcts.isEmpty(key)){
+     xhr.setRequestHeader("Authorization", "Bearer " + key);
+  }
+  
+  xhr.setRequestHeader("Content-Type", "application/json");
+  
+  xhr.send (((!sssFcts.isEmpty(par)) ? JSON.stringify(par) : ""));
+};
+
+var SSFileDownloadGET = function(
+  key,
+file){
+  
+  if(sssFcts.isEmpty(type)){  
+    console.error("file requried");
+    return;
+  }
+  
+  window.location = sssGlobals.sssAPI + sssGlobals.sssAPIResourceFile + "/download?key=" + key + "&file=" + file;
+};
+
+var SSFileExtGet = function(
+  resultHandler, 
+errorHandler, 
+key, 
+file){
+  
+  var par                     = {};
+  
+  if(sssFcts.isEmpty(type)){  
+    console.error("file requried");
+    return;
+  }
+  
+  var par                     = {};
+  
+  new SSSJSONRequest(
     resultHandler,
     errorHandler,
     sssGlobals.sssAPI,
     sssGlobals.httpMethodGET,
     key).send(
       sssGlobals.sssAPIResourceFile,
-      "/download/" + encodeURIComponent(file),
+      "ext/" + encodeURIComponent(file),
       par);
-};
-
-var SSSJSONRequestForBlob = function(
-  resultHandler, 
-errorHandler, 
-apiURI, 
-method, 
-authToken){
-  
-  this.resultHandler     = resultHandler;
-  this.errorHandler      = errorHandler;
-  this.apiURI            = apiURI;
-  this.method            = method;
-  this.authToken         = authToken;
-};
-
-SSSJSONRequestForBlob.prototype = {
-  
-  send : function(resource, path, bodyPar) {
-    
-    var thisRef = this;
-    
-    jQuery.ajax({
-      'url' :         encodeURI(thisRef.apiURI + resource + path),
-      'type':         thisRef.method,
-      'data' :        ((!sssFcts.isEmpty(bodyPar)) ? JSON.stringify(bodyPar) : ""),
-      'contentType' : "application/json",
-      'async' :       true,
-      dataType:       "application/json",
-      'crossDomain':  true,
-      'beforeSend': function (request){
-        if(!sssFcts.isEmpty(thisRef.authToken)){
-          request.setRequestHeader("Authorization", "Bearer " + thisRef.authToken);
-        }
-      },
-      'complete' : function(jqXHR, textStatus) {
-        
-        if(jqXHR.readyState    !== 4){
-          console.error("could not connect to SSS REST API");
-          
-          thisRef.errorHandler(jqXHR.responseText);
-          return;
-        }
-        
-        thisRef.resultHandler(jqXHR.responseText);
-      }
-    });
-  }
 };
