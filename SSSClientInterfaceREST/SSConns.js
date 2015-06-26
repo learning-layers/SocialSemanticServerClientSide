@@ -430,26 +430,6 @@ removeUserLocations){
 };
 
 /**
- * retrieve general attributes for given entity
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key 
- * @param {URI} entity entity to retrieve information for
- * @return {SSEntityUserGetRet} <br>
- * {SSEntity} entity entity requested 
- */
-var SSEntityGet = function(resultHandler, errorHandler, user, key, entity){
-  
-  var par                     = {};
-  par[sSVarU.user]            = user;
-  par[sSVarU.entity]          = entity;
-  par[sSVarU.key]             = key;
-  
-  new SSJSONPOSTRequest("entityGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
-};
-
-/**
  * retrieve more detailed information for given entity
  * @param {Function} resultHandler
  * @param {Function} errorHandler

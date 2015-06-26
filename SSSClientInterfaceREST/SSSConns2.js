@@ -698,6 +698,7 @@ startTime){
   "filtered/entities",
   par);
 };
+
 var SSTagsRemove = function(
   resultHandler,
 errorHandler,
@@ -726,6 +727,7 @@ space){
   "entities/" + encodeURIComponent(entity),
   par);
 };
+
 var SSSearch = function(
   resultHandler,
 errorHandler,
@@ -791,6 +793,7 @@ globalSearchOp){
   "filtered",
   par);
 };
+
 var SSFriendAdd = function(
   resultHandler,
 errorHandler,
@@ -813,6 +816,7 @@ friend){
   encodeURIComponent(friend),
   par);
 };
+
 var SSFriendsGet = function(
   resultHandler,
 errorHandler,
@@ -829,6 +833,7 @@ key){
   "",
   par);
 };
+
 var SSUsersGet = function(
   resultHandler,
 errorHandler,
@@ -845,6 +850,7 @@ key){
   "",
   par);
 };
+
 var SSRatingSet = function(
   resultHandler,
 errorHandler,
@@ -873,6 +879,7 @@ value){
   "entities/" + encodeURIComponent(entity) + "/value/" + encodeURIComponent(value),
   par);
 };
+
 var SSFileUpload = function(
   resultHandler,
 errorHandler,
@@ -909,6 +916,7 @@ fileHandle){
   
   xhr.send (formData);
 };
+
 var SSFileDownload = function(
   resultHandler,
 errorHandler,
@@ -947,6 +955,7 @@ file){
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.send (((!sssFcts.isEmpty(par)) ? JSON.stringify(par) : ""));
 };
+
 var SSFileDownloadGET = function(
   key,
 file){
@@ -958,6 +967,7 @@ file){
   
   window.location = sssGlobals.sssAPI + sssGlobals.sssAPIResourceFile + "/download?key=" + key + "&file=" + file;
 };
+
 var SSActivityAdd = function(
   resultHandler,
 errorHandler,
@@ -973,7 +983,9 @@ comments){
   }
   
   var par = {};
+  
   par[sSVarU.type] = type;
+  
   if (!jSGlobals.isEmpty(users)){          par[sSVarU.users] = users; }
   if (!jSGlobals.isEmpty(entities)){       par[sSVarU.entities] = entities; }
   if (!jSGlobals.isEmpty(comments)){       par[sSVarU.comments] = comments; }
@@ -988,6 +1000,7 @@ comments){
   "",
   par);
 };
+
 var SSActivitiesGetFiltered = function(
   resultHandler,
 errorHandler,
@@ -1017,5 +1030,29 @@ includeOnlyLastActivities){
   key).send(
     sssGlobals.sssAPIResourceActivity,
   "filtered",
+  par);
+};
+
+var SSEntityGet = function(
+  resultHandler, 
+errorHandler, 
+key, 
+entity){
+  
+  if (sssFcts.isEmpty(type)){
+    console.error("entity requried");
+    return;
+  }
+  
+  var par                     = {};
+  
+  new SSSJSONRequest(
+    resultHandler,
+  errorHandler,
+  sssGlobals.sssAPI,
+  sssGlobals.httpMethodPOST,
+  key).send(
+    sssGlobals.sssAPIResourceEntity,
+  encodeURIComponent(entity),
   par);
 };
