@@ -234,6 +234,13 @@ function SSSNames(){
   this.errorMethodsWhereThrown = "errorMethodsWhereThrown";
   this.errorLinesWhereThrown = "errorLinesWhereThrown";
   this.errorThreadsWhereThrown = "errorThreadsWhereThrown";
+  this.setTags = "setTags";
+  this.setOverallRating = "setOverallRating";
+  this.setDiscs = "setDiscs";
+  this.setUEs = "setUEs";
+  this.setThumb = "setThumb"; 
+  this.setFlags = "setFlags";
+  this.setCircles = "setCircles";
 }
 
 var sssFcts = new SSSFcts();
@@ -318,6 +325,7 @@ entityTypesToIncludeOnly){
   "filtered/" + encodeURIComponent(circle),
   par);
 };
+
 var SSCircleEntitiesAdd = function(
   resultHandler,
 errorHandler,
@@ -896,9 +904,11 @@ fileHandle){
   this.resultHandler = resultHandler;
   this.errorHandler = errorHandler;
   this.fileName = fileHandle.name;
-  formData.append(sSVarU.file, fileHandle);
-  formData.append(sSVarU.label, this.fileName);
-  formData.append(sSVarU.mimeType, fileHandle.type);
+ 
+  formData.append(sssNames.file,     fileHandle);
+  formData.append(sssNames.label,    this.fileName);
+  formData.append(sssNames.mimeType, fileHandle.type);
+  
   xhr.onload = (function(thisRef){ return function(){
       
       if (this.readyState !== 4){
@@ -984,11 +994,11 @@ comments){
   
   var par = {};
   
-  par[sSVarU.type] = type;
+  par[sssNames.type] = type;
   
-  if (!jSGlobals.isEmpty(users)){          par[sSVarU.users] = users; }
-  if (!jSGlobals.isEmpty(entities)){       par[sSVarU.entities] = entities; }
-  if (!jSGlobals.isEmpty(comments)){       par[sSVarU.comments] = comments; }
+  if (!jSGlobals.isEmpty(users)){          par[sssNames.users] = users; }
+  if (!jSGlobals.isEmpty(entities)){       par[sssNames.entities] = entities; }
+  if (!jSGlobals.isEmpty(comments)){       par[sssNames.comments] = comments; }
   
   new SSSJSONRequest(
     resultHandler,
@@ -1014,13 +1024,13 @@ endTime,
 includeOnlyLastActivities){
   
   var par = {};
-  if (!jSGlobals.isEmpty(types)){                      par[sSVarU.types] = types; }
-  if (!jSGlobals.isEmpty(users)){                      par[sSVarU.users] = users; }
-  if (!jSGlobals.isEmpty(entities)){                   par[sSVarU.entities] = entities; }
-  if (!jSGlobals.isEmpty(circles)){                    par[sSVarU.circles] = circles; }
-  if (!jSGlobals.isEmpty(startTime)){                  par[sSVarU.startTime] = startTime; }
-  if (!jSGlobals.isEmpty(endTime)){                    par[sSVarU.endTime] = endTime; }
-  if (!jSGlobals.isEmpty(includeOnlyLastActivities)){  par[sSVarU.includeOnlyLastActivities] = includeOnlyLastActivities; }
+  if (!jSGlobals.isEmpty(types)){                      par[sssNames.types] = types; }
+  if (!jSGlobals.isEmpty(users)){                      par[sssNames.users] = users; }
+  if (!jSGlobals.isEmpty(entities)){                   par[sssNames.entities] = entities; }
+  if (!jSGlobals.isEmpty(circles)){                    par[sssNames.circles] = circles; }
+  if (!jSGlobals.isEmpty(startTime)){                  par[sssNames.startTime] = startTime; }
+  if (!jSGlobals.isEmpty(endTime)){                    par[sssNames.endTime] = endTime; }
+  if (!jSGlobals.isEmpty(includeOnlyLastActivities)){  par[sssNames.includeOnlyLastActivities] = includeOnlyLastActivities; }
   
   new SSSJSONRequest(
     resultHandler,
@@ -1033,18 +1043,33 @@ includeOnlyLastActivities){
   par);
 };
 
-var SSEntityGet = function(
+var SSEntitiesGetFiltered = function(
   resultHandler, 
 errorHandler, 
 key, 
-entity){
+entities,
+setTags,
+setOverallRating, 
+setDiscs, 
+setUEs, 
+setThumb, 
+setFlags,
+setCircles){
   
-  if (sssFcts.isEmpty(type)){
-    console.error("entity requried");
+  if(sssFcts.isEmpty(entities)){
+    console.error("entities requried");
     return;
   }
   
   var par                     = {};
+  
+  if(!jSGlobals.isEmpty(setTags)){          par[sssNames.setTags]             = setTags;}
+  if(!jSGlobals.isEmpty(setOverallRating)){ par[sssNames.setOverallRating]    = setOverallRating;}
+  if(!jSGlobals.isEmpty(setDiscs)){         par[sssNames.setDiscs]            = setDiscs;}
+  if(!jSGlobals.isEmpty(setUEs)){           par[sssNames.setUEs]              = setUEs;}
+  if(!jSGlobals.isEmpty(setThumb)){         par[sssNames.setThumb]            = setThumb;}
+  if(!jSGlobals.isEmpty(setFlags)){         par[sssNames.setFlags]            = setFlags;}
+  if(!jSGlobals.isEmpty(setCircles)){       par[sssNames.setCircles]          = setCircles;}
   
   new SSSJSONRequest(
     resultHandler,
@@ -1053,6 +1078,6 @@ entity){
   sssGlobals.httpMethodPOST,
   key).send(
     sssGlobals.sssAPIResourceEntity,
-  encodeURIComponent(entity),
+  "filtered/" + encodeURIComponent(entities.toString()),
   par);
 };
