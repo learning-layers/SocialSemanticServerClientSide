@@ -970,7 +970,7 @@ var SSFileDownloadGET = function(
   key,
 file){
   
-  if (sssFcts.isEmpty(type)){
+  if (sssFcts.isEmpty(file)){
     console.error("file requried");
     return;
   }
