@@ -975,7 +975,7 @@ file){
     return;
   }
   
-  window.location = sssGlobals.sssAPI + sssGlobals.sssAPIResourceFile + "/download?key=" + key + "&file=" + file;
+  window.open(sssGlobals.sssAPI + sssGlobals.sssAPIResourceFile + "/download?key=" + key + "&file=" + file, _blank);
 };
 
 var SSActivityAdd = function(
