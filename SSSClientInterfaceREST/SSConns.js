@@ -338,26 +338,6 @@ var SSEntityCopy = function(resultHandler, errorHandler, user, key, entity, user
 };
 
 /**
- * set an entity public (make it accessible for everyone)
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key
- * @param {URI} entity entity to make public
- * @return {SSEntityUserPublicSetRet} <br>
- * {SSUri} entity entity made public
- */
-var SSEntityPublicSet = function(resultHandler, errorHandler, user, key, entity){
-  
-  var par                      = {};
-  par[sSVarU.user]             = user;
-  par[sSVarU.entity]           = entity;
-  par[sSVarU.key]              = key;
-  
-  new SSJSONPOSTRequest("entityPublicSet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
-};
-
-/**
  * share an entity directly with given users
  * @param {Function} resultHandler
  * @param {Function} errorHandler

@@ -1081,3 +1081,27 @@ setCircles){
   "filtered/" + encodeURIComponent(entities.toString()),
   par);
 };
+
+var SSEntityPublicSet = function(
+  resultHandler, 
+errorHandler, 
+key, 
+entity){
+  
+  if(sssFcts.isEmpty(entity)){
+    console.error("entity requried");
+    return;
+  }
+  
+  var par                      = {};
+  
+  new SSSJSONRequest(
+    resultHandler,
+  errorHandler,
+  sssGlobals.sssAPI,
+  sssGlobals.httpMethodPUT,
+  key).send(
+    sssGlobals.sssAPIResourceEntity,
+  encodeURIComponent(entity.toString()) + "/public",
+  par);
+};
