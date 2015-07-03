@@ -373,43 +373,6 @@ circles){
 };
 
 /**
- * remove certain attached attributes from an entity
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key
- * @param {URI} entity entity to be removed 
- * @param {Boolean} removeUserTags whether the user's tags should be removed from the entity
- * @param {Boolean} removeUserRatings whether the user's ratings should be removed from the entity
- * @param {Boolean} removeFromUserColls whether the entity should be removed from all the user's collections
- * @param {Boolean} removeUserLocations whether locations added by the user should be removed from the entity
- * @return {SSEntityUserDirectlyAdjoinedEntitiesRemoveRet} <br>
- * {SSUri} entity entity for which attributes have been removed
- */
-var SSEntityDirectlyAdjoinedEntitiesRemove = function(
-  resultHandler, 
-errorHandler, 
-user, 
-key, 
-entity, 
-removeUserTags, 
-removeUserRatings, 
-removeFromUserColls, 
-removeUserLocations){
-  
-  var par                         = {};
-  par[sSVarU.user]                = user;
-  par[sSVarU.entity]              = entity;
-  par[sSVarU.removeUserTags]      = removeUserTags;
-  par[sSVarU.removeUserRatings]   = removeUserRatings;
-  par[sSVarU.removeFromUserColls] = removeFromUserColls;
-  par[sSVarU.removeUserLocations] = removeUserLocations;
-  par[sSVarU.key]                 = key;
-  
-  new SSJSONPOSTRequest("entityDirectlyAdjoinedEntitiesRemove", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
-};
-
-/**
  * log a certain event for evaluation purposes
  * @param {Function} resultHandler
  * @param {Function} errorHandler
