@@ -1105,3 +1105,27 @@ entity){
   encodeURIComponent(entity.toString()) + "/public",
   par);
 };
+
+var SSEntityUsersGet = function(
+  resultHandler, 
+errorHandler, 
+key, 
+entity){
+  
+  if(sssFcts.isEmpty(entity)){
+    console.error("entity requried");
+    return;
+  }
+  
+  var par                      = {};
+  
+  new SSSJSONRequest(
+    resultHandler,
+  errorHandler,
+  sssGlobals.sssAPI,
+  sssGlobals.httpMethodGET,
+  key).send(
+    sssGlobals.sssAPIResourceEntity,
+  encodeURIComponent(entity) + "/users",
+  par);
+};

@@ -291,26 +291,6 @@ var SSCollsCouldSubscribeGet = function(resultHandler, errorHandler, user, key){
 };
 
 /**
- * retrieve users who can access given entity
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key
- * @param {URI} entity entity to retrieve users for
- * @return {SSEntityUserEntityUsersGetRet} <br>
- * {SSEntity Array} users users allowed to access the entity
- */
-var SSEntityEntityUsersGet = function(resultHandler, errorHandler, user, key, entity){
-  
-  var par                      = {};
-  par[sSVarU.user]             = user;
-  par[sSVarU.entity]           = entity;
-  par[sSVarU.key]              = key;
-  
-  new SSJSONPOSTRequest("entityEntityUsersGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
-};
-
-/**
  * copy an entity and hand it to a user
  * @param {Function} resultHandler
  * @param {Function} errorHandler
