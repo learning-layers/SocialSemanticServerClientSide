@@ -318,41 +318,6 @@ var SSEntityCopy = function(resultHandler, errorHandler, user, key, entity, user
 };
 
 /**
- * share an entity directly with given users
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key
- * @param {URI} entity entity to be shared
- * @param {URI Array} users user to share the entity with
- * @param {String} comment textual comment for sharing
- * @param {URI Array} circles circles to share with
- * @return {SSEntityUserShareRet} <br>
- * {SSUri} entity entity shared
- */
-var SSEntityShare = function(
-  resultHandler, 
-errorHandler, 
-user, 
-key, 
-entity, 
-users, 
-comment, 
-circles){
-  
-  var par                      = {};
-  par[sSVarU.user]             = user;
-  par[sSVarU.entity]           = entity;
-  par[sSVarU.key]              = key;
-
-  if(!jSGlobals.isEmpty(users)){   par[sSVarU.users]         = users;}
-  if(!jSGlobals.isEmpty(circles)){ par[sSVarU.circles]       = circles;}
-  if(!jSGlobals.isEmpty(comment)){ par[sSVarU.comment]       = comment;}
-  
-  new SSJSONPOSTRequest("circleEntityShare", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
-};
-
-/**
  * log a certain event for evaluation purposes
  * @param {Function} resultHandler
  * @param {Function} errorHandler

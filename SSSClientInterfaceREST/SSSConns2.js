@@ -143,6 +143,7 @@ function SSSNames(){
   this.circles = "circles";
   this.tag = "tag";
   this.comments = "comments";
+  this.setPublic = "setPublic";
   this.extendToParents = "extendToParents";
   this.wordsToSearchFor = "wordsToSearchFor";
   this.tagsToSearchFor = "tagsToSearchFor";
@@ -1082,30 +1083,6 @@ setCircles){
   par);
 };
 
-var SSEntityPublicSet = function(
-  resultHandler, 
-errorHandler, 
-key, 
-entity){
-  
-  if(sssFcts.isEmpty(entity)){
-    console.error("entity requried");
-    return;
-  }
-  
-  var par                      = {};
-  
-  new SSSJSONRequest(
-    resultHandler,
-  errorHandler,
-  sssGlobals.sssAPI,
-  sssGlobals.httpMethodPUT,
-  key).send(
-    sssGlobals.sssAPIResourceEntity,
-  encodeURIComponent(entity.toString()) + "/public",
-  par);
-};
-
 var SSEntityUsersGet = function(
   resultHandler, 
 errorHandler, 
@@ -1127,5 +1104,38 @@ entity){
   key).send(
     sssGlobals.sssAPIResourceEntity,
   encodeURIComponent(entity) + "/users",
+  par);
+};
+
+var SSEntityShare = function(
+  resultHandler, 
+errorHandler, 
+key, 
+entity, 
+users, 
+comment, 
+circles, 
+setPublic){
+  
+  if(sssFcts.isEmpty(entity)){
+    console.error("entity requried");
+    return;
+  }
+  
+  var par                      = {};
+  
+  if(!jSGlobals.isEmpty(users)){     par[sssNames.users]         = users;}
+  if(!jSGlobals.isEmpty(circles)){   par[sssNames.circles]       = circles;}
+  if(!jSGlobals.isEmpty(comment)){   par[sssNames.comment]       = comment;}
+  if(!jSGlobals.isEmpty(setPublic)){ par[sssNames.setPublic]     = setPublic;}
+  
+    new SSSJSONRequest(
+    resultHandler,
+  errorHandler,
+  sssGlobals.sssAPI,
+  sssGlobals.httpMethodPUT,
+  key).send(
+    sssGlobals.sssAPIResourceEntity,
+  encodeURIComponent(entity) + "/share",
   par);
 };
