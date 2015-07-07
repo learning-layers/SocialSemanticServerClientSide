@@ -589,19 +589,18 @@ label,
 space,
 creationTime){
   
-  if (sssFcts.isEmpty(entity)){
+  if(sssFcts.isEmpty(entity)){
     console.error("entity requried");
     return;
   }
   
-  if (sssFcts.isEmpty(label)){
+  if(sssFcts.isEmpty(label)){
     console.error("label requried");
     return;
   }
   
-  if (sssFcts.isEmpty(space)){
-    console.error("space requried");
-    return;
+  if(sssFcts.isEmpty(space)){
+    space = "sharedSpace";
   }
   
   var par = {};
@@ -610,7 +609,7 @@ creationTime){
   par[sssNames.entity] = entity;
   par[sssNames.space]  = space;
   
-  if (!sssFcts.isEmpty(creationTime)){ par[sssNames.creationTime] = creationTime; }
+  if(!sssFcts.isEmpty(creationTime)){ par[sssNames.creationTime] = creationTime; }
   
   new SSSJSONRequest(
     resultHandler,
@@ -678,7 +677,7 @@ useUsersEntities){
   sssGlobals.httpMethodPOST,
   key).send(
     sssGlobals.sssAPIResourceTag,
-  "/filtered/frequs",
+  "filtered/frequs",
   par);
 };
 
