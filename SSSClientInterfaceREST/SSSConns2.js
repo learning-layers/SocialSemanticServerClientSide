@@ -260,7 +260,6 @@ key,
 entity,
 label,
 description, 
-comments, 
 read){
   
   if (sssFcts.isEmpty(entity)){
@@ -271,7 +270,6 @@ read){
   var par = {};
   if (!sssFcts.isEmpty(label)){          par[sssNames.label]       = label; }
   if (!sssFcts.isEmpty(description)){    par[sssNames.description] = description; }
-  if (!sssFcts.isEmpty(comments)){       par[sssNames.comments]    = comments; }
   if (!sssFcts.isEmpty(read)){           par[sssNames.read]        = read; }
   
   new SSSJSONRequest(
@@ -1136,5 +1134,36 @@ setPublic){
   key).send(
     sssGlobals.sssAPIResourceEntity,
   encodeURIComponent(entity) + "/share",
+  par);
+};
+
+var SSCommentsAdd = function(
+  resultHandler,
+errorHandler,
+key,
+entity,
+comments){
+  
+  if (sssFcts.isEmpty(entity)){
+    console.error("entity requried");
+    return;
+  }
+  
+  if (sssFcts.isEmpty(comments)){
+    console.error("comments requried");
+    return;
+  }
+  
+  var par = {};
+  if (!sssFcts.isEmpty(comments)){    par[sssNames.comments] = comments; }
+  
+  new SSSJSONRequest(
+    resultHandler,
+  errorHandler,
+  sssGlobals.sssAPI,
+  sssGlobals.httpMethodPOST,
+  key).send(
+    sssGlobals.sssAPIResourceEntity,
+  encodeURIComponent(entity) + "/comments",
   par);
 };
