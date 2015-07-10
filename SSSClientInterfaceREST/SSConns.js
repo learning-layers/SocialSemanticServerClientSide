@@ -60,26 +60,6 @@ var SSCollCumulatedTagsGet = function(resultHandler, errorHandler, user, key, co
 };
 
 /**
- * retrieve the parent collection for given user's collection
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key 
- * @param {URI} coll collection to retrieve parent collection for
- * @return {SSCollUserParentGetRet} <br>
- * {SSColl} coll parent coll with entries
- */
-var SSCollParentGet = function(resultHandler, errorHandler, user, key, coll){
-  
-  var par                = {};
-  par[sSVarU.user]       = user;
-  par[sSVarU.coll]       = coll;
-  par[sSVarU.key]        = key;
-  
-  new SSJSONPOSTRequest("collParentGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
-};
-
-/**
  * retrieve the user's root collection
  * @param {Function} resultHandler
  * @param {Function} errorHandler
@@ -149,50 +129,6 @@ var SSCollEntriesAdd = function(resultHandler, errorHandler, user, key, coll, en
 };
 
 /**
- * change the sequential order of entries in a user's collection
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key
- * @param {URI} coll collection to change entry order
- * @param {Mixed Array} order collection entries {URI} and their positions {Integer} in the form of [collEntryUri1,pos1,collEntryUri2,pos2,…]
- * @return {SSCollUserEntryChangePosRet} <br>
- * {Boolean} worked whether changing positions worked
- */
-var SSCollEntryChangePos = function(resultHandler, errorHandler, user, key, coll, order){
-  
-  var par                      = {};
-  par[sSVarU.user]             = user;
-  par[sSVarU.coll]             = coll;
-  par[sSVarU.order]            = order;
-  par[sSVarU.key]              = key;
-  
-  new SSJSONPOSTRequest("collEntryChangePos", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
-};
-
-/**
- * delete an item from a user's collection
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key
- * @param {URI} coll collection to delete an item from
- * @param {URI} entry entity to remove
- * @return {SSCollUserEntryDeleteRet} <br>
- * {Boolean} worked whether deleting the collection entry worked
- */
-var SSCollEntryDelete = function(resultHandler, errorHandler, user, key, coll, entry){
-  
-  var par                      = {};
-  par[sSVarU.user]             = user;
-  par[sSVarU.coll]             = coll;
-  par[sSVarU.entry]            = entry;
-  par[sSVarU.key]              = key;
-  
-  new SSJSONPOSTRequest("collEntryDelete", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
-};
-
-/**
  * delete one or more entries from a collection
  * @param {Function} resultHandler
  * @param {Function} errorHandler
@@ -235,24 +171,6 @@ var SSCollWithEntries = function(resultHandler, errorHandler, user, key, coll){
 };
 
 /**
- * retrieve the user's collections with entries
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key
- * @return {SSCollsUserWithEntriesRet} <br>
- * {SSColl Array} colls user's collections with entries
- */
-var SSCollsWithEntries = function(resultHandler, errorHandler, user, key){
-  
-  var par                      = {};
-  par[sSVarU.user]             = user;
-  par[sSVarU.key]              = key;
-  
-  new SSJSONPOSTRequest("collsWithEntries", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
-};
-
-/**
  * retrieve the parent collection order for a user's collection
  * @param {Function} resultHandler
  * @param {Function} errorHandler
@@ -270,24 +188,6 @@ var SSCollHierarchyGet = function(resultHandler, errorHandler, user, key, coll){
   par[sSVarU.key]              = key;
   
   new SSJSONPOSTRequest("collHierarchyGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
-};
-
-/**
- * retrieve a list of all public collections given user could subscribe to
- * @param {Function} resultHandler
- * @param {Function} errorHandler
- * @param {URI} user the user's uri
- * @param {String} key auth key
- * @return {SSCollsUserCouldSubscribeGetRet} <br> 
- * {SSColl Array} colls public collections without entries the user doesnt own currently
- */
-var SSCollsCouldSubscribeGet = function(resultHandler, errorHandler, user, key){
-  
-  var par                      = {};
-  par[sSVarU.user]             = user;
-  par[sSVarU.key]              = key;
-  
-  new SSJSONPOSTRequest("collsCouldSubscribeGet", par, resultHandler, errorHandler, sSGlobals.hostREST).send();
 };
 
 /**
