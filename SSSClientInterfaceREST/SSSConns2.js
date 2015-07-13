@@ -1405,3 +1405,45 @@ key){
   "predefined",
   par);
 };
+
+var SSCategoryAdd = function(
+  resultHandler,
+errorHandler,
+key,
+entity,
+label,
+space,
+creationTime){
+  
+  if(sssFcts.isEmpty(entity)){
+    console.error("entity requried");
+    return;
+  }
+  
+  if(sssFcts.isEmpty(label)){
+    console.error("label requried");
+    return;
+  }
+  
+  if(sssFcts.isEmpty(space)){
+    space = "sharedSpace";
+  }
+  
+  var par = {};
+  
+  par[sssNames.label]  = label;
+  par[sssNames.entity] = entity;
+  par[sssNames.space]  = space;
+  
+  if(!sssFcts.isEmpty(creationTime)){ par[sssNames.creationTime] = creationTime; }
+  
+  new SSSJSONRequest(
+    resultHandler,
+  errorHandler,
+  sssGlobals.sssAPI,
+  sssGlobals.httpMethodPOST,
+  key).send(
+    sssGlobals.sssAPIResourceCategory,
+    "",
+  par);
+};
