@@ -34,6 +34,7 @@ function SSSGobals(){
   this.sssAPIResourceRating = "ratings/ratings/";
   this.sssAPIResourceFile = "files/files/";
   this.sssAPIResourceActivity = "activities/activities/";
+  this.sssAPIResourceColl     = "colls/colls/"
   this.httpMethodPUT = "PUT";
   this.httpMethodGET = "GET";
   this.httpMethodPOST = "POST";
@@ -1165,5 +1166,223 @@ comments){
   key).send(
     sssGlobals.sssAPIResourceEntity,
   encodeURIComponent(entity) + "/comments",
+  par);
+};
+
+var SSCollsEntityIsInGet = function(
+  resultHandler, 
+errorHandler, 
+key, 
+entity){
+  
+  if (sssFcts.isEmpty(entity)){
+    console.error("entity requried");
+    return;
+  }
+  
+  var par                = {};
+
+  new SSSJSONRequest(
+    resultHandler,
+  errorHandler,
+  sssGlobals.sssAPI,
+  sssGlobals.httpMethodGET,
+  key).send(
+    sssGlobals.sssAPIResourceColl,
+  "entries/" + encodeURIComponent(entity) + "/colls",
+  par);
+};
+
+var SSCollCumulatedTagsGet = function(
+  resultHandler, 
+errorHandler, 
+key, 
+coll){
+
+  if (sssFcts.isEmpty(coll)){
+    console.error("coll requried");
+    return;
+  }
+  
+  var par                = {};
+  
+    new SSSJSONRequest(
+    resultHandler,
+  errorHandler,
+  sssGlobals.sssAPI,
+  sssGlobals.httpMethodGET,
+  key).send(
+    sssGlobals.sssAPIResourceColl,
+  encodeURIComponent(coll) + "/tags/cumulated",
+  par);
+};
+
+var SSCollRootGet = function(
+  resultHandler, 
+errorHandler, 
+key){
+  
+  var par                = {};
+  
+  new SSSJSONRequest(
+    resultHandler,
+  errorHandler,
+  sssGlobals.sssAPI,
+  sssGlobals.httpMethodGET,
+  key).send(
+    sssGlobals.sssAPIResourceColl,
+  "root",
+  par);
+};
+
+var SSCollEntryAdd = function(
+  resultHandler, 
+errorHandler, 
+key, 
+coll, 
+entry, 
+label, 
+addNewColl){
+  
+  if(sssFcts.isEmpty(coll)){
+    console.error("coll requried");
+    return;
+  }
+  
+  if(sssFcts.isEmpty(label)){
+    console.error("label requried");
+    return;
+  }
+  
+  var par                      = {};
+  par[sSVarU.label]            = label;
+  
+  if(!jSGlobals.isEmpty(addNewColl)){ par[sSVarU.addNewColl]       = addNewColl;}
+  if(!jSGlobals.isEmpty(entry)){      par[sSVarU.entry]            = entry;}
+  
+  new SSSJSONRequest(
+    resultHandler,
+  errorHandler,
+  sssGlobals.sssAPI,
+  sssGlobals.httpMethodPOST,
+  key).send(
+    sssGlobals.sssAPIResourceColl,
+  encodeURIComponent(coll),
+  par);
+};
+
+var SSCollEntriesAdd = function(
+  resultHandler, 
+errorHandler, 
+key, 
+coll, 
+entries, 
+labels){
+  
+  if(sssFcts.isEmpty(coll)){
+    console.error("coll requried");
+    return;
+  }
+  
+  if(sssFcts.isEmpty(entries)){
+    console.error("entries requried");
+    return;
+  }
+  
+  if(sssFcts.isEmpty(labels)){
+    console.error("labels requried");
+    return;
+  }
+  
+  var par                       = {};
+  par[sSVarU.entries]          = entries;
+  par[sSVarU.labels]           = labels;
+  
+  new SSSJSONRequest(
+    resultHandler,
+  errorHandler,
+  sssGlobals.sssAPI,
+  sssGlobals.httpMethodPOST,
+  key).send(
+    sssGlobals.sssAPIResourceColl,
+  encodeURIComponent(coll) + "/entries",
+  par);
+};
+
+var SSCollEntriesDelete = function(
+  resultHandler, 
+errorHandler, 
+key, 
+coll, 
+entries){
+  
+  if(sssFcts.isEmpty(coll)){
+    console.error("coll requried");
+    return;
+  }
+  
+  if(sssFcts.isEmpty(entries)){
+    console.error("entries requried");
+    return;
+  }
+  
+  var par                      = {};
+  
+    new SSSJSONRequest(
+    resultHandler,
+  errorHandler,
+  sssGlobals.sssAPI,
+  sssGlobals.httpMethodDELETE,
+  key).send(
+    sssGlobals.sssAPIResourceColl,
+  encodeURIComponent(coll) + "/entries/" + encodeURIComponent(entries.toString()),
+  par);
+};
+
+var SSCollWithEntries = function(
+  resultHandler, 
+errorHandler, 
+key, 
+coll){
+  
+  if(sssFcts.isEmpty(coll)){
+    console.error("coll requried");
+    return;
+  }
+  
+  var par                      = {};
+  
+  new SSSJSONRequest(
+    resultHandler,
+  errorHandler,
+  sssGlobals.sssAPI,
+  sssGlobals.httpMethodGET,
+  key).send(
+    sssGlobals.sssAPIResourceColl,
+  encodeURIComponent(coll),
+  par);
+};
+
+var SSCollHierarchyGet = function(
+  resultHandler, 
+errorHandler, 
+key, 
+coll){
+  
+  if(sssFcts.isEmpty(coll)){
+    console.error("coll requried");
+    return;
+  }
+  
+  var par                      = {};
+  
+    new SSSJSONRequest(
+    resultHandler,
+  errorHandler,
+  sssGlobals.sssAPI,
+  sssGlobals.httpMethodGET,
+  key).send(
+    sssGlobals.sssAPIResourceColl,
+  encodeURIComponent(coll) + "/hierarchy",
   par);
 };
