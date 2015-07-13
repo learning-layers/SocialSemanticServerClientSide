@@ -35,6 +35,7 @@ function SSSGobals(){
   this.sssAPIResourceFile = "files/files/";
   this.sssAPIResourceActivity = "activities/activities/";
   this.sssAPIResourceColl     = "colls/colls/"
+  this.sssAPIResourceCategory     = "categories/categories/"
   this.httpMethodPUT = "PUT";
   this.httpMethodGET = "GET";
   this.httpMethodPOST = "POST";
@@ -1384,5 +1385,23 @@ coll){
   key).send(
     sssGlobals.sssAPIResourceColl,
   encodeURIComponent(coll) + "/hierarchy",
+  par);
+};
+
+var SSCategoriesPredefinedGet = function(
+  resultHandler, 
+errorHandler, 
+key){
+  
+  var par                      = {};
+  
+    new SSSJSONRequest(
+    resultHandler,
+  errorHandler,
+  sssGlobals.sssAPI,
+  sssGlobals.httpMethodGET,
+  key).send(
+    sssGlobals.sssAPIResourceCategory,
+  "predefined",
   par);
 };
