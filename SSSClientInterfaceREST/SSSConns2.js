@@ -1447,3 +1447,34 @@ creationTime){
     "",
   par);
 };
+
+var SSCategoryFrequsGetFiltered = function(
+  resultHandler,
+errorHandler,
+key,
+forUser,
+entities,
+labels,
+space,
+startTime,
+useUsersEntities){
+  
+  var par = {};
+  
+  if (!sssFcts.isEmpty(forUser)){            par[sssNames.forUser] = forUser; }
+  if (!sssFcts.isEmpty(entities)){           par[sssNames.entities] = entities; }
+  if (!sssFcts.isEmpty(labels)){             par[sssNames.labels] = labels; }
+  if (!sssFcts.isEmpty(space)){              par[sssNames.space] = space; }
+  if (!sssFcts.isEmpty(startTime)){          par[sssNames.startTime] = startTime; }
+  if (!sssFcts.isEmpty(useUsersEntities)){   par[sssNames.useUsersEntities] = useUsersEntities; }
+  
+  new SSSJSONRequest(
+    resultHandler,
+  errorHandler,
+  sssGlobals.sssAPI,
+  sssGlobals.httpMethodPOST,
+  key).send(
+    sssGlobals.sssAPIResourceCategory,
+  "filtered/frequs",
+  par);
+};
