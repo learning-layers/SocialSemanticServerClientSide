@@ -894,7 +894,9 @@ var SSFileUpload = function(
   resultHandler,
 errorHandler,
 key,
-fileHandle){
+fileHandle, 
+tags, 
+categories){
   
   if (sssFcts.isEmpty(fileHandle)){
     console.error("fileHandle requried");
@@ -909,6 +911,15 @@ fileHandle){
  
   formData.append(sssNames.file,     fileHandle);
   formData.append(sssNames.label,    this.fileName);
+  
+  if(!sssFcts.isEmpty(tags)){
+    formData.append(sssNames.tags, tags);
+  }
+  
+  if(!sssFcts.isEmpty(categories)){
+    formData.append(sssNames.categories, categories);
+  }
+  
   formData.append(sssNames.mimeType, fileHandle.type);
   
   xhr.onload = (function(thisRef){ return function(){
