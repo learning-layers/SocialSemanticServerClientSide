@@ -883,7 +883,8 @@ errorHandler,
 key,
 fileHandle, 
 tags, 
-categories){
+categories,
+circle){
   
   if (sssFcts.isEmpty(fileHandle)){
     console.error("fileHandle requried");
@@ -905,6 +906,10 @@ categories){
   
   if(!sssFcts.isEmpty(categories)){
     formData.append(sssNames.categories, categories);
+  }
+  
+  if(!sssFcts.isEmpty(circle)){
+    formData.append(sssNames.circle, circle);
   }
   
   formData.append(sssNames.mimeType, fileHandle.type);
