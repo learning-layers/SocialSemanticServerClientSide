@@ -744,15 +744,9 @@ errorHandler,
 key,
 includeTextualContent,
 wordsToSearchFor,
-includeTags,
 tagsToSearchFor,
-includeAuthors,
 authorsToSearchFor,
-includeMIs,
-misToSearchFor,
-includeLabel,
 labelsToSearchFor,
-includeDescription,
 descriptionsToSearchFor,
 typesToSearchOnlyFor,
 includeOnlySubEntities,
@@ -768,17 +762,10 @@ localSearchOp,
 globalSearchOp){
   
   var par = {};
-  if (!sssFcts.isEmpty(includeTextualContent)){       par[sssNames.includeTextualContent] = includeTextualContent; }
   if (!sssFcts.isEmpty(wordsToSearchFor)){            par[sssNames.wordsToSearchFor] = wordsToSearchFor; }
-  if (!sssFcts.isEmpty(includeTags)){                 par[sssNames.includeTags] = includeTags; }
   if (!sssFcts.isEmpty(tagsToSearchFor)){             par[sssNames.tagsToSearchFor] = tagsToSearchFor; }
-  if (!sssFcts.isEmpty(includeAuthors)){              par[sssNames.includeAuthors] = includeAuthors; }
   if (!sssFcts.isEmpty(authorsToSearchFor)){          par[sssNames.authorsToSearchFor] = authorsToSearchFor; }
-  if (!sssFcts.isEmpty(includeMIs)){                  par[sssNames.includeMIs] = includeMIs; }
-  if (!sssFcts.isEmpty(misToSearchFor)){              par[sssNames.misToSearchFor] = misToSearchFor; }
-  if (!sssFcts.isEmpty(includeLabel)){                par[sssNames.includeLabel] = includeLabel; }
   if (!sssFcts.isEmpty(labelsToSearchFor)){           par[sssNames.labelsToSearchFor] = labelsToSearchFor; }
-  if (!sssFcts.isEmpty(includeDescription)){          par[sssNames.includeDescription] = includeDescription; }
   if (!sssFcts.isEmpty(descriptionsToSearchFor)){     par[sssNames.descriptionsToSearchFor] = descriptionsToSearchFor; }
   if (!sssFcts.isEmpty(typesToSearchOnlyFor)){        par[sssNames.typesToSearchOnlyFor] = typesToSearchOnlyFor; }
   if (!sssFcts.isEmpty(includeOnlySubEntities)){      par[sssNames.includeOnlySubEntities] = includeOnlySubEntities; }
