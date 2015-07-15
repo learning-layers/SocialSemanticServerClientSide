@@ -36,6 +36,7 @@ function SSSGobals(){
   this.sssAPIResourceActivity = "activities/activities/";
   this.sssAPIResourceColl     = "colls/colls/"
   this.sssAPIResourceCategory     = "categories/categories/"
+  this.sssAPIResourceRecomm     = "recomm/recomm/"
   this.httpMethodPUT = "PUT";
   this.httpMethodGET = "GET";
   this.httpMethodPOST = "POST";
@@ -94,6 +95,7 @@ SSSJSONRequest.prototype = {
 var sssNames = new SSSNames();
 function SSSNames(){
   
+  this.realm = "realm";
   this.includeAuthors = "includeAuthors";
   this.authorsToSearchFor = "authorsToSearchFor";
   this.entityTypesToIncludeOnly = "entityTypesToIncludeOnly";
@@ -1476,5 +1478,36 @@ useUsersEntities){
   key).send(
     sssGlobals.sssAPIResourceCategory,
   "filtered/frequs",
+  par);
+};
+
+var SSRecommTagsFiltered = function(
+  resultHandler,
+errorHandler,
+key,
+realm, 
+forUser,
+entity,
+categories,
+maxTags,
+includeOwn){
+  
+  var par = {};
+  
+  if (!sssFcts.isEmpty(realm)){        par[sssNames.realm]       = realm; }
+  if (!sssFcts.isEmpty(forUser)){      par[sssNames.forUser]     = forUser; }
+  if (!sssFcts.isEmpty(entity)){       par[sssNames.entity]      = entity; }
+  if (!sssFcts.isEmpty(categories)){   par[sssNames.categories]  = categories; }
+  if (!sssFcts.isEmpty(maxTags)){      par[sssNames.maxTags]     = maxTags; }
+  if (!sssFcts.isEmpty(includeOwn)){   par[sssNames.includeOwn]  = includeOwn; }
+  
+  new SSSJSONRequest(
+    resultHandler,
+  errorHandler,
+  sssGlobals.sssAPI,
+  sssGlobals.httpMethodPOST,
+  key).send(
+    sssGlobals.sssAPIResourceRecomm,
+  "filtered/tags",
   par);
 };
