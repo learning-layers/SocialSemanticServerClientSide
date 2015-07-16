@@ -1424,6 +1424,7 @@ key,
 entity,
 label,
 space,
+circle, 
 creationTime){
   
   if(sssFcts.isEmpty(entity)){
@@ -1447,6 +1448,7 @@ creationTime){
   par[sssNames.space]  = space;
   
   if(!sssFcts.isEmpty(creationTime)){ par[sssNames.creationTime] = creationTime; }
+  if(!sssFcts.isEmpty(circle)){       par[sssNames.circle]       = circle; }
   
   new SSSJSONRequest(
     resultHandler,
@@ -1467,8 +1469,8 @@ forUser,
 entities,
 labels,
 space,
-startTime,
-useUsersEntities){
+circles,
+startTime){
   
   var par = {};
   
@@ -1476,8 +1478,8 @@ useUsersEntities){
   if (!sssFcts.isEmpty(entities)){           par[sssNames.entities] = entities; }
   if (!sssFcts.isEmpty(labels)){             par[sssNames.labels] = labels; }
   if (!sssFcts.isEmpty(space)){              par[sssNames.space] = space; }
+  if (!sssFcts.isEmpty(circles)){            par[sssNames.circles] = circles; }
   if (!sssFcts.isEmpty(startTime)){          par[sssNames.startTime] = startTime; }
-  if (!sssFcts.isEmpty(useUsersEntities)){   par[sssNames.useUsersEntities] = useUsersEntities; }
   
   new SSSJSONRequest(
     resultHandler,
