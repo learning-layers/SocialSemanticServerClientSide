@@ -589,6 +589,7 @@ key,
 entity,
 label,
 space,
+circle,
 creationTime){
   
   if(sssFcts.isEmpty(entity)){
@@ -612,6 +613,7 @@ creationTime){
   par[sssNames.space]  = space;
   
   if(!sssFcts.isEmpty(creationTime)){ par[sssNames.creationTime] = creationTime; }
+  if(!sssFcts.isEmpty(circle)){       par[sssNames.circle]       = circle; }
   
   new SSSJSONRequest(
     resultHandler,
@@ -632,13 +634,15 @@ forUser,
 entities,
 labels,
 space,
+circles,
 startTime){
   
   var par = {};
-  if (!sssFcts.isEmpty(forUser)){     par[sssNames.forUser] = forUser; }
-  if (!sssFcts.isEmpty(entities)){    par[sssNames.entities] = entities; }
-  if (!sssFcts.isEmpty(labels)){      par[sssNames.labels] = labels; }
-  if (!sssFcts.isEmpty(space)){       par[sssNames.space] = space; }
+  if (!sssFcts.isEmpty(forUser)){     par[sssNames.forUser]   = forUser; }
+  if (!sssFcts.isEmpty(entities)){    par[sssNames.entities]  = entities; }
+  if (!sssFcts.isEmpty(labels)){      par[sssNames.labels]    = labels; }
+  if (!sssFcts.isEmpty(space)){       par[sssNames.space]     = space; }
+  if (!sssFcts.isEmpty(circles)){     par[sssNames.space]     = circles; }
   if (!sssFcts.isEmpty(startTime)){   par[sssNames.startTime] = startTime; }
   
   new SSSJSONRequest(
@@ -660,6 +664,7 @@ forUser,
 entities,
 labels,
 space,
+circles,
 startTime,
 useUsersEntities){
   
@@ -669,6 +674,7 @@ useUsersEntities){
   if (!sssFcts.isEmpty(entities)){           par[sssNames.entities] = entities; }
   if (!sssFcts.isEmpty(labels)){             par[sssNames.labels] = labels; }
   if (!sssFcts.isEmpty(space)){              par[sssNames.space] = space; }
+  if (!sssFcts.isEmpty(circles)){            par[sssNames.space] = circles; }
   if (!sssFcts.isEmpty(startTime)){          par[sssNames.startTime] = startTime; }
   if (!sssFcts.isEmpty(useUsersEntities)){   par[sssNames.useUsersEntities] = useUsersEntities; }
   
