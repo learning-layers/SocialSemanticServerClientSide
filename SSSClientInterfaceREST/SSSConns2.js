@@ -20,6 +20,7 @@
  */
 
 var sssGlobals = new SSSGobals();
+
 function SSSGobals(){
   this.sssAPI = "http://localhost:8080/sss.adapter.rest.v2/";
   this.sssAPIResourceEntity = "entities/entities/";
@@ -37,6 +38,7 @@ function SSSGobals(){
   this.sssAPIResourceColl     = "colls/colls/"
   this.sssAPIResourceCategory     = "categories/categories/"
   this.sssAPIResourceRecomm     = "recomm/recomm/"
+  this.sssAPIResourceEval     = "eval/eval/"
   this.httpMethodPUT = "PUT";
   this.httpMethodGET = "GET";
   this.httpMethodPOST = "POST";
@@ -334,7 +336,9 @@ var SSCircleEntitiesAdd = function(
 errorHandler,
 key,
 circle,
-entities){
+entities,
+tags, 
+categories){
   
   if (sssFcts.isEmpty(circle)){
     console.error("circle requried");
@@ -347,6 +351,10 @@ entities){
   }
   
   var par = {};
+  
+  if (!sssFcts.isEmpty(tags)){          par[sssNames.tags]       = tags; }
+  if (!sssFcts.isEmpty(categories)){    par[sssNames.categories] = categories; }
+  
   new SSSJSONRequest(
     resultHandler,
   errorHandler,
@@ -888,8 +896,6 @@ var SSFileUpload = function(
 errorHandler,
 key,
 fileHandle, 
-tags, 
-categories,
 circle){
   
   if (sssFcts.isEmpty(fileHandle)){
@@ -905,14 +911,6 @@ circle){
  
   formData.append(sssNames.file,     fileHandle);
   formData.append(sssNames.label,    this.fileName);
-  
-  if(!sssFcts.isEmpty(tags)){
-    formData.append(sssNames.tags, tags);
-  }
-  
-  if(!sssFcts.isEmpty(categories)){
-    formData.append(sssNames.categories, categories);
-  }
   
   if(!sssFcts.isEmpty(circle)){
     formData.append(sssNames.circle, circle);
@@ -1520,5 +1518,43 @@ includeOwn){
   key).send(
     sssGlobals.sssAPIResourceRecomm,
   "filtered/tags",
+  par);
+};
+
+var SSEvalLog = function(
+  resultHandler,
+errorHandler,
+key,
+toolContext, 
+forUser,
+type,
+entity,
+content,
+entities,
+users){
+  
+  if(sssFcts.isEmpty(type)){
+    console.error("type");
+    return;
+  }
+  
+  var par = {};
+  
+  if (!sssFcts.isEmpty(toolContext)){ par[sssNames.toolContext]  = toolContext; }
+  if (!sssFcts.isEmpty(forUser)){     par[sssNames.forUser]      = forUser; }
+  if (!sssFcts.isEmpty(type)){        par[sssNames.type]         = type; }
+  if (!sssFcts.isEmpty(entity)){      par[sssNames.entity]       = entity; }
+  if (!sssFcts.isEmpty(content)){     par[sssNames.content]      = content; }
+  if (!sssFcts.isEmpty(entities)){    par[sssNames.entities]     = entities; }
+  if (!sssFcts.isEmpty(users)){       par[sssNames.users]        = users; }
+  
+  new SSSJSONRequest(
+    resultHandler,
+  errorHandler,
+  sssGlobals.sssAPI,
+  sssGlobals.httpMethodPOST,
+  key).send(
+    sssGlobals.sssAPIResourceEval,
+  "log",
   par);
 };
