@@ -97,6 +97,10 @@ SSSJSONRequest.prototype = {
 var sssNames = new SSSNames();
 function SSSNames(){
   
+  this.includeMetaSpecificToEntityAndItsEntities = "includeMetaSpecificToEntityAndItsEntities";
+  this.includeUsers = "includeUsers";
+  this.includeEntities = "includeEntities";
+  this.forUsers    = "forUsers";
   this.realm = "realm";
   this.includeAuthors = "includeAuthors";
   this.authorsToSearchFor = "authorsToSearchFor";
@@ -630,7 +634,7 @@ creationTime){
   sssGlobals.httpMethodPOST,
   key).send(
     sssGlobals.sssAPIResourceTag,
-    "",
+  "",
   par);
 };
 
@@ -908,7 +912,7 @@ circle){
   this.resultHandler = resultHandler;
   this.errorHandler = errorHandler;
   this.fileName = fileHandle.name;
- 
+  
   formData.append(sssNames.file,     fileHandle);
   formData.append(sssNames.label,    this.fileName);
   
@@ -1137,7 +1141,7 @@ setPublic){
   if(!jSGlobals.isEmpty(comment)){   par[sssNames.comment]       = comment;}
   if(!jSGlobals.isEmpty(setPublic)){ par[sssNames.setPublic]     = setPublic;}
   
-    new SSSJSONRequest(
+  new SSSJSONRequest(
     resultHandler,
   errorHandler,
   sssGlobals.sssAPI,
@@ -1191,7 +1195,7 @@ entity){
   }
   
   var par                = {};
-
+  
   new SSSJSONRequest(
     resultHandler,
   errorHandler,
@@ -1208,7 +1212,7 @@ var SSCollCumulatedTagsGet = function(
 errorHandler, 
 key, 
 coll){
-
+  
   if (sssFcts.isEmpty(coll)){
     console.error("coll requried");
     return;
@@ -1216,7 +1220,7 @@ coll){
   
   var par                = {};
   
-    new SSSJSONRequest(
+  new SSSJSONRequest(
     resultHandler,
   errorHandler,
   sssGlobals.sssAPI,
@@ -1338,7 +1342,7 @@ entries){
   
   var par                      = {};
   
-    new SSSJSONRequest(
+  new SSSJSONRequest(
     resultHandler,
   errorHandler,
   sssGlobals.sssAPI,
@@ -1386,7 +1390,7 @@ coll){
   
   var par                      = {};
   
-    new SSSJSONRequest(
+  new SSSJSONRequest(
     resultHandler,
   errorHandler,
   sssGlobals.sssAPI,
@@ -1404,7 +1408,7 @@ key){
   
   var par                      = {};
   
-    new SSSJSONRequest(
+  new SSSJSONRequest(
     resultHandler,
   errorHandler,
   sssGlobals.sssAPI,
@@ -1455,7 +1459,7 @@ creationTime){
   sssGlobals.httpMethodPOST,
   key).send(
     sssGlobals.sssAPIResourceCategory,
-    "",
+  "",
   par);
 };
 
@@ -1534,7 +1538,7 @@ entities,
 users){
   
   if(sssFcts.isEmpty(type)){
-    console.error("type");
+    console.error("type required");
     return;
   }
   
@@ -1556,5 +1560,44 @@ users){
   key).send(
     sssGlobals.sssAPIResourceEval,
   "log",
+  par);
+};
+
+var SSEntityCopy = function(
+  resultHandler,
+errorHandler,
+key,
+entity, 
+forUsers, 
+label, 
+includeUsers, 
+includeEntities, 
+includeMetaSpecificToEntityAndItsEntities,
+entitiesToExclude,
+comment){
+  
+  if(sssFcts.isEmpty(entity)){
+    console.error("entity required");
+    return;
+  }
+  
+  var par = {};
+  
+  if (!sssFcts.isEmpty(forUsers)){             par[sssNames.forUsers]              = forUsers; }
+  if (!sssFcts.isEmpty(label)){                par[sssNames.label]                 = label; }
+  if (!sssFcts.isEmpty(includeUsers)){         par[sssNames.includeUsers]          = includeUsers; }
+  if (!sssFcts.isEmpty(includeEntities)){      par[sssNames.includeEntities]       = includeEntities; }
+  if (!sssFcts.isEmpty(includeMetaSpecificToEntityAndItsEntities)){ par[sssNames.includeMetaSpecificToEntityAndItsEntities] = includeMetaSpecificToEntityAndItsEntities; }
+  if (!sssFcts.isEmpty(entitiesToExclude)){    par[sssNames.entitiesToExclude]     = entitiesToExclude; }
+  if (!sssFcts.isEmpty(comment)){              par[sssNames.comment]               = comment; }
+  
+  new SSSJSONRequest(
+    resultHandler,
+  errorHandler,
+  sssGlobals.sssAPI,
+  sssGlobals.httpMethodPUT,
+  key).send(
+    sssGlobals.sssAPIResourceEntity,
+  encodeURIComponent(entity) + "/copy",
   par);
 };
