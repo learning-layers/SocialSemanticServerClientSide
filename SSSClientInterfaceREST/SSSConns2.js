@@ -97,6 +97,8 @@ SSSJSONRequest.prototype = {
 var sssNames = new SSSNames();
 function SSSNames(){
   
+  this.removeCircleSpecificMetadata = "removeCircleSpecificMetadata";
+  this.targetEntity = "targetEntity";
   this.includeMetaSpecificToEntityAndItsEntities = "includeMetaSpecificToEntityAndItsEntities";
   this.includeUsers = "includeUsers";
   this.includeEntities = "includeEntities";
@@ -432,7 +434,8 @@ var SSCircleEntitiesRemove = function(
 errorHandler,
 key,
 circle,
-entities){
+entities,
+removeCircleSpecificMetadata){
   
   if (sssFcts.isEmpty(circle)){
     console.error("circle requried");
@@ -445,6 +448,9 @@ entities){
   }
   
   var par = {};
+  
+  if (!sssFcts.isEmpty(removeCircleSpecificMetadata)){         par[sssNames.removeCircleSpecificMetadata] = removeCircleSpecificMetadata; }
+  
   new SSSJSONRequest(
     resultHandler,
   errorHandler,
@@ -455,6 +461,7 @@ entities){
   encodeURIComponent(circle) + "/entities/" + encodeURIComponent(entities.toString()),
   par);
 };
+
 var SSAuthCheckCredPOST = function(
   resultHandler,
 errorHandler,
@@ -517,6 +524,7 @@ entityLabels,
 circles){
   
   var par = {};
+  
   if (!sssFcts.isEmpty(disc)){         par[sssNames.disc] = disc; }
   if (!sssFcts.isEmpty(entity)){       par[sssNames.entity] = entity; }
   if (!sssFcts.isEmpty(entry)){        par[sssNames.entry] = entry; }
@@ -1567,7 +1575,8 @@ var SSEntityCopy = function(
   resultHandler,
 errorHandler,
 key,
-entity, 
+entity,
+targetEntity,
 forUsers, 
 label, 
 includeUsers, 
@@ -1583,6 +1592,7 @@ comment){
   
   var par = {};
   
+  if (!sssFcts.isEmpty(targetEntity)){         par[sssNames.targetEntity]          = targetEntity; }
   if (!sssFcts.isEmpty(forUsers)){             par[sssNames.forUsers]              = forUsers; }
   if (!sssFcts.isEmpty(label)){                par[sssNames.label]                 = label; }
   if (!sssFcts.isEmpty(includeUsers)){         par[sssNames.includeUsers]          = includeUsers; }
