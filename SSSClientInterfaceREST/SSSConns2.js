@@ -429,6 +429,7 @@ description){
   "",
   par);
 };
+
 var SSCircleEntitiesRemove = function(
   resultHandler,
 errorHandler,
@@ -459,6 +460,60 @@ removeCircleSpecificMetadata){
   key).send(
     sssGlobals.sssAPIResourceCircle,
   encodeURIComponent(circle) + "/entities/" + encodeURIComponent(entities.toString()),
+  par);
+};
+
+var SSCircleUsersRemove = function(
+  resultHandler,
+errorHandler,
+key,
+circle,
+users){
+  
+  if (sssFcts.isEmpty(circle)){
+    console.error("circle requried");
+    return;
+  }
+  
+  if (sssFcts.isEmpty(users)){
+    console.error("users requried");
+    return;
+  }
+  
+  var par = {};
+  
+  new SSSJSONRequest(
+    resultHandler,
+  errorHandler,
+  sssGlobals.sssAPI,
+  sssGlobals.httpMethodDELETE,
+  key).send(
+    sssGlobals.sssAPIResourceCircle,
+  encodeURIComponent(circle) + "/users/" + encodeURIComponent(users.toString()),
+  par);
+};
+
+var SSCircleRemove = function(
+  resultHandler,
+errorHandler,
+key,
+circle){
+  
+  if (sssFcts.isEmpty(circle)){
+    console.error("circle requried");
+    return;
+  }
+  
+  var par = {};
+  
+  new SSSJSONRequest(
+    resultHandler,
+  errorHandler,
+  sssGlobals.sssAPI,
+  sssGlobals.httpMethodDELETE,
+  key).send(
+    sssGlobals.sssAPIResourceCircle,
+  encodeURIComponent(circle),
   par);
 };
 
@@ -694,7 +749,7 @@ useUsersEntities){
   if (!sssFcts.isEmpty(entities)){           par[sssNames.entities] = entities; }
   if (!sssFcts.isEmpty(labels)){             par[sssNames.labels] = labels; }
   if (!sssFcts.isEmpty(space)){              par[sssNames.space] = space; }
-  if (!sssFcts.isEmpty(circles)){            par[sssNames.space] = circles; }
+  if (!sssFcts.isEmpty(circles)){            par[sssNames.circles] = circles; }
   if (!sssFcts.isEmpty(startTime)){          par[sssNames.startTime] = startTime; }
   if (!sssFcts.isEmpty(useUsersEntities)){   par[sssNames.useUsersEntities] = useUsersEntities; }
   

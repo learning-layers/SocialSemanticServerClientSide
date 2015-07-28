@@ -11,3 +11,7 @@
 /lib
 /web-inf
 /web-pages
+/build/web/META-INF/context.xml
+/build/web/WEB-INF/classes/SSSConns2.js
+/nbbuild.xml
+/dist/SocialSemanticServerClientSide.war
