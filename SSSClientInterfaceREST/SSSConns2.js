@@ -1562,7 +1562,6 @@ var SSRecommTagsFiltered = function(
 errorHandler,
 key,
 realm, 
-forUser,
 entity,
 categories,
 maxTags,
@@ -1571,7 +1570,6 @@ includeOwn){
   var par = {};
   
   if (!sssFcts.isEmpty(realm)){        par[sssNames.realm]       = realm; }
-  if (!sssFcts.isEmpty(forUser)){      par[sssNames.forUser]     = forUser; }
   if (!sssFcts.isEmpty(entity)){       par[sssNames.entity]      = entity; }
   if (!sssFcts.isEmpty(categories)){   par[sssNames.categories]  = categories; }
   if (!sssFcts.isEmpty(maxTags)){      par[sssNames.maxTags]     = maxTags; }
