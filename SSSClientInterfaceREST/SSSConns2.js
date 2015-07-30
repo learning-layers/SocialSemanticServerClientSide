@@ -1132,7 +1132,9 @@ var SSEntitiesGetFiltered = function(
 errorHandler, 
 key, 
 entities,
+circle,
 setTags,
+tagSpace,
 setOverallRating, 
 setDiscs, 
 setUEs, 
@@ -1147,7 +1149,9 @@ setCircles){
   
   var par                     = {};
   
+  if(!jSGlobals.isEmpty(circle)){           par[sssNames.circle]              = circle;}
   if(!jSGlobals.isEmpty(setTags)){          par[sssNames.setTags]             = setTags;}
+  if(!jSGlobals.isEmpty(tagSpace)){         par[sssNames.tagSpace]            = tagSpace;}
   if(!jSGlobals.isEmpty(setOverallRating)){ par[sssNames.setOverallRating]    = setOverallRating;}
   if(!jSGlobals.isEmpty(setDiscs)){         par[sssNames.setDiscs]            = setDiscs;}
   if(!jSGlobals.isEmpty(setUEs)){           par[sssNames.setUEs]              = setUEs;}
