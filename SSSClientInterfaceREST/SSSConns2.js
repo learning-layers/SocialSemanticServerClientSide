@@ -97,6 +97,9 @@ SSSJSONRequest.prototype = {
 var sssNames = new SSSNames();
 function SSSNames(){
   
+  this.includeOriginUser            = "includeOriginUser";
+  this.tagSpace                     = "tagSpace";
+  this.ignoreAccessRights           = "ignoreAccessRights";
   this.removeCircleSpecificMetadata = "removeCircleSpecificMetadata";
   this.targetEntity = "targetEntity";
   this.includeMetaSpecificToEntityAndItsEntities = "includeMetaSpecificToEntityAndItsEntities";
@@ -310,12 +313,15 @@ key){
   "",
   null);
 };
+
 var SSCircleGetFiltered = function(
   resultHandler,
 errorHandler,
 key,
 circle,
-entityTypesToIncludeOnly){
+entityTypesToIncludeOnly, 
+setTags, 
+tagSpace){
   
   if (sssFcts.isEmpty(circle)){
     console.error("circle requried");
@@ -325,6 +331,8 @@ entityTypesToIncludeOnly){
   var par = {};
   
   if (!sssFcts.isEmpty(entityTypesToIncludeOnly)){ par[sssNames.entityTypesToIncludeOnly] = entityTypesToIncludeOnly; }
+  if (!sssFcts.isEmpty(setTags)){                  par[sssNames.setTags]                  = setTags; }
+  if (!sssFcts.isEmpty(tagSpace)){                 par[sssNames.tagSpace]                 = tagSpace; }
   
   new SSSJSONRequest(
     resultHandler,
@@ -1561,19 +1569,23 @@ var SSRecommTagsFiltered = function(
   resultHandler,
 errorHandler,
 key,
-realm, 
+realm,
+forUser,
 entity,
 categories,
 maxTags,
-includeOwn){
+includeOwn,
+ignoreAccessRights){
   
   var par = {};
   
-  if (!sssFcts.isEmpty(realm)){        par[sssNames.realm]       = realm; }
-  if (!sssFcts.isEmpty(entity)){       par[sssNames.entity]      = entity; }
-  if (!sssFcts.isEmpty(categories)){   par[sssNames.categories]  = categories; }
-  if (!sssFcts.isEmpty(maxTags)){      par[sssNames.maxTags]     = maxTags; }
-  if (!sssFcts.isEmpty(includeOwn)){   par[sssNames.includeOwn]  = includeOwn; }
+  if (!sssFcts.isEmpty(realm)){                par[sssNames.realm]               = realm; }
+  if (!sssFcts.isEmpty(forUser)){              par[sssNames.forUser]             = forUser; }
+  if (!sssFcts.isEmpty(entity)){               par[sssNames.entity]              = entity; }
+  if (!sssFcts.isEmpty(categories)){           par[sssNames.categories]          = categories; }
+  if (!sssFcts.isEmpty(maxTags)){              par[sssNames.maxTags]             = maxTags; }
+  if (!sssFcts.isEmpty(includeOwn)){           par[sssNames.includeOwn]          = includeOwn; }
+  if (!sssFcts.isEmpty(ignoreAccessRights)){   par[sssNames.ignoreAccessRights]  = ignoreAccessRights; }
   
   new SSSJSONRequest(
     resultHandler,
@@ -1635,6 +1647,7 @@ label,
 includeUsers, 
 includeEntities, 
 includeMetaSpecificToEntityAndItsEntities,
+includeOriginUser,
 entitiesToExclude,
 comment){
   
@@ -1651,6 +1664,7 @@ comment){
   if (!sssFcts.isEmpty(includeUsers)){         par[sssNames.includeUsers]          = includeUsers; }
   if (!sssFcts.isEmpty(includeEntities)){      par[sssNames.includeEntities]       = includeEntities; }
   if (!sssFcts.isEmpty(includeMetaSpecificToEntityAndItsEntities)){ par[sssNames.includeMetaSpecificToEntityAndItsEntities] = includeMetaSpecificToEntityAndItsEntities; }
+  if (!sssFcts.isEmpty(includeOriginUser)){    par[sssNames.includeOriginUser]     = includeOriginUser; }
   if (!sssFcts.isEmpty(entitiesToExclude)){    par[sssNames.entitiesToExclude]     = entitiesToExclude; }
   if (!sssFcts.isEmpty(comment)){              par[sssNames.comment]               = comment; }
   
