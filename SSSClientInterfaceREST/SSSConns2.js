@@ -120,6 +120,7 @@ function SSSNames(){
   this.minRating = "minRating";
   this.maxRating = "maxRating";
   this.includeComments = "includeComments";
+  this.setComments = "setComments";
   this.setCircleTypes = "setCircleTypes";
   this.link = "link";
   this.longitude = "longitude";
@@ -158,6 +159,8 @@ function SSSNames(){
   this.circles = "circles";
   this.tag = "tag";
   this.comments = "comments";
+  this.setLikes = "setLikes";
+  this.setEntries = "setEntries";
   this.setPublic = "setPublic";
   this.extendToParents = "extendToParents";
   this.wordsToSearchFor = "wordsToSearchFor";
@@ -278,7 +281,7 @@ description,
 read){
   
   if (sssFcts.isEmpty(entity)){
-    console.error("entity requried");
+    console.error("entity required");
     return;
   }
   
@@ -324,7 +327,7 @@ setTags,
 tagSpace){
   
   if (sssFcts.isEmpty(circle)){
-    console.error("circle requried");
+    console.error("circle required");
     return;
   }
   
@@ -355,12 +358,12 @@ tags,
 categories){
   
   if (sssFcts.isEmpty(circle)){
-    console.error("circle requried");
+    console.error("circle required");
     return;
   }
   
   if (sssFcts.isEmpty(entities)){
-    console.error("entities requried");
+    console.error("entities required");
     return;
   }
   
@@ -387,12 +390,12 @@ circle,
 users){
   
   if (sssFcts.isEmpty(circle)){
-    console.error("circle requried");
+    console.error("circle required");
     return;
   }
   
   if (sssFcts.isEmpty(users)){
-    console.error("users requried");
+    console.error("users required");
     return;
   }
   
@@ -417,7 +420,7 @@ users,
 description){
   
   if (sssFcts.isEmpty(label)){
-    console.error("label requried");
+    console.error("label required");
     return;
   }
   
@@ -447,12 +450,12 @@ entities,
 removeCircleSpecificMetadata){
   
   if (sssFcts.isEmpty(circle)){
-    console.error("circle requried");
+    console.error("circle required");
     return;
   }
   
   if (sssFcts.isEmpty(entities)){
-    console.error("entities requried");
+    console.error("entities required");
     return;
   }
   
@@ -479,12 +482,12 @@ circle,
 users){
   
   if (sssFcts.isEmpty(circle)){
-    console.error("circle requried");
+    console.error("circle required");
     return;
   }
   
   if (sssFcts.isEmpty(users)){
-    console.error("users requried");
+    console.error("users required");
     return;
   }
   
@@ -508,7 +511,7 @@ key,
 circle){
   
   if (sssFcts.isEmpty(circle)){
-    console.error("circle requried");
+    console.error("circle required");
     return;
   }
   
@@ -532,12 +535,12 @@ label,
 password){
   
   if (sssFcts.isEmpty(label)){
-    console.error("label / username requried");
+    console.error("label / username required");
     return;
   }
   
   if (sssFcts.isEmpty(label)){
-    console.error("password requried");
+    console.error("password required");
     return;
   }
   
@@ -554,22 +557,31 @@ password){
   "",
   par);
 };
+  
 var SSDiscsGet = function(
   resultHandler,
 errorHandler,
-key){
+key,
+forUser){
   
   var par = {};
+    
+  if (!sssFcts.isEmpty(forUser)){        par[sssNames.forUser] =        forUser; }
+  if (!sssFcts.isEmpty(setCircleTypes)){ par[sssNames.setCircleTypes] = true; }
+  if (!sssFcts.isEmpty(setLikes)){       par[sssNames.setLikes]       = true; }
+  if (!sssFcts.isEmpty(setEntries)){     par[sssNames.setEntries]     = true; }
+  
   new SSSJSONRequest(
     resultHandler,
   errorHandler,
   sssGlobals.sssAPI,
-  sssGlobals.httpMethodGET,
+  sssGlobals.httpMethodPOST,
   key).send(
     sssGlobals.sssAPIResourceDisc,
-  "",
+  "filtered",
   par);
 };
+
 var SSDiscEntryAdd = function(
   resultHandler,
 errorHandler,
@@ -610,20 +622,25 @@ circles){
   "",
   par);
 };
+
 var SSDiscGetFiltered = function(
   resultHandler,
 errorHandler,
 key,
 disc,
-includeComments){
+setComments){
   
   if (sssFcts.isEmpty(disc)){
-    console.error("disc requried");
+    console.error("disc required");
     return;
   }
   
   var par = {};
-  if (!sssFcts.isEmpty(includeComments)){ par[sssNames.includeComments] = includeComments; }
+  
+  if (!sssFcts.isEmpty(setComments)){    par[sssNames.setComments]    = setComments; }
+  if (!sssFcts.isEmpty(setCircleTypes)){ par[sssNames.setCircleTypes] = true; }
+  if (!sssFcts.isEmpty(setLikes)){       par[sssNames.setLikes]       = true; }
+  if (!sssFcts.isEmpty(setEntries)){     par[sssNames.setEntries]     = true; }
   
   new SSSJSONRequest(
     resultHandler,
@@ -635,6 +652,7 @@ includeComments){
   "filtered/" + encodeURIComponent(disc),
   par);
 };
+
 var SSLikeUpdate = function(
   resultHandler,
 errorHandler,
@@ -644,12 +662,12 @@ value){
   
   
   if (sssFcts.isEmpty(entity)){
-    console.error("entity requried");
+    console.error("entity required");
     return;
   }
   
   if (sssFcts.isEmpty(value)){
-    console.error("value requried");
+    console.error("value required");
     return;
   }
   
@@ -676,12 +694,12 @@ circle,
 creationTime){
   
   if(sssFcts.isEmpty(entity)){
-    console.error("entity requried");
+    console.error("entity required");
     return;
   }
   
   if(sssFcts.isEmpty(label)){
-    console.error("label requried");
+    console.error("label required");
     return;
   }
   
@@ -807,7 +825,7 @@ label,
 space){
   
   if (sssFcts.isEmpty(entity)){
-    console.error("entity requried");
+    console.error("entity required");
     return;
   }
   
@@ -887,7 +905,7 @@ key,
 friend){
   
   if (sssFcts.isEmpty(friend)){
-    console.error("friend requried");
+    console.error("friend required");
     return;
   }
   
@@ -945,12 +963,12 @@ entity,
 value){
   
   if (sssFcts.isEmpty(entity)){
-    console.error("entity requried");
+    console.error("entity required");
     return;
   }
   
   if (sssFcts.isEmpty(value)){
-    console.error("value requried");
+    console.error("value required");
     return;
   }
   
@@ -974,7 +992,7 @@ fileHandle,
 circle){
   
   if (sssFcts.isEmpty(fileHandle)){
-    console.error("fileHandle requried");
+    console.error("fileHandle required");
     return;
   }
   
@@ -1018,7 +1036,7 @@ key,
 file){
   
   if (sssFcts.isEmpty(file)){
-    console.error("file requried");
+    console.error("file required");
     return;
   }
   
@@ -1055,7 +1073,7 @@ var SSFileDownloadGET = function(
 file){
   
   if (sssFcts.isEmpty(file)){
-    console.error("file requried");
+    console.error("file required");
     return;
   }
   
@@ -1072,7 +1090,7 @@ entities,
 comments){
   
   if (sssFcts.isEmpty(type)){
-    console.error("type requried");
+    console.error("type required");
     return;
   }
   
@@ -1143,7 +1161,7 @@ setFlags,
 setCircles){
   
   if(sssFcts.isEmpty(entities)){
-    console.error("entities requried");
+    console.error("entities required");
     return;
   }
   
@@ -1177,7 +1195,7 @@ key,
 entity){
   
   if(sssFcts.isEmpty(entity)){
-    console.error("entity requried");
+    console.error("entity required");
     return;
   }
   
@@ -1205,7 +1223,7 @@ circles,
 setPublic){
   
   if(sssFcts.isEmpty(entity)){
-    console.error("entity requried");
+    console.error("entity required");
     return;
   }
   
@@ -1235,12 +1253,12 @@ entity,
 comments){
   
   if (sssFcts.isEmpty(entity)){
-    console.error("entity requried");
+    console.error("entity required");
     return;
   }
   
   if (sssFcts.isEmpty(comments)){
-    console.error("comments requried");
+    console.error("comments required");
     return;
   }
   
@@ -1265,7 +1283,7 @@ key,
 entity){
   
   if (sssFcts.isEmpty(entity)){
-    console.error("entity requried");
+    console.error("entity required");
     return;
   }
   
@@ -1289,7 +1307,7 @@ key,
 coll){
   
   if (sssFcts.isEmpty(coll)){
-    console.error("coll requried");
+    console.error("coll required");
     return;
   }
   
@@ -1334,12 +1352,12 @@ label,
 addNewColl){
   
   if(sssFcts.isEmpty(coll)){
-    console.error("coll requried");
+    console.error("coll required");
     return;
   }
   
   if(sssFcts.isEmpty(label)){
-    console.error("label requried");
+    console.error("label required");
     return;
   }
   
@@ -1369,17 +1387,17 @@ entries,
 labels){
   
   if(sssFcts.isEmpty(coll)){
-    console.error("coll requried");
+    console.error("coll required");
     return;
   }
   
   if(sssFcts.isEmpty(entries)){
-    console.error("entries requried");
+    console.error("entries required");
     return;
   }
   
   if(sssFcts.isEmpty(labels)){
-    console.error("labels requried");
+    console.error("labels required");
     return;
   }
   
@@ -1406,12 +1424,12 @@ coll,
 entries){
   
   if(sssFcts.isEmpty(coll)){
-    console.error("coll requried");
+    console.error("coll required");
     return;
   }
   
   if(sssFcts.isEmpty(entries)){
-    console.error("entries requried");
+    console.error("entries required");
     return;
   }
   
@@ -1435,7 +1453,7 @@ key,
 coll){
   
   if(sssFcts.isEmpty(coll)){
-    console.error("coll requried");
+    console.error("coll required");
     return;
   }
   
@@ -1459,7 +1477,7 @@ key,
 coll){
   
   if(sssFcts.isEmpty(coll)){
-    console.error("coll requried");
+    console.error("coll required");
     return;
   }
   
@@ -1505,12 +1523,12 @@ circle,
 creationTime){
   
   if(sssFcts.isEmpty(entity)){
-    console.error("entity requried");
+    console.error("entity required");
     return;
   }
   
   if(sssFcts.isEmpty(label)){
-    console.error("label requried");
+    console.error("label required");
     return;
   }
   
