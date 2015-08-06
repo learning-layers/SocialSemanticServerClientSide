@@ -822,7 +822,8 @@ errorHandler,
 key,
 entity,
 label,
-space){
+space,
+circle){
   
   if (sssFcts.isEmpty(entity)){
     console.error("entity required");
@@ -831,8 +832,9 @@ space){
   
   var par = {};
   
-  if (!sssFcts.isEmpty(label)){     par[sssNames.label] = label; }
-  if (!sssFcts.isEmpty(space)){     par[sssNames.space] = space; }
+  if (!sssFcts.isEmpty(label)){      par[sssNames.label] = label; }
+  if (!sssFcts.isEmpty(space)){      par[sssNames.space] = space; }
+  if (!sssFcts.isEmpty(circle)){     par[sssNames.circle] = circle; }
   
   new SSSJSONRequest(
     resultHandler,
