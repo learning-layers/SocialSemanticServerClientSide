@@ -97,11 +97,13 @@ SSSJSONRequest.prototype = {
 var sssNames = new SSSNames();
 function SSSNames(){
   
+  this.target     = "target";
+  this.targets     = "targets";
+  this.targetEntity = "targetEntity";
   this.includeOriginUser            = "includeOriginUser";
   this.tagSpace                     = "tagSpace";
   this.ignoreAccessRights           = "ignoreAccessRights";
   this.removeCircleSpecificMetadata = "removeCircleSpecificMetadata";
-  this.targetEntity = "targetEntity";
   this.includeMetaSpecificToEntityAndItsEntities = "includeMetaSpecificToEntityAndItsEntities";
   this.includeUsers = "includeUsers";
   this.includeEntities = "includeEntities";
@@ -587,7 +589,7 @@ var SSDiscEntryAdd = function(
 errorHandler,
 key,
 disc,
-entity,
+target,
 entry,
 addNewDisc,
 type,
@@ -601,7 +603,7 @@ circles){
   var par = {};
   
   if (!sssFcts.isEmpty(disc)){         par[sssNames.disc] = disc; }
-  if (!sssFcts.isEmpty(entity)){       par[sssNames.entity] = entity; }
+  if (!sssFcts.isEmpty(targets)){      par[sssNames.targets] = [target]; }
   if (!sssFcts.isEmpty(entry)){        par[sssNames.entry] = entry; }
   if (!sssFcts.isEmpty(addNewDisc)){   par[sssNames.addNewDisc] = addNewDisc; }
   if (!sssFcts.isEmpty(type)){         par[sssNames.type] = type; }
