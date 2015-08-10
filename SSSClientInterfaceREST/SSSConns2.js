@@ -97,6 +97,7 @@ SSSJSONRequest.prototype = {
 var sssNames = new SSSNames();
 function SSSNames(){
   
+  this.appendUserNameToLabel = "appendUserNameToLabel";
   this.target     = "target";
   this.targets     = "targets";
   this.targetEntity = "targetEntity";
@@ -1675,7 +1676,8 @@ includeEntities,
 includeMetaSpecificToEntityAndItsEntities,
 includeOriginUser,
 entitiesToExclude,
-comment){
+comment, 
+appendUserNameToLabel){
   
   if(sssFcts.isEmpty(entity)){
     console.error("entity required");
@@ -1684,15 +1686,16 @@ comment){
   
   var par = {};
   
-  if (!sssFcts.isEmpty(targetEntity)){         par[sssNames.targetEntity]          = targetEntity; }
-  if (!sssFcts.isEmpty(forUsers)){             par[sssNames.forUsers]              = forUsers; }
-  if (!sssFcts.isEmpty(label)){                par[sssNames.label]                 = label; }
-  if (!sssFcts.isEmpty(includeUsers)){         par[sssNames.includeUsers]          = includeUsers; }
-  if (!sssFcts.isEmpty(includeEntities)){      par[sssNames.includeEntities]       = includeEntities; }
+  if (!sssFcts.isEmpty(targetEntity)){          par[sssNames.targetEntity]          = targetEntity; }
+  if (!sssFcts.isEmpty(forUsers)){              par[sssNames.forUsers]              = forUsers; }
+  if (!sssFcts.isEmpty(label)){                 par[sssNames.label]                 = label; }
+  if (!sssFcts.isEmpty(includeUsers)){          par[sssNames.includeUsers]          = includeUsers; }
+  if (!sssFcts.isEmpty(includeEntities)){       par[sssNames.includeEntities]       = includeEntities; }
   if (!sssFcts.isEmpty(includeMetaSpecificToEntityAndItsEntities)){ par[sssNames.includeMetaSpecificToEntityAndItsEntities] = includeMetaSpecificToEntityAndItsEntities; }
-  if (!sssFcts.isEmpty(includeOriginUser)){    par[sssNames.includeOriginUser]     = includeOriginUser; }
-  if (!sssFcts.isEmpty(entitiesToExclude)){    par[sssNames.entitiesToExclude]     = entitiesToExclude; }
-  if (!sssFcts.isEmpty(comment)){              par[sssNames.comment]               = comment; }
+  if (!sssFcts.isEmpty(includeOriginUser)){     par[sssNames.includeOriginUser]     = includeOriginUser; }
+  if (!sssFcts.isEmpty(entitiesToExclude)){     par[sssNames.entitiesToExclude]     = entitiesToExclude; }
+  if (!sssFcts.isEmpty(comment)){               par[sssNames.comment]               = comment; }
+  if (!sssFcts.isEmpty(appendUserNameToLabel)){ par[sssNames.appendUserNameToLabel] = appendUserNameToLabel; }
   
   new SSSJSONRequest(
     resultHandler,
