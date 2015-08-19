@@ -570,9 +570,10 @@ forUser){
   var par = {};
     
   if (!sssFcts.isEmpty(forUser)){        par[sssNames.forUser] =        forUser; }
-  if (!sssFcts.isEmpty(setCircleTypes)){ par[sssNames.setCircleTypes] = true; }
-  if (!sssFcts.isEmpty(setLikes)){       par[sssNames.setLikes]       = true; }
-  if (!sssFcts.isEmpty(setEntries)){     par[sssNames.setEntries]     = true; }
+  
+  par[sssNames.setCircleTypes] = true;
+  par[sssNames.setLikes]       = true;
+  par[sssNames.setEntries]     = true;
   
   new SSSJSONRequest(
     resultHandler,
@@ -590,7 +591,7 @@ var SSDiscEntryAdd = function(
 errorHandler,
 key,
 disc,
-target,
+targets,
 entry,
 addNewDisc,
 type,
@@ -604,7 +605,7 @@ circles){
   var par = {};
   
   if (!sssFcts.isEmpty(disc)){         par[sssNames.disc] = disc; }
-  if (!sssFcts.isEmpty(targets)){      par[sssNames.targets] = [target]; }
+  if (!sssFcts.isEmpty(targets)){      par[sssNames.targets] = targets; }
   if (!sssFcts.isEmpty(entry)){        par[sssNames.entry] = entry; }
   if (!sssFcts.isEmpty(addNewDisc)){   par[sssNames.addNewDisc] = addNewDisc; }
   if (!sssFcts.isEmpty(type)){         par[sssNames.type] = type; }
@@ -641,9 +642,10 @@ setComments){
   var par = {};
   
   if (!sssFcts.isEmpty(setComments)){    par[sssNames.setComments]    = setComments; }
-  if (!sssFcts.isEmpty(setCircleTypes)){ par[sssNames.setCircleTypes] = true; }
-  if (!sssFcts.isEmpty(setLikes)){       par[sssNames.setLikes]       = true; }
-  if (!sssFcts.isEmpty(setEntries)){     par[sssNames.setEntries]     = true; }
+  
+  par[sssNames.setCircleTypes] = true;
+  par[sssNames.setLikes]       = true;
+  par[sssNames.setEntries]     = true;
   
   new SSSJSONRequest(
     resultHandler,
@@ -854,7 +856,6 @@ var SSSearch = function(
   resultHandler,
 errorHandler,
 key,
-includeTextualContent,
 wordsToSearchFor,
 tagsToSearchFor,
 authorsToSearchFor,
@@ -1361,14 +1362,9 @@ addNewColl){
     return;
   }
   
-  if(sssFcts.isEmpty(label)){
-    console.error("label required");
-    return;
-  }
-  
   var par                      = {};
-  par[sSVarU.label]            = label;
   
+  if(!jSGlobals.isEmpty(label)){      par[sSVarU.label]            = label;}
   if(!jSGlobals.isEmpty(addNewColl)){ par[sSVarU.addNewColl]       = addNewColl;}
   if(!jSGlobals.isEmpty(entry)){      par[sSVarU.entry]            = entry;}
   
