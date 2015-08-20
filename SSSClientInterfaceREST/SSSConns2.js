@@ -1703,3 +1703,27 @@ appendUserNameToLabel){
   encodeURIComponent(entity) + "/copy",
   par);
 };
+
+var SSUserProfilePictureSet = function(
+  resultHandler,
+errorHandler,
+key,
+file){
+  
+  if(sssFcts.isEmpty(file)){
+    console.error("file required");
+    return;
+  }
+  
+  var par = {};
+  
+  new SSSJSONRequest(
+    resultHandler,
+  errorHandler,
+  sssGlobals.sssAPI,
+  sssGlobals.httpMethodPUT,
+  key).send(
+    sssGlobals.sssAPIResourceUser,
+  "profile/picture/" + encodeURIComponent(file),
+  par);
+};
