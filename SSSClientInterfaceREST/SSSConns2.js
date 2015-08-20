@@ -35,10 +35,11 @@ function SSSGobals(){
   this.sssAPIResourceRating = "ratings/ratings/";
   this.sssAPIResourceFile = "files/files/";
   this.sssAPIResourceActivity = "activities/activities/";
-  this.sssAPIResourceColl     = "colls/colls/"
-  this.sssAPIResourceCategory     = "categories/categories/"
-  this.sssAPIResourceRecomm     = "recomm/recomm/"
-  this.sssAPIResourceEval     = "eval/eval/"
+  this.sssAPIResourceColl     = "colls/colls/";
+  this.sssAPIResourceCategory     = "categories/categories/";
+  this.sssAPIResourceImage     = "images/images/";
+  this.sssAPIResourceRecomm     = "recomm/recomm/";
+  this.sssAPIResourceEval     = "eval/eval/";
   this.httpMethodPUT = "PUT";
   this.httpMethodGET = "GET";
   this.httpMethodPOST = "POST";
@@ -1704,11 +1705,17 @@ appendUserNameToLabel){
   par);
 };
 
-var SSUserProfilePictureSet = function(
+var SSImageProfilePictureSet = function(
   resultHandler,
 errorHandler,
+entity,
 key,
 file){
+  
+  if(sssFcts.isEmpty(entity)){
+    console.error("entity required");
+    return;
+  }
   
   if(sssFcts.isEmpty(file)){
     console.error("file required");
@@ -1723,7 +1730,7 @@ file){
   sssGlobals.sssAPI,
   sssGlobals.httpMethodPUT,
   key).send(
-    sssGlobals.sssAPIResourceUser,
-  "profile/picture/" + encodeURIComponent(file),
+    sssGlobals.sssAPIResourceImage,
+  "profile/picture/entity/" + encodeURIComponent(entity) + "/file/" + encodeURIComponent(file),
   par);
 };
