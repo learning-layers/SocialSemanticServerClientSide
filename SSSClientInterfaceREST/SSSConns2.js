@@ -98,6 +98,7 @@ SSSJSONRequest.prototype = {
 var sssNames = new SSSNames();
 function SSSNames(){
   
+  this.setProfilePicture = "setProfilePicture";
   this.appendUserNameToLabel = "appendUserNameToLabel";
   this.target     = "target";
   this.targets     = "targets";
@@ -1165,7 +1166,8 @@ setDiscs,
 setUEs, 
 setThumb, 
 setFlags,
-setCircles){
+setCircles,
+setProfilePicture){
   
   if(sssFcts.isEmpty(entities)){
     console.error("entities required");
@@ -1174,15 +1176,16 @@ setCircles){
   
   var par                     = {};
   
-  if(!jSGlobals.isEmpty(circle)){           par[sssNames.circle]              = circle;}
-  if(!jSGlobals.isEmpty(setTags)){          par[sssNames.setTags]             = setTags;}
-  if(!jSGlobals.isEmpty(tagSpace)){         par[sssNames.tagSpace]            = tagSpace;}
-  if(!jSGlobals.isEmpty(setOverallRating)){ par[sssNames.setOverallRating]    = setOverallRating;}
-  if(!jSGlobals.isEmpty(setDiscs)){         par[sssNames.setDiscs]            = setDiscs;}
-  if(!jSGlobals.isEmpty(setUEs)){           par[sssNames.setUEs]              = setUEs;}
-  if(!jSGlobals.isEmpty(setThumb)){         par[sssNames.setThumb]            = setThumb;}
-  if(!jSGlobals.isEmpty(setFlags)){         par[sssNames.setFlags]            = setFlags;}
-  if(!jSGlobals.isEmpty(setCircles)){       par[sssNames.setCircles]          = setCircles;}
+  if(!jSGlobals.isEmpty(circle)){            par[sssNames.circle]              = circle;}
+  if(!jSGlobals.isEmpty(setTags)){           par[sssNames.setTags]             = setTags;}
+  if(!jSGlobals.isEmpty(tagSpace)){          par[sssNames.tagSpace]            = tagSpace;}
+  if(!jSGlobals.isEmpty(setOverallRating)){  par[sssNames.setOverallRating]    = setOverallRating;}
+  if(!jSGlobals.isEmpty(setDiscs)){          par[sssNames.setDiscs]            = setDiscs;}
+  if(!jSGlobals.isEmpty(setUEs)){            par[sssNames.setUEs]              = setUEs;}
+  if(!jSGlobals.isEmpty(setThumb)){          par[sssNames.setThumb]            = setThumb;}
+  if(!jSGlobals.isEmpty(setFlags)){          par[sssNames.setFlags]            = setFlags;}
+  if(!jSGlobals.isEmpty(setCircles)){        par[sssNames.setCircles]          = setCircles;}
+  if(!jSGlobals.isEmpty(setProfilePicture)){ par[sssNames.setProfilePicture]   = setProfilePicture;}
   
   new SSSJSONRequest(
     resultHandler,
