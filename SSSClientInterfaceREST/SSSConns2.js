@@ -342,6 +342,8 @@ tagSpace){
   if (!sssFcts.isEmpty(setTags)){                  par[sssNames.setTags]                  = setTags; }
   if (!sssFcts.isEmpty(tagSpace)){                 par[sssNames.tagSpace]                 = tagSpace; }
   
+  par[sssNames.setThumb]                 = true;
+  
   new SSSJSONRequest(
     resultHandler,
   errorHandler,
