@@ -1739,3 +1739,27 @@ file){
   "profile/picture/entity/" + encodeURIComponent(entity) + "/file/" + encodeURIComponent(file),
   par);
 };
+
+var SSDiscEntryAccept = function(
+  resultHandler,
+errorHandler,
+key,
+entry){
+  
+  if(sssFcts.isEmpty(entry)){
+    console.error("entry required");
+    return;
+  }
+  
+  var par = {};
+  
+  new SSSJSONRequest(
+    resultHandler,
+  errorHandler,
+  sssGlobals.sssAPI,
+  sssGlobals.httpMethodPUT,
+  key).send(
+    sssGlobals.sssAPIResourceDisc,
+  "entry/" + encodeURIComponent(entry) + "/accept",
+  par);
+};
