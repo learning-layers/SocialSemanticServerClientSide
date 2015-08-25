@@ -95,6 +95,7 @@ SSSJSONRequest.prototype = {
     });
   }
 };
+
 var sssNames = new SSSNames();
 function SSSNames(){
   
@@ -389,6 +390,7 @@ categories){
   encodeURIComponent(circle) + "/entities/" + encodeURIComponent(entities.toString()),
   par);
 };
+
 var SSCircleUsersAdd = function(
   resultHandler,
 errorHandler,
@@ -417,6 +419,7 @@ users){
   encodeURIComponent(circle) + "/users/" + encodeURIComponent(users.toString()),
   par);
 };
+
 var SSCircleCreate = function(
   resultHandler,
 errorHandler,
@@ -466,6 +469,16 @@ removeCircleSpecificMetadata){
     return;
   }
   
+  var formattedEntities = "";
+  
+  entities.forEach(function(entry) {
+    formattedEntities += encodeURIComponent(entry) + ",";
+  });
+  
+  if(formattedEntities.lastIndexOf(",") === formattedEntities.length - 1){
+    formattedEntities = formattedEntities.substring(0, formattedEntities.length - 1);
+  }
+  
   var par = {};
   
   if (!sssFcts.isEmpty(removeCircleSpecificMetadata)){         par[sssNames.removeCircleSpecificMetadata] = removeCircleSpecificMetadata; }
@@ -477,7 +490,7 @@ removeCircleSpecificMetadata){
   sssGlobals.httpMethodDELETE,
   key).send(
     sssGlobals.sssAPIResourceCircle,
-  encodeURIComponent(circle) + "/entities/" + encodeURIComponent(entities.toString()),
+  encodeURIComponent(circle) + "/entities/" + formattedEntities,
   par);
 };
 
