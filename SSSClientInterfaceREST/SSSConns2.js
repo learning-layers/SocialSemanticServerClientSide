@@ -167,6 +167,7 @@ function SSSNames(){
   this.comments = "comments";
   this.setLikes = "setLikes";
   this.setEntries = "setEntries";
+  this.setAttachedEntities = "setAttachedEntities";
   this.setPublic = "setPublic";
   this.extendToParents = "extendToParents";
   this.wordsToSearchFor = "wordsToSearchFor";
@@ -320,6 +321,29 @@ key){
   key).send(
     sssGlobals.sssAPIResourceCircle,
   "",
+  null);
+};
+
+var SSCirclesFilteredGet = function(
+  resultHandler,
+errorHandler,
+key,
+entityTypesToIncludeOnly,
+setThumb){
+  
+  var par = {};
+  
+  if (!sssFcts.isEmpty(entityTypesToIncludeOnly)){ par[sssNames.entityTypesToIncludeOnly] = entityTypesToIncludeOnly; }
+  if (!sssFcts.isEmpty(setThumb)){                 par[sssNames.setThumb]                 = setThumb; }
+  
+  new SSSJSONRequest(
+    resultHandler,
+  errorHandler,
+  sssGlobals.sssAPI,
+  sssGlobals.httpMethodPOST,
+  key).send(
+    sssGlobals.sssAPIResourceCircle,
+  "filtered",
   null);
 };
 
@@ -588,9 +612,10 @@ forUser){
     
   if (!sssFcts.isEmpty(forUser)){        par[sssNames.forUser] =        forUser; }
   
-  par[sssNames.setCircleTypes] = true;
-  par[sssNames.setLikes]       = true;
-  par[sssNames.setEntries]     = true;
+  par[sssNames.setCircleTypes]         = true;
+  par[sssNames.setLikes]               = true;
+  par[sssNames.setEntries]             = true;
+  par[sssNames.setAttachedEntities]    = true;
   
   new SSSJSONRequest(
     resultHandler,
@@ -660,9 +685,10 @@ setComments){
   
   if (!sssFcts.isEmpty(setComments)){    par[sssNames.setComments]    = setComments; }
   
-  par[sssNames.setCircleTypes] = true;
-  par[sssNames.setLikes]       = true;
-  par[sssNames.setEntries]     = true;
+  par[sssNames.setCircleTypes]       = true;
+  par[sssNames.setLikes]             = true;
+  par[sssNames.setEntries]           = true;
+  par[sssNames.setAttachedEntities]  = true;
   
   new SSSJSONRequest(
     resultHandler,
