@@ -308,22 +308,6 @@ read){
   par);
 };
 
-var SSCirclesGet = function(
-  resultHandler,
-errorHandler,
-key){
-  
-  new SSSJSONRequest(
-    resultHandler,
-  errorHandler,
-  sssGlobals.sssAPI,
-  sssGlobals.httpMethodGET,
-  key).send(
-    sssGlobals.sssAPIResourceCircle,
-  "",
-  null);
-};
-
 var SSCirclesFilteredGet = function(
   resultHandler,
 errorHandler,
