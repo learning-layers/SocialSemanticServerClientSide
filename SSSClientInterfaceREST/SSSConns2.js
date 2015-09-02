@@ -99,6 +99,7 @@ SSSJSONRequest.prototype = {
 var sssNames = new SSSNames();
 function SSSNames(){
   
+  this.invokeEntityHandlers = "invokeEntityHandlers";
   this.setProfilePicture = "setProfilePicture";
   this.appendUserNameToLabel = "appendUserNameToLabel";
   this.target     = "target";
@@ -320,6 +321,8 @@ setThumb){
   if (!sssFcts.isEmpty(entityTypesToIncludeOnly)){ par[sssNames.entityTypesToIncludeOnly] = entityTypesToIncludeOnly; }
   if (!sssFcts.isEmpty(setThumb)){                 par[sssNames.setThumb]                 = setThumb; }
   
+  par.invokeEntityHandlers = true;
+  
   new SSSJSONRequest(
     resultHandler,
   errorHandler,
@@ -328,7 +331,7 @@ setThumb){
   key).send(
     sssGlobals.sssAPIResourceCircle,
   "filtered",
-  null);
+  par);
 };
 
 var SSCircleGetFiltered = function(
