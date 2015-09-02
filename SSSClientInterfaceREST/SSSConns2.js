@@ -321,7 +321,7 @@ setThumb){
   if (!sssFcts.isEmpty(entityTypesToIncludeOnly)){ par[sssNames.entityTypesToIncludeOnly] = entityTypesToIncludeOnly; }
   if (!sssFcts.isEmpty(setThumb)){                 par[sssNames.setThumb]                 = setThumb; }
   
-  par.invokeEntityHandlers = true;
+  par[sssNames.invokeEntityHandlers] = true;
   
   new SSSJSONRequest(
     resultHandler,
@@ -355,6 +355,7 @@ tagSpace){
   if (!sssFcts.isEmpty(tagSpace)){                 par[sssNames.tagSpace]                 = tagSpace; }
   
   par[sssNames.setThumb]                 = true;
+  par[sssNames.invokeEntityHandlers] = true;
   
   new SSSJSONRequest(
     resultHandler,
