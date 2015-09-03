@@ -44,6 +44,30 @@ function SSSGobals(){
   this.httpMethodGET = "GET";
   this.httpMethodPOST = "POST";
   this.httpMethodDELETE = "DELETE";
+  
+  this.textualLineBreaksToBlank = function(string){
+    
+     if(this.isEmpty (string)){
+      return string;
+    }
+    
+    return string.replace(/(\\n)/gm, this.blank);
+  };
+  
+  this.getEncodedCommaSeparatedStringFromArray = function(array){
+    
+    var formattedEntities = "";
+
+    array.forEach(function(entry) {
+      formattedEntities += encodeURIComponent(entry) + ",";
+    });
+
+    if(formattedEntities.lastIndexOf(",") === formattedEntities.length - 1){
+      formattedEntities = formattedEntities.substring(0, formattedEntities.length - 1);
+    }
+    
+    return formattedEntities;
+  }
 }
 
 var SSSJSONRequest = function(
@@ -399,7 +423,7 @@ categories){
   sssGlobals.httpMethodPOST,
   key).send(
     sssGlobals.sssAPIResourceCircle,
-  encodeURIComponent(circle) + "/entities/" + encodeURIComponent(entities.toString()),
+  encodeURIComponent(circle) + "/entities/" + sssGlobals.getEncodedCommaSeparatedStringFromArray(entities),
   par);
 };
 
@@ -428,7 +452,7 @@ users){
   sssGlobals.httpMethodPOST,
   key).send(
     sssGlobals.sssAPIResourceCircle,
-  encodeURIComponent(circle) + "/users/" + encodeURIComponent(users.toString()),
+  encodeURIComponent(circle) + "/users/" + sssGlobals.getEncodedCommaSeparatedStringFromArray(users),
   par);
 };
 
@@ -481,16 +505,6 @@ removeCircleSpecificMetadata){
     return;
   }
   
-  var formattedEntities = "";
-  
-  entities.forEach(function(entry) {
-    formattedEntities += encodeURIComponent(entry) + ",";
-  });
-  
-  if(formattedEntities.lastIndexOf(",") === formattedEntities.length - 1){
-    formattedEntities = formattedEntities.substring(0, formattedEntities.length - 1);
-  }
-  
   var par = {};
   
   if (!sssFcts.isEmpty(removeCircleSpecificMetadata)){         par[sssNames.removeCircleSpecificMetadata] = removeCircleSpecificMetadata; }
@@ -502,7 +516,7 @@ removeCircleSpecificMetadata){
   sssGlobals.httpMethodDELETE,
   key).send(
     sssGlobals.sssAPIResourceCircle,
-  encodeURIComponent(circle) + "/entities/" + formattedEntities,
+  encodeURIComponent(circle) + "/entities/" + sssGlobals.getEncodedCommaSeparatedStringFromArray(entities),
   par);
 };
 
@@ -532,7 +546,7 @@ users){
   sssGlobals.httpMethodDELETE,
   key).send(
     sssGlobals.sssAPIResourceCircle,
-  encodeURIComponent(circle) + "/users/" + encodeURIComponent(users.toString()),
+  encodeURIComponent(circle) + "/users/" + sssGlobals.getEncodedCommaSeparatedStringFromArray(users),
   par);
 };
 
@@ -1223,7 +1237,7 @@ setProfilePicture){
   sssGlobals.httpMethodPOST,
   key).send(
     sssGlobals.sssAPIResourceEntity,
-  "filtered/" + encodeURIComponent(entities.toString()),
+  "filtered/" + sssGlobals.getEncodedCommaSeparatedStringFromArray(entities),
   par);
 };
 
@@ -1476,7 +1490,7 @@ entries){
   sssGlobals.httpMethodDELETE,
   key).send(
     sssGlobals.sssAPIResourceColl,
-  encodeURIComponent(coll) + "/entries/" + encodeURIComponent(entries.toString()),
+  encodeURIComponent(coll) + "/entries/" + sssGlobals.getEncodedCommaSeparatedStringFromArray(entries),
   par);
 };
 
