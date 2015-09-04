@@ -346,6 +346,7 @@ setThumb){
   if (!sssFcts.isEmpty(setThumb)){                 par[sssNames.setThumb]                 = setThumb; }
   
   par[sssNames.invokeEntityHandlers] = true;
+  par[sssNames.setTags]              = true;
   
   new SSSJSONRequest(
     resultHandler,
@@ -1071,8 +1072,11 @@ circle){
       
       thisRef.resultHandler(jQuery.parseJSON(this.responseText), thisRef.fileName);
     }; })(this);
+  
   path = encodeURI(sssGlobals.sssAPI + sssGlobals.sssAPIResourceFile + "upload");
+  
   xhr.open(sSGlobals.httpMethPOST, path, true);
+  
   if (!sssFcts.isEmpty(key)){
     xhr.setRequestHeader("Authorization", "Bearer " + key);
   }
@@ -1129,39 +1133,6 @@ file){
   }
   
   window.open(sssGlobals.sssAPI + sssGlobals.sssAPIResourceFile + "/download?key=" + key + "&file=" + file, "_blank");
-};
-
-var SSActivityAdd = function(
-  resultHandler,
-errorHandler,
-key,
-type,
-users,
-entities,
-comments){
-  
-  if (sssFcts.isEmpty(type)){
-    console.error("type required");
-    return;
-  }
-  
-  var par = {};
-  
-  par[sssNames.type] = type;
-  
-  if (!jSGlobals.isEmpty(users)){          par[sssNames.users] = users; }
-  if (!jSGlobals.isEmpty(entities)){       par[sssNames.entities] = entities; }
-  if (!jSGlobals.isEmpty(comments)){       par[sssNames.comments] = comments; }
-  
-  new SSSJSONRequest(
-    resultHandler,
-  errorHandler,
-  sssGlobals.sssAPI,
-  sssGlobals.httpMethodPOST,
-  key).send(
-    sssGlobals.sssAPIResourceActivity,
-  "",
-  par);
 };
 
 var SSActivitiesGetFiltered = function(
