@@ -400,6 +400,7 @@ key,
 circle,
 entities,
 tags, 
+tagSpace,
 categories){
   
   if (sssFcts.isEmpty(circle)){
@@ -908,11 +909,7 @@ authorsToSearchFor,
 labelsToSearchFor,
 descriptionsToSearchFor,
 typesToSearchOnlyFor,
-includeOnlySubEntities,
-entitiesToSearchWithin,
-extendToParents,
 includeRecommendedResults,
-provideEntries,
 pagesID,
 pageNumber,
 minRating,
@@ -927,11 +924,7 @@ globalSearchOp){
   if (!sssFcts.isEmpty(labelsToSearchFor)){           par[sssNames.labelsToSearchFor] = labelsToSearchFor; }
   if (!sssFcts.isEmpty(descriptionsToSearchFor)){     par[sssNames.descriptionsToSearchFor] = descriptionsToSearchFor; }
   if (!sssFcts.isEmpty(typesToSearchOnlyFor)){        par[sssNames.typesToSearchOnlyFor] = typesToSearchOnlyFor; }
-  if (!sssFcts.isEmpty(includeOnlySubEntities)){      par[sssNames.includeOnlySubEntities] = includeOnlySubEntities; }
-  if (!sssFcts.isEmpty(entitiesToSearchWithin)){      par[sssNames.entitiesToSearchWithin] = entitiesToSearchWithin; }
-  if (!sssFcts.isEmpty(extendToParents)){             par[sssNames.extendToParents] = extendToParents; }
   if (!sssFcts.isEmpty(includeRecommendedResults)){   par[sssNames.includeRecommendedResults] = includeRecommendedResults; }
-  if (!sssFcts.isEmpty(provideEntries)){              par[sssNames.provideEntries] = provideEntries; }
   if (!sssFcts.isEmpty(pagesID)){                     par[sssNames.pagesID] = pagesID; }
   if (!sssFcts.isEmpty(pageNumber)){                  par[sssNames.pageNumber] = pageNumber; }
   if (!sssFcts.isEmpty(minRating)){                   par[sssNames.minRating] = minRating; }
