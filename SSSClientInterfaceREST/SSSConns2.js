@@ -195,7 +195,7 @@ function SSSNames(){
   this.setAttachedEntities = "setAttachedEntities";
   this.setPublic = "setPublic";
   this.extendToParents = "extendToParents";
-  this.wordsToSearchFor = "wordsToSearchFor";
+  this.documentContentsToSearchFor = "documentContentsToSearchFor";
   this.tagsToSearchFor = "tagsToSearchFor";
   this.misToSearchFor = "misToSearchFor";
   this.labelsToSearchFor = "labelsToSearchFor";
@@ -903,7 +903,7 @@ var SSSearch = function(
   resultHandler,
 errorHandler,
 key,
-wordsToSearchFor,
+documentContentsToSearchFor,
 tagsToSearchFor,
 authorsToSearchFor,
 labelsToSearchFor,
@@ -918,8 +918,8 @@ localSearchOp,
 globalSearchOp){
   
   var par = {};
-  if (!sssFcts.isEmpty(wordsToSearchFor)){            par[sssNames.wordsToSearchFor] = wordsToSearchFor; }
-  if (!sssFcts.isEmpty(tagsToSearchFor)){             par[sssNames.tagsToSearchFor] = tagsToSearchFor; }
+  if (!sssFcts.isEmpty(documentContentsToSearchFor)){  par[sssNames.documentContentsToSearchFor] = documentContentsToSearchFor; }
+  if (!sssFcts.isEmpty(tagsToSearchFor)){              par[sssNames.tagsToSearchFor] = tagsToSearchFor; }
   if (!sssFcts.isEmpty(authorsToSearchFor)){          par[sssNames.authorsToSearchFor] = authorsToSearchFor; }
   if (!sssFcts.isEmpty(labelsToSearchFor)){           par[sssNames.labelsToSearchFor] = labelsToSearchFor; }
   if (!sssFcts.isEmpty(descriptionsToSearchFor)){     par[sssNames.descriptionsToSearchFor] = descriptionsToSearchFor; }
