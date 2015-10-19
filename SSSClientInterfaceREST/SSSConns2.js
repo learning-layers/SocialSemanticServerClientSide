@@ -1000,6 +1000,33 @@ key){
   par);
 };
 
+var SSUsersFilteredGet = function(
+  resultHandler,
+errorHandler,
+key,
+users,
+setFriends,
+setProfilePicture,
+setThumb,
+setMessages,
+setActivities,
+setCircles,
+setDiscs,
+setColls,
+setTags){
+  
+  var par = {};
+  new SSSJSONRequest(
+    resultHandler,
+  errorHandler,
+  sssGlobals.sssAPI,
+  sssGlobals.httpMethodPOST,
+  key).send(
+    sssGlobals.sssAPIResourceUser,
+  "filtered/" + + sssGlobals.getEncodedCommaSeparatedStringFromArray(users),
+  par);
+};
+
 var SSRatingSet = function(
   resultHandler,
 errorHandler,
