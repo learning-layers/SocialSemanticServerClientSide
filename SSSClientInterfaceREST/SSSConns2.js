@@ -292,6 +292,9 @@ function SSSNames(){
   this.setThumb = "setThumb"; 
   this.setFlags = "setFlags";
   this.setCircles = "setCircles";
+  this.setColls = "setColls";
+  this.setActivities = "setActivities";
+  this.setMessages = "setMessages";
 }
 
 var sssFcts = new SSSFcts();
@@ -1015,7 +1018,23 @@ setDiscs,
 setColls,
 setTags){
   
+  if(sssFcts.isEmpty(users)){
+    console.error("users required");
+    return;
+  }
+  
   var par = {};
+  
+  if (!sssFcts.isEmpty(setFriends)){  par[sssNames.setFriends] = setFriends; }
+  if (!sssFcts.isEmpty(setProfilePicture)){  par[sssNames.setProfilePicture] = setProfilePicture; }
+  if (!sssFcts.isEmpty(setThumb)){  par[sssNames.setThumb] = setThumb; }
+  if (!sssFcts.isEmpty(setMessages)){  par[sssNames.setMessages] = setMessages; }
+  if (!sssFcts.isEmpty(setActivities)){  par[sssNames.setActivities] = setActivities; }
+  if (!sssFcts.isEmpty(setCircles)){  par[sssNames.setCircles] = setCircles; }
+  if (!sssFcts.isEmpty(setDiscs)){  par[sssNames.setDiscs] = setDiscs; }
+  if (!sssFcts.isEmpty(setColls)){  par[sssNames.setColls] = setColls; }
+  if (!sssFcts.isEmpty(setTags)){  par[sssNames.setTags] = setTags; }
+  
   new SSSJSONRequest(
     resultHandler,
   errorHandler,
